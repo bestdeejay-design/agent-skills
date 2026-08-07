@@ -1,0 +1,66 @@
+# PRD — Product Requirements Document
+
+> **Purpose:** what we are building and how we prove it works. Single source of
+> truth for product decisions: requirements, priorities, acceptance criteria,
+> success metrics. Written from `VISION.md`, updated per milestone.
+>
+> **RU:** PRD — «что строим и как докажем, что работает». Единственный источник
+> правды по требованиям: приоритеты, критерии приёмки, метрики успеха.
+
+## Metadata
+<!-- Keep counters REAL, they are checked by the completeness gate. -->
+| Field | Value |
+|-------|-------|
+| Status | `draft` / `review` / `approved` / `superseded` |
+| Version | `1.0` |
+| Milestone | `M1` · target date: `YYYY-MM-DD` |
+| Linked vision | `docs/VISION.md` (link) |
+
+## Goals & non-goals
+| Goals (this milestone) | Non-goals (explicitly NOT now) |
+|------------------------|--------------------------------|
+| `...`                 | `...`                          |
+
+> **RU:** цели на этот этап vs «сознательно не делаем сейчас» — это защита
+> от расползания скоупа (scope creep).
+
+## User stories / scenarios
+<!-- One story per scenario; priority = MoSCoW (Must/Should/Could/Won't) or P0–P2. -->
+| ID | User story | Priority | Status |
+|----|-----------|----------|--------|
+| US-01 | As a `<role>`, I want `<capability>`, so that `<benefit>` | Must | ✅ / 📋 |
+
+## Functional requirements
+<!-- Grouped by area. Each requirement traceable to a story. -->
+### Area 1: `<name>`
+- FR-1.1: `<requirement>` → US-01
+- FR-1.2: ...
+
+## Non-functional requirements
+| ID | Aspect | Requirement |
+|----|--------|-------------|
+| NFR-1 | Performance | `p95 < 300ms` |
+| NFR-2 | Availability | `99.9%` |
+| NFR-3 | Security | `authn/authz, data isolation` |
+| NFR-4 | Accessibility | `WCAG AA` |
+
+## Acceptance criteria
+<!-- Per milestone: the observable "done". Every criterion must be testable. -->
+- [ ] `<criterion>` (test: `<test ref>`)
+- [ ] ...
+
+## Success metrics
+| Metric | Baseline | Target | Where measured |
+|--------|----------|--------|----------------|
+| `activation` | `10%` | `35%` | analytics event |
+
+> **RU:** метрики успеха — цифры, по которым поймём, что фича сработала.
+> Без них «done» не определено.
+
+## Open questions
+- [ ] `<question>` · owner: `<who>` · needed by: `<when>`
+
+---
+> **Rule:** PRD changes go through version bumps + ADR note when a decision
+> materially changes architecture. Requirements are owned, not accumulated.
+> **RU:** требования не копятся — у каждого изменения есть версия и решение.

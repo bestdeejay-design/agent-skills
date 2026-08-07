@@ -1,91 +1,72 @@
-# Completeness Checklist — "nothing forgotten" before delivery
+# Completeness Checklist — the delivery gate
 
-Run this before declaring documentation "done". It is the delivery gate of the
-docs-system. Every item must pass at the **chosen level** (see `levels.md`). If you
-don't know the level, default to L1 (grow later).
+Run this before declaring documentation "done". Every item must pass at the
+**chosen level** (`references/levels.md`); if the set has no explicit level,
+default to L1 and grow later. L2/L3 ownership: every unchecked box is a blocking
+inconsistency.
 
-For L2/L3, each failing item is a **blocking** inconsistency — fix the doc, then
-update `REFERENCE.md` with its card.
+> **RU:** прогоняется перед сдачей документации. Каждый пункт должен сходиться
+> на выбранном уровне. Для L2/L3 несоблюдение пункта — блокер.
 
----
+## A. Product side
 
-## A. Entry & navigation (all levels)
+- [ ] VISION (1 paragraph), audience, problem, out-of-scope, success criteria.
+- [ ] PRD: goals + non-goals; every story has a priority; success metrics have
+      baseline → target; acceptance criteria are testable.
+- [ ] ROADMAP: milestones ordered by value; each has date/target + a metric
+      proof (not a wishlist).
+- [ ] FEATURES: every feature has a ✅/ / status that matches reality.
 
-- [ ] A reader/agent can find, in ≤30 seconds, the answer to "what is this project?".
-- [ ] There is one **entry point** document that routes "topic → file" (`ENTRY.md`
-      at L2+, or README at L1).
-- [ ] Every doc referenced in the entry point actually exists (no dead links).
-- [ ] Every doc that exists has a link pointing to it from somewhere above it.
+## B. Entry & navigation
 
-## B. Truth hierarchy & consistency (L2+)
+- [ ] A reader/agent finds "what is this project?" in ≤30 seconds.
+- [ ] One entry point routes "topic → file" (`ENTRY.md` at L2+, README at L1).
+- [ ] No dead links: every doc referenced in the entry point exists; every doc
+      is reached from something above it.
 
-- [ ] There is an explicit **hierarchy of truth** (which doc wins on conflict), in
-      `REFERENCE.md`.
-- [ ] The **drift table** (doc-vs-fact) is populated with current, open items.
-- [ ] No fact exists in two places unless one is declared the source and the other a
-      duplicate-links-to-it.
-- [ ] README's "Status"/counts match the actual number of modules/services/tests
-      (or the discrepancy is an open drift-table item, not silent).
+## C. Truth & drift
 
-## C. Machine truth before code (L3·microservices / API-first)
+- [ ] Hierarchy of truth declared (which doc wins on conflict) — in
+      `docs/REFERENCE.md` (L2+).
+- [ ] Drift table populated: every known doc-vs-fact mismatch is either fixed or
+      has an explicit row. **No silent inconsistencies.**
+- [ ] No fact duplicated in two docs unless one is the source and the other an
+      explicit link to it.
 
-- [ ] Contracts (`contracts/openapi/*.yaml`, `asyncapi/events.yaml`) exist and are
-      written **before** implementation (or, if auditing: match the code exactly).
-- [ ] Every real endpoint/event has a contract entry; conformance tests pass.
-- [ ] No route/event exists in code that is missing from the contract
-      ("agent invented it").
+## D. Contracts & tests
 
-## D. Feature & status (L2+)
+- [ ] Contracts were written **before** code (API-first) and match implemented
+      endpoints/events — no route "invented" outside the spec.
+- [ ] `TEST_CASES.md` (L2+) covers planned scenarios + coverage matrix; contract
+      conformance tests exist for each contract.
+- [ ] L1: if only `TEST_PLAN.md` exists — its tests actually run and pass.
 
-- [ ] `FEATURES.md` catalogs every module/feature with ✅/📋 status.
-- [ ] `REVIEW.md`/`STATUS.md` reflects reality: done / in progress / limitations
-      match the code.
-- [ ] Counts in headers match `grep`-able facts (or have a recognized drift note).
+## E. Delivery & runbook
 
-## E. Cross-module behavior (L3·microservices, or L2 with >1 module)
+- [ ] `DEV_GUIDE.md` / README Quick start reproduce a successful run from a clean
+      clone (commands, env vars, migrations).
+- [ ] Errors found while running have a `TROUBLESHOOTING.md` entry.
+- [ ] `AGENT.md` (L2+ / agent-assisted): roles, phases, Definition of Done,
+      commit gate — present and referenced.
 
-- [ ] `SAGA.md` (or equivalent) covers every cross-module scenario: trigger,
-      steps, compensation, retry, idempotency.
-- [ ] Every event that crosses an internal boundary is defined in the event catalog.
+## F. Map (L2+)
 
-## F. Verification (L2+)
+- [ ] `REFERENCE.md` has a card for **every doc** (purpose, structure, facts,
+      links) — including a card for REFERENCE itself.
+- [ ] ADR table lists every ADR with status (active/superseded); ADR tracking
+      works.
+- [ ] The "how to maintain this file" section is up to date.
 
-- [ ] `TEST_CASES.md` covers each planned scenario + coverage matrix.
-- [ ] Contract-conformance tests exist wherever contracts exist.
-- [ ] The delivery gate (`DELIVERY.md`) states how to build/verify, what's in, what's
-      NOT in.
+## G. Community & legal (public repos)
 
-## G. Run it (all levels)
-
-- [ ] README "Quick start" / `DEV_GUIDE.md` reproduce a successful local run from a
-      clean clone (commands correct, order right, env vars listed).
-- [ ] Troubleshooting entry exists for errors found while running (`TROUBLESHOOTING.md`).
-
-## H. Map (L2+)
-
-- [ ] `REFERENCE.md` exists and has a **card for every doc**: purpose, structure,
-      key facts, links — including itself.
-- [ ] ADR table in `REFERENCE.md` lists every ADR with status (active/superseded).
-- [ ] The map's "how to maintain this file" section is up to date (info periodic).
-
-## I. Human/community (public L2+)
-
-- [ ] `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` exist (link from README).
-- [ ] `LICENSE` present for public repos.
-
-## J. Agent runbook (L2+ / any with agent-assisted build)
-
-- [ ] `AGENT.md` defines roles, phases, Definition of Done, and a commit gate.
-- [ ] An agent following `ENTRY` → `REFERENCE` can find each doc it needs with no
-      ambiguity.
-
----
+- [ ] `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` exist
+      and are linked from README.
 
 ## How to run
 
-1. Start at the bottom of the checklist (J → A) or top (A → J):
-   fix in order of the delete that's blocking the next.
-2. For each **No** — either fix the doc or add a serviceable drift row
-   (visible, not hidden).
-3. Re-run until every item passes at the selected level.
-4. When all pass → the documentation set is "complete at this level".
+1. Fix in the order that unblocks the next item — product → entry → truth →
+   contracts/tests → delivery → map.
+2. Every «No» ends either in a fix **or** an explicit drift-table row — never
+   silence.
+3. Re-run until green. Green = "documentation set complete at this level",
+   ready for `docs/REFERENCE.md` sign-off.
