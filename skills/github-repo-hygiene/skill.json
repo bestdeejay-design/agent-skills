@@ -13,5 +13,5 @@
     "tools": ["gh"],
     "permissions": ["repo:read", "repo:write"]
   },
-  "updated": "2025-08-07"
+  "updated": "2026-08-07"
 }

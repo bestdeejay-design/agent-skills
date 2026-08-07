@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "best",
   "license": "MIT",
-  "repository": "https://github.com/best/agent-skills",
+  "repository": "https://github.com/bestdeejay-design/agent-skills",
   "skills": [
     {
       "name": "github-repo-hygiene",
@@ -13,7 +13,7 @@
       "description": "Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages.",
       "path": "skills/github-repo-hygiene",
       "triggers": ["github hygiene", "оформить репозиторий", "обновить readme", "github page", "описание репозитория", "теги для поиска", "topics", "contributing", "license", "security policy"],
-      "updated": "2025-08-07"
+      "updated": "2026-08-07"
     },
     {
       "name": "test-graphics",
@@ -22,7 +22,7 @@
       "description": "Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide).",
       "path": "skills/test-graphics",
       "triggers": ["test images", "placeholder", "тестовые картинки", "иконки для теста", "заглушки", "mock data images", "сгенерировать фото"],
-      "updated": "2025-08-07"
+      "updated": "2026-08-07"
     },
     {
       "name": "reddit-karma",
@@ -31,7 +31,7 @@
       "description": "Работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег.",
       "path": "skills/reddit-karma",
       "triggers": ["reddit", "карма", "karma", "r/LocalLLaMA", "поднять карму", "ответить на комментарии", "забег по reddit"],
-      "updated": "2025-08-07"
+      "updated": "2026-08-07"
     },
     {
       "name": "presentation-maker",
@@ -40,7 +40,7 @@
       "description": "Генератор презентаций: Markdown-аутлайн, HTML+CSS 16:9, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум).",
       "path": "skills/presentation-maker",
       "triggers": ["сделай презентацию", "presentation", "слайды", "pptx", "сделай доклад", "презентация для", "generate slides", "make a deck"],
-      "updated": "2025-08-07"
+      "updated": "2026-08-07"
     },
     {
       "name": "docs-system",
