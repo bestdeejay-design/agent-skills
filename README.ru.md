@@ -19,7 +19,7 @@
 | [**test-graphics**](skills/test-graphics) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Систематическая работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
-| [**docs-system**](skills/docs-system) | `repository` | Систематическая документация для любого проекта: каталог документов (что, зачем, когда), порядок заполнения (фазы), уровни (L1 минимальный / L2 канонический / L3 профили), полные шаблоны и чек-лист полноты. От идеи до полного набора документации. | `документация`, `каталог документов`, `набор документации`, `полная документация`, `documentation`, `docs catalog`, `documentation structure`, `docs for new project` |
+| [**docs-system**](skills/docs-system) | `repository` | Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. | `документация`, `каталог документов`, `набор документации`, `полная документация`, `documentation`, `docs catalog`, `documentation structure`, `docs for new project` |
 
 ---
 
@@ -91,11 +91,14 @@ agent-skills/
         ├── skill.json
         ├── ROADMAP.md
         ├── references/
-        │   ├── catalog.md
-        │   ├── completeness.md
-        │   ├── levels.md
+        │   ├── product-docs.md
+        │   ├── project-docs.md
         │   ├── order.md
-        │   └── templates/*.tmpl
+        │   ├── completeness.md
+        │   └── levels.md
+        ├── templates/
+        │   ├── product/   (VISION.tmpl, PRD.tmpl, ROADMAP.tmpl)
+        │   └── project/   (14 *.tmpl)
         └── examples/pmos/README.md
 ```
 
