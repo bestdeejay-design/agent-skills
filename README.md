@@ -1,65 +1,69 @@
-# Agent Skills — Коллекция скиллов для AI-агентов
+# Agent Skills — AI Agent Skill Collection
 
-> Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
+> Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skills: 4](https://img.shields.io/badge/Skills-4-blue.svg)](index.json)
+[![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Updated](https://img.shields.io/badge/Updated-2025--08--07-green.svg)](index.json)
 
----
-
-## 📦 Каталог скиллов
-
-| Скилл | Категория | Описание | Триггеры |
-|-------|-----------|----------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy` |
-| [**test-graphics**](skills/test-graphics) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
-| [**reddit-karma**](skills/reddit-karma) | `social` | Систематическая работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
-| [**presentation-maker**](skills/presentation-maker) | `media` | Генератор презентаций: Markdown-аутлайн, HTML+CSS 16:9, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
+**🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
 ---
 
-## 🚀 Установка
+## 📦 Skill Catalog
 
-### Для opencode
+| Skill | Category | Description | Triggers |
+|-------|----------|-------------|----------|
+| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy` |
+| [**test-graphics**](skills/test-graphics) | `media` | Generates test images, photos, icons, placeholders via Python + free APIs (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `test pictures`, `icons for test`, `stubs`, `mock data images`, `generate photo` |
+| [**reddit-karma**](skills/reddit-karma) | `social` | Systematic Reddit karma building for account InterviewDesigner777: topic search, response drafting, tone detection, thank-you templates, routine runs. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
+| [**presentation-maker**](skills/presentation-maker) | `media` | Presentation generator: Markdown outline, HTML 16:9 slides, .pptx via python-pptx. Auto-layouts, themes, design-system (tokens, mood), product-design module (narrative, data-viz, a11y, premium). | `make presentation`, `presentation`, `slides`, `pptx`, `make deck`, `generate slides` |
 
-Скопируйте нужную папку скилла в `~/.config/opencode/skills/`:
+---
+
+## 🚀 Installation
+
+### For opencode
+
+Copy the desired skill folder to `~/.config/opencode/skills/`:
 
 ```bash
-# Пример: установка presentation-maker
+# Example: install presentation-maker
 cp -r skills/presentation-maker ~/.config/opencode/skills/
 ```
 
-Или загрузите напрямую через skill tool, указав путь к `SKILL.md`:
+Or load directly via skill tool pointing to `SKILL.md`:
 
 ```bash
-# В сессии opencode
+# In opencode session
 skill load path/to/skills/presentation-maker/SKILL.md
 ```
 
-### Для Sisyphus / других агентов
+### For Sisyphus / other agents
 
-Каждый скилл содержит:
-- `SKILL.md` — полная инструкция (Markdown)
-- `skill.json` — манифест с метаданными (name, version, triggers, requirements, files)
+Each skill contains:
+- `SKILL.md` — full instruction (Markdown)
+- `skill.json` — manifest with metadata (name, version, triggers, requirements, files)
 
-Агент может парсить `index.json` для поиска скиллов по триггерам/категориям и загружать нужный.
+Agent can parse `index.json` to discover skills by triggers/categories and load the needed one.
 
 ---
 
-## 📁 Структура репозитория
+## 📁 Repository Structure
 
 ```
 agent-skills/
-├── index.json                 # Манифест всего репозитория (поиск/каталог)
-├── README.md                  # Этот файл
+├── index.json                 # Repository manifest (search/catalog)
+├── README.md                  # This file (English)
+├── README.ru.md               # Russian mirror
 ├── LICENSE                    # MIT License
-├── CONTRIBUTING.md            # Как добавлять/обновлять скиллы
-├── SECURITY.md                # Политика безопасности
+├── CONTRIBUTING.md            # How to add/update skills
+├── SECURITY.md                # Security policy
 ├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
 ├── .github/
 │   └── workflows/
-│       └── validate-skills.yml # CI: проверка манифестов
+│       └── validate-skills.yml # CI: JSON schema, cross-check, Python syntax
 └── skills/
     ├── github-repo-hygiene/
     │   ├── SKILL.md
@@ -85,42 +89,43 @@ agent-skills/
 
 ---
 
-## 🔍 Поиск скиллов
+## 🔍 Skill Discovery
 
-Используйте `index.json` — он содержит массив `skills` с полями:
+Use `index.json` — it contains a `skills` array with fields:
 - `name`, `version`, `category`, `description`, `path`, `triggers`, `updated`
 
-Пример фильтрации по триггеру (Python):
+Example filtering by trigger (Python):
 ```python
 import json
 with open('index.json') as f:
     data = json.load(f)
-# Найти скиллы по триггеру "presentation"
+# Find skills matching trigger "presentation"
 matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers'])]
 ```
 
 ---
 
-## 🛠 Добавление нового скилла
+## 🛠 Adding a New Skill
 
-1. Создайте папку в `skills/<name>/`
-2. Добавьте `SKILL.md` — полная инструкция для агента (см. существующие как образец)
-3. Добавьте `skill.json` — манифест (см. схему ниже)
-4. При необходимости — скрипты/шаблоны в подпапках
-5. Обновите `index.json` (добавьте запись в `skills[]`)
-6. Создайте PR
+1. Create folder in `skills/<name>/`
+2. Add two required files:
+   - `SKILL.md` — full agent instruction (Russian, with YAML frontmatter `name`, `description`)
+   - `skill.json` — manifest (see schema below)
+3. Optionally add scripts/templates in subfolders (`scripts/`, `templates/`, `icons/`)
+4. Update `index.json` (add entry to `skills[]`)
+5. Open PR
 
-### Схема `skill.json`
+### `skill.json` Schema (required fields)
 
 ```json
 {
   "name": "kebab-case-name",
   "version": "1.0.0",
-  "description": "Краткое описание (1-2 предложения)",
-  "author": "your-github-username",
+  "description": "Brief description (1-2 sentences)",
+  "author": "github-username",
   "license": "MIT",
   "keywords": ["tag1", "tag2"],
-  "triggers": ["trigger phrase 1", "триггер на русском"],
+  "triggers": ["trigger phrase 1", "trigger на русском"],
   "category": "repository|media|social|code|data",
   "entrypoint": "SKILL.md",
   "files": ["SKILL.md", "scripts/*.py"],
@@ -132,26 +137,55 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 }
 ```
 
+**Categories**: `repository`, `media`, `social`, `code`, `data`
+
+**Triggers**: phrases that cause the agent to load the skill. Provide both English and Russian.
+
+### `SKILL.md` Requirements
+
+- Language: **Russian** (instructions for agent)
+- Required YAML frontmatter:
+  ```yaml
+  ---
+  name: skill-name
+  description: "Description for catalog/search"
+  ---
+  ```
+- Structure: intro → parameters/steps → examples → constraints/know-how
+- No emojis as icons (SVG only)
+- Concrete commands, paths, invocation examples
+
+### Pre-PR Checklist
+
+```bash
+# Validate JSON
+python3 -m json.tool index.json >/dev/null
+python3 -m json.tool skills/<name>/skill.json >/dev/null
+
+# Check required files exist
+ls skills/<name>/SKILL.md skills/<name>/skill.json
+```
+
 ---
 
-## 📄 Лицензия
+## 📄 License
 
-MIT License — см. [LICENSE](LICENSE).
-
----
-
-## 🤝 Контрибьютинг
-
-См. [CONTRIBUTING.md](CONTRIBUTING.md).
+MIT License — see [LICENSE](LICENSE).
 
 ---
 
-## 🔒 Безопасность
+## 🤝 Contributing
 
-См. [SECURITY.md](SECURITY.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
-## 📜 Кодекс поведения
+## 🔒 Security
 
-См. [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
+See [SECURITY.md](SECURITY.md).
+
+---
+
+## 📜 Code of Conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
