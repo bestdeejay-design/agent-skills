@@ -1,0 +1,28 @@
+# .github/release.yml — configuration for auto-generated release notes
+#
+# Controls which pull requests are grouped into which sections of the notes.
+# Labels must exist in the repository; the catch-all "*" collects everything else.
+# See: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+
+changelog:
+  categories:
+    - title: 🚀 Features
+      labels:
+        - enhancement
+        - feature
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+        - fix
+    - title: 📚 Documentation
+      labels:
+        - documentation
+        - docs
+    - title: 🧰 Maintenance
+      labels:
+        - chore
+        - dependencies
+        - refactor
+    - title: Other Changes
+      labels:
+        - "*"

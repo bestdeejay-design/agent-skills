@@ -5,7 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
+[![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
+[![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
@@ -15,7 +17,7 @@
 
 | Скилл | Категория | Описание | Триггеры |
 |-------|-----------|----------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy` |
+| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, социальное превью, релизы, description, topics, GitHub Pages, community health. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy` |
 | [**test-graphics**](skills/test-graphics) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Систематическая работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
@@ -55,16 +57,25 @@ skill load path/to/skills/presentation-maker/SKILL.md
 
 ```
 agent-skills/
-├── index.json                 # Манифест всего репозитория (поиск/каталог)
-├── README.md                  # Английская версия
-├── README.ru.md               # Эта файла (русская версия)
+├── index.json                 # Манифест репозитория (поиск/каталог)
+├── README.md                  # Этот файл (английский)
+├── README.ru.md               # Русское зеркало
+├── CHANGELOG.md               # Keep a Changelog
 ├── LICENSE                    # MIT License
-├── CONTRIBUTING.md            # Как добавлять/обновлять скиллы
+├── CONTRIBUTING.md            # Как добавить/обновить скиллы
 ├── SECURITY.md                # Политика безопасности
+├── SUPPORT.md                 # Где получить помощь
 ├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
+├── FUNDING.yml                # Кнопка Sponsor
+├── og-image.png               # Социальное превью (1280x640)
 ├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml     # Форма issue (баг)
+│   │   └── feature_request.yml # Форма issue (фича)
+│   ├── pull_request_template.md
+│   ├── release.yml            # Конфиг авто-релиз-нот
 │   └── workflows/
-│       └── validate-skills.yml # CI: JSON схема, кросс-чек, синтаксис Python
+│       └── validate-skills.yml # CI: JSON schema, cross-check, Python syntax
 └── skills/
     ├── github-repo-hygiene/
     │   ├── SKILL.md

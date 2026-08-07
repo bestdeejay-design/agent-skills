@@ -5,7 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
+[![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
+[![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
@@ -15,7 +17,7 @@
 
 | Skill | Category | Description | Triggers |
 |-------|----------|-------------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy` |
+| [**github-repo-hygiene**](skills/github-repo-hygiene) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR templates, social preview, releases, description, topics, GitHub Pages, community health. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy` |
 | [**test-graphics**](skills/test-graphics) | `media` | Generates test images, photos, icons, placeholders via Python + free APIs (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `test pictures`, `icons for test`, `stubs`, `mock data images`, `generate photo` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Systematic Reddit karma building for account InterviewDesigner777: topic search, response drafting, tone detection, thank-you templates, routine runs. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Presentation generator: Markdown outline, HTML 16:9 slides, .pptx via python-pptx. Auto-layouts, themes, design-system (tokens, mood), product-design module (narrative, data-viz, a11y, premium). | `make presentation`, `presentation`, `slides`, `pptx`, `make deck`, `generate slides` |
@@ -58,11 +60,20 @@ agent-skills/
 ├── index.json                 # Repository manifest (search/catalog)
 ├── README.md                  # This file (English)
 ├── README.ru.md               # Russian mirror
+├── CHANGELOG.md               # Keep a Changelog
 ├── LICENSE                    # MIT License
 ├── CONTRIBUTING.md            # How to add/update skills
 ├── SECURITY.md                # Security policy
+├── SUPPORT.md                 # Where to get help
 ├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
+├── FUNDING.yml                # Sponsor button
+├── og-image.png               # Social preview (1280x640)
 ├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml     # Issue form (bug)
+│   │   └── feature_request.yml # Issue form (feature)
+│   ├── pull_request_template.md
+│   ├── release.yml            # Auto-generated release notes config
 │   └── workflows/
 │       └── validate-skills.yml # CI: JSON schema, cross-check, Python syntax
 └── skills/

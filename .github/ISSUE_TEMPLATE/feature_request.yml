@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a new skill or an improvement to an existing one
+title: "Feature: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing an idea! Please describe the feature and its value.
+  - type: input
+    id: skill
+    attributes:
+      label: Related skill (optional)
+      description: Name of the skill this relates to, or leave empty for a new skill.
+      placeholder: "docs-system"
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What need does this feature address?
+      placeholder: "An agent has no skill that..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed feature
+      description: What should the skill do, and how would it be triggered?
+      placeholder: "A new skill `foo` that ..."
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Examples, use cases, references.
+    validations:
+      required: false

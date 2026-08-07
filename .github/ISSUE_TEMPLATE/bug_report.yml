@@ -1,0 +1,53 @@
+name: Bug report
+description: Report a bug in a skill repository or one of its skills
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: skill
+    attributes:
+      label: Affected skill
+      description: Name of the skill (e.g. `presentation-maker`) or `repo` for the repository itself.
+      placeholder: "presentation-maker"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+      placeholder: "Describe the bug..."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Minimal steps to reproduce (commands, prompts, environment).
+      placeholder: "1. Load skill... 2. Run... 3. Observe..."
+      value: "1.\n2.\n3."
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How badly does it affect you?
+      options:
+        - "Critical (blocks my work)"
+        - "High (major issue)"
+        - "Medium (minor flaw)"
+        - "Low (cosmetic/nice-to-have)"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Agent/environment, version, logs, screenshots, links.
+    validations:
+      required: false

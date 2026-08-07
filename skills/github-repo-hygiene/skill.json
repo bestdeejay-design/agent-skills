@@ -1,10 +1,10 @@
 {
   "name": "github-repo-hygiene",
-  "version": "1.0.0",
-  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN + RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, ссылки на GitHub Pages.",
+  "version": "1.1.0",
+  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN + RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, Pages, community health. Полный чек-лист по гайдлайнам GitHub (2026).",
   "author": "best",
   "license": "MIT",
-  "keywords": ["github", "repo", "hygiene", "readme", "license", "contributing", "security", "topics", "pages"],
+  "keywords": ["github", "repo", "hygiene", "readme", "license", "contributing", "security", "topics", "pages", "community-health"],
   "triggers": ["github hygiene", "оформить репозиторий", "обновить readme", "github page", "описание репозитория", "теги для поиска", "topics", "contributing", "license", "security policy", "полностью оформить гитхаб", "репозиторий готов к публикации", "repo polish", "github repo docs"],
   "category": "repository",
   "entrypoint": "SKILL.md",

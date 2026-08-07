@@ -8,11 +8,29 @@
   "skills": [
     {
       "name": "github-repo-hygiene",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "repository",
-      "description": "Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, GitHub Pages.",
+      "description": "Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, GitHub Pages, community health.",
       "path": "skills/github-repo-hygiene",
-      "triggers": ["github hygiene", "оформить репозиторий", "обновить readme", "github page", "описание репозитория", "теги для поиска", "topics", "contributing", "license", "security policy"],
+      "triggers": [
+        "github hygiene",
+        "оформить репозиторий",
+        "обновить readme",
+        "github page",
+        "описание репозитория",
+        "теги для поиска",
+        "topics",
+        "contributing",
+        "license",
+        "security policy",
+        "community health",
+        "issue template",
+        "pr template",
+        "social preview",
+        "релиз",
+        "release notes",
+        "репозиторий готов к публикации"
+      ],
       "updated": "2026-08-07"
     },
     {
@@ -21,7 +39,15 @@
       "category": "media",
       "description": "Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide).",
       "path": "skills/test-graphics",
-      "triggers": ["test images", "placeholder", "тестовые картинки", "иконки для теста", "заглушки", "mock data images", "сгенерировать фото"],
+      "triggers": [
+        "test images",
+        "placeholder",
+        "тестовые картинки",
+        "иконки для теста",
+        "заглушки",
+        "mock data images",
+        "сгенерировать фото"
+      ],
       "updated": "2026-08-07"
     },
     {
@@ -30,7 +56,15 @@
       "category": "social",
       "description": "Работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег.",
       "path": "skills/reddit-karma",
-      "triggers": ["reddit", "карма", "karma", "r/LocalLLaMA", "поднять карму", "ответить на комментарии", "забег по reddit"],
+      "triggers": [
+        "reddit",
+        "карма",
+        "karma",
+        "r/LocalLLaMA",
+        "поднять карму",
+        "ответить на комментарии",
+        "забег по reddit"
+      ],
       "updated": "2026-08-07"
     },
     {
@@ -39,7 +73,16 @@
       "category": "media",
       "description": "Генератор презентаций: Markdown-аутлайн, HTML+CSS 16:9, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум).",
       "path": "skills/presentation-maker",
-      "triggers": ["сделай презентацию", "presentation", "слайды", "pptx", "сделай доклад", "презентация для", "generate slides", "make a deck"],
+      "triggers": [
+        "сделай презентацию",
+        "presentation",
+        "слайды",
+        "pptx",
+        "сделай доклад",
+        "презентация для",
+        "generate slides",
+        "make a deck"
+      ],
       "updated": "2026-08-07"
     },
     {
@@ -48,7 +91,18 @@
       "category": "repository",
       "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации.",
       "path": "skills/docs-system",
-      "triggers": ["документация", "набор документации", "каталог документов", "docs catalog", "documentation structure", "из идеи в документацию", "полная документация", "docs for new project", "documentation plan", "системная документация"],
+      "triggers": [
+        "документация",
+        "набор документации",
+        "каталог документов",
+        "docs catalog",
+        "documentation structure",
+        "из идеи в документацию",
+        "полная документация",
+        "docs for new project",
+        "documentation plan",
+        "системная документация"
+      ],
       "updated": "2026-08-07"
     }
   ],
