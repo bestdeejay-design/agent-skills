@@ -1,0 +1,95 @@
+# REFERENCE — the documentation map
+
+> **Purpose: THE MAP.** The permanent map of the whole documentation repository:
+> the structure of every doc, key facts, conventions, and the links between them. An
+> agent or dev **consults this first** for any doc work — it saves context and keeps
+> facts from leaking. **Written LAST** (Phase 10), then maintained on every doc change.
+>
+> **Rule:** before reading/editing any `.md` — check its card in §3. Before creating a
+> new doc — check it isn't already covered (§3), then add a card for it here.
+
+## 1. Repository map
+> The tree of the repo from docs' point-of-view, with one-line purpose per entry.
+> (Point to the real layout — do NOT drift from actual folders.)
+
+```
+<repo>/
+├── README.md            # EN-overview, structure, status
+├── ENTRY.md             # entry point: topics → files (start here)
+├── AGENT.md             # runbook (agent phases, rules, DoD) (L2+)
+├── DELIVERY.md          # what ships, how to verify, what's NOT in (L2+)
+├── docs/
+│   ├── REFERENCE.md     # ★ THIS FILE — map
+│   ├── ARCHITECTURE.md  # components, communication, data flow
+│   ├── FEATURES.md      # module/feature catalog + ✅/📋
+│   ├── SAGA.md          # cross-module scenarios (L3·microservices)
+│   ├── TEST_CASES.md    # Gherkin cases + coverage matrix
+│   ├── DEV_GUIDE.md     # local run/env/debug/add-module
+│   ├── IMPROVEMENTS.md  # known issues + fix plans
+│   ├── TROUBLESHOOTING.md # error diagnostics E1…En + checklist
+│   ├── BACKLOG.md       # ideas/deferred/priorities
+│   ├── REVIEW.md        # doc audit + per-module status matrix
+│   └── ADR/ADR-00N.md   # ADR records (ADR-007 = canonical convention L2+)
+├── contracts/           # machine truth — openapi/, asyncapi/ (L3)
+└── services/            # implementation
+```
+
+## 2. Hierarchy of truth (canon)
+> On any conflict the top wins. 🔻 rank 1 = highest authority.
+1. **Canon ADR** (e.g. `docs/ADR/ADR-007.md`) — consolidated conventions.
+2. **`AGENT.md` / `DELIVERY.md`** — operational rules, gate.
+3. **`contracts/`** (openapi + asyncapi) — exact API/event truth.
+4. **Narrative docs** (ARCHITECTURE, DEV_GUIDE, FEATURES, SAGA, TEST_CASES).
+5. **Shared code types** (`@<scope>/shared`) — the code fact.
+
+> A drift (README vs reality) is recorded in §5 + `docs/IMPROVEMENTS.md`, not silently.
+
+## 3. Per-file documentation cards
+> Format: **purpose → structure → key facts → links**. One short card per doc.
+### 3.x `<doc>` 
+- **Purpose:** …
+- **Structure:** …
+- **Key facts:** … (numbers that must stay true — tests, counts)
+- **Links:** points to …, is pointed by …
+_(Add a card for each document you create — README/ENTRY/ARCHITECTURE/FEATURES/SAGA/
+REVIEW/TEST_CASES/DEV_GUIDE/IMPROVEMENTS/TROUBLESHOOTING/BACKLOG + each ADR.)_
+
+### 3.x ADR
+| ADR | Topic | Status |
+|-----|-------|--------|
+| ADR-001 | … | active |
+| ADR-007 | **canon** — supersedes 002…006 | **canon** |
+
+## 4. Known drifts (doc-vs-fact) — control list
+| # | Where | The drift | Who's right (source) |
+|---|-------|-----------|----------------------|
+| 4.x | e.g. README counts | deviates from actual grep | `docs/FEATURES.md` fact |
+> Each drift has a fix plan in `docs/IMPROVEMENTS.md`; keep this table in sync.
+
+## 5. Commands (reference; verify in DEV_GUIDE)
+```bash
+pnpm test           # unit (no storage)
+pnpm test:contract  # conformance
+docker compose --profile core up -d   # infra
+```
+
+## 6. Routing table "where to look"
+| Question | First place |
+|----------|-------------|
+| What is this project | `ENTRY.md` → `README.md` |
+| Architecture/sagas | `ARCHITECTURE.md` → `SAGA.md` (see ADR-00N) |
+| Conventions/canon | `ADR-00N` (canon) |
+| API of module X | `contracts/openapi/<x>.yaml` |
+| Events | `contracts/asyncapi/events.yaml` + `SAGA.md` |
+| Feature status | `FEATURES.md` |
+| How to run | `DEV_GUIDE.md` |
+| Known problems / plan | `IMPROVEMENTS.md` |
+| Error when running | `TROUBLESHOOTING.md` |
+| Backlog | `BACKLOG.md` |
+| Doc audit / per-module | `REVIEW.md` |
+
+## 7. How to maintain this file
+- Change any doc → update its card in §3.
+- New drift → add a row in §4 + plan in IMPROVEMENTS.
+- New ADR → add to §3.x table; new module → §4/(FEATURES) + §3 card
+> Keep cards as echoes — the **compressed** structure/facts/links, not copies.

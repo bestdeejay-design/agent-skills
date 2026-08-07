@@ -1,0 +1,57 @@
+# DEV_GUIDE — Local development guide
+
+> **Purpose (L2):** an exact, reproducible "how to set up and work" — a fresh dev (or
+> agent) can bring the project up from a clean clone and debug a failure. Written in
+> Phase 7 with real commands, not sketches.
+
+## Prerequisites
+- <!-- Node/PNPM/Docker versions, OS notes, anything that must be installed -->
+
+## Quick start
+```bash
+# 1. Install (workspace / single package)
+...
+# 2. Infrastructure (DB / bus / gateway)
+...
+# 3. Migrations
+...
+# 4. Run a module locally (+ required env)
+...
+# 5. Health-check
+...
+```
+
+## How a module / app is structured
+> Copy from `docs/ARCHITECTURE.md` §"how a module is structured" + per-file bullet.
+
+## Environment variables
+| Var | Meaning | Example | Default |
+|-----|---------|---------|---------|
+
+## Add a new module / service (N steps)
+1. `scripts/scaffold-<name>.mjs` (if L3) — generates skeleton.
+2. Define contract first (`contracts/openapi/<name>.yaml`).
+3. Write typed routes mirroring it.
+4. Schema + migration.
+5. Add a row to `docs/FEATURES.md` + `docs/REVIEW.md`.
+6. Add a card to `docs/REFERENCE.md` + an ADR if a significant decision was made.
+7. Tests: health/contract/integration. Run the full suite.
+
+## Database: schema & migrations
+- `db:migrate` command · where the SQL lives · how the schema is isolated (`<mod>_`).
+
+## Debugging
+- Logs: ```bash where via command ``` · NATS: ```commands``` · metrics/health-endpoints - Docker / Compose profiles
+| Profile | What it starts | Use |
+|---------|----------------|-----|
+| `core` | storage+bus | local dev |
+| `all` | everything | full stack |
+
+## Testing
+```bash
+pnpm test            # unit (vitest) — no storage
+pnpm run test:contract   # OpenAPI conformance
+pnpm test:e2e        # end-to-end (Playwright) — needs stack up
+```
+> Exact commands per your package manager/tooling — **verify they work** before
+> committing this file. Nothing trips a new dev like dead instructions.

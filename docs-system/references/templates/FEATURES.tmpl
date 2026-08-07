@@ -1,0 +1,43 @@
+# FEATURES — Feature catalog & status
+
+> **Purpose:** full functional catalog of every module/feature, with ✅/📋 status.
+> Header counters must match the `grep`-able truth (see §"keep the numbers real").
+> Update on every feature change (Phase 4 fills it, later phases keep it current).
+
+> **Counters (keep REAL):** ✅ = done count · 📋 = planned count.
+> _These numbers are checked by the completeness gate (`REFERENCE.md` drift table)._
+>
+> **Example:** `FEATURES`: **87 ✅ / 16 📋** — but verify with `grep -c '✅' docs/FEATURES.md`
+> before trusting the header.
+
+## Vision
+<!-- 1 paragraph: what the product is for. From Phase 1. -->
+
+## Module catalog
+<!-- For L3·microservices: one heading per module/service. For monolith: per module. -->
+
+### 1. `<Module name>` (`services/<name>` / `src/modules/<name>`)
+- [x] Feature A — **done** · verification: `<test/note>`
+- [ ] Feature B — 📋 **planned** · defer reason: `<backlog ref>`
+
+### 2. `<Module name>`
+- [x] ...
+
+## Event matrix (if async; L3)
+| Event | Type | Published by | Consumed by | In `asyncapi/events.yaml`? |
+|-------|------|--------------|-------------|:--------------------------:|
+| `pmos.notes.notes.created` | created | notes | search-rag | ✅ |
+
+## Data matrix (L3)
+| Module | Tables | Schema (`<mod>_`) | Notes |
+|--------|--------|-------------------|-------|
+| notes | notes | `notes_` | — |
+
+## Frontend / UI (L3·frontend-app)
+| Page/Screen | Module | Status |
+|-------------|--------|:------:|
+| ... | ... | ✅ |
+
+---
+> **Rule:** the catalog is not a wishlist dump — status must be true against reality.
+> Planned 📋 items point to `BACKLOG.md` entries, not promises in prose.

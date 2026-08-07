@@ -1,0 +1,42 @@
+# SAGA — Cross-module scenarios (choreography + compensation)
+
+> **Purpose (L3·microservices; L2 if >1 module):** every scenario where modules
+> cooperate around events — triggers, steps, compensation, idempotency, retry.
+> The event catalog (`contracts/asyncapi/events.yaml`) is the machine truth for
+> the events that appear here.
+
+## Conventions
+- Event format: `<project>.<module>.<resource>.<action>` (`created|updated|deleted`).
+- Every consumer is idempotent on `id`; DLQ captures failures; retry with backoff.
+- Compensation is event-driven (NONE for committed steps), not a sync rollback.
+
+- The saga is **described** here; it is **verified** by integration tests
+  (`test/integration.*.test.ts`).
+
+## Saga 1 — <Name>
+- **Trigger:** `<event>` fires (e.g. `pmos.notes.notes.created`).
+- **Steps:**
+  1. Module A → publish `E1.a`.
+  2. Module B consumes `E1.a`, does `<work>`, publishes `E1.b`.
+  3. Module C consumes `E1.b`, writes `<result>`.
+- **Compensation:** if `<X>` fails → publish `E1.fail` → `<rollback action>`.
+- **Idempotency key:** `<consumer>=<envelope.id>`.
+- **Verified by:** `test/integration.saga1.test.ts` (green when bus+storage up).
+
+## Saga 2 — …
+>(same shape)
+
+## Compensation matrix
+| Step | Compensation | Trigger (on failure) |
+|------|--------------|----------------------|
+| … | … | `…fail` |
+
+## DLQ / retry
+- Retry: `attempts × backoff`; on exhausted → DLQ.
+- DLQ reprocessing: re-publish on the original subject after fix.
+
+## Idempotency agreement
+- Consumers must be re-runnable (same upstream result) — by `id` dedup.
+
+"(See `contracts/asyncapi/events.yaml` — it is the truth; keep the saga text aligned
+with it.)"

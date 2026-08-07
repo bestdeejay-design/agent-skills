@@ -1,0 +1,57 @@
+# TEST_CASES — Behavior verification (Gherkin-style) + coverage
+
+> **Purpose (L2+):** how correctness is proven — structured scenarios + a coverage
+> matrix that maps scenarios → tests. Written in Phase 6, kept true after.
+
+## §0 Anti-patterns (mandatory checks to always run)
+- **Contract–route parity:** every route exists in `contracts/openapi/*.yaml`
+  (`hasRoute()` guard). Tests must fail if a route lacks a contract entry.
+- **Path on the wire:** use `:id` in code (Fastify) vs `{id}` in contract (OpenAPI) —
+  mismatch breaks runtime. Guard catches it.
+- **Timestamps:** `.toISOString()`, never `new Date()` (non-canonical).
+- **Typing:** no `as unknown as X`, no `any`/`@ts-ignore`.
+
+## Scenario — <Module A> · CRUD
+```gherkin
+Feature: <Module> CRUD
+  As a client
+  I want to create/read/update/delete <entity>
+  So that <value>
+
+  Scenario: create succeeds
+    Given an authorized client
+    When I POST /api/<module>/v1/<entity>
+    Then the response is 201 and the entity has an id
+
+  Scenario: contract conformance
+    Then every route matches contracts/openapi/<svc>.yaml
+```
+> Coverage matrix:
+> | Scenario | Test file | Green? |
+> |----------|-----------|:------:|
+
+## Scenario — Cross-module (SAGA)
+```gherkin
+Scenario: sagaN happy path
+  Given storage and bus are up
+  When <trigger event> fires
+  Then <followers> run their step and the end state is <X>
+```
+
+## Scenario — E2E (L3·frontend-app)
+```gherkin
+Scenario: full flow
+  Given an SPA is served
+  When user does <X>
+  Then the UI shows <Y>
+```
+> E2E compatibility — state the **number** of E2E tests and where (`services/frontend/test`).
+> Keep it in the `docs/REFERENCE.md` drift table if inconsistent.
+
+## Coverage matrix
+| Module | Unit | Contract | Integration | Scenario (Gherkin) | Test files |
+|--------|:----:|:--------:|:-----------:|:-------------------:|:----------:|
+| <module> | ✅ | ✅ N/N | ⬍ (needs bus) | §Scenario | `test/*.test.ts` |
+
+> **Rule:** coverage matrix must match the feature list in `FEATURES.md` 1:1. A
+> scenario without a test is as bad as a test with no scenario.

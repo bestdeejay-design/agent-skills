@@ -1,0 +1,70 @@
+# ENTRY.md — Entry point / navigation map
+
+> **Start here.** This is the routing card: which doc answers which question.
+> Everything below is the "topic → file" table + onboarding. Other docs detail a
+> single area; this is the overview, control-flow, and checklist.
+
+## 1. What this is
+<!-- One paragraph. Same intro as README — 2–4 sentences. From Phase 2 draft. -->
+
+## 2. Navigation (which file does what)
+
+| Area / file | Source of truth? | What's here |
+|-------------|:---------------:|-------------|
+| `contracts/openapi/*.yaml` | **machine truth: API** | per-module OpenAPI specs (+conformance N/N) |
+| `contracts/asyncapi/events.yaml` | **machine truth: events** | event catalog |
+| `<modules>/*` | implementation | the code: implementation |
+| `scripts/` | generators | scaffolding / codegen, reproducibility |
+| `docs/*` | narrative | ARCHITECTURE, FEATURES, SAGA, REVIEW, TEST_CASES, ... |
+| `AGENT.md` | runbook | agent phases, rules, Definition of Done (L2+) |
+| `DELIVERY.md` | gate | what ships, how to verify, what NOT in |
+
+**Hierarchy of truth on conflict** → see `docs/REFERENCE.md` §2 (top wins):
+_contracts > shared-typed-code > ADR-<canon> > narrative docs > prose_.
+
+## 3. Quick start (local)
+```bash
+# Phase 7: copy the REAL working commands here (not a sketch).
+```
+
+## 4. How a <module> is built (if L3·microservices)
+```
+services/<name>/            # single template for every module
+├── src/index.ts            # entry: buildApp() + bus + shutdown
+├── src/...routes/          # typed routes, mirror the OpenAPI contract
+├── src/...events/          # publish + subscribe (sagas, idempotency)
+├── src/db/ + migrations/   # schema + SQL migrations
+└── test/                   # health / contract / integration
+```
+
+## 5. Working rules (top 5–8)
+- **Contract-first:** every endpoint exists in `contracts/openapi/<svc>.yaml` before any code.
+- **Contracts are machine truth:** change behavior → change the contract first.
+- **Events:** format `pmos.<svc>.<resource>.<action>` (`created|updated|deleted`); payload camelCase; version required.
+- **Close a feature end-to-end** (📋→✅): full checklist in `AGENT.md` (contract → catalog → schema → migrate → routes → events → tests → doc counters → commit gate).
+- **Module isolation:** no reading another module's storage.
+- **Typing:** no `any`/`@ts-ignore`; timestamps ISO.
+
+## 6. Definition of Done (from `AGENT.md` §gate)
+Green: typecheck _N/N_, build _N/N_, contract _N/N_, tests _P/Q_, cross-module sagas §1–N, compose up no flips, hygiene. Commit gate — `AGENT.md`.
+
+## 7. First-day onboarding checklist (new dev/agent)
+- [ ] Read this file → `docs/ARCHITECTURE.md` → `docs/DEV_GUIDE.md`.
+- [ ] Read the canonical ADR (`docs/ADR/ADR-00N.md`) + `AGENT.md` §§run.
+- [ ] Bring the stack up (run a single module, see health).
+- [ ] Read one contract + one module implementation.
+- [ ] Run the full check set on a clean clone.
+- [ ] Pick a first tracked task from `docs/BACKLOG.md` (P1/P2).
+
+## 8. Where to read next
+| Topic | Doc |
+|-------|-----|
+| Architecture / data flows | `docs/ARCHITECTURE.md` |
+| Feature catalog | `docs/FEATURES.md` |
+| Cross-module scenarios | `docs/SAGA.md` |
+| Per-module status | `docs/REVIEW.md` (L2+) |
+| Test cases | `docs/TEST_CASES.md` |
+| Backlog | `docs/BACKLOG.md` |
+| Local dev | `docs/DEV_GUIDE.md` |
+| Architecture decisions | `docs/ADR/` |
+| All of it, as a map | `docs/REFERENCE.md` |

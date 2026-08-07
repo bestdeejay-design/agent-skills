@@ -1,0 +1,52 @@
+# TROUBLESHOOTING — Runtime error diagnostics (E1…En) + startup checklist
+
+> **Purpose (L2):** "I ran it and X broke" → a numbered catalog of failures, each
+> with cause + fix + how to verify. Written in Phase 8 from real failures. Grows as
+> new failures are found. Each entry must be **reproducible and fixable**.
+
+## Startup checklist (run in this order)
+1. Infra up (`--profile core`).
+2. Migrations applied.
+3. Modules started (or `--profile all`).
+4. Gateway restarted after any rebuild (`--force-recreate api-gateway`).
+5. Health-check: `curl http://localhost:8080/api/health`.
+
+## E1 — <Symbolic name, e.g. "workspace build fails">
+- **Symptom:** `ERR_PNPM_WORKSPACE_PKG_NOT_FOUND` on build all services.
+- **Cause:** per-service Dockerfile outside workspace context; `context` too shallow.
+- **Fix:** use a shared Dockerfile at repo root + `context: ../..` + root
+  `.dockerignore` (see `docs/IMPROVEMENTS.md §2.1`).
+- **Verify:** `docker compose --profile all build` exits 0.
+
+## E2 — <db auth failed `28P01`>
+- **Symptom:** `28P01` password auth failed from service.
+- **Cause:** placeholder `***` vs real value in compose/README mismatch.
+- **Fix:** align all references to the same value; check `DATABASE_URL`.
+- **Verify:** service health shows `db: true`.
+
+## E3 — <404 behind gateway>
+- **Symptom:** `/api/<svc>/v1/...` returns 404 via gateway but works on the module port.
+- **Cause:** `proxy_pass http://upstream/` trailing slash strips the matched
+  location prefix → upstream receives `/v1/...`, not `/api/<svc>/v1/...`.
+- **Fix:** canonical `location /api/<svc>/v1/` + `proxy_pass` **without** URI part;
+  legacy aliases as `rewrite … last`. (ADR-007 §7.)
+- **Verify:** `curl` the full path through gateway returns 200.
+
+## E4 — <nginx caches stale upstream>
+- **Symptom:** gateway keeps routing to a dead/old container IP.
+- **Cause:** `proxy_pass http://<name>_up` with static resolver; container restarted → IP changed.
+- **Fix:** dynamic resolver (e.g. `resolver 127.0.0.11 …` Docker DNS) + `set $upstream …`.
+
+## E5 — <migrations not applied>
+- **Symptom:** tables missing at runtime.
+- **Fix:** run `db:migrate` before start; check schema names.
+
+## Infra quick-check
+```bash
+docker compose ps            # all services healthy?
+docker logs <service>        # NATS/storage connectivity
+curl http://localhost:8080/api/health
+```
+
+> **Rule:** when you fix a NEW failure that took you >10 min — add it here. This file
+> is the project's collective memory; every entry saves the next dev/agent a hunt.
