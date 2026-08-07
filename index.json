@@ -41,6 +41,15 @@
       "path": "skills/presentation-maker",
       "triggers": ["сделай презентацию", "presentation", "слайды", "pptx", "сделай доклад", "презентация для", "generate slides", "make a deck"],
       "updated": "2025-08-07"
+    },
+    {
+      "name": "docs-system",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Систематическая документация для любого проекта: каталог документов (что, зачем, когда), порядок заполнения (фазы), уровни (L1 минимальный / L2 канонический / L3 профили), полные шаблоны и чек-лист полноты. От идеи до полного набора документации.",
+      "path": "skills/docs-system",
+      "triggers": ["документация", "набор документации", "каталог документов", "docs catalog", "documentation structure", "из идеи в документацию", "полная документация", "docs for new project", "documentation plan", "системная документация"],
+      "updated": "2026-08-07"
     }
   ],
   "categories": {
@@ -54,5 +63,5 @@
     "opencode": "Скопируйте нужную папку скилла в ~/.config/opencode/skills/ или укажите путь при загрузке через skill tool.",
     "manual": "Каждый скилл — папка с SKILL.md (инструкция) и skill.json (манифест). Загружайте в агент по необходимости."
   },
-  "updated": "2025-08-07"
+  "updated": "2026-08-07"
 }

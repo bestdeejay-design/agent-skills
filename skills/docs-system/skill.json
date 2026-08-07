@@ -1,0 +1,16 @@
+{
+  "name": "docs-system",
+  "version": "1.0.0",
+  "description": "Систематическая документация для любого проекта: каталог документов (что, зачем, когда), порядок заполнения (фазы), уровни (L1 минимальный / L2 канонический / L3 профили), полные шаблоны и чек-лист полноты. От идеи до полного набора документации.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["documentation", "docs", "catalog", "templates", "системная документация"],
+  "triggers": ["документация", "набор документации", "каталог документов", "docs catalog", "documentation structure", "из идеи в документацию", "полная документация", "docs for new project", "documentation plan", "системная документация"],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "ROADMAP.md", "references/*.md", "references/templates/*.tmpl", "examples/pmos/README.md"],
+  "requirements": {
+    "tools": []
+  },
+  "updated": "2026-08-07"
+}

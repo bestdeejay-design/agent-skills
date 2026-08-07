@@ -3,9 +3,9 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 4](https://img.shields.io/badge/Skills-4-blue.svg)](index.json)
+[![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
-[![Updated](https://img.shields.io/badge/Updated-2025--08--07-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
@@ -19,6 +19,7 @@
 | [**test-graphics**](skills/test-graphics) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Систематическая работа на Reddit для набора кармы аккаунта InterviewDesigner777: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
+| [**docs-system**](skills/docs-system) | `repository` | Систематическая документация для любого проекта: каталог документов (что, зачем, когда), порядок заполнения (фазы), уровни (L1 минимальный / L2 канонический / L3 профили), полные шаблоны и чек-лист полноты. От идеи до полного набора документации. | `документация`, `каталог документов`, `набор документации`, `полная документация`, `documentation`, `docs catalog`, `documentation structure`, `docs for new project` |
 
 ---
 
@@ -74,17 +75,28 @@ agent-skills/
     ├── reddit-karma/
     │   ├── SKILL.md
     │   └── skill.json
-    └── presentation-maker/
+    ├── presentation-maker/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/
+    │   │   ├── build_html.py
+    │   │   ├── build_pptx.py
+    │   │   └── verify_slides.py
+    │   ├── templates/
+    │   │   ├── slides.html
+    │   │   ├── themes/*.json
+    │   │   └── icons/*.svg
+    └── docs-system/
         ├── SKILL.md
         ├── skill.json
-        ├── scripts/
-        │   ├── build_html.py
-        │   ├── build_pptx.py
-        │   └── verify_slides.py
-        ├── templates/
-        │   ├── slides.html
-        │   ├── themes/*.json
-        │   └── icons/*.svg
+        ├── ROADMAP.md
+        ├── references/
+        │   ├── catalog.md
+        │   ├── completeness.md
+        │   ├── levels.md
+        │   ├── order.md
+        │   └── templates/*.tmpl
+        └── examples/pmos/README.md
 ```
 
 ---
@@ -109,7 +121,7 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 
 1. Создайте папку в `skills/<name>/`
 2. Добавьте два обязательных файла:
-   - `SKILL.md` — полная инструкция для агента (на русском, с YAML-фронтматтером `name`, `description`)
+   - `SKILL.md` — полная инструкция для агента (на английском — основной язык, русский по желанию; с YAML-фронтматтером `name`, `description`)
    - `skill.json` — манифест (см. схему ниже)
 3. При необходимости добавьте скрипты/шаблоны в подпапки (`scripts/`, `templates/`, `icons/`)
 4. Обновите `index.json` (добавьте запись в массив `skills[]`)
@@ -139,11 +151,11 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 
 **Категории**: `repository`, `media`, `social`, `code`, `data`
 
-**Триггеры**: фразы, по которым агент должен загрузить скилл. Укажите на русском и английском.
+**Триггеры**: фразы, по которым агент должен загрузить скилл. Укажите на английском (основной), русский — по желанию.
 
 ### Требования к `SKILL.md`
 
-- Язык: **русский** (инструкции для агента)
+- Язык: **английский** (основной, инструкции для агента); русский — по желанию
 - Обязательный YAML-фронтматтер:
   ```yaml
   ---

@@ -3,9 +3,9 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 4](https://img.shields.io/badge/Skills-4-blue.svg)](index.json)
+[![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
-[![Updated](https://img.shields.io/badge/Updated-2025--08--07-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
@@ -19,6 +19,7 @@
 | [**test-graphics**](skills/test-graphics) | `media` | Generates test images, photos, icons, placeholders via Python + free APIs (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `test pictures`, `icons for test`, `stubs`, `mock data images`, `generate photo` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Systematic Reddit karma building for account InterviewDesigner777: topic search, response drafting, tone detection, thank-you templates, routine runs. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Presentation generator: Markdown outline, HTML 16:9 slides, .pptx via python-pptx. Auto-layouts, themes, design-system (tokens, mood), product-design module (narrative, data-viz, a11y, premium). | `make presentation`, `presentation`, `slides`, `pptx`, `make deck`, `generate slides` |
+| [**docs-system**](skills/docs-system) | `repository` | Systematic documentation for any project: docs catalog (what, why, when), fill order (phases), levels (L1 minimal / L2 canonical / L3 profiles), full document skeletons, completeness checklist. From an idea to a complete docs set. | `documentation`, `docs catalog`, `documentation structure`, `docs for new project`, `documentation plan`, `документация`, `каталог документов` |
 
 ---
 
@@ -74,17 +75,28 @@ agent-skills/
     ├── reddit-karma/
     │   ├── SKILL.md
     │   └── skill.json
-    └── presentation-maker/
+    ├── presentation-maker/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/
+    │   │   ├── build_html.py
+    │   │   ├── build_pptx.py
+    │   │   └── verify_slides.py
+    │   ├── templates/
+    │   │   ├── slides.html
+    │   │   ├── themes/*.json
+    │   │   └── icons/*.svg
+    └── docs-system/
         ├── SKILL.md
         ├── skill.json
-        ├── scripts/
-        │   ├── build_html.py
-        │   ├── build_pptx.py
-        │   └── verify_slides.py
-        ├── templates/
-        │   ├── slides.html
-        │   ├── themes/*.json
-        │   └── icons/*.svg
+        ├── ROADMAP.md
+        ├── references/
+        │   ├── catalog.md
+        │   ├── completeness.md
+        │   ├── levels.md
+        │   ├── order.md
+        │   └── templates/*.tmpl
+        └── examples/pmos/README.md
 ```
 
 ---
@@ -109,7 +121,7 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 
 1. Create folder in `skills/<name>/`
 2. Add two required files:
-   - `SKILL.md` — full agent instruction (Russian, with YAML frontmatter `name`, `description`)
+   - `SKILL.md` — full agent instruction (English primary; Russian optional, with YAML frontmatter `name`, `description`)
    - `skill.json` — manifest (see schema below)
 3. Optionally add scripts/templates in subfolders (`scripts/`, `templates/`, `icons/`)
 4. Update `index.json` (add entry to `skills[]`)
@@ -139,11 +151,11 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 
 **Categories**: `repository`, `media`, `social`, `code`, `data`
 
-**Triggers**: phrases that cause the agent to load the skill. Provide both English and Russian.
+**Triggers**: phrases that cause the agent to load the skill. Provide English; Russian optional.
 
 ### `SKILL.md` Requirements
 
-- Language: **Russian** (instructions for agent)
+- Language: **English** (primary, instructions for agent); Russian optional
 - Required YAML frontmatter:
   ```yaml
   ---
