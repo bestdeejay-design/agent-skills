@@ -1,0 +1,16 @@
+{
+  "name": "executive",
+  "description": "Строгая, деловая, светло-фиолетовый фон",
+  "mood": "swiss",
+  "primary": "#5F4F9B",
+  "background": "#F7F5FA",
+  "card": "#FFFFFF",
+  "stroke": "#E8E0F5",
+  "background_text": "#FFFFFF",
+  "primary_text": "#111827",
+  "muted": "#6B7280",
+  "accent_soft": "#F0EEF8",
+  "font": "DM Sans",
+  "font_url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap",
+  "graphs": ["#5F4F9B", "#8958F4", "#A78BFA", "#C4B5FD", "#DDD6FE"]
+}

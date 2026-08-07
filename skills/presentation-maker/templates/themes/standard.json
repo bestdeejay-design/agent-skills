@@ -1,0 +1,17 @@
+{
+  "name": "standard",
+  "description": "Классический, сертификатный, зелёный акцент",
+  "mood": "editorial",
+  "primary": "#1B8C2D",
+  "background": "#FFFFFF",
+  "card": "#F3F4F6",
+  "stroke": "#E5E7EB",
+  "background_text": "#FFFFFF",
+  "primary_text": "#111827",
+  "muted": "#6B7280",
+  "accent_soft": "#DCFCE7",
+  "font": "Inter",
+  "font_display": "Playfair Display",
+  "font_url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap",
+  "graphs": ["#1B8C2D", "#16A34A", "#22C55E", "#4ADE80", "#86EFAC"]
+}

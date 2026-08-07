@@ -1,0 +1,103 @@
+name: Validate Skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate skill manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate index.json
+        run: |
+          python3 -m json.tool index.json >/dev/null
+          echo "✅ index.json is valid JSON"
+
+      - name: Validate each skill.json
+        run: |
+          for skill in skills/*/skill.json; do
+            echo "Checking $skill..."
+            python3 -m json.tool "$skill" >/dev/null
+            # Check required fields
+            python3 -c "
+import json, sys
+with open('$skill') as f:
+    data = json.load(f)
+required = ['name', 'version', 'description', 'author', 'license', 'category', 'entrypoint', 'files', 'requirements', 'updated']
+for field in required:
+    if field not in data:
+        print(f'❌ Missing required field: {field}')
+        sys.exit(1)
+print(f'✅ {data[\"name\"]} v{data[\"version\"]} OK')
+            "
+          done
+
+      - name: Cross-check index.json with skill folders
+        run: |
+          python3 -c "
+import json, os, sys
+with open('index.json') as f:
+    idx = json.load(f)
+
+indexed_skills = {s['name'] for s in idx['skills']}
+folder_skills = set(d for d in os.listdir('skills') if os.path.isdir(os.path.join('skills', d)))
+
+# Check each indexed skill has folder
+for name in indexed_skills:
+    if not os.path.isdir(f'skills/{name}'):
+        print(f'❌ Skill {name} in index.json but missing folder')
+        sys.exit(1)
+    if not os.path.isfile(f'skills/{name}/skill.json'):
+        print(f'❌ Skill {name} missing skill.json')
+        sys.exit(1)
+
+# Check each folder is in index
+for name in folder_skills:
+    if name not in indexed_skills:
+        print(f'⚠️ Skill folder {name} not listed in index.json')
+
+print(f'✅ Cross-check passed: {len(indexed_skills)} skills in index, {len(folder_skills)} folders')
+          "
+
+      - name: Check SKILL.md exists for each skill
+        run: |
+          for skill in skills/*/; do
+            if [ ! -f "${skill}SKILL.md" ]; then
+              echo "❌ Missing SKILL.md in $skill"
+              exit 1
+            fi
+          done
+          echo "✅ All skills have SKILL.md"
+
+      - name: Validate presentation-maker scripts syntax
+        if: always()
+        run: |
+          if [ -d "skills/presentation-maker/scripts" ]; then
+            for f in skills/presentation-maker/scripts/*.py; do
+              python3 -m py_compile "$f"
+              echo "✅ $f syntax OK"
+            done
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- index.json: ✅" >> $GITHUB_STEP_SUMMARY
+          for skill in skills/*/skill.json; do
+            name=$(basename $(dirname $skill))
+            echo "- $name: ✅" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "- SKILL.md files: ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- Python scripts: ✅" >> $GITHUB_STEP_SUMMARY

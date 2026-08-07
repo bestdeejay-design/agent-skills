@@ -1,0 +1,16 @@
+{
+  "name": "momentum",
+  "description": "Динамичная, тёмно-синие акценты",
+  "mood": "flat",
+  "primary": "#173CB8",
+  "background": "#FFFFFF",
+  "card": "#F5F6FC",
+  "stroke": "#E0E3F0",
+  "background_text": "#FFFFFF",
+  "primary_text": "#111827",
+  "muted": "#4864C2",
+  "accent_soft": "#E8EBFC",
+  "font": "Lato",
+  "font_url": "https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap",
+  "graphs": ["#173CB8", "#4864C2", "#6366F1", "#818CF8", "#A5B4FC"]
+}

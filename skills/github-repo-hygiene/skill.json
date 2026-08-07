@@ -1,0 +1,17 @@
+{
+  "name": "github-repo-hygiene",
+  "version": "1.0.0",
+  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN + RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, description, topics, ссылки на GitHub Pages.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["github", "repo", "hygiene", "readme", "license", "contributing", "security", "topics", "pages"],
+  "triggers": ["github hygiene", "оформить репозиторий", "обновить readme", "github page", "описание репозитория", "теги для поиска", "topics", "contributing", "license", "security policy", "полностью оформить гитхаб", "репозиторий готов к публикации", "repo polish", "github repo docs"],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md"],
+  "requirements": {
+    "tools": ["gh"],
+    "permissions": ["repo:read", "repo:write"]
+  },
+  "updated": "2025-08-07"
+}

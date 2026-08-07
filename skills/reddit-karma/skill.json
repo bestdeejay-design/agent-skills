@@ -1,0 +1,17 @@
+{
+  "name": "reddit-karma",
+  "version": "1.0.0",
+  "description": "Систематическая работа на Reddit для набора кармы аккаунта InterviewDesigner777 — поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. Общение на русском, посты на английском.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["reddit", "karma", "social", "automation", "ai", "llm", "local-llama", "community"],
+  "triggers": ["reddit", "карма", "karma", "r/LocalLLaMA", "поднять карму", "ответить на комментарии", "забег по reddit", "оставить след", "благодарность за ответ"],
+  "category": "social",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md"],
+  "requirements": {
+    "tools": ["playwright"],
+    "account": "InterviewDesigner777"
+  },
+  "updated": "2025-08-07"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "dynamic",
+  "description": "Тёмный, высокий контраст, монохром",
+  "mood": "dark",
+  "primary": "#FFFFFF",
+  "background": "#0A0A0A",
+  "card": "#171717",
+  "stroke": "#242424",
+  "background_text": "#FFFFFF",
+  "primary_text": "#FFFFFF",
+  "muted": "#D9D9D9",
+  "accent_soft": "#1A1A1A",
+  "font": "Montserrat",
+  "font_url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap",
+  "graphs": ["#FFFFFF", "#E6E6E6", "#D9D9D9", "#A3A3A3", "#737373"]
+}

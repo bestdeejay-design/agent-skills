@@ -1,0 +1,17 @@
+{
+  "name": "test-graphics",
+  "version": "1.0.0",
+  "description": "Генерация тестовых изображений, фото, иконок, placeholders для проектов. Использует test-graphics.py (Python) + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide).",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["test", "graphics", "images", "placeholders", "icons", "avatars", "loremflickr", "placehold", "lucide"],
+  "triggers": ["test images", "placeholder", "тестовые картинки", "иконки для теста", "заглушки", "mock data images", "сгенерировать фото", "test data icons", "заполнить картинками", "тестовые данные изображения"],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md"],
+  "requirements": {
+    "tools": ["python3", "pillow", "requests"],
+    "script": "test-graphics.py"
+  },
+  "updated": "2025-08-07"
+}

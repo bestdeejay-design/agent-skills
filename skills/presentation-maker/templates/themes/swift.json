@@ -1,0 +1,18 @@
+{
+  "name": "swift",
+  "description": "Apple-style, воздух, бирюзовый",
+  "mood": "glass",
+  "primary": "#111827",
+  "background": "#FFFFFF",
+  "card": "#F3F4F6",
+  "stroke": "#E5E7EB",
+  "background_text": "#FFFFFF",
+  "primary_text": "#111827",
+  "muted": "#6B7280",
+  "accent_soft": "#BFF4FF",
+  "accent": "#007AFF",
+  "turquoise": "#30B0C7",
+  "font": "Albert Sans",
+  "font_url": "https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&display=swap",
+  "graphs": ["#111827", "#30B0C7", "#5E5CE6", "#34C759", "#FF9500"]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "general",
+  "description": "Минимальный, чистый, много воздуха",
+  "mood": "swiss",
+  "primary": "#9333EA",
+  "background": "#FFFFFF",
+  "card": "#F8F9FA",
+  "stroke": "#E5E7EB",
+  "background_text": "#FFFFFF",
+  "primary_text": "#111827",
+  "muted": "#4B5563",
+  "accent_soft": "#F3E8FF",
+  "font": "Poppins",
+  "font_url": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap",
+  "graphs": ["#9333EA", "#C084FC", "#A855F7", "#D946EF", "#E879F9"]
+}

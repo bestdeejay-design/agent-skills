@@ -1,0 +1,16 @@
+{
+  "name": "modern",
+  "description": "Современный, ровные карточки, большие скругления",
+  "mood": "flat",
+  "primary": "#1E4CD9",
+  "background": "#FFFFFF",
+  "card": "#F5F8FE",
+  "stroke": "#E5E7EB",
+  "background_text": "#FFFFFF",
+  "primary_text": "#334155",
+  "muted": "#64748B",
+  "accent_soft": "#EFF3FE",
+  "font": "Montserrat",
+  "font_url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap",
+  "graphs": ["#1E4CD9", "#4864C2", "#6366F1", "#818CF8", "#A5B4FC"]
+}
