@@ -1,0 +1,36 @@
+# IMPROVEMENTS — Known issues & drift + prioritized plan
+
+> **Purpose (L2):** catalog of problems/drifts found by actually running the stack,
+> each with a fix plan and priority. Live-updated from Phase 8 onward. The doc
+> "> told" pair: `docs/REFERENCE.md` §5 lists the drift *facts*; this file owns the
+> *plans to fix them*.
+
+## 1. Runtime/launch chronicle
+> Short timeline of "what I ran, what broke, what I fixed". It shaped §2.
+
+## 2. Core launch fixes — Priority 1 (P1)
+| # | Issue | Fix | Status |
+|---|-------|-----|:------:|
+| 1 | e.g. `ERR_PNPM_WORKSPACE_PKG_NOT_FOUND` on `--profile all build` | shared Dockerfile + `context: ../..` + `.dockerignore` | ~~fix~~ **done** (see X) |
+| 2 | nginx 404 behind gateway (`proxy_pass` trailing slash) | `location` = `/api/<svc>/v1/`, `proxy_pass` without URI; legacy `rewrite … last` | **done** (ADR-007 R6, TROUBLESHOOTING E3) |
+| 3 | `***` placeholder db password in compose | set real value, all consumers align | **done** |
+| 4 | nginx caches upstream IP | use a **dynamic resolver** (Docker DNS) | ⏳ |
+| 5 | migration order | migrate before starts; document order | ⏳ |
+
+## 2.1 infra / … (continue per P1 area)
+## 3,4,5 … (per impact: architecture, UI/frontend, QA/tests, hygiene)
+> Keep it as **one actionable line per row**: | # | Issue | Fix | Priority | Status |
+
+## 6. Priority a action plan table
+| # | Task | Pri | § | Status |
+|---|------|:---:|:--:|--------|
+| 1 | <task> | P1 | 2.1 | ✅ / ⏳ / ⬍ |
+
+## 7. Related documents & their fix status
+| Doc | What to fix |
+|-----|-------------|
+| `docs/REFERENCE.md` | update §5 drift table + this file's status in §6 |
+
+---
+> **Rule:** every drift you discover while running **must** end up either fixed (and
+> marked) here or flagged in `docs/REFERENCE.md` §5. Silent drift is the enemy.

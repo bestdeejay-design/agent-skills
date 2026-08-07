@@ -1,0 +1,36 @@
+# REVIEW — Documentation audit & per-module status matrix
+
+> **Purpose (L2):** the audit of the docs (consistency/systematicity/sufficiency) +
+> a per-module reality matrix. Result of running the completeness gate. Updates when
+> new drifts are found or resolved.
+
+## 1. Found problems (≥ list)
+> Each: where, what mismatch, who's right. (Feed the `docs/REFERENCE.md` §5 table
+> with each; detail the fix plan in `docs/IMPROVEMENTS.md`.)
+- e.g. README says "frontend/" at root, actual `services/frontend`.
+- e.g. SAGA links ADR-003/004/005 by keyword but those ADRs cover different topics.
+
+## 2. Resolutions (fixes made)
+- e.g. README fixed; ADR-007 added (§7).
+- **Status: RESOLVED** when the drift (X) is fixed and container `REFERENCE.md` §5 row marked.
+
+## 3. Residual risks
+> Open items that don't block start but stay on the radar.
+
+## 4. Readiness checklist
+- [ ] Entry point accessible (`ENTRY.md` route → nothing dead).
+- [ ] Map (`REFERENCE.md`) present, cards for all docs.
+- [ ] Drift table is current (open items visible).
+- [ ] Completeness gate (see `references/completeness.md`) passes at chosen level.
+
+## 5. Per-module status matrix
+| Module | CRUD | filters | soft-delete | events | contract ▲ | business | status |
+|--------|:----:|:-------:|:-----------:|:------:|:-----------:|:--------:|:------:|
+| <mod> | ✅ | ✅ | ✅ | ✅ | 17/17 | ✅ | RESOLVED |
+> Align this matrix with `FEATURES.md` (feature status) — they are two views of the
+> same reality.
+
+---
+> **Rule:** a doc is "in good shape" not when it's long, but when it's consistent
+> (no silent drift) and reachable (via ENTRY/REFERENCE). Keep REVIEW true; when a
+> problem is resolved, move it from §1 → §2 and from §5 drift-table to no longer a drift.

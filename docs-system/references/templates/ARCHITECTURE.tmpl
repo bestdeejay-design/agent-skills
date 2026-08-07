@@ -1,0 +1,45 @@
+# ARCHITECTURE.md — Overall architecture
+
+> **Purpose:** components, communication principles, tech stack, data flows.
+> Draft in Phase 2, finalize in Phase 6. When this contradicts code — code wins,
+> update this file (see hierarchy of truth in `REFERENCE.md`).
+
+## 1. High-level diagram
+
+```
+[Client / SPA] → [Gateway] → [Module A] ──event──▶ [Module B]
+                                      │                │
+                                     [Storage]       [Queue/Stream]
+```
+
+<!-- ASCII or Mermaid. Components + how they talk. -->
+
+## 2. Communication principles
+- **Sync:** HTTP `/{gateway}/api/<module>/v1/...` for request/response.
+- **Async:** events over the bus (`<project>.<module>.<resource>.<action>`),
+  at-least-once delivery.
+- **Forbidden:** module A reading module B's storage directly; sync calls between
+  modules where an event is the right shape.
+
+## 3. Tech stack
+<!-- From README; here with WHY each choice. Link ADRs: e.g. "see ADR-002/ADR-007". -->
+
+## 4. Event model (if async)
+- EventEnvelope: `{ id, type, version, source, time, data }`.
+- Stream/subjects: `pmos.>`, one stream, durable consumers, DLQ.
+- Idempotency: consumers keyed by `id`; duplicate events harmless.
+- Full catalog: `contracts/asyncapi/events.yaml` (machine truth).
+
+## 5. Cross-module scenarios (sagas)
+<!-- Detail in docs/SAGA.md; here a one-line index + pointer. -->
+
+## 6. Security
+- AuthN/AuthZ at the gateway; per-module scoping; API keys for public mirror (if any).
+- Secrets via env; no credentials in code/docs (use placeholders + `docs/DEV_GUIDE.md`).
+
+## 7. Repository navigation
+<!-- Pointer to ENTRY.md — architecture is not the map; ENTRY is. -->
+
+## 8. Developer rules (top)
+- Contract-first (Phase 3) — see `docs/ADR/ADR-007.md`-equivalent canon.
+- One authoritative home per fact; update `docs/REFERENCE.md` card on any change.
