@@ -1,0 +1,40 @@
+{
+  "name": "csv-pro",
+  "version": "1.0.0",
+  "description": "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "csv",
+    "profile",
+    "profiling",
+    "data",
+    "statistics",
+    "anomalies",
+    "analysis",
+    "quality"
+  ],
+  "triggers": [
+    "csv profile",
+    "профиль csv",
+    "анализ csv",
+    "csv анализ",
+    "аномалии csv",
+    "csv anomalies",
+    "профилирование csv",
+    "что в csv"
+  ],
+  "category": "data",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/csv_pro.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/csv_pro.py"
+  },
+  "updated": "2026-08-08"
+}

@@ -1,0 +1,40 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "Вежливый скраппинг HTML-страниц в Markdown/JSON. Скрипт scrape.py читает страницу по URL, применяет простой CSS-селектор (tag, tag#id, tag.class) для выбора строк/секций, извлекает текст, ссылки и таблицы и отдаёт результат в Markdown или JSON. Легальные guardrails встроены в код: проверка robots.txt, честный User-Agent, задержка между запросами (по умолчанию 1.0 с), лимит размера страницы 10 МБ. Триггеры: 'web scraping', 'скраппинг', 'скачать данные с сайта', 'парсинг сайта', 'парсер html', 'извлечь данные', 'scrape', 'scraping'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "web-scraping",
+    "scraper",
+    "html",
+    "parser",
+    "robots.txt",
+    "data-extraction",
+    "markdown",
+    "json"
+  ],
+  "triggers": [
+    "web scraping",
+    "скраппинг",
+    "скачать данные с сайта",
+    "парсинг сайта",
+    "парсер html",
+    "извлечь данные",
+    "scrape",
+    "scraping"
+  ],
+  "category": "data",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/scrape.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/scrape.py"
+  },
+  "updated": "2026-08-08"
+}

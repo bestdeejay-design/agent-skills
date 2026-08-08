@@ -1,0 +1,41 @@
+{
+  "name": "data-analysis",
+  "version": "1.0.0",
+  "description": "Профилирование датасета (CSV или JSON-массив объектов): типы полей, статистика (count/unique/missing, min/max/mean/std), мода и топ-N значений, гистограмма 5 корзин для чисел, топ-3 парные корреляции Пирсона, аномалии и рекомендации. Скрипт data_analyze.py читает --input и выводит отчёт в markdown (по умолчанию) или JSON. Триггеры: 'data analysis', 'анализ данных', 'профиль датасета', 'статистика данных', 'dataset анализ', 'почитать данные', 'data profiling', 'разведочный анализ', 'eda'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "data",
+    "analysis",
+    "dataset",
+    "statistics",
+    "profiling",
+    "anomalies",
+    "correlation"
+  ],
+  "triggers": [
+    "data analysis",
+    "анализ данных",
+    "профиль датасета",
+    "статистика данных",
+    "dataset анализ",
+    "почитать данные",
+    "data profiling",
+    "разведочный анализ",
+    "eda"
+  ],
+  "category": "data",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/data_analyze.py"
+  ],
+  "requirements": {
+    "category": "data",
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/data_analyze.py"
+  },
+  "updated": "2026-08-08"
+}

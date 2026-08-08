@@ -1,0 +1,41 @@
+{
+  "name": "sql-helper",
+  "version": "1.0.0",
+  "description": "Генерация SQL по текстовому вопросу и DDL-схеме. Скрипт sql_helper.py читает DDL-файл, строит in-memory схему в sqlite3, распознаёт слова вопроса по таблицам/колонкам и собирает SQL по шаблонам интентов (select, join, where, group, order, count, limit). Каждый кандидат проверяется через EXPLAIN, при --explain выводится читаемый план запроса. Триггеры: 'sql helper', 'sql генерация', 'сгенерируй sql', 'explain запроса', 'sql запрос', 'напиши sql', 'formatted sql', 'sql formatting'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "sql",
+    "query",
+    "generation",
+    "ddl",
+    "sqlite",
+    "explain",
+    "database",
+    "select",
+    "join"
+  ],
+  "triggers": [
+    "sql helper",
+    "sql генерация",
+    "сгенерируй sql",
+    "explain запроса",
+    "sql запрос",
+    "напиши sql",
+    "formatted sql",
+    "sql formatting"
+  ],
+  "category": "data",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/sql_helper.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/sql_helper.py"
+  },
+  "updated": "2026-08-08"
+}
