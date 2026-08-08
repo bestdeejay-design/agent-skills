@@ -27,12 +27,13 @@
 - [x] `systematic-debugger` — hypothesis-driven debugging workflow (per `obra/superpowers`)
 - [x] Bootstrap pipeline: each new skill validated with `plan-skill` + `plan_validator.py`
 
-## 🔮 v1.2 — Visual & Docs
+## ✅ v1.2 — Visual & Docs (released 2026-08-08)
 
 - [x] `diagram-maker` — text → Mermaid → PNG/SVG (flowchart/sequence/ER/arch)
-- [ ] `mermaid-to-image` — `.mmd` → PNG/SVG renderer
-- [ ] `pdf-report-builder` — markdown → PDF reports
-- [ ] `video-script-writer` — structured video scripts (hook/body/CTA)
+- [x] `mermaid-to-image` — `.mmd` → PNG/SVG renderer (mmdc / mermaid.ink)
+- [x] `pdf-report-builder` — markdown → PDF reports (Chrome/weasyprint/pandoc)
+- [x] `video-script-writer` — structured video scripts (hook/body/CTA)
+- [x] Bootstrap: v1.2 спланирован и провалидирован через `plan-skill`
 
 ## 🚀 v1.3 — Data
 

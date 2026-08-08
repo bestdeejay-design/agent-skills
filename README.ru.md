@@ -27,12 +27,15 @@
 | [**commit-message-writer**](skills/commit-message-writer/SKILL.md) | `code` | Генерация Conventional Commits-сообщений на основе `git diff --staged`: тип по изменённым файлам, scope по путям, краткое описание, опциональный body. Скрипт `suggest.py` (Python 3) анализирует только застейдженные изменения, сам не коммитит. | `commit message`, `write commit`, `git commit`, `conventional commit`, `сообщение коммита`, `написать коммит`, `закоммитить` |
 | [**code-review**](skills/code-review/SKILL.md) | `code` | Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания `[severity] файл:строка` с предлагаемым исправлением. Только анализ — правки не вносит. | `code review`, `ревью кода`, `review PR`, `проверь код`, `pull request review`, `code quality`, `найти баги`, `review commit` |
 | [**diagram-maker**](skills/diagram-maker/SKILL.md) | `data` | Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — описание на естественном языке, выход — код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). | `диаграмма`, `diagram`, `mermaid`, `flowchart`, `блок-схема`, `sequence diagram`, `архитектура`, `ER-схема`, `draw a diagram` |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | `data` | Рендер Mermaid-диаграмм (.mmd) в PNG/SVG: приоритет локальному mmdc (mermaid-cli), fallback на API mermaid.ink; форматы svg/png, фон, масштаб, движок auto/mmdc/ink, файл или stdin. | `mermaid в картинку`, `отрендерить диаграмму`, `render diagram`, `диаграмма в svg`, `mermaid to image` |
+| [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | `media` | Сборка PDF-отчётов из Markdown: HTML через pandoc (или встроенный конвертер), PDF первым доступным движком — Chrome/Chromium headless, weasyprint или pandoc + PDF-движок. Таблицы/код/цитаты. | `отчёт в pdf`, `markdown в pdf`, `собери отчёт`, `pdf report`, `document to pdf` |
 | [**skill-suggester**](skills/skill-suggester/SKILL.md) | `code` | Подбор скиллов из библиотеки под задачу пользователя: какой скилл использовать, что выбрать, рекомендовать скилл, подобрать инструмент. Читает index.json, скорит триггеры и описания, выдаёт топ-5 с релевантностью и комбо до 3 скиллов. | `какой скилл использовать`, `подбор скилла`, `suggest skill`, `reкомендовать скилл`, `какой навык`, `which skill` |
 | [**api-doc-generator**](skills/api-doc-generator/SKILL.md) | `repository` | Генерация Markdown-документации REST API из OpenAPI-схемы (3.x, включая 3.1.0): секции на каждый endpoint с методом, path, параметрами, телом запроса и кодами ответов. FastAPI: `app.openapi()`; Express: swagger-jsdoc. | `api doc`, `документация API`, `openapi`, `swagger в markdown`, `api reference`, `описать API` |
 | [**changelog-generator**](skills/changelog-generator/SKILL.md) | `repository` | Генерация раздела CHANGELOG (Keep a Changelog) из git-истории по Conventional Commits: git log tag..HEAD, маппинг типов feat→Added/fix→Fixed/perf→Changed, breaking — в отдельную секцию. Python 3 stdlib. | `changelog`, `сгенерай чанжлог`, `release notes`, `история изменений`, `keep a changelog` |
 | [**plan-skill**](skills/plan-skill/SKILL.md) | `code` | Планирование реализации по superpowers v2: brainstorm → writing-plans → executing → verification; HARD-GATE, bite-sized шаги, no placeholders, интерфейсы Produces/Consumes. Скрипт `plan_validator.py` проверяет план на готовность к исполнению. | `спланируй`, `составь план`, `plan`, `как реализовать`, `разбей на шаги`, `план реализации` |
 | [**systematic-debugger**](skills/systematic-debugger/SKILL.md) | `code` | Отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags, Rationalization Table. Скилл фиксирует причину, не автофиксит. Скрипт `debug_log.py` оформляет отчёт по фазам. | `debug`, `отладить`, `почему не работает`, `баг`, `debugging`, `fix the bug` |
 | [**test-generator**](skills/test-generator/SKILL.md) | `code` | Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None): `@pytest.mark.parametrize`. Референс TS/Go. | `generate tests`, `сгенерируй тесты`, `test skeleton`, `pytest скелет`, `покрытие тестами` |
+| [**video-script-writer**](skills/video-script-writer/SKILL.md) | `media` | Генерация структурированных видео-сценариев из темы: Hook → Body (5 сцен: Problem/Basics/Walkthrough/Pitfalls/Pro tip) → CTA, таблица таймкодов, ru/en, свой CTA, полный сценарий или аутлайн. | `сценарий видео`, `video script`, `напиши сценарий`, `план видео`, `video outline` |
 
 ---
 
@@ -146,6 +149,14 @@ agent-skills/
     │   ├── scripts/mermaid_to_markdown.py
     │   ├── templates/ (flowchart.mmd, sequence.mmd, architecture.mmd, er.mmd)
     │   └── examples/ (example-cart-flow.mmd, example-billing-seq.mmd)
+    ├── mermaid-to-image/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/mermaid_to_image.py
+    ├── pdf-report-builder/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/pdf_report_builder.py
     └── skill-suggester/
         ├── SKILL.md
         ├── skill.json
@@ -168,10 +179,14 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/debug_log.py
-    └── test-generator/
+    ├── test-generator/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/test_gen.py
+    └── video-script-writer/
         ├── SKILL.md
         ├── skill.json
-        └── scripts/test_gen.py
+        └── scripts/video_script_writer.py
 ```
 
 ---

@@ -7,6 +7,28 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.2.0] - 2026-08-08
+
+### Added
+- **`mermaid-to-image`** — render `.mmd` diagrams to PNG/SVG
+  (`mermaid_to_image.py`): local `mmdc` (mermaid-cli) preferred, `mermaid.ink`
+  API fallback; `--engine auto/mmdc/ink`, `--bg`, `--scale`, file or stdin,
+  output file or stdout. Discovered & fixed mermaid.ink API quirks (PNG via
+  `/img/`, not `/png/`; 400 on `mermaid` payload for PNG; 400 on `scale` without
+  `width`/`height` — `--scale` applies to mmdc only; trailing `\n` in `.mmd`
+  breaks `/img/` for code with `{...}`/`|...|` — input is stripped).
+- **`pdf-report-builder`** — markdown → PDF reports (`pdf_report_builder.py`):
+  HTML via pandoc (or built-in converter), PDF via first available engine —
+  Chrome/Chromium/Edge headless `--print-to-pdf`, weasyprint, or pandoc with a
+  PDF engine (pdflatex/tectonic/typst); tables/code/quotes/links supported.
+- **`video-script-writer`** — structured video scripts from a topic
+  (`video_script_writer.py`): Hook → Body (5 scenes: Problem/Basics/Walkthrough/
+  Pitfalls/Pro tip) → CTA, timecodes table, ru/en, custom CTA, full or outline.
+- **v1.2 planned via bootstrap**: `docs/plans/v1.2-plan.md` passed
+  `plan_validator.py`; catalog (`index.json`) updated 14 → 17 entries;
+  README/README.ru skill tables and repo trees updated; `ROADMAP.md` v1.2
+  marked released.
+
 ## [Unreleased]
 
 ### Added

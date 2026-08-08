@@ -156,6 +156,64 @@
       "updated": "2026-08-07"
     },
     {
+      "name": "mermaid-to-image",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скрипт mermaid_to_image.py читает .mmd (файл или stdin) и отдаёт изображение: приоритет локальному mmdc (mermaid-cli), fallback на публичный API mermaid.ink. Поддерживает выбор формата (svg/png), фоновый цвет, масштаб PNG, движок рендера (auto/mmdc/ink), вывод в файл или stdout. Триггеры: 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'mermaid to image', 'render diagram', 'диаграмма в svg', 'схема в картинку'.",
+      "path": "skills/mermaid-to-image",
+      "triggers": [
+        "mermaid в картинку",
+        "отрендерить диаграмму",
+        ".mmd в png",
+        "mermaid в svg",
+        "render diagram",
+        "диаграмма в svg",
+        "схема в картинку",
+        "mermaid to image"
+      ],
+      "keywords": [
+        "mermaid",
+        "diagram",
+        "png",
+        "svg",
+        "render",
+        "visualization",
+        "flowchart",
+        "sequence-diagram",
+        "mmd"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "pdf-report-builder",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Сборка PDF-отчётов из Markdown без обязательных зависимостей. Скрипт pdf_report_builder.py конвертирует markdown (файл или stdin) в HTML (pandoc или встроенный конвертер) и далее в PDF первым доступным движком: Chromium/Chrome headless --print-to-pdf, weasyprint или pandoc с PDF-движком (pdflatex/tectonic/typst). Поддержка заголовков, списков, таблиц, кода, цитат, ссылок, кастомный заголовок документа. Триггеры: 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'pdf report', 'markdown to pdf', 'отчёт для клиента', 'document to pdf'.",
+      "path": "skills/pdf-report-builder",
+      "triggers": [
+        "отчёт в pdf",
+        "markdown в pdf",
+        "собери отчёт",
+        "сделай отчёт",
+        "pdf report",
+        "markdown to pdf",
+        "отчёт для клиента",
+        "document to pdf"
+      ],
+      "keywords": [
+        "pdf",
+        "report",
+        "markdown",
+        "export",
+        "document",
+        "weasyprint",
+        "pandoc",
+        "chromium",
+        "print"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
       "name": "plan-skill",
       "version": "1.0.0",
       "category": "code",
@@ -298,6 +356,33 @@
         "тестовые данные изображения"
       ],
       "updated": "2026-08-07"
+    },
+    {
+      "name": "video-script-writer",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Создание структурированного сценария видео из темы: Hook (захват внимания в первые секунды), Body (сцены с тайм-слотами: проблема, основы, разбор, ошибки, совет), CTA (призыв к действию). Скрипт video_script_writer.py генерирует markdown-сценарий с таймкодами, хронометражем (секунды), языком (ru/en), кастомным CTA, выбором полного сценария или outline. Триггеры: 'сценарий видео', 'video script', 'напиши сценарий', 'план видео', 'структура ролика', 'video outline', 'сценарий для youtube', 'план ролика'.",
+      "path": "skills/video-script-writer",
+      "triggers": [
+        "сценарий видео",
+        "video script",
+        "напиши сценарий",
+        "план видео",
+        "структура ролика",
+        "video outline",
+        "сценарий для youtube",
+        "план ролика"
+      ],
+      "keywords": [
+        "video",
+        "script",
+        "outline",
+        "youtube",
+        "hook",
+        "cta",
+        "screen-record"
+      ],
+      "updated": "2026-08-08"
     }
   ],
   "categories": {
