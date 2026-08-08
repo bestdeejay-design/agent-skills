@@ -15,6 +15,8 @@
 
 ## 📦 Skill Catalog
 
+> 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
+
 | Skill | Category | Description | Triggers |
 |-------|----------|-------------|----------|
 | [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR templates, social preview, releases, description, topics, GitHub Pages, community health. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy` |
@@ -72,6 +74,8 @@ agent-skills/
 ├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
 ├── FUNDING.yml                # Sponsor button
 ├── og-image.png               # Social preview (1280x640)
+├── docs/
+│   └── SKILLS_CATALOG.md      # Ecosystem catalog (vendors, formats, gaps)
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.yml     # Issue form (bug)
@@ -86,13 +90,17 @@ agent-skills/
     │   └── skill.json
     ├── test-graphics/
     │   ├── SKILL.md
-    │   └── skill.json
+    │   ├── skill.json
+    │   └── scripts/test-graphics.py
     ├── reddit-karma/
     │   ├── SKILL.md
     │   └── skill.json
     ├── presentation-maker/
     │   ├── SKILL.md
     │   ├── skill.json
+    │   ├── references/
+    │   │   ├── design-system.md
+    │   │   └── product-designer.md
     │   ├── scripts/
     │   │   ├── build_html.py
     │   │   ├── build_pptx.py

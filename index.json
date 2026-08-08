@@ -10,7 +10,7 @@
       "name": "github-repo-hygiene",
       "version": "1.1.0",
       "category": "repository",
-      "description": "Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, GitHub Pages, community health.",
+      "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes'.",
       "path": "skills/github-repo-hygiene",
       "triggers": [
         "github hygiene",
@@ -23,13 +23,16 @@
         "contributing",
         "license",
         "security policy",
+        "полностью оформить гитхаб",
+        "репозиторий готов к публикации",
+        "repo polish",
+        "github repo docs",
         "community health",
         "issue template",
         "pr template",
         "social preview",
         "релиз",
-        "release notes",
-        "репозиторий готов к публикации"
+        "release notes"
       ],
       "updated": "2026-08-07"
     },
@@ -37,7 +40,7 @@
       "name": "test-graphics",
       "version": "1.0.0",
       "category": "media",
-      "description": "Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide).",
+      "description": "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'.",
       "path": "skills/test-graphics",
       "triggers": [
         "test images",
@@ -46,7 +49,10 @@
         "иконки для теста",
         "заглушки",
         "mock data images",
-        "сгенерировать фото"
+        "сгенерировать фото",
+        "test data icons",
+        "заполнить картинками",
+        "тестовые данные изображения"
       ],
       "updated": "2026-08-07"
     },
@@ -54,7 +60,7 @@
       "name": "reddit-karma",
       "version": "1.0.0",
       "category": "social",
-      "description": "Работа на Reddit для набора кармы вашего аккаунта: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. Настройте никнейм, сабы и целевой ресурс под себя.",
+      "description": "Набор кармы на Reddit для вашего аккаунта — поиск тем, подготовка ответов, распознавание тона чужих комментариев, шаблоны благодарностей и регулярный забег по ресурсу. Персональный скилл: требует настройки под свой аккаунт (никнейм, сабы, журнал активности). Триггеры: 'reddit', 'карма', 'karma', 'r/LocalLLaMA', 'поднять карму', 'ответить на комментарии', 'забег по reddit', 'оставить след', 'благодарность за ответ'.",
       "path": "skills/reddit-karma",
       "triggers": [
         "reddit",
@@ -63,7 +69,9 @@
         "r/LocalLLaMA",
         "поднять карму",
         "ответить на комментарии",
-        "забег по reddit"
+        "забег по reddit",
+        "оставить след",
+        "благодарность за ответ"
       ],
       "updated": "2026-08-08"
     },
@@ -71,7 +79,7 @@
       "name": "presentation-maker",
       "version": "1.1.0",
       "category": "media",
-      "description": "Генератор презентаций: Markdown-аутлайн, HTML+CSS 16:9, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум).",
+      "description": "Создавай презентации из темы или промпта: структура-аутлайн, слайды 16:9 и готовый .pptx. Используй, когда нужна презентация, доклад, слайды для обучения или питча — как замену серчеру слайдов. Триггеры: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад', 'презентация для', 'сделай слайды по теме', 'generate slides', 'make a deck'.",
       "path": "skills/presentation-maker",
       "triggers": [
         "сделай презентацию",
@@ -80,6 +88,7 @@
         "pptx",
         "сделай доклад",
         "презентация для",
+        "сделай слайды по теме",
         "generate slides",
         "make a deck"
       ],
@@ -89,7 +98,7 @@
       "name": "docs-system",
       "version": "1.0.0",
       "category": "repository",
-      "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации.",
+      "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'.",
       "path": "skills/docs-system",
       "triggers": [
         "документация",
@@ -109,7 +118,7 @@
       "name": "commit-message-writer",
       "version": "1.0.0",
       "category": "code",
-      "description": "Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body. Скрипт suggest.py (Python 3), работает только с застейдженными изменениями, сам не коммитит.",
+      "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
       "path": "skills/commit-message-writer",
       "triggers": [
         "commit message",
@@ -127,7 +136,7 @@
       "name": "code-review",
       "version": "1.0.0",
       "category": "code",
-      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания [severity] файл:строка с предлагаемым исправлением.",
+      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
       "path": "skills/code-review",
       "triggers": [
         "code review",
@@ -139,7 +148,9 @@
         "замечания по коду",
         "найти баги",
         "review commit",
-        "проверь изменения"
+        "проверь изменения",
+        "review diff",
+        "ревью пул-реквеста"
       ],
       "updated": "2026-08-08"
     },
@@ -147,7 +158,7 @@
       "name": "diagram-maker",
       "version": "1.0.0",
       "category": "data",
-      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP).",
+      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
       "path": "skills/diagram-maker",
       "triggers": [
         "диаграмма",
@@ -169,7 +180,7 @@
       "name": "skill-suggester",
       "version": "1.0.0",
       "category": "code",
-      "description": "Подбор скиллов из библиотеки по задаче пользователя: какой скилл использовать, что выбрать, рекомендовать скилл. Читает index.json, скорит триггеры и описания, выдаёт топ-5 с релевантностью и комбо до 3 скиллов.",
+      "description": "Подбор скиллов из библиотеки по задаче пользователя. Триггеры: 'какой скилл использовать', 'что выбрать', 'рекомендовать скилл', 'suggest skill', 'подобрать инструмент', 'какой команды', 'подбор скилла', 'рекомендация скилла', 'какой навык применить'. Читает index.json, скорит триггеры и описания, возвращает топ-5 с релевантностью и комбо до 3 скиллов. Триггеры: 'какой скилл использовать', 'какой скилл', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'какой навык', 'подобрать инструмент', 'какой команды', 'какой skill', 'какой skill использовать', 'recommend a skill', 'which skill', 'подобрать навык'.",
       "path": "skills/skill-suggester",
       "triggers": [
         "какой скилл использовать",
@@ -182,8 +193,11 @@
         "какой навык",
         "подобрать инструмент",
         "какой команды",
+        "какой skill",
+        "какой skill использовать",
         "recommend a skill",
-        "which skill"
+        "which skill",
+        "подобрать навык"
       ],
       "updated": "2026-08-08"
     }

@@ -1,6 +1,11 @@
 ---
 name: diagram-maker
-description: "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram'."
+description: "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'."
+license: MIT
+metadata:
+  author: best
+  version: 1.1.0
+compatibility: "Requires Python3; optional mermaid-cli for rendering"
 ---
 
 # Diagram Maker — генерация диаграмм из текстового описания
@@ -190,7 +195,3 @@ erDiagram
 - Синтаксис flowchart: https://mermaid.js.org/syntax/flowchart.html
 - Синтаксис sequence: https://mermaid.js.org/syntax/sequenceDiagram.html
 - Синтаксис ER: https://mermaid.js.org/syntax/entityRelationshipDiagram.html
-
-## License
-
-MIT © bestdeejay-design

@@ -1,16 +1,41 @@
 {
   "name": "commit-message-writer",
   "version": "1.0.0",
-  "description": "Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
+  "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
   "author": "best",
   "license": "MIT",
-  "keywords": ["commit", "message", "conventional-commits", "git", "commitlint", "scope", "типы", "сообщение коммита", "коммит"],
-  "triggers": ["commit message", "write commit", "git commit", "conventional commit", "сообщение коммита", "написать коммит", "commit", "закоммитить"],
+  "keywords": [
+    "commit",
+    "message",
+    "conventional-commits",
+    "git",
+    "commitlint",
+    "scope",
+    "типы",
+    "сообщение коммита",
+    "коммит"
+  ],
+  "triggers": [
+    "commit message",
+    "write commit",
+    "git commit",
+    "conventional commit",
+    "сообщение коммита",
+    "написать коммит",
+    "commit",
+    "закоммитить"
+  ],
   "category": "code",
   "entrypoint": "SKILL.md",
-  "files": ["SKILL.md", "scripts/suggest.py"],
+  "files": [
+    "SKILL.md",
+    "scripts/suggest.py"
+  ],
   "requirements": {
-    "tools": ["git", "python3"],
+    "tools": [
+      "git",
+      "python3"
+    ],
     "script": "scripts/suggest.py"
   },
   "updated": "2026-08-08"

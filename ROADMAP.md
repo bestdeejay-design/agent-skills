@@ -23,6 +23,8 @@
 - [x] `code-review` — PR/diff review with checklists (security/perf/style/tests/docs)
 - [ ] `api-doc-generator` — FastAPI/Express → OpenAPI/Markdown
 - [ ] `test-generator` — AST-based unit test skeletons (pytest/jest/go)
+- [ ] `plan-skill` — DEFINE→PLAN→BUILD→VERIFY→REVIEW→SHIP lifecycle (per `obra/superpowers`)
+- [ ] `systematic-debugger` — hypothesis-driven debugging workflow (per `obra/superpowers`)
 
 ## 🔮 v1.2 — Visual & Docs
 
@@ -36,6 +38,13 @@
 - [ ] `sql-helper` — SQL generation, EXPLAIN analysis, formatting
 - [ ] `csv-pro` — CSV/Excel profiling, anomalies, visualization
 - [ ] `web-scraper` — polite scraping with legal guardrails
+- [ ] `data-analysis` — dataset profiling/anomalies/visualization (per `K-Dense-AI`,
+      `teng-lin/notebooklm-py`)
+
+## 🛡️ v1.4 — Security
+
+- [ ] `security-review` — dependency/linting security audit for a repo (per `trailofbits/skills`)
+- [ ] `secret-scanner` — detect leaked tokens/keys in a codebase (per `NVIDIA/SkillSpector`)
 
 ## 🌟 v2.0 — Ecosystem
 
@@ -43,6 +52,8 @@
 - [ ] CLI installer (`npx install-skill <name>` / `pip install agent-skills-cli`)
 - [ ] Skill templates repository (scaffold a new skill in one command)
 - [ ] Community showcase (`SHOWCASE.md` — how people use the skills)
+- [ ] `skills.sh.json` catalog — publish to the skills.sh registry (per `vercel-labs`)
+- [ ] Multi-harness packaging — convert skills to `.claude-plugin`/`.codex-plugin`/`.cursor-plugin` (per `obra/superpowers`)
 - [x] `skill-suggester` — auto-recommend a skill from task description
 - [ ] `task-decomposer`, `prompt-optimizer` — meta/agent skills
 
@@ -53,6 +64,10 @@
 - `pr-description-writer` — auto PR description from changeset
 - `release-notes` — tag-to-tag notes for release page
 - `code-explainer` — walk through an unfamiliar module for onboarding
+- `seo-basics` — On-page/GEO basics for new pages (per `coreyhaines31`, `AgriciDaniel`)
+- `pkm-obsidian` — export notes to Obsidian-compatible markdown (per `kepano/obsidian-skills`)
+- `career-builder` — resume/ATS optimization toolkit (per `Paramchoudhary/ResumeSkills`)
+- `mock-data-synth` — synthetic test data beyond images (rows/JSON/API fixtures)
 
 ## 🤝 Contributing
 

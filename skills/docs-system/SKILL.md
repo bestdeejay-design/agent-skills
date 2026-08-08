@@ -1,6 +1,11 @@
 ---
 name: docs-system
-description: "Guide for an AI agent on composing product and project documentation and its composition: what documents exist (catalog), why, and in what order to create them (fill order). Two branches — product docs (VISION/PRD/ROADMAP/FEATURES) and project docs (ARCHITECTURE/ADR/TEST_CASES/REFERENCE/map) — with templates and a completeness checklist. Use when starting a new repo, creating documentation from scratch, auditing existing docs, or when a project needs a documentation map. Triggers: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'."
+description: "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'."
+license: MIT
+metadata:
+  author: best
+  version: "1.0.0"
+compatibility: "No external tools required — pure Markdown guide with templates"
 ---
 
 # docs-system — Guide: product & project documentation
@@ -12,10 +17,6 @@ documentation and what belongs in it**. It answers two questions:
    and project docs (how).
 2. **In what order to create them** — the fill order, from an idea to a complete,
    consistent set.
-
-> **RU:** это гайд, как правильно составлять продуктовую и проектную документацию
-> и её состав: какие документы существуют (каталог) и в каком порядке их создавать
-> (порядок заполнения).
 
 ## Why this skill exists
 
@@ -43,6 +44,11 @@ delivery gate.
 - Auditing an existing project with missing/chaotic documentation.
 - Adding a feature or service and needing to know *which docs to update*.
 
+## Do not use
+
+- Do not use for a single README or one standalone document — the skill is a system
+  for a full documentation set, and a single file does not need the catalog/order.
+
 ## Two branches of documentation
 
 ### 1. Product docs — «why» and «what»
@@ -53,9 +59,6 @@ delivery gate.
 | `docs/PRD.md` | What exactly are we building? (requirements, priorities, metrics) | After VISION |
 | `docs/ROADMAP.md` | What ships when? (milestones + proof) | Phase 2+, each milestone |
 | `docs/FEATURES.md` | Feature catalog + status (✅/📋) | Phase 4, kept current |
-
-> **RU:** продуктовая ветка отвечает «зачем» и «что»: видение → требования → план →
-> каталог фич. Подробности — в `references/product-docs.md`.
 
 ### 2. Project docs — «how»
 
@@ -75,9 +78,6 @@ delivery gate.
 | `docs/REFERENCE.md` (L2+) | **The map** — written **last** | 10 |
 | `contracts/openapi/*`, `contracts/asyncapi/` | Machine truth, **before code** | 3 |
 | `AGENT.md`, `DELIVERY.md` (L2+) | Agent runbook + delivery gate | 8 |
-
-> **RU:** проектная ветка отвечает «как»: архитектура, решения, контракты, тесты,
-> гайды. Подробности — в `references/project-docs.md`.
 
 ## How to use this skill (TL;DR)
 
@@ -102,8 +102,6 @@ delivery gate.
 2. **The map comes last.** `REFERENCE.md` (the documentation map) is written last,
    because it describes everything above it. Writing it forces you to verify the
    whole set is consistent.
-
-> **RU:** два золотых правила: контракты — до кода; карта документации — последней.
 
 ## References index
 

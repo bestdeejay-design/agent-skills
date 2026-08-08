@@ -1,6 +1,11 @@
 ---
 name: test-graphics
-description: "Генерация тестовых изображений, фото, иконок, placeholders для проектов. Без претензий к качеству — только заполнить данные. Использует test-graphics.py (Python) + бесплатные API (loremflickr, placehold.co). Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'."
+description: "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'."
+license: MIT
+metadata:
+  author: best
+  version: "1.0.0"
+compatibility: "Requires Python 3 and Pillow"
 ---
 
 # Test Graphics — Генератор тестовых изображений
@@ -9,7 +14,8 @@ description: "Генерация тестовых изображений, фот
 
 ## Инструмент
 
-`test-graphics.py` — Python-скрипт в `~/.local/bin/`. Уже на PATH.
+`scripts/test-graphics.py` — Python-скрипт в папке скилла (относительный путь от корня скилла).
+Запуск: `python3 scripts/test-graphics.py ...`.
 Зависимости: Python 3, Pillow, requests (есть на системе).
 
 ## Команды
@@ -17,7 +23,7 @@ description: "Генерация тестовых изображений, фот
 ### Фото (настоящие, random)
 
 ```bash
-test-graphics.py photo [width] [height] [output]
+scripts/test-graphics.py photo [width] [height] [output]
 ```
 
 Источник: picsum.dev (1-й приоритет), loremflickr.com (fallback), placehold.co (цветной блок), Pillow-генерация (полный fallback).
@@ -25,31 +31,31 @@ test-graphics.py photo [width] [height] [output]
 Примеры:
 ```bash
 # Случайное фото 800x600
-test-graphics.py photo
+scripts/test-graphics.py photo
 
 # 200x150
-test-graphics.py photo 200 150
+scripts/test-graphics.py photo 200 150
 
 # В конкретный файл
-test-graphics.py photo 1920 1080 ./assets/hero.jpg
+scripts/test-graphics.py photo 1920 1080 ./assets/hero.jpg
 ```
 
 ### Placeholder (цветной блок с текстом)
 
 ```bash
-test-graphics.py placeholder <width> <height> [color] [text] [output]
+scripts/test-graphics.py placeholder <width> <height> [color] [text] [output]
 ```
 
 Примеры:
 ```bash
 # Базовый 800x600 со случайным цветом
-test-graphics.py placeholder
+scripts/test-graphics.py placeholder
 
 # 200×150 красный
-test-graphics.py placeholder 200 150 "#FF0000" "My Image"
+scripts/test-graphics.py placeholder 200 150 "#FF0000" "My Image"
 
 # Синий с текстом
-test-graphics.py placeholder 300 200 "#3498DB" "Hello"
+scripts/test-graphics.py placeholder 300 200 "#3498DB" "Hello"
 ```
 
 Цвета: `#RRGGBB`. Если текст содержит пробелы — в кавычки.
@@ -57,24 +63,24 @@ test-graphics.py placeholder 300 200 "#3498DB" "Hello"
 ### Иконка (SVG, встроенные 35 штук)
 
 ```bash
-test-graphics.py icon <name> [color] [size] [output]
+scripts/test-graphics.py icon <name> [color] [size] [output]
 ```
 
 Список всех иконок:
 ```bash
-test-graphics.py list-icons
+scripts/test-graphics.py list-icons
 ```
 
 Примеры:
 ```bash
 # Красная звезда 64×64
-test-graphics.py icon star "#E74C3C"
+scripts/test-graphics.py icon star "#E74C3C"
 
 # Синий дом 48×48
-test-graphics.py icon home "#3498DB" 48
+scripts/test-graphics.py icon home "#3498DB" 48
 
 # В папку
-test-graphics.py icon user "#2ECC71" 96 ./icons/user.svg
+scripts/test-graphics.py icon user "#2ECC71" 96 ./icons/user.svg
 ```
 
 Доступные имена: star, circle, square, triangle, heart, home, user, mail,
@@ -87,7 +93,7 @@ location, tag, cart, eye, lock, phone, chart, gift.
 Генерирует иконку-аватар по имени с настраиваемым фоном/цветом.
 
 ```bash
-test-graphics.py avatar <name> [--param value] [output]
+scripts/test-graphics.py avatar <name> [--param value] [output]
 ```
 
 Параметры (все опциональные, `--` перед значением):
@@ -107,40 +113,40 @@ test-graphics.py avatar <name> [--param value] [output]
 Примеры:
 ```bash
 # Стандартный аватар
-test-graphics.py avatar "John Doe"
+scripts/test-graphics.py avatar "John Doe"
 
 # Круглый красный на чёрном 128px
-test-graphics.py avatar "AB" --size 128 --background 000 --color ff0000 --rounded true
+scripts/test-graphics.py avatar "AB" --size 128 --background 000 --color ff0000 --rounded true
 
 # SVG формат
-test-graphics.py avatar "User" --size 200 --format svg ./icons/user-avatar.svg
+scripts/test-graphics.py avatar "User" --size 200 --format svg ./icons/user-avatar.svg
 ```
 
 ### Batch — пачка фото
 
 ```bash
-test-graphics.py batch-photos <count> [output_dir]
+scripts/test-graphics.py batch-photos <count> [output_dir]
 ```
 
-Пример: `test-graphics.py batch-photos 10 ./assets/photos/`
+Пример: `scripts/test-graphics.py batch-photos 10 ./assets/photos/`
 
 ### Batch — пачка иконок
 
 ```bash
-test-graphics.py batch-icons <count> [output_dir]
+scripts/test-graphics.py batch-icons <count> [output_dir]
 ```
 
-Пример: `test-graphics.py batch-icons 20 ./assets/icons/`
+Пример: `scripts/test-graphics.py batch-icons 20 ./assets/icons/`
 
 Иконки будут случайных цветов и размеров (32/48/64/96px).
 
 ### Скачать иконки из Lucide
 
 ```bash
-test-graphics.py download-icons <names> [output_dir]
+scripts/test-graphics.py download-icons <names> [output_dir]
 ```
 
-Пример: `test-graphics.py download-icons "star,heart,home,user,settings" ./icons/`
+Пример: `scripts/test-graphics.py download-icons "star,heart,home,user,settings" ./icons/`
 
 Загружает настоящие SVG из репозитория Lucide (MIT license).
 GitHub может rate-limit'ить — просто повтори позже для упавших.
@@ -148,10 +154,10 @@ GitHub может rate-limit'ить — просто повтори позже �
 ### Скачать одну иконку из Lucide
 
 ```bash
-test-graphics.py lucide <name> [output_dir]
+scripts/test-graphics.py lucide <name> [output_dir]
 ```
 
-Пример: `test-graphics.py lucide arrow-right ./icons/`
+Пример: `scripts/test-graphics.py lucide arrow-right ./icons/`
 
 ## Когда применять
 
@@ -163,9 +169,14 @@ test-graphics.py lucide <name> [output_dir]
 - Заполнить пустые alt-атрибуты
 - Графика для e2e-тестов (визуальные регрессии)
 
+## Do not use
+
+- Не используй для реальных продакшн-фото и контентной графики — это тестовые заглушки.
+- Не используй для брендированной графики клиента (логотипы, фирменные макеты) — здесь нужен дизайнер, а не генератор заглушек.
+
 ## Если не хватает иконок
 
-Список встроенных — `test-graphics.py list-icons` (35 штук).
+Список встроенных — `scripts/test-graphics.py list-icons` (35 штук).
 Если нужно что-то конкретное — `download-icons` из Lucide (4000+ иконок, MIT).
 
 ## Если фото не загружаются
@@ -182,7 +193,7 @@ test-graphics.py lucide <name> [output_dir]
 
 При загрузке этого скилла можно вызывать скрипт напрямую через bash:
 ```bash
-test-graphics.py photo 800 600 ./public/images/hero.jpg
+scripts/test-graphics.py photo 800 600 ./public/images/hero.jpg
 ```
 
 Агент (Sisyphus) координирует: определяет что нужно (фото/иконка/placeholder),

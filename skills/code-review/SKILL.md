@@ -1,6 +1,11 @@
 ---
 name: code-review
 description: "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'."
+license: MIT
+metadata:
+  author: best
+  version: 1.1.0
+compatibility: "Requires Python 3 stdlib; git for --repo mode"
 ---
 
 # Code Review
@@ -50,36 +55,36 @@ git diff HEAD > /tmp/pr.diff
 ### Шаг 2: запустить ревью
 
 ```bash
-python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff
+python3 scripts/review.py --diff /tmp/pr.diff
 ```
 
 Или напрямую из репозитория:
 
 ```bash
-python3 skills/code-review/scripts/review.py --repo /path/to/repo
+python3 scripts/review.py --repo /path/to/repo
 ```
 
 Или через stdin:
 
 ```bash
-git diff | python3 skills/code-review/scripts/review.py
+git diff | python3 scripts/review.py
 ```
 
 ### Шаг 3: отфильтровать и оформить
 
 ```bash
 # только critical/warning — то, что блокирует мерж
-python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff --severity critical,warning
+python3 scripts/review.py --diff /tmp/pr.diff --severity critical,warning
 
 # только security-категория
-python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff --category security
+python3 scripts/review.py --diff /tmp/pr.diff --category security
 
 # markdown-отчёт по шаблону для комментария в PR
-python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff \
-  --format markdown --template skills/code-review/templates/review-template.md
+python3 scripts/review.py --diff /tmp/pr.diff \
+  --format markdown --template templates/review-template.md
 
 # JSON-отчёт для автоматизации
-python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff --json
+python3 scripts/review.py --diff /tmp/pr.diff --json
 ```
 
 ## 📚 Examples
@@ -129,7 +134,3 @@ python3 skills/code-review/scripts/review.py --diff /tmp/pr.diff --json
 - Чек-лист правил: `scripts/checklists.py` — расширяй под свой стек (добавляй dict-правила).
 - Шаблон отчёта: `templates/review-template.md`.
 - Пример разбора PR: `examples/example-pr.md`.
-
-## 📜 License
-
-MIT © bestdeejay-design

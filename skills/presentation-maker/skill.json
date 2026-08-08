@@ -1,11 +1,30 @@
 {
   "name": "presentation-maker",
   "version": "1.1.0",
-  "description": "Генератор презентаций (аналог Presenton, локально): принимает промпт/тему и выдаёт (1) Markdown-аутлайн, (2) автономный HTML+CSS со слайдами 16:9, (3) настоящий .pptx через python-pptx. Автоматический выбор лейаутов, темы, палитры. Включает дизайн-систему (токены, mood, темы) и модуль «Продакт-дизайнер» (нарратив, визуализация данных, доступность, премиум-планка).",
+  "description": "Создавай презентации из темы или промпта: структура-аутлайн, слайды 16:9 и готовый .pptx. Используй, когда нужна презентация, доклад, слайды для обучения или питча — как замену серчеру слайдов. Триггеры: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад', 'презентация для', 'сделай слайды по теме', 'generate slides', 'make a deck'.",
   "author": "best",
   "license": "MIT",
-  "keywords": ["presentation", "slides", "pptx", "html", "markdown", "generator", "design-system", "product-design"],
-  "triggers": ["сделай презентацию", "presentation", "слайды", "pptx", "сделай доклад", "презентация для", "сделай слайды по теме", "generate slides", "make a deck"],
+  "keywords": [
+    "presentation",
+    "slides",
+    "pptx",
+    "html",
+    "markdown",
+    "generator",
+    "design-system",
+    "product-design"
+  ],
+  "triggers": [
+    "сделай презентацию",
+    "presentation",
+    "слайды",
+    "pptx",
+    "сделай доклад",
+    "презентация для",
+    "сделай слайды по теме",
+    "generate slides",
+    "make a deck"
+  ],
   "category": "media",
   "entrypoint": "SKILL.md",
   "files": [
@@ -15,11 +34,20 @@
     "scripts/verify_slides.py",
     "templates/slides.html",
     "templates/themes/*.json",
-    "templates/icons/*.svg"
+    "templates/icons/*.svg",
+    "references/design-system.md",
+    "references/product-designer.md"
   ],
   "requirements": {
-    "tools": ["python3", "python-pptx"],
-    "fonts": ["Inter", "Outfit", "Satoshi"]
+    "tools": [
+      "python3",
+      "python-pptx"
+    ],
+    "fonts": [
+      "Inter",
+      "Outfit",
+      "Satoshi"
+    ]
   },
   "updated": "2026-08-07"
 }

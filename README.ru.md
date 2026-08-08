@@ -15,6 +15,8 @@
 
 ## 📦 Каталог скиллов
 
+> 📚 Карта экосистемы: см. [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — каталог экосистемы AI agent skills (официальные вендоры, форматы, стандарты, ~4.85M файлов SKILL.md, пробелы и рекомендации).
+
 | Скилл | Категория | Описание | Триггеры |
 |-------|-----------|----------|----------|
 | [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, социальное превью, релизы, description, topics, GitHub Pages, community health. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy` |
@@ -72,6 +74,8 @@ agent-skills/
 ├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
 ├── FUNDING.yml                # Кнопка Sponsor
 ├── og-image.png               # Социальное превью (1280x640)
+├── docs/
+│   └── SKILLS_CATALOG.md      # Каталог экосистемы (вендоры, форматы, пробелы)
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.yml     # Форма issue (баг)
@@ -86,13 +90,17 @@ agent-skills/
     │   └── skill.json
     ├── test-graphics/
     │   ├── SKILL.md
-    │   └── skill.json
+    │   ├── skill.json
+    │   └── scripts/test-graphics.py
     ├── reddit-karma/
     │   ├── SKILL.md
     │   └── skill.json
     ├── presentation-maker/
     │   ├── SKILL.md
     │   ├── skill.json
+    │   ├── references/
+    │   │   ├── design-system.md
+    │   │   └── product-designer.md
     │   ├── scripts/
     │   │   ├── build_html.py
     │   │   ├── build_pptx.py

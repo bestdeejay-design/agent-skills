@@ -10,6 +10,11 @@ not the internal version bumps of individual skills.
 ## [Unreleased]
 
 ### Added
+- **`docs/SKILLS_CATALOG.md`** — ecosystem catalog: 11 domains, 15 benchmark
+  vendor libraries, formats/standards, 8 trends, coverage gaps, 8 roadmap
+  recommendations (from two research passes: ecosystem map + skills audit).
+- `license: MIT`, `metadata` (author/version) and `compatibility` fields in
+  the frontmatter of all 9 `SKILL.md` manifests.
 - Product documentation branch and 3 product templates (VISION/PRD/ROADMAP) to
   `docs-system`.
 - **`commit-message-writer`** — Conventional Commits messages from
@@ -28,6 +33,17 @@ not the internal version bumps of individual skills.
   README/README.ru skill tables and repo tree updated (9 skills).
 
 ### Changed
+- **Enriched all 9 skills** per the ecosystem audit: descriptions rewritten in
+  imperative voice with "When to use / Do NOT use" sections (where relevant),
+  internal paths switched to relative (`scripts/...`, `references/...`),
+  emoji removed from `SKILL.md` prose. `presentation-maker` slimmed from 379 →
+  253 lines by extracting `references/design-system.md` and
+  `references/product-designer.md`; `test-graphics` now bundles
+  `scripts/test-graphics.py` (declared via `requirements.script`).
+- **Fixed metadata drift**: triggers and descriptions were inconsistent across
+  `SKILL.md` ↔ `skill.json` ↔ `index.json` in 7 of 9 skills; synchronized all
+  three sources to the `SKILL.md` frontmatter as the canonical definition
+  (9/9 verified identical, validator green).
 - Restructured `docs-system` as a product-vs-project documentation guide
   (catalog split into `product-docs.md` / `project-docs.md`).
 - **De-personalized `reddit-karma`**: removed the owner's username,

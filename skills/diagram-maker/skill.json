@@ -1,11 +1,37 @@
 {
   "name": "diagram-maker",
   "version": "1.0.0",
-  "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP).",
+  "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
   "author": "best",
   "license": "MIT",
-  "keywords": ["diagram", "diagrams", "mermaid", "flowchart", "sequence", "architecture", "entity-relationship", "er", "visualization", "diagram-as-code", "блок-схема", "схема"],
-  "triggers": ["диаграмма", "diagram", "mermaid", "flowchart", "блок-схема", "sequence diagram", "архитектура", "ER-схема", "нарисуй схему", "draw a diagram", "схема", "architecture diagram"],
+  "keywords": [
+    "diagram",
+    "diagrams",
+    "mermaid",
+    "flowchart",
+    "sequence",
+    "architecture",
+    "entity-relationship",
+    "er",
+    "visualization",
+    "diagram-as-code",
+    "блок-схема",
+    "схема"
+  ],
+  "triggers": [
+    "диаграмма",
+    "diagram",
+    "mermaid",
+    "flowchart",
+    "блок-схема",
+    "sequence diagram",
+    "архитектура",
+    "ER-схема",
+    "нарисуй схему",
+    "draw a diagram",
+    "схема",
+    "architecture diagram"
+  ],
   "category": "data",
   "entrypoint": "SKILL.md",
   "files": [
@@ -19,7 +45,9 @@
     "examples/example-billing-seq.mmd"
   ],
   "requirements": {
-    "tools": ["python3"],
+    "tools": [
+      "python3"
+    ],
     "script": "scripts/mermaid_to_markdown.py"
   },
   "updated": "2026-08-08"

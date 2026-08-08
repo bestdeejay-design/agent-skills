@@ -1,16 +1,48 @@
 {
   "name": "code-review",
   "version": "1.0.0",
-  "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания [severity] файл:строка с предлагаемым исправлением. Скрипт review.py (Python 3 stdlib), чек-лист в checklists.py, шаблон отчёта для GH PR comment. Скилл только анализирует и комментирует, правки не вносит.",
+  "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
   "author": "best",
   "license": "MIT",
-  "keywords": ["code-review", "review", "pr", "pull-request", "diff", "checklist", "quality", "bugs", "security", "ревью"],
-  "triggers": ["code review", "ревью кода", "review PR", "проверь код", "pull request review", "code quality", "замечания по коду", "найти баги", "review commit", "проверь изменения"],
+  "keywords": [
+    "code-review",
+    "review",
+    "pr",
+    "pull-request",
+    "diff",
+    "checklist",
+    "quality",
+    "bugs",
+    "security",
+    "ревью"
+  ],
+  "triggers": [
+    "code review",
+    "ревью кода",
+    "review PR",
+    "проверь код",
+    "pull request review",
+    "code quality",
+    "замечания по коду",
+    "найти баги",
+    "review commit",
+    "проверь изменения",
+    "review diff",
+    "ревью пул-реквеста"
+  ],
   "category": "code",
   "entrypoint": "SKILL.md",
-  "files": ["SKILL.md", "scripts/review.py", "scripts/checklists.py", "templates/review-template.md", "examples/example-pr.md"],
+  "files": [
+    "SKILL.md",
+    "scripts/review.py",
+    "scripts/checklists.py",
+    "templates/review-template.md",
+    "examples/example-pr.md"
+  ],
   "requirements": {
-    "tools": ["python3"],
+    "tools": [
+      "python3"
+    ],
     "script": "scripts/review.py"
   },
   "updated": "2026-08-08"

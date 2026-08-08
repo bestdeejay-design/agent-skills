@@ -1,6 +1,11 @@
 ---
 name: github-repo-hygiene
-description: "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN + RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs'."
+description: "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes'."
+license: MIT
+metadata:
+  author: best
+  version: "1.1.0"
+compatibility: "Requires gh CLI and network access to api.github.com"
 ---
 
 # GitHub Repo Hygiene — оформление и поддержание описательной части репозитория
@@ -14,6 +19,13 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
 Чтобы страница репозитория на GitHub всегда отражала **актуальное состояние** проекта:
 не отставала после мажорных изменений (новые сервисы, фичи, саги, смена стека) и была
 полноценной (Чек-лист GitHub «Community Standards» закрыт на 100%).
+
+## Do not use
+
+- Не используй этот скилл, когда README и описательная часть уже актуальны, а
+  пользователь не просил изменений — не «улучшай» без запроса.
+- Для одного точечного фикса (например, только обновить один бейдж) скилл не нужен —
+  делай правку напрямую, без загрузки скилла.
 
 ## Обязательные / желательные файлы репозитория
 
