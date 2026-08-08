@@ -1,0 +1,21 @@
+%% Шаблон architecture (схема архитектуры сервисов)
+%% Реализуется через flowchart с subgraph — группировка по слоям/доменам
+%% Стилизация: style Node fill:#f9f,stroke:#333,stroke-width:2px
+flowchart LR
+    subgraph Frontend
+        Web[Web-клиент]
+    end
+    subgraph Backend
+        API[API Gateway]
+        Svc1[Сервис 1]
+        Svc2[Сервис 2]
+    end
+    subgraph Data
+        DB[(База данных)]
+        Cache[(Кэш)]
+    end
+    Web --> API
+    API --> Svc1
+    API --> Svc2
+    Svc1 --> DB
+    Svc2 --> Cache

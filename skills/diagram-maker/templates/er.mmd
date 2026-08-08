@@ -1,0 +1,29 @@
+%% Шаблон ER (диаграмма сущностей и связей)
+%% Кардинальность: |o (ноль), o| (один), || (ровно один), }o (ноль и более), }| (один и более)
+%% Синтаксис связи: ENTITY_A ||--o{ ENTITY_B : "описание связи"
+%% Атрибуты: int id PK (primary key), FK (foreign key), string, date, decimal
+erDiagram
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
+    USER {
+        int id PK
+        string name
+        string email
+    }
+    ORDER {
+        int id PK
+        int user_id FK
+        date created_at
+    }
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+    PRODUCT {
+        int id PK
+        string title
+        decimal price
+    }

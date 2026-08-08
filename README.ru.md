@@ -3,10 +3,10 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
+[![Skills: 9](https://img.shields.io/badge/Skills-9-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--08-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
@@ -21,7 +21,11 @@
 | [**test-graphics**](skills/test-graphics) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma) | `social` | Систематическая работа на Reddit для набора кармы вашего аккаунта: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. Настройте никнейм, сабы и целевой ресурс под себя. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
-| [**docs-system**](skills/docs-system) | `repository` | Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. | `документация`, `каталог документов`, `набор документации`, `полная документация`, `documentation`, `docs catalog`, `documentation structure`, `docs for new project` |
+| [**docs-system**](skills/docs-system) | `repository` | Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблонöи, чек-лист полноты, уровни L1/L2/L3 для больших систем. | `документация`, `каталог документов`, `набор документации`, `полная документация`, `documentation`, `docs catalog`, `documentation structure`, `docs for new project` |
+| [**commit-message-writer**](skills/commit-message-writer) | `code` | Генерация Conventional Commits-сообщений на основе `git diff --staged`: тип по изменённым файлам, scope по путям, краткое описание, опциональный body. Скрипт `suggest.py` (Python 3) анализирует только застейдженные изменения, сам не коммитит. | `commit message`, `write commit`, `git commit`, `conventional commit`, `сообщение коммита`, `написать коммит`, `закоммитить` |
+| [**code-review**](skills/code-review) | `code` | Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания `[severity] файл:строка` с предлагаемым исправлением. Только анализ — правки не вносит. | `code review`, `ревью кода`, `review PR`, `проверь код`, `pull request review`, `code quality`, `найти баги`, `review commit` |
+| [**diagram-maker**](skills/diagram-maker) | `data` | Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — описание на естественном языке, выход — код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). | `диаграмма`, `diagram`, `mermaid`, `flowchart`, `блок-схема`, `sequence diagram`, `архитектура`, `ER-схема`, `draw a diagram` |
+| [**skill-suggester**](skills/skill-suggester) | `code` | Подбор скиллов из библиотеки под задачу пользователя: какой скилл использовать, что выбрать, рекомендовать скилл, подобрать инструмент. Читает index.json, скорит триггеры и описания, выдаёт топ-5 с релевантностью и комбо до 3 скиллов. | `какой скилл использовать`, `подбор скилла`, `suggest skill`, `reкомендовать скилл`, `какой навык`, `which skill` |
 
 ---
 
@@ -111,6 +115,28 @@ agent-skills/
         │   ├── product/   (VISION.tmpl, PRD.tmpl, ROADMAP.tmpl)
         │   └── project/   (14 *.tmpl)
         └── examples/example-monorepo/README.md
+    ├── commit-message-writer/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/suggest.py
+    ├── code-review/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/
+    │   │   ├── review.py
+    │   │   └── checklists.py
+    │   ├── templates/review-template.md
+    │   └── examples/example-pr.md
+    ├── diagram-maker/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/mermaid_to_markdown.py
+    │   ├── templates/ (flowchart.mmd, sequence.mmd, architecture.mmd, er.mmd)
+    │   └── examples/ (example-cart-flow.mmd, example-billing-seq.mmd)
+    └── skill-suggester/
+        ├── SKILL.md
+        ├── skill.json
+        └── scripts/skill_suggest.py
 ```
 
 ---

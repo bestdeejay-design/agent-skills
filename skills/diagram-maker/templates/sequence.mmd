@@ -1,0 +1,12 @@
+%% Шаблон sequence (диаграмма последовательности)
+%% Участники объявляются через participant (или alias: participant A as Имя)
+%% Сообщения: -> (синхронный вызов), --> (ответ), ->> (запрос), -->> (ответ)
+%% Блоки: activate/deactivate, Note over A, alt/else, loop
+sequenceDiagram
+    participant U as Пользователь
+    participant S as Сервис
+    participant D as База данных
+    U->>S: Запрос
+    S->>D: SQL-запрос
+    D-->>S: Результат
+    S-->>U: Ответ

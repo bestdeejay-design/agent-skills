@@ -12,6 +12,20 @@ not the internal version bumps of individual skills.
 ### Added
 - Product documentation branch and 3 product templates (VISION/PRD/ROADMAP) to
   `docs-system`.
+- **`commit-message-writer`** — Conventional Commits messages from
+  `git diff --staged` (`suggest.py`): type/scope inference, breaking-change
+  detection, optional gitmoji; analyzes staged changes only, never commits.
+- **`code-review`** — structured PR/diff review (`review.py` + `checklists.py`):
+  categories correctness/security/performance/style/tests/edge-cases, output
+  `[severity] file:line` findings with suggested fixes; GH PR comment template.
+- **`diagram-maker`** — text → Mermaid diagrams: flowchart/sequence/architecture/ER
+  (`mermaid_to_markdown.py` + 4 templates + 2 examples).
+- **`skill-suggester`** — recommends a skill from `index.json` for a task
+  (`skill_suggest.py`): trigger (weight 3) + description (weight 1) scoring,
+  top-5 output, combo chains up to 3 skills.
+- `ROADMAP.md` — living roadmap (v1.0 released, v1.1–v2.0 planned).
+- Catalog (`index.json`) version bumped to 1.1.0 with the 4 new entries;
+  README/README.ru skill tables and repo tree updated (9 skills).
 
 ### Changed
 - Restructured `docs-system` as a product-vs-project documentation guide

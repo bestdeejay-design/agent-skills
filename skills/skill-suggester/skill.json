@@ -1,0 +1,17 @@
+{
+  "name": "skill-suggester",
+  "version": "1.0.0",
+  "description": "Подбор скиллов из библиотеки по задаче пользователя: какой скилл использовать, что выбрать, рекомендовать скилл, suggest skill, подобрать инструмент, какой команды. Читает index.json, скорит триггеры (вес 3) и описания (вес 1), выдаёт топ-5 с релевантностью и комбо до 3 скиллов.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["skill", "suggester", "recommendation", "recommend", "skills", "подбор", "рекомендация", "catalog", "triggers", "combo", "каталог скиллов"],
+  "triggers": ["какой скилл использовать", "какой скилл", "подбор скилла", "подобрать скилл", "skill suggestion", "suggest skill", "рекомендовать скилл", "какой навык", "подобрать инструмент", "какой команды", "какой skill", "какой skill использовать", "recommend a skill", "which skill", "подобрать навык"],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "scripts/skill_suggest.py"],
+  "requirements": {
+    "tools": ["python3"],
+    "script": "scripts/skill_suggest.py"
+  },
+  "updated": "2026-08-08"
+}

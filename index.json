@@ -1,7 +1,7 @@
 {
   "name": "agent-skills",
   "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "best",
   "license": "MIT",
   "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -104,6 +104,88 @@
         "системная документация"
       ],
       "updated": "2026-08-07"
+    },
+    {
+      "name": "commit-message-writer",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body. Скрипт suggest.py (Python 3), работает только с застейдженными изменениями, сам не коммитит.",
+      "path": "skills/commit-message-writer",
+      "triggers": [
+        "commit message",
+        "write commit",
+        "git commit",
+        "conventional commit",
+        "сообщение коммита",
+        "написать коммит",
+        "commit",
+        "закоммитить"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "code-review",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания [severity] файл:строка с предлагаемым исправлением.",
+      "path": "skills/code-review",
+      "triggers": [
+        "code review",
+        "ревью кода",
+        "review PR",
+        "проверь код",
+        "pull request review",
+        "code quality",
+        "замечания по коду",
+        "найти баги",
+        "review commit",
+        "проверь изменения"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "diagram-maker",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP).",
+      "path": "skills/diagram-maker",
+      "triggers": [
+        "диаграмма",
+        "diagram",
+        "mermaid",
+        "flowchart",
+        "блок-схема",
+        "sequence diagram",
+        "архитектура",
+        "ER-схема",
+        "нарисуй схему",
+        "draw a diagram",
+        "схема",
+        "architecture diagram"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "skill-suggester",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Подбор скиллов из библиотеки по задаче пользователя: какой скилл использовать, что выбрать, рекомендовать скилл. Читает index.json, скорит триггеры и описания, выдаёт топ-5 с релевантностью и комбо до 3 скиллов.",
+      "path": "skills/skill-suggester",
+      "triggers": [
+        "какой скилл использовать",
+        "какой скилл",
+        "подбор скилла",
+        "подобрать скилл",
+        "skill suggestion",
+        "suggest skill",
+        "рекомендовать скилл",
+        "какой навык",
+        "подобрать инструмент",
+        "какой команды",
+        "recommend a skill",
+        "which skill"
+      ],
+      "updated": "2026-08-08"
     }
   ],
   "categories": {
@@ -117,5 +199,5 @@
     "opencode": "Скопируйте нужную папку скилла в ~/.config/opencode/skills/ или укажите путь при загрузке через skill tool.",
     "manual": "Каждый скилл — папка с SKILL.md (инструкция) и skill.json (манифест). Загружайте в агент по необходимости."
   },
-  "updated": "2026-08-07"
+  "updated": "2026-08-08"
 }

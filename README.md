@@ -3,10 +3,10 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 5](https://img.shields.io/badge/Skills-5-blue.svg)](index.json)
+[![Skills: 9](https://img.shields.io/badge/Skills-9-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--07-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--08-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
@@ -22,6 +22,10 @@
 | [**reddit-karma**](skills/reddit-karma) | `social` | Systematic Reddit karma building for your account: topic search, response drafting, tone detection, thank-you templates, routine runs. Configure your username, subreddits and target resource. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
 | [**presentation-maker**](skills/presentation-maker) | `media` | Presentation generator: Markdown outline, HTML 16:9 slides, .pptx via python-pptx. Auto-layouts, themes, design-system (tokens, mood), product-design module (narrative, data-viz, a11y, premium). | `make presentation`, `presentation`, `slides`, `pptx`, `make deck`, `generate slides` |
 | [**docs-system**](skills/docs-system) | `repository` | Guide for an AI agent: how to compose product and project documentation and its composition. Product branch (VISION/PRD/ROADMAP/FEATURES) + project branch (ARCHITECTURE/ADR/contracts/TEST_CASES/REFERENCE map), fill order (phases), templates, completeness checklist, levels L1/L2/L3 for large systems. | `documentation`, `docs catalog`, `documentation structure`, `docs for new project`, `documentation plan`, `документация`, `каталог документов` |
+| [**commit-message-writer**](skills/commit-message-writer) | `code` | Generates Conventional Commits messages from `git diff --staged`: type inferred from changed files, scope from paths, short summary, optional body. `suggest.py` (Python 3) only analyzes staged changes, never commits. | `commit message`, `write commit`, `git commit`, `conventional commit`, `[сообщение коммита]`, `[написать коммит]`, `[закоммитить]` |
+| [**code-review**](skills/code-review) | `code` | Structured code review: reads a git diff or path to repo/file, applies checklists by category (correctness, security, performance, style, tests, edge cases) and emits `[severity] file:line` findings with suggested fixes. Analysis only — makes no edits. | `code review`, `[ревью кода]`, `review PR`, `[проверь код]`, `pull request review`, `code quality`, `[найти баги]`, `review commit` |
+| [**diagram-maker**](skills/diagram-maker) | `data` | Generates diagrams from a text description: flowchart, sequence, architecture, ER — in Mermaid syntax. Input: natural language; output: Mermaid code + rendering recommendation (mermaid.live / mermaid-cli / MCP). | `diagram`, `mermaid`, `flowchart`, `[диаграмма]`, `sequence diagram`, `[архитектура]`, `[ER-схема]`, `draw a diagram` |
+| [**skill-suggester**](skills/skill-suggester) | `code` | Recommends a skill from the library for a user task: reads `index.json`, scores triggers and descriptions, returns top-5 with relevance plus combos of up to 3 skills. | `which skill`, `[какой скилл использовать]`, `suggest skill`, `[подбор скилла]`, `[рекомендовать скилл]`, `[какой навык]` |
 
 ---
 
@@ -111,6 +115,28 @@ agent-skills/
         │   ├── product/   (VISION.tmpl, PRD.tmpl, ROADMAP.tmpl)
         │   └── project/   (14 *.tmpl)
         └── examples/example-monorepo/README.md
+    ├── commit-message-writer/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/suggest.py
+    ├── code-review/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/
+    │   │   ├── review.py
+    │   │   └── checklists.py
+    │   ├── templates/review-template.md
+    │   └── examples/example-pr.md
+    ├── diagram-maker/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── scripts/mermaid_to_markdown.py
+    │   ├── templates/ (flowchart.mmd, sequence.mmd, architecture.mmd, er.mmd)
+    │   └── examples/ (example-cart-flow.mmd, example-billing-seq.mmd)
+    └── skill-suggester/
+        ├── SKILL.md
+        ├── skill.json
+        └── scripts/skill_suggest.py
 ```
 
 ---
