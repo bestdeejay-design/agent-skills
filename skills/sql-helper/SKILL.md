@@ -32,6 +32,19 @@ Do NOT use when:
 
 - `SKILL.md` — этот файл
 - `scripts/sql_helper.py` — генератор SQL + EXPLAIN (Python 3 stdlib)
+- `references/canonical-patterns.md` — канонические аналоги text-to-SQL и разбор недостающих техник
+
+## Canonical analogues
+
+Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны, на которые
+опирается дизайн скилла:
+
+- **Anthropic Cookbook `capabilities/text_to_sql`** — эталон интроспекции схемы (sqlite_master + PRAGMA table_info) и execution-based валидации через promptfoo-ассерты.
+- **sqlsure / sql-semantic-check** — семантические правила FANOUT/JOIN_KEY/ADDITIVITY и интроспекция PK/FK вместо эвристик join.
+- **Vanna.ai** — контур train → retrieve (few-shot) → generate_sql → run_sql → verify.
+- **Spider / BIRD / Spider 2.0** — методология оценки: exact match, execution accuracy, validity + efficiency; schema linking как первый этап.
+- **sqlite-utils + SQLGlot** — CLI-интроспекция (`schema`, `analyze`, `memory`) и квотинг идентификаторов (`quote_identifiers`).
+- **grok-sqlite-explain** — построение дерева EXPLAIN по ссылкам `parent`, а не по `id`.
 
 ## 🧰 Usage
 

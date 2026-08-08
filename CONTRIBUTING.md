@@ -12,9 +12,10 @@
    - `SKILL.md` — полная инструкция для агента (на английском — основной язык, русский по желанию; с YAML-фронтматтером `name`, `description`)
    - `skill.json` — манифест (см. схему ниже)
 4. **При необходимости** добавьте скрипты/шаблоны в подпапки (`scripts/`, `templates/`, `icons/`)
-5. **Обновите `index.json`** — добавьте запись в массив `skills[]` с полями: `name`, `version`, `category`, `description`, `path`, `triggers`, `updated`
-6. **Проверьте**: `python3 -m json.tool index.json >/dev/null` (валидный JSON)
-7. **Откройте PR** с описанием: что делает скилл, триггеры, требования
+5. **Обогатите скилл каноническими паттернами**: найдите 3-6 аналогов у канонических авторов (Anthropic skills, obra/superpowers, vercel-labs/skills, trailofbits/skills, NVIDIA SkillSpector и др.) и добавьте `references/canonical-patterns.md` — список аналогов с URL, техники, которых не хватает текущей реализации, и примеры использования. Создайте скилл с учётом найденных паттернов.
+6. **Обновите `index.json`** — добавьте запись в массив `skills[]` с полями: `name`, `version`, `category`, `description`, `path`, `triggers`, `updated`
+7. **Проверьте**: `python3 -m json.tool index.json >/dev/null` (валидный JSON)
+8. **Откройте PR** с описанием: что делает скилл, триггеры, требования
 
 ### 2. Обновление существующего скилла
 

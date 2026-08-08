@@ -28,7 +28,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/scrape.py"
+    "scripts/scrape.py",
+    "references/canonical-patterns.md"
   ],
   "requirements": {
     "tools": [

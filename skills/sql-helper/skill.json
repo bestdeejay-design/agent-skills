@@ -29,7 +29,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/sql_helper.py"
+    "scripts/sql_helper.py",
+    "references/canonical-patterns.md"
   ],
   "requirements": {
     "tools": [

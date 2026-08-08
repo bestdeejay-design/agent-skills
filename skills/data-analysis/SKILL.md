@@ -33,6 +33,18 @@ Do NOT use when:
 
 - `SKILL.md` — этот файл
 - `scripts/data_analyze.py` — профилировщик датасета (Python 3 stdlib)
+- `references/canonical-patterns.md` — эталонные EDA-паттерны канонических инструментов
+
+## Canonical analogues
+
+Эталонные EDA-паттерны и gap-анализ скрипта против канонических инструментов —
+в `references/canonical-patterns.md`. Топ-аналоги:
+
+- **ydata-profiling** — эталонная структура отчёта (Overview/Alerts/Variables/Correlations/Missing/Sample) и алерты качества с порогами.
+- **sweetviz** — целевой анализ (target_feat) и mixed-type ассоциации (uncertainty coefficient, correlation ratio).
+- **DuckDB SUMMARIZE** — профилирование одной SQL-командой: min/max/approx_unique/avg/std/q25/q50/q75/null_percentage.
+- **D-Tale** — интерактивный GUI: Describe, Outlier Detection, Duplicates, Missing Analysis, Predictive Power Score.
+- **skimr / DataExplorer (R)** — консольное профилирование по типам и метрики introduce() (memory_usage, complete_rows).
 
 ## 🧰 Usage
 

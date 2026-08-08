@@ -28,6 +28,7 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
+    "references/canonical-patterns.md",
     "scripts/csv_pro.py"
   ],
   "requirements": {

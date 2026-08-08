@@ -28,7 +28,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/data_analyze.py"
+    "scripts/data_analyze.py",
+    "references/canonical-patterns.md"
   ],
   "requirements": {
     "category": "data",

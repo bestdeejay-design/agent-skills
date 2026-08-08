@@ -76,3 +76,14 @@ python3 skills/web-scraper/scripts/scrape.py --url https://example.com --selecto
 - JSON: валидный JSON с ключами `title`, `url`, `matched`, `items[]` (`text`, `href`).
 - При ошибке сети/robots скрипт пишет причину в stderr и завершается с кодом 2
   (или 3 при запрете robots.txt), без traceback в stdout.
+
+## Canonical analogues
+
+Канонические аналоги, недостающие техники (Retry-After, backoff + jitter, crawl-delay, rate-limit заголовки, условные запросы) и CLI-примеры — в [references/canonical-patterns.md](references/canonical-patterns.md). Топ:
+
+- **MCP Fetch Server** (modelcontextprotocol/servers) — эталон «URL → Markdown»: robots.txt по умолчанию, честный UA, лимит размера.
+- **Scrapy** — эталон вежливости: RobotsTxtMiddleware, AutoThrottle (адаптивная задержка), ретраи на 408/429/5xx.
+- **Crawlee** (Apify) — `respect_robots_txt_file=True`, ретраи с backoff, autoscaling, ротация прокси.
+- **Playwright** — браузерное извлечение: locator API, `text_content()`, `page.content()`.
+- **Trafilatura** — ближайший по назначению аналог: CLI HTML → Markdown/JSON.
+- **Mozilla Readability** — канонический алгоритм извлечения основного контента статьи.

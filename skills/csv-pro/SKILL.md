@@ -49,6 +49,17 @@ cat data.csv | python3 csv_pro.py --stdin
 python3 csv_pro.py --input data.csv --delimiter ';'
 ```
 
+## Canonical analogues
+
+Полный справочник канонических паттернов — `references/canonical-patterns.md`.
+Топ-аналоги и их takeaways:
+
+- **ydata-profiling** — эталонный набор метрик (skewness, kurtosis, quantiles, MAD, infinite counters) и 18 типов алертов.
+- **csvkit csvstat** — CLI-эталон: `csvstat data.csv --json`, метрики `len` и `maxprecision`.
+- **DuckDB SUMMARIZE** — SQL-профиль с approx-квантилями и `null_percentage`.
+- **Great Expectations** — словарь проверяемых утверждений (63 core-ожидания).
+- **dataprep.EDA** — типизированные инсайты: Zeros, Negatives, Constant Length, High Cardinality.
+
 ## 🔬 Проверка результата
 
 - Markdown: таблица «Колонки» (тип, уникальные, пустые, min/max/mean, топ-3) + секция «Аномалии».

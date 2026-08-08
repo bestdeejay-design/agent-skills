@@ -31,6 +31,14 @@ not the internal version bumps of individual skills.
   `plan_validator.py`; catalog (`index.json`) updated 17 → 21 entries;
   README/README.ru skill tables and repo trees updated; `ROADMAP.md` v1.3
   marked released.
+- **Canonical enrichment for v1.3 skills**: each of `sql-helper`, `csv-pro`,
+  `web-scraper`, `data-analysis` gained `references/canonical-patterns.md`
+  (analogues among canonical authors — Anthropic, sqlsure, Vanna.ai, Spider/
+  BIRD, sqlite-utils, ydata-profiling, DuckDB, Scrapy, MCP fetch, D-Tale, etc. —
+  with missing-technique analysis and citable CLI/API examples); `SKILL.md`
+  updated with "Canonical analogues" sections; `ROADMAP.md` marks them
+  `verified & enriched`; `CONTRIBUTING.md` now mandates canonical enrichment
+  for every new skill.
 
 ## [1.2.0] - 2026-08-08
 

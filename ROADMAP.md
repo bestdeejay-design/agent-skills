@@ -3,13 +3,28 @@
 > Living document: status of the `agent-skills` library.
 > Format mirrors the [Keep a Changelog](https://keepachangelog.com/) philosophy —
 > mark items `[x]` only after they are **merged to `main`** and CI is green.
+>
+> Каждый скилл отслеживается двумя чекбоксами:
+> 1. `[x]` — выпущен (merged to `main`, CI green);
+> 2. `[x]` **verified & enriched** — прошёл канонический enrichment: найден аналоги
+>    у канонических авторов (Anthropic, obra/superpowers, vercel-labs/skills,
+>    trailofbits/skills, NVIDIA SkillSpector и др.) и добавлен
+>    `references/canonical-patterns.md` с паттернами.
 
 ---
 
 ## ✅ v1.0 — Foundation (released 2026-08-07, tag `v1.0.0`)
 
-- [x] 5 core skills: `github-repo-hygiene`, `test-graphics`, `reddit-karma`,
-      `presentation-maker`, `docs-system`
+- [x] `github-repo-hygiene` — GitHub repo descriptive section hygiene (README/LICENSE/community health)
+  - [ ] verified & enriched
+- [x] `test-graphics` — placeholder images/icons/avatars for mocks & e2e
+  - [ ] verified & enriched
+- [x] `reddit-karma` — Reddit karma routine (topics, replies, thank-yous)
+  - [ ] verified & enriched
+- [x] `presentation-maker` — presentations: outline → 16:9 HTML/.pptx
+  - [ ] verified & enriched
+- [x] `docs-system` — product & project documentation guide (branches, phases, L1/L2/L3)
+  - [ ] verified & enriched
 - [x] CI validation pipeline (JSON syntax, manifests, cross-check index ↔ folders)
 - [x] Bilingual README (EN/RU) with language switcher
 - [x] GitHub Pages site (`https://bestdeejay-design.github.io/agent-skills/`)
@@ -19,35 +34,52 @@
 ## ✅ v1.1 — Code & Repository (released 2026-08-08)
 
 - [x] `commit-message-writer` — Conventional Commits from `git diff --staged`
+  - [ ] verified & enriched
 - [x] `changelog-generator` — git log → Keep a Changelog
+  - [ ] verified & enriched
 - [x] `code-review` — PR/diff review with checklists (security/perf/style/tests/docs)
+  - [ ] verified & enriched
 - [x] `api-doc-generator` — FastAPI/Express → OpenAPI/Markdown
+  - [ ] verified & enriched
 - [x] `test-generator` — AST-based unit test skeletons (pytest/jest/go)
+  - [ ] verified & enriched
 - [x] `plan-skill` — DEFINE→PLAN→BUILD→VERIFY→REVIEW→SHIP lifecycle (per `obra/superpowers`)
+  - [ ] verified & enriched
 - [x] `systematic-debugger` — hypothesis-driven debugging workflow (per `obra/superpowers`)
+  - [ ] verified & enriched
 - [x] Bootstrap pipeline: each new skill validated with `plan-skill` + `plan_validator.py`
 
 ## ✅ v1.2 — Visual & Docs (released 2026-08-08)
 
 - [x] `diagram-maker` — text → Mermaid → PNG/SVG (flowchart/sequence/ER/arch)
+  - [ ] verified & enriched
 - [x] `mermaid-to-image` — `.mmd` → PNG/SVG renderer (mmdc / mermaid.ink)
+  - [ ] verified & enriched
 - [x] `pdf-report-builder` — markdown → PDF reports (Chrome/weasyprint/pandoc)
+  - [ ] verified & enriched
 - [x] `video-script-writer` — structured video scripts (hook/body/CTA)
+  - [ ] verified & enriched
 - [x] Bootstrap: v1.2 спланирован и провалидирован через `plan-skill`
 
 ## ✅ v1.3 — Data (released 2026-08-08)
 
 - [x] `sql-helper` — SQL generation, EXPLAIN analysis, formatting
+  - [x] verified & enriched
 - [x] `csv-pro` — CSV/Excel profiling, anomalies, visualization
+  - [x] verified & enriched
 - [x] `web-scraper` — polite scraping with legal guardrails
+  - [x] verified & enriched
 - [x] `data-analysis` — dataset profiling/anomalies/visualization (per `K-Dense-AI`,
       `teng-lin/notebooklm-py`)
+  - [x] verified & enriched
 - [x] Bootstrap: v1.3 спланирован и провалидирован через `plan-skill`
 
 ## 🛡️ v1.4 — Security
 
 - [ ] `security-review` — dependency/linting security audit for a repo (per `trailofbits/skills`)
+  - [ ] verified & enriched
 - [ ] `secret-scanner` — detect leaked tokens/keys in a codebase (per `NVIDIA/SkillSpector`)
+  - [ ] verified & enriched
 
 ## 🔁 v1.5 — Automation & Release
 
@@ -55,9 +87,13 @@
 > `changelog-generator` → релиз/QA-автоматизация).
 
 - [ ] `version-bumper` — bump версии по Conventional Commits + тег релиза (замыкает `commit-message-writer`/`changelog-generator`)
+  - [ ] verified & enriched
 - [ ] `commit-lint` — валидация Conventional Commits в CI (локальный аналог commitlint)
+  - [ ] verified & enriched
 - [ ] `coverage-analyzer` — анализ и трекинг покрытия после `test-generator`
+  - [ ] verified & enriched
 - [ ] `api-contract-testing` — генерация тестов/проверок контракта из OpenAPI (после `api-doc-generator`)
+  - [ ] verified & enriched
 
 ## 🌟 v2.0 — Ecosystem
 
@@ -68,6 +104,7 @@
 - [ ] `skills.sh.json` catalog — publish to the skills.sh registry (per `vercel-labs`)
 - [ ] Multi-harness packaging — convert skills to `.claude-plugin`/`.codex-plugin`/`.cursor-plugin` (per `obra/superpowers`)
 - [x] `skill-suggester` — auto-recommend a skill from task description
+  - [ ] verified & enriched
 - [ ] `issue-to-plan`, `prompt-optimizer` — meta/agent skills
 
 ## 💡 Backlog (unordered)
@@ -80,6 +117,9 @@
 - `pkm-obsidian` — export notes to Obsidian-compatible markdown (per `kepano/obsidian-skills`)
 - `career-builder` — resume/ATS optimization toolkit (per `Paramchoudhary/ResumeSkills`)
 - `mock-data-synth` — synthetic test data beyond images (rows/JSON/API fixtures) (overlap: `test-generator`/`test-graphics`)
+
+> Новые скиллы добавляются в ROADMAP сразу с двумя чекбоксами (см. шапку);
+> «verified & enriched» закрывается после канонического пасса.
 
 ## 🤝 Contributing
 
