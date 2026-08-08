@@ -18,15 +18,15 @@
 
 ## 🚧 v1.1 — Code & Repository (in progress)
 
-- [ ] `commit-message-writer` — Conventional Commits from `git diff --staged`
+- [x] `commit-message-writer` — Conventional Commits from `git diff --staged`
 - [ ] `changelog-generator` — git log → Keep a Changelog
-- [ ] `code-review` — PR/diff review with checklists (security/perf/style/tests/docs)
+- [x] `code-review` — PR/diff review with checklists (security/perf/style/tests/docs)
 - [ ] `api-doc-generator` — FastAPI/Express → OpenAPI/Markdown
 - [ ] `test-generator` — AST-based unit test skeletons (pytest/jest/go)
 
 ## 🔮 v1.2 — Visual & Docs
 
-- [ ] `diagram-maker` — text → Mermaid → PNG/SVG (flowchart/sequence/ER/arch)
+- [x] `diagram-maker` — text → Mermaid → PNG/SVG (flowchart/sequence/ER/arch)
 - [ ] `mermaid-to-image` — `.mmd` → PNG/SVG renderer
 - [ ] `pdf-report-builder` — markdown → PDF reports
 - [ ] `video-script-writer` — structured video scripts (hook/body/CTA)
@@ -43,7 +43,7 @@
 - [ ] CLI installer (`npx install-skill <name>` / `pip install agent-skills-cli`)
 - [ ] Skill templates repository (scaffold a new skill in one command)
 - [ ] Community showcase (`SHOWCASE.md` — how people use the skills)
-- [ ] `skill-suggester` — auto-recommend a skill from task description
+- [x] `skill-suggester` — auto-recommend a skill from task description
 - [ ] `task-decomposer`, `prompt-optimizer` — meta/agent skills
 
 ## 💡 Backlog (unordered)
