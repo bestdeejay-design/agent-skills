@@ -3,7 +3,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 9](https://img.shields.io/badge/Skills-9-blue.svg)](index.json)
+[![Skills: 21](https://img.shields.io/badge/Skills-21-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--08-green.svg)](index.json)
@@ -36,6 +36,10 @@
 | [**systematic-debugger**](skills/systematic-debugger/SKILL.md) | `code` | Отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags, Rationalization Table. Скилл фиксирует причину, не автофиксит. Скрипт `debug_log.py` оформляет отчёт по фазам. | `debug`, `отладить`, `почему не работает`, `баг`, `debugging`, `fix the bug` |
 | [**test-generator**](skills/test-generator/SKILL.md) | `code` | Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None): `@pytest.mark.parametrize`. Референс TS/Go. | `generate tests`, `сгенерируй тесты`, `test skeleton`, `pytest скелет`, `покрытие тестами` |
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | `media` | Генерация структурированных видео-сценариев из темы: Hook → Body (5 сцен: Problem/Basics/Walkthrough/Pitfalls/Pro tip) → CTA, таблица таймкодов, ru/en, свой CTA, полный сценарий или аутлайн. | `сценарий видео`, `video script`, `напиши сценарий`, `план видео`, `video outline` |
+| [**sql-helper**](skills/sql-helper/SKILL.md) | `data` | Генерация SQL по текстовому вопросу и DDL-схеме: in-memory схема в sqlite3 из DDL, слова вопроса маппятся на таблицы/колонки, шаблоны интентов (select/join/where/group/order/count/limit), каждый кандидат проверяется через EXPLAIN, читаемый план с `--explain`. | `sql helper`, `sql генерация`, `сгенерируй sql`, `explain запроса`, `sql formatting` |
+| [**csv-pro**](skills/csv-pro/SKILL.md) | `data` | Профилирование CSV-файлов: типы колонок, min/max/mean, пропуски, уникальные, топ-3 частых; аномалии (нулевая дисперсия, >95% пустых, дубликаты строк, строки >1000 символов, выбросы ≥5×IQR); markdown или JSON, определение разделителя, файл или stdin. | `csv profile`, `профиль csv`, `анализ csv`, `аномалии csv`, `csv anomalies` |
+| [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Вежливый скраппинг HTML в Markdown/JSON: простой CSS-селектор (tag/tag#id/tag.class), извлечение текста/ссылок/таблиц; легальные guardrails — проверка robots.txt, честный User-Agent, задержка запросов, лимит 10 МБ. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
+| [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Профилирование датасетов (CSV или JSON-массив): типы полей, count/unique/missing, min/max/mean/std, мода + топ-N, гистограмма 5 корзин, топ-3 корреляции Пирсона, аномалии, рекомендации; markdown или JSON отчёт. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
 
 ---
 
@@ -187,6 +191,22 @@ agent-skills/
         ├── SKILL.md
         ├── skill.json
         └── scripts/video_script_writer.py
+    ├── sql-helper/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/sql_helper.py
+    ├── csv-pro/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/csv_pro.py
+    ├── data-analysis/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/data_analyze.py
+    └── web-scraper/
+        ├── SKILL.md
+        ├── skill.json
+        └── scripts/scrape.py
 ```
 
 ---

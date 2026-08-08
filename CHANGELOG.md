@@ -7,6 +7,31 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.3.0] - 2026-08-08
+
+### Added
+- **`sql-helper`** — SQL generation from a text question + DDL schema
+  (`sql_helper.py`): in-memory sqlite3 schema from DDL, intent templates
+  (select/join/where/group/order/count/limit), candidate verification via
+  `EXPLAIN`, human-readable plan with `--explain`.
+- **`csv-pro`** — CSV profiling (`csv_pro.py`): column types, min/max/mean,
+  missing counts, unique values, top-3 frequent; anomalies (zero variance,
+  >95% empty, duplicate rows, >1000-char rows, ≥5×IQR outliers); markdown or
+  JSON output; `;`/`,` delimiter detection, file or stdin.
+- **`web-scraper`** — polite HTML scraping to Markdown/JSON (`scrape.py`):
+  simple CSS selectors (tag/tag#id/tag.class), text/links/tables extraction,
+  built-in legal guardrails — robots.txt check, honest User-Agent, request
+  delay (default 1.0 s), 10 MB page limit.
+- **`data-analysis`** — dataset profiling for CSV or JSON-array (`data_analyze.py`):
+  field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin
+  histogram for numerics, top-3 Pearson correlations, anomalies and
+  recommendations; markdown (default) or JSON report; CSV delimiter
+  auto-detection (`;` preferred, then `,`).
+- **v1.3 planned via bootstrap**: `docs/plans/v1.3-plan.md` passed
+  `plan_validator.py`; catalog (`index.json`) updated 17 → 21 entries;
+  README/README.ru skill tables and repo trees updated; `ROADMAP.md` v1.3
+  marked released.
+
 ## [1.2.0] - 2026-08-08
 
 ### Added

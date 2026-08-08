@@ -35,13 +35,14 @@
 - [x] `video-script-writer` — structured video scripts (hook/body/CTA)
 - [x] Bootstrap: v1.2 спланирован и провалидирован через `plan-skill`
 
-## 🚀 v1.3 — Data
+## ✅ v1.3 — Data (released 2026-08-08)
 
-- [ ] `sql-helper` — SQL generation, EXPLAIN analysis, formatting
-- [ ] `csv-pro` — CSV/Excel profiling, anomalies, visualization
-- [ ] `web-scraper` — polite scraping with legal guardrails
-- [ ] `data-analysis` — dataset profiling/anomalies/visualization (per `K-Dense-AI`,
+- [x] `sql-helper` — SQL generation, EXPLAIN analysis, formatting
+- [x] `csv-pro` — CSV/Excel profiling, anomalies, visualization
+- [x] `web-scraper` — polite scraping with legal guardrails
+- [x] `data-analysis` — dataset profiling/anomalies/visualization (per `K-Dense-AI`,
       `teng-lin/notebooklm-py`)
+- [x] Bootstrap: v1.3 спланирован и провалидирован через `plan-skill`
 
 ## 🛡️ v1.4 — Security
 

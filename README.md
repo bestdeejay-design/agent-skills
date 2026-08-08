@@ -3,7 +3,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 9](https://img.shields.io/badge/Skills-9-blue.svg)](index.json)
+[![Skills: 21](https://img.shields.io/badge/Skills-21-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--08-green.svg)](index.json)
@@ -36,6 +36,10 @@
 | [**systematic-debugger**](skills/systematic-debugger/SKILL.md) | `code` | Hypothesis-driven debugging per Iron Law: reproduce → hypotheses → isolate root cause → minimal fix + regression test. Red Flags, Rationalization Table. `debug_log.py` renders a phase report. | `debug`, `отладить`, `почему не работает`, `баг`, `debugging`, `fix the bug` |
 | [**test-generator**](skills/test-generator/SKILL.md) | `code` | Generates pytest skeletons from a Python module AST with ghostwriter-style arg heuristics (bool→True/False, int→0/-1/1, str→sample/empty, list/dict→empty, Optional→None). `@pytest.mark.parametrize` scaffolding; TS/Go references. | `generate tests`, `сгенерируй тесты`, `test skeleton`, `pytest скелет`, `покрытие тестами` |
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | `media` | Generates structured video scripts from a topic: Hook → Body (5 scenes: Problem/Basics/Walkthrough/Pitfalls/Pro tip) → CTA, timecodes table, ru/en, custom CTA, full script or outline. | `сценарий видео`, `video script`, `напиши сценарий`, `план видео`, `video outline` |
+| [**sql-helper**](skills/sql-helper/SKILL.md) | `data` | Generates SQL from a text question + DDL schema: in-memory sqlite3 schema from DDL, question words mapped to tables/columns, intent templates (select/join/where/group/order/count/limit), every candidate checked via EXPLAIN, readable plan with `--explain`. | `sql helper`, `sql генерация`, `сгенерируй sql`, `explain запроса`, `sql formatting` |
+| [**csv-pro**](skills/csv-pro/SKILL.md) | `data` | Profiles CSV files: column types, min/max/mean, missing, unique, top-3 frequent; anomaly detection (zero variance, >95% empty, duplicate rows, >1000-char rows, ≥5×IQR outliers); markdown or JSON output; delimiter detection, file or stdin. | `csv profile`, `профиль csv`, `анализ csv`, `аномалии csv`, `csv anomalies` |
+| [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Polite HTML scraping to Markdown/JSON: simple CSS selector (tag/tag#id/tag.class), text/links/tables extraction; legal guardrails — robots.txt check, honest User-Agent, request delay, 10 MB page limit. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
+| [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Profiles datasets (CSV or JSON array): field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin histogram, top-3 Pearson correlations, anomalies, recommendations; markdown or JSON report. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
 
 ---
 
@@ -183,10 +187,26 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/debug_log.py
-    └── test-generator/
+    ├── test-generator/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/test_gen.py
+    ├── sql-helper/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/sql_helper.py
+    ├── csv-pro/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/csv_pro.py
+    ├── data-analysis/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/data_analyze.py
+    └── web-scraper/
         ├── SKILL.md
         ├── skill.json
-        └── scripts/test_gen.py
+        └── scripts/scrape.py
 ```
 
 ---

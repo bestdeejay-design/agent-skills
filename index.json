@@ -1,7 +1,7 @@
 {
   "name": "agent-skills",
   "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "author": "best",
   "license": "MIT",
   "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -80,6 +80,62 @@
         "написать коммит",
         "commit",
         "закоммитить"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "csv-pro",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'.",
+      "path": "skills/csv-pro",
+      "triggers": [
+        "csv profile",
+        "профиль csv",
+        "анализ csv",
+        "csv анализ",
+        "аномалии csv",
+        "csv anomalies",
+        "профилирование csv",
+        "что в csv"
+      ],
+      "keywords": [
+        "csv",
+        "profile",
+        "profiling",
+        "data",
+        "statistics",
+        "anomalies",
+        "analysis",
+        "quality"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "data-analysis",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Профилирование датасета (CSV или JSON-массив объектов): типы полей, статистика (count/unique/missing, min/max/mean/std), мода и топ-N значений, гистограмма 5 корзин для чисел, топ-3 парные корреляции Пирсона, аномалии и рекомендации. Скрипт data_analyze.py читает --input и выводит отчёт в markdown (по умолчанию) или JSON. Триггеры: 'data analysis', 'анализ данных', 'профиль датасета', 'статистика данных', 'dataset анализ', 'почитать данные', 'data profiling', 'разведочный анализ', 'eda'.",
+      "path": "skills/data-analysis",
+      "triggers": [
+        "data analysis",
+        "анализ данных",
+        "профиль датасета",
+        "статистика данных",
+        "dataset анализ",
+        "почитать данные",
+        "data profiling",
+        "разведочный анализ",
+        "eda"
+      ],
+      "keywords": [
+        "data",
+        "analysis",
+        "dataset",
+        "statistics",
+        "profiling",
+        "anomalies",
+        "correlation"
       ],
       "updated": "2026-08-08"
     },
@@ -299,6 +355,35 @@
       "updated": "2026-08-08"
     },
     {
+      "name": "sql-helper",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Генерация SQL по текстовому вопросу и DDL-схеме. Скрипт sql_helper.py читает DDL-файл, строит in-memory схему в sqlite3, распознаёт слова вопроса по таблицам/колонкам и собирает SQL по шаблонам интентов (select, join, where, group, order, count, limit). Каждый кандидат проверяется через EXPLAIN, при --explain выводится читаемый план запроса. Триггеры: 'sql helper', 'sql генерация', 'сгенерируй sql', 'explain запроса', 'sql запрос', 'напиши sql', 'formatted sql', 'sql formatting'.",
+      "path": "skills/sql-helper",
+      "triggers": [
+        "sql helper",
+        "sql генерация",
+        "сгенерируй sql",
+        "explain запроса",
+        "sql запрос",
+        "напиши sql",
+        "formatted sql",
+        "sql formatting"
+      ],
+      "keywords": [
+        "sql",
+        "query",
+        "generation",
+        "ddl",
+        "sqlite",
+        "explain",
+        "database",
+        "select",
+        "join"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
       "name": "systematic-debugger",
       "version": "1.0.0",
       "category": "code",
@@ -381,6 +466,34 @@
         "hook",
         "cta",
         "screen-record"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "web-scraper",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Вежливый скраппинг HTML-страниц в Markdown/JSON. Скрипт scrape.py читает страницу по URL, применяет простой CSS-селектор (tag, tag#id, tag.class) для выбора строк/секций, извлекает текст, ссылки и таблицы и отдаёт результат в Markdown или JSON. Легальные guardrails встроены в код: проверка robots.txt, честный User-Agent, задержка между запросами (по умолчанию 1.0 с), лимит размера страницы 10 МБ. Триггеры: 'web scraping', 'скраппинг', 'скачать данные с сайта', 'парсинг сайта', 'парсер html', 'извлечь данные', 'scrape', 'scraping'.",
+      "path": "skills/web-scraper",
+      "triggers": [
+        "web scraping",
+        "скраппинг",
+        "скачать данные с сайта",
+        "парсинг сайта",
+        "парсер html",
+        "извлечь данные",
+        "scrape",
+        "scraping"
+      ],
+      "keywords": [
+        "web-scraping",
+        "scraper",
+        "html",
+        "parser",
+        "robots.txt",
+        "data-extraction",
+        "markdown",
+        "json"
       ],
       "updated": "2026-08-08"
     }
