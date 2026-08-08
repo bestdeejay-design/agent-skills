@@ -31,6 +31,26 @@ not the internal version bumps of individual skills.
 - `ROADMAP.md` — living roadmap (v1.0 released, v1.1–v2.0 planned).
 - Catalog (`index.json`) version bumped to 1.1.0 with the 4 new entries;
   README/README.ru skill tables and repo tree updated (9 skills).
+- **`changelog-generator`** — Keep a Changelog section from git history
+  (`changelog_gen.py`): parses `git log tag..HEAD` (NUL-separated fields),
+  Conventional Commits type mapping (feat→Added, fix→Fixed, perf/refactor→Changed,
+  breaking→own section), rendered Markdown with dates and commit links.
+- **`api-doc-generator`** — REST API Markdown docs from an OpenAPI 3.x schema
+  (`api_doc.py`): per-endpoint sections with method/path/params/request body/
+  response codes; FastAPI via `app.openapi()`, Express via swagger-jsdoc.
+- **`test-generator`** — pytest skeletons from a Python module AST (`test_gen.py`):
+  ghostwriter-style arg heuristics (bool→True/False, int→0/-1/1, str→sample/empty,
+  list/dict→empty, Optional→None), `@pytest.mark.parametrize`, private funcs skipped.
+- **`plan-skill`** — implementation planning per superpowers v2
+  (`plan_validator.py` + template + example): brainstorming→writing-plans→
+  executing→verification, HARD-GATE, bite-sized steps, no placeholders.
+- **`systematic-debugger`** — Iron Law debugging workflow (`debug_log.py`):
+  4 phases (reproduce→hypotheses→isolate root cause→fix+regression), Red Flags,
+  Rationalization Table; renders a structured phase report.
+- **Bootstrap pipeline**: each new skill above was planned and validated with
+  `plan-skill` (`docs/plans/*.md` passed `plan_validator.py`) before creation.
+- Catalog (`index.json`) updated 9 → 14 entries; README/README.ru skill tables
+  and repo trees updated; `ROADMAP.md` v1.1 marked released.
 
 ### Changed
 - **Enriched all 9 skills** per the ecosystem audit: descriptions rewritten in

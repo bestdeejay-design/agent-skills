@@ -16,15 +16,16 @@
 - [x] Discovery via `index.json` (triggers, categories, keywords)
 - [x] Community health 100%: LICENSE, CODE_OF_CONDUCT, ISSUE/PR templates, SUPPORT, SECURITY
 
-## 🚧 v1.1 — Code & Repository (in progress)
+## ✅ v1.1 — Code & Repository (released 2026-08-08)
 
 - [x] `commit-message-writer` — Conventional Commits from `git diff --staged`
-- [ ] `changelog-generator` — git log → Keep a Changelog
+- [x] `changelog-generator` — git log → Keep a Changelog
 - [x] `code-review` — PR/diff review with checklists (security/perf/style/tests/docs)
-- [ ] `api-doc-generator` — FastAPI/Express → OpenAPI/Markdown
-- [ ] `test-generator` — AST-based unit test skeletons (pytest/jest/go)
-- [ ] `plan-skill` — DEFINE→PLAN→BUILD→VERIFY→REVIEW→SHIP lifecycle (per `obra/superpowers`)
-- [ ] `systematic-debugger` — hypothesis-driven debugging workflow (per `obra/superpowers`)
+- [x] `api-doc-generator` — FastAPI/Express → OpenAPI/Markdown
+- [x] `test-generator` — AST-based unit test skeletons (pytest/jest/go)
+- [x] `plan-skill` — DEFINE→PLAN→BUILD→VERIFY→REVIEW→SHIP lifecycle (per `obra/superpowers`)
+- [x] `systematic-debugger` — hypothesis-driven debugging workflow (per `obra/superpowers`)
+- [x] Bootstrap pipeline: each new skill validated with `plan-skill` + `plan_validator.py`
 
 ## 🔮 v1.2 — Visual & Docs
 

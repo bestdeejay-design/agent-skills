@@ -1,0 +1,39 @@
+{
+  "name": "changelog-generator",
+  "version": "1.0.0",
+  "description": "Генерация раздела CHANGELOG (Keep a Changelog) из git-истории по Conventional Commits. Скрипт changelog_gen.py читает git log в диапазоне tag..HEAD, парсит commit-сообщения, маппит типы (feat→Added, fix→Fixed, perf/refactor→Changed, breaking→отдельная секция) и рендерит Markdown с датами и ссылками на коммиты. Режимы: --top (Unreleased), --from-tag, включая скрытые типы (docs/ci/chore) через флаг. Триггеры: 'changelog', 'сгенерай чанжлог', 'обнови changelog', 'release notes', 'история изменений', 'keep a changelog', 'generate changelog', 'сборка changelog'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "changelog",
+    "release-notes",
+    "keep-a-changelog",
+    "conventional-commits",
+    "git-log",
+    "history"
+  ],
+  "triggers": [
+    "changelog",
+    "сгенерай чанжлог",
+    "обнови changelog",
+    "release notes",
+    "история изменений",
+    "keep a changelog",
+    "generate changelog",
+    "сборка changelog"
+  ],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/changelog_gen.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3",
+      "git"
+    ],
+    "script": "scripts/changelog_gen.py"
+  },
+  "updated": "2026-08-08"
+}

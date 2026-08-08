@@ -1,0 +1,44 @@
+{
+  "name": "systematic-debugger",
+  "version": "1.0.0",
+  "description": "Систематическая отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags (quick-fix, спекуляции, шотган-дебаг), Rationalization Table для отсева гипотез. Скрипт debug_log.py оформляет отчёт по фазам (среда, команда, ожидание, факт, гипотезы 1..3, регресс-план). Скилл не автофиксит: фиксирует причину, предлагает минимальный фикс и тест-регрессию. Триггеры: 'debug', 'отладить', 'почему не работает', 'баг', 'исправить ошибку', 'разобраться почему', 'дебаг', 'debugging', 'fix the bug', 'ошибка в коде', 'не работает как ожидалось'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "debugging",
+    "debug",
+    "root-cause",
+    "iron-law",
+    "bug",
+    "troubleshooting",
+    "regression",
+    "отладка",
+    "баг"
+  ],
+  "triggers": [
+    "debug",
+    "отладить",
+    "почему не работает",
+    "баг",
+    "исправить ошибку",
+    "разобраться почему",
+    "дебаг",
+    "debugging",
+    "fix the bug",
+    "ошибка в коде",
+    "не работает как ожидалось"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/debug_log.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/debug_log.py"
+  },
+  "updated": "2026-08-08"
+}

@@ -1,0 +1,40 @@
+{
+  "name": "test-generator",
+  "version": "1.0.0",
+  "description": "Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None). Скрипт test_gen.py парсит функции/async-функции через ast, пропускает приватные (_), генерирует @pytest.mark.parametrize с assert-заглушками. Включает референс по генерации тестов на TypeScript (ts-morph, *.test.ts) и Go (table-driven). Триггеры: 'generate tests', 'сгенерируй тесты', 'test skeleton', 'pytest скелет', 'покрытие тестами', 'unit tests для функций', 'тесты на функции', 'создать тесты'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "tests",
+    "pytest",
+    "test-generation",
+    "ast",
+    "parametrize",
+    "unit-test",
+    "tdd",
+    "ghostwriter"
+  ],
+  "triggers": [
+    "generate tests",
+    "сгенерируй тесты",
+    "test skeleton",
+    "pytest скелет",
+    "покрытие тестами",
+    "unit tests для функций",
+    "тесты на функции",
+    "создать тесты"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/test_gen.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/test_gen.py"
+  },
+  "updated": "2026-08-08"
+}

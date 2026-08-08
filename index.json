@@ -7,6 +7,125 @@
   "repository": "https://github.com/bestdeejay-design/agent-skills",
   "skills": [
     {
+      "name": "api-doc-generator",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Генерация Markdown-документации REST API из OpenAPI-схемы (3.x, включая 3.1.0). Скрипт api_doc.py читает openapi.json (файл или stdin), извлекает endpoint'ы (method, path, summary, operationId, параметры query/path/header, requestBody, коды ответов) и рендерит Markdown-раздел на каждый эндпоинт. FastAPI: схема из app.openapi() или /openapi.json; Express: swagger-jsdoc (референс в SKILL.md). Триггеры: 'api doc', 'документация API', 'openapi', 'swagger в markdown', 'сгенерай api doc', 'документировать эндпоинты', 'api reference', 'описать API', 'rest api docs'.",
+      "path": "skills/api-doc-generator",
+      "triggers": [
+        "api doc",
+        "документация API",
+        "openapi",
+        "swagger в markdown",
+        "сгенерай api doc",
+        "документировать эндпоинты",
+        "api reference",
+        "описать API",
+        "rest api docs"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "changelog-generator",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Генерация раздела CHANGELOG (Keep a Changelog) из git-истории по Conventional Commits. Скрипт changelog_gen.py читает git log в диапазоне tag..HEAD, парсит commit-сообщения, маппит типы (feat→Added, fix→Fixed, perf/refactor→Changed, breaking→отдельная секция) и рендерит Markdown с датами и ссылками на коммиты. Режимы: --top (Unreleased), --from-tag, включая скрытые типы (docs/ci/chore) через флаг. Триггеры: 'changelog', 'сгенерай чанжлог', 'обнови changelog', 'release notes', 'история изменений', 'keep a changelog', 'generate changelog', 'сборка changelog'.",
+      "path": "skills/changelog-generator",
+      "triggers": [
+        "changelog",
+        "сгенерай чанжлог",
+        "обнови changelog",
+        "release notes",
+        "история изменений",
+        "keep a changelog",
+        "generate changelog",
+        "сборка changelog"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "code-review",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
+      "path": "skills/code-review",
+      "triggers": [
+        "code review",
+        "ревью кода",
+        "review PR",
+        "проверь код",
+        "pull request review",
+        "code quality",
+        "замечания по коду",
+        "найти баги",
+        "review commit",
+        "проверь изменения",
+        "review diff",
+        "ревью пул-реквеста"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "commit-message-writer",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
+      "path": "skills/commit-message-writer",
+      "triggers": [
+        "commit message",
+        "write commit",
+        "git commit",
+        "conventional commit",
+        "сообщение коммита",
+        "написать коммит",
+        "commit",
+        "закоммитить"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "diagram-maker",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
+      "path": "skills/diagram-maker",
+      "triggers": [
+        "диаграмма",
+        "diagram",
+        "mermaid",
+        "flowchart",
+        "блок-схема",
+        "sequence diagram",
+        "архитектура",
+        "ER-схема",
+        "нарисуй схему",
+        "draw a diagram",
+        "схема",
+        "architecture diagram"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "docs-system",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'.",
+      "path": "skills/docs-system",
+      "triggers": [
+        "документация",
+        "набор документации",
+        "каталог документов",
+        "docs catalog",
+        "documentation structure",
+        "из идеи в документацию",
+        "полная документация",
+        "docs for new project",
+        "documentation plan",
+        "системная документация"
+      ],
+      "updated": "2026-08-07"
+    },
+    {
       "name": "github-repo-hygiene",
       "version": "1.1.0",
       "category": "repository",
@@ -37,41 +156,24 @@
       "updated": "2026-08-07"
     },
     {
-      "name": "test-graphics",
+      "name": "plan-skill",
       "version": "1.0.0",
-      "category": "media",
-      "description": "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'.",
-      "path": "skills/test-graphics",
+      "category": "code",
+      "description": "Планирование реализации по superpowers v2: превращает цель в декомпозированный план (HARD-GATE, bite-sized шаги, no placeholders, интерфейсы Produces/Consumes). Пайплайн brainstorming → writing-plans → executing-plans → verification-before-completion с TDD-шагами Expected FAIL→PASS. Скрипт plan_validator.py проверяет план на готовность к исполнению. Скилл только планирует, исполнение — отдельно. Триггеры: 'спланируй', 'составь план', 'plan', 'как реализовать', 'разбей на шаги', 'roadmap', 'план реализации', 'planning', 'design document', 'technical plan', 'write a plan', 'спланируй разработку'.",
+      "path": "skills/plan-skill",
       "triggers": [
-        "test images",
-        "placeholder",
-        "тестовые картинки",
-        "иконки для теста",
-        "заглушки",
-        "mock data images",
-        "сгенерировать фото",
-        "test data icons",
-        "заполнить картинками",
-        "тестовые данные изображения"
-      ],
-      "updated": "2026-08-07"
-    },
-    {
-      "name": "reddit-karma",
-      "version": "1.0.0",
-      "category": "social",
-      "description": "Набор кармы на Reddit для вашего аккаунта — поиск тем, подготовка ответов, распознавание тона чужих комментариев, шаблоны благодарностей и регулярный забег по ресурсу. Персональный скилл: требует настройки под свой аккаунт (никнейм, сабы, журнал активности). Триггеры: 'reddit', 'карма', 'karma', 'r/LocalLLaMA', 'поднять карму', 'ответить на комментарии', 'забег по reddit', 'оставить след', 'благодарность за ответ'.",
-      "path": "skills/reddit-karma",
-      "triggers": [
-        "reddit",
-        "карма",
-        "karma",
-        "r/LocalLLaMA",
-        "поднять карму",
-        "ответить на комментарии",
-        "забег по reddit",
-        "оставить след",
-        "благодарность за ответ"
+        "спланируй",
+        "составь план",
+        "plan",
+        "как реализовать",
+        "разбей на шаги",
+        "roadmap",
+        "план реализации",
+        "planning",
+        "design document",
+        "technical plan",
+        "write a plan",
+        "спланируй разработку"
       ],
       "updated": "2026-08-08"
     },
@@ -95,84 +197,21 @@
       "updated": "2026-08-07"
     },
     {
-      "name": "docs-system",
+      "name": "reddit-karma",
       "version": "1.0.0",
-      "category": "repository",
-      "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'.",
-      "path": "skills/docs-system",
+      "category": "social",
+      "description": "Набор кармы на Reddit для вашего аккаунта — поиск тем, подготовка ответов, распознавание тона чужих комментариев, шаблоны благодарностей и регулярный забег по ресурсу. Персональный скилл: требует настройки под свой аккаунт (никнейм, сабы, журнал активности). Триггеры: 'reddit', 'карма', 'karma', 'r/LocalLLaMA', 'поднять карму', 'ответить на комментарии', 'забег по reddit', 'оставить след', 'благодарность за ответ'.",
+      "path": "skills/reddit-karma",
       "triggers": [
-        "документация",
-        "набор документации",
-        "каталог документов",
-        "docs catalog",
-        "documentation structure",
-        "из идеи в документацию",
-        "полная документация",
-        "docs for new project",
-        "documentation plan",
-        "системная документация"
-      ],
-      "updated": "2026-08-07"
-    },
-    {
-      "name": "commit-message-writer",
-      "version": "1.0.0",
-      "category": "code",
-      "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
-      "path": "skills/commit-message-writer",
-      "triggers": [
-        "commit message",
-        "write commit",
-        "git commit",
-        "conventional commit",
-        "сообщение коммита",
-        "написать коммит",
-        "commit",
-        "закоммитить"
-      ],
-      "updated": "2026-08-08"
-    },
-    {
-      "name": "code-review",
-      "version": "1.0.0",
-      "category": "code",
-      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
-      "path": "skills/code-review",
-      "triggers": [
-        "code review",
-        "ревью кода",
-        "review PR",
-        "проверь код",
-        "pull request review",
-        "code quality",
-        "замечания по коду",
-        "найти баги",
-        "review commit",
-        "проверь изменения",
-        "review diff",
-        "ревью пул-реквеста"
-      ],
-      "updated": "2026-08-08"
-    },
-    {
-      "name": "diagram-maker",
-      "version": "1.0.0",
-      "category": "data",
-      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
-      "path": "skills/diagram-maker",
-      "triggers": [
-        "диаграмма",
-        "diagram",
-        "mermaid",
-        "flowchart",
-        "блок-схема",
-        "sequence diagram",
-        "архитектура",
-        "ER-схема",
-        "нарисуй схему",
-        "draw a diagram",
-        "схема",
-        "architecture diagram"
+        "reddit",
+        "карма",
+        "karma",
+        "r/LocalLLaMA",
+        "поднять карму",
+        "ответить на комментарии",
+        "забег по reddit",
+        "оставить след",
+        "благодарность за ответ"
       ],
       "updated": "2026-08-08"
     },
@@ -200,6 +239,65 @@
         "подобрать навык"
       ],
       "updated": "2026-08-08"
+    },
+    {
+      "name": "systematic-debugger",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Систематическая отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags (quick-fix, спекуляции, шотган-дебаг), Rationalization Table для отсева гипотез. Скрипт debug_log.py оформляет отчёт по фазам (среда, команда, ожидание, факт, гипотезы 1..3, регресс-план). Скилл не автофиксит: фиксирует причину, предлагает минимальный фикс и тест-регрессию. Триггеры: 'debug', 'отладить', 'почему не работает', 'баг', 'исправить ошибку', 'разобраться почему', 'дебаг', 'debugging', 'fix the bug', 'ошибка в коде', 'не работает как ожидалось'.",
+      "path": "skills/systematic-debugger",
+      "triggers": [
+        "debug",
+        "отладить",
+        "почему не работает",
+        "баг",
+        "исправить ошибку",
+        "разобраться почему",
+        "дебаг",
+        "debugging",
+        "fix the bug",
+        "ошибка в коде",
+        "не работает как ожидалось"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "test-generator",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None). Скрипт test_gen.py парсит функции/async-функции через ast, пропускает приватные (_), генерирует @pytest.mark.parametrize с assert-заглушками. Включает референс по генерации тестов на TypeScript (ts-morph, *.test.ts) и Go (table-driven). Триггеры: 'generate tests', 'сгенерируй тесты', 'test skeleton', 'pytest скелет', 'покрытие тестами', 'unit tests для функций', 'тесты на функции', 'создать тесты'.",
+      "path": "skills/test-generator",
+      "triggers": [
+        "generate tests",
+        "сгенерируй тесты",
+        "test skeleton",
+        "pytest скелет",
+        "покрытие тестами",
+        "unit tests для функций",
+        "тесты на функции",
+        "создать тесты"
+      ],
+      "updated": "2026-08-08"
+    },
+    {
+      "name": "test-graphics",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'.",
+      "path": "skills/test-graphics",
+      "triggers": [
+        "test images",
+        "placeholder",
+        "тестовые картинки",
+        "иконки для теста",
+        "заглушки",
+        "mock data images",
+        "сгенерировать фото",
+        "test data icons",
+        "заполнить картинками",
+        "тестовые данные изображения"
+      ],
+      "updated": "2026-08-07"
     }
   ],
   "categories": {

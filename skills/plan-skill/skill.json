@@ -1,0 +1,46 @@
+{
+  "name": "plan-skill",
+  "version": "1.0.0",
+  "description": "Планирование реализации по superpowers v2: превращает цель в декомпозированный план (HARD-GATE, bite-sized шаги, no placeholders, интерфейсы Produces/Consumes). Пайплайн brainstorming → writing-plans → executing-plans → verification-before-completion с TDD-шагами Expected FAIL→PASS. Скрипт plan_validator.py проверяет план на готовность к исполнению. Скилл только планирует, исполнение — отдельно. Триггеры: 'спланируй', 'составь план', 'plan', 'как реализовать', 'разбей на шаги', 'roadmap', 'план реализации', 'planning', 'design document', 'technical plan', 'write a plan', 'спланируй разработку'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "plan",
+    "planning",
+    "roadmap",
+    "implementation",
+    "design-doc",
+    "superpowers",
+    "decomposition",
+    "tocp"
+  ],
+  "triggers": [
+    "спланируй",
+    "составь план",
+    "plan",
+    "как реализовать",
+    "разбей на шаги",
+    "roadmap",
+    "план реализации",
+    "planning",
+    "design document",
+    "technical plan",
+    "write a plan",
+    "спланируй разработку"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/plan_validator.py",
+    "templates/implementation-plan.md",
+    "examples/implementation-plan-example.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/plan_validator.py"
+  },
+  "updated": "2026-08-08"
+}

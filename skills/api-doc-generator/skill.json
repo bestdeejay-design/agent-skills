@@ -1,0 +1,42 @@
+{
+  "name": "api-doc-generator",
+  "version": "1.0.0",
+  "description": "Генерация Markdown-документации REST API из OpenAPI-схемы (3.x, включая 3.1.0). Скрипт api_doc.py читает openapi.json (файл или stdin), извлекает endpoint'ы (method, path, summary, operationId, параметры query/path/header, requestBody, коды ответов) и рендерит Markdown-раздел на каждый эндпоинт. FastAPI: схема из app.openapi() или /openapi.json; Express: swagger-jsdoc (референс в SKILL.md). Триггеры: 'api doc', 'документация API', 'openapi', 'swagger в markdown', 'сгенерай api doc', 'документировать эндпоинты', 'api reference', 'описать API', 'rest api docs'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "api-doc",
+    "openapi",
+    "swagger",
+    "fastapi",
+    "express",
+    "documentation",
+    "rest-api",
+    "api-reference",
+    "markdown"
+  ],
+  "triggers": [
+    "api doc",
+    "документация API",
+    "openapi",
+    "swagger в markdown",
+    "сгенерай api doc",
+    "документировать эндпоинты",
+    "api reference",
+    "описать API",
+    "rest api docs"
+  ],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/api_doc.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/api_doc.py"
+  },
+  "updated": "2026-08-08"
+}
