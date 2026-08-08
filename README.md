@@ -41,6 +41,17 @@
 | [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Polite HTML scraping to Markdown/JSON: simple CSS selector (tag/tag#id/tag.class), text/links/tables extraction; legal guardrails — robots.txt check, honest User-Agent, request delay, 10 MB page limit. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
 | [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Profiles datasets (CSV or JSON array): field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin histogram, top-3 Pearson correlations, anomalies, recommendations; markdown or JSON report. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
 
+## 🎬 Showcase — real-project examples
+
+> Live demonstrations of skills on **real** projects (not abstract examples).
+> Reference project: **lovii.ru** (`lovii_demo`). Every new skill must ship a
+> showcase. Template: [`docs/showcase-template.md`](docs/showcase-template.md).
+
+| Skill | Project | What's demonstrated |
+|---|---|---|
+| [`web-scraper`](docs/showcase/showcase-web-scraper-lovii.md) | lovii.ru landing (White Paper) | Scraping the public page → Markdown summary (sections, metrics, contacts, table) |
+| [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Textual SPA architecture → Mermaid flowchart of role-based screen structure |
+
 ---
 
 ## 🚀 Installation

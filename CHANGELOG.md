@@ -27,6 +27,14 @@ not the internal version bumps of individual skills.
   histogram for numerics, top-3 Pearson correlations, anomalies and
   recommendations; markdown (default) or JSON report; CSV delimiter
   auto-detection (`;` preferred, then `,`).
+- **Showcase process & real-project examples**: `CONTRIBUTING.md` — шаг 6
+  (обязательный showcase на реальном проекте, эталон: lovii.ru / `lovii_demo`);
+  `ROADMAP.md` — новая секция v1.6 Skill Showcase (примеры каждого скилла на
+  lovii.ru до v2.0); `docs/showcase-template.md` — каркас демо;
+  `docs/showcase/` — эталонные примеры: `web-scraper` на lovii.ru (White Paper
+  → Markdown), `diagram-maker` на `lovii_demo/docs/ARCHITECTURE.md` (текстовая
+  архитектура SPA → Mermaid flowchart); `README`/`README.ru` — таблица
+  showcase-примеров. Валидатор 21/21.
 - **v1.3 planned via bootstrap**: `docs/plans/v1.3-plan.md` passed
   `plan_validator.py`; catalog (`index.json`) updated 17 → 21 entries;
   README/README.ru skill tables and repo trees updated; `ROADMAP.md` v1.3

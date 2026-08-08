@@ -95,6 +95,20 @@
 - [ ] `api-contract-testing` — генерация тестов/проверок контракта из OpenAPI (после `api-doc-generator`)
   - [ ] verified & enriched
 
+## 🧪 v1.6 — Skill Showcase (examples on real project)
+
+> После завершения v1.x и перед v2.0 — подготовить рабочие примеры **каждого**
+> скилла на реальном проекте (эталон: **lovii.ru** / `lovii_demo`,
+> https://github.com/bestdeejay-design/lovii_demo). Требование закреплено в
+> `CONTRIBUTING.md` (шаг 6 — showcase обязателен для нового скилла).
+
+- [ ] Showcase-шаблон: `docs/showcase-template.md` — каркас демо (вход/запуск/вывод/интерпретация)
+- [ ] Showcase v1.0: `github-repo-hygiene`, `test-graphics`, `reddit-karma`, `presentation-maker`, `docs-system`
+- [ ] Showcase v1.1: `commit-message-writer`, `changelog-generator`, `code-review`, `api-doc-generator`, `test-generator`, `plan-skill`, `systematic-debugger`
+- [ ] Showcase v1.2: `diagram-maker`, `mermaid-to-image`, `pdf-report-builder`, `video-script-writer`
+- [ ] Showcase v1.3: `sql-helper`, `csv-pro`, `web-scraper`, `data-analysis` (на данных/коде `lovii_demo`)
+- [ ] `docs/showcase/` — сборник showcase-демо (по файлу на скилл) + таблица в `README`/`README.ru`
+
 ## 🌟 v2.0 — Ecosystem
 
 - [ ] MCP adapter (load skills via Model Context Protocol)

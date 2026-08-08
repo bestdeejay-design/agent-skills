@@ -41,6 +41,17 @@
 | [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Вежливый скраппинг HTML в Markdown/JSON: простой CSS-селектор (tag/tag#id/tag.class), извлечение текста/ссылок/таблиц; легальные guardrails — проверка robots.txt, честный User-Agent, задержка запросов, лимит 10 МБ. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
 | [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Профилирование датасетов (CSV или JSON-массив): типы полей, count/unique/missing, min/max/mean/std, мода + топ-N, гистограмма 5 корзин, топ-3 корреляции Пирсона, аномалии, рекомендации; markdown или JSON отчёт. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
 
+## 🎬 Showcase — примеры на реальных проектах
+
+> Живые демонстрации скиллов на **реальных** проектах (не абстрактные примеры).
+> Эталон: **lovii.ru** (`lovii_demo`). Требование к new скиллов — обязательный
+> showcase. Шаблон: [`docs/showcase-template.md`](docs/showcase-template.md).
+
+| Скилл | Проект | Что показано |
+|---|---|---|
+| [`web-scraper`](docs/showcase/showcase-web-scraper-lovii.md) | lovii.ru (лендинг White Paper) | Скраппинг публичной страницы → Markdown-сводка (разделы, метрики, контакты, таблица) |
+| [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Текстовая архитектура SPA → Mermaid flowchart структуры экранов по ролям |
+
 ---
 
 ## 🚀 Установка
