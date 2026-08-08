@@ -43,8 +43,8 @@ public, or docs start contradicting each other.
 ## L2 — Canonical (mature project)
 
 **Rule:** the full catalog — see `references/project-docs.md` (all root + `docs/`
-documents, `docs/ADR/*`, contracts for API-first). The reference model is pmOS
-(`examples/pmos/`). Every document has a purpose and a card in `docs/REFERENCE.md`.
+documents, `docs/ADR/*`, contracts for API-first). The reference model is the example monorepo
+(`examples/example-monorepo/`). Every document has a purpose and a card in `docs/REFERENCE.md`.
 
 **Hallmarks of a good L2 set:**
 - One entry point (`ENTRY.md`), one map (`REFERENCE.md`).

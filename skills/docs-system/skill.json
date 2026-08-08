@@ -8,7 +8,7 @@
   "triggers": ["документация", "набор документации", "каталог документов", "docs catalog", "documentation structure", "из идеи в документацию", "полная документация", "docs for new project", "documentation plan", "системная документация"],
   "category": "repository",
   "entrypoint": "SKILL.md",
-  "files": ["SKILL.md", "ROADMAP.md", "references/*.md", "templates/project/*.tmpl", "templates/product/*.tmpl", "examples/pmos/README.md"],
+  "files": ["SKILL.md", "ROADMAP.md", "references/*.md", "templates/project/*.tmpl", "templates/product/*.tmpl", "examples/example-monorepo/README.md"],
   "requirements": {
     "tools": []
   },

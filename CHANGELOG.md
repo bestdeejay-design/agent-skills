@@ -16,6 +16,16 @@ not the internal version bumps of individual skills.
 ### Changed
 - Restructured `docs-system` as a product-vs-project documentation guide
   (catalog split into `product-docs.md` / `project-docs.md`).
+- **De-personalized `reddit-karma`**: removed the owner's username,
+  subreddits/karma snapshot, personal log paths and target-resource references;
+  replaced with per-user placeholders (`ВАШ_НИКНЕЙМ`, `ВАШ_РЕСУРС`, configurable
+  log paths) so the skill is portable/installable by anyone. README (EN+RU),
+  `index.json`, `skill.json` and the local `~/.config` copy synced.
+- **De-personalized `docs-system` pmos example**: renamed `examples/pmos/` →
+  `examples/example-monorepo/`, removed the owner's repo URL
+  (`bestdeejay-design/pmos`) and project name from SKILL.md, ROADMAP, references,
+  templates and the example README; event-subject prefixes `pmos.*` → `app.*`;
+  paths in README tree and `skill.json` updated.
 
 ## [1.0.0] - 2026-08-07
 

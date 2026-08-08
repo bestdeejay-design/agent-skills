@@ -10,7 +10,7 @@
 
 Shipped: SKILL.md (guide: product + project branches) + product-docs.md/project-docs.md
 catalogs + order/levels/completeness + 14 project templates + 3 product templates +
-pmOS reference. Reorganized: templates now live in `templates/{product,project}/`,
+example-monorepo reference. Reorganized: templates now live in `templates/{product,project}/`,
 product docs have their own branch and templates (VISION/PRD/ROADMAP).
 
 Verified: templates are clean of generation artifacts; fill order is explicit;
@@ -40,7 +40,7 @@ Status of subsequent phases in the gaps that matter for first real use:
 
 | # | Item | Goal | Done when |
 |---|------|-----|-----------|
-| 9 | **Language stability** | SKILL.md EN, templates EN, but allow RU mirror / localization hook. | A `localization.md` doc describing the EN/RU mirror (like pmOS README/ru). |
+| 9 | **Language stability** | SKILL.md EN, templates EN, but allow RU mirror / localization hook. | A `localization.md` doc describing the EN/RU mirror (like the example monorepo README/ru). |
 | 10 | **Framework integration** | Works with the agent's own "project-spirit" system (entry/map/gate) beyond opencode. | Reference in SKILL.md demonstrates integration with the user's existing agent skills. |
 | 11 | **Multi-{open- close} catalog** | Support simple projects with only L1 without the noise of the full catalog. | `project-docs.md` has explicit L1-only view: which docs, which sections of each, which to skip. |
 | 12 | **Sibling skills repo-wide** | `agent-skills/` grows a mechanism to discover/install skills (README inventory + `skills.json`). | root README lists every skill with a one-liner + install path. |
@@ -55,7 +55,7 @@ Status of subsequent phases in the gaps that matter for first real use:
    checkable (a file exists, a section is added, a link resolves).
 3. **Truth before code** — the catalog's machine-truth rule applies to the skill
    itself: document before automating.
-4. **Reuse, don't invent** — extending pmOS patterns is cheaper than inventing a
+4. **Reuse, don't invent** — extending example-monorepo patterns is cheaper than inventing a
    schema; the skill's own docs follow its own catalog.
 
 ---

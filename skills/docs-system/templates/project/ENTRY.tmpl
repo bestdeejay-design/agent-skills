@@ -40,7 +40,7 @@ services/<name>/            # single template for every module
 ## 5. Working rules (top 5–8)
 - **Contract-first:** every endpoint exists in `contracts/openapi/<svc>.yaml` before any code.
 - **Contracts are machine truth:** change behavior → change the contract first.
-- **Events:** format `pmos.<svc>.<resource>.<action>` (`created|updated|deleted`); payload camelCase; version required.
+- **Events:** format `app.<svc>.<resource>.<action>` (`created|updated|deleted`); payload camelCase; version required.
 - **Close a feature end-to-end** (📋→✅): full checklist in `AGENT.md` (contract → catalog → schema → migrate → routes → events → tests → doc counters → commit gate).
 - **Module isolation:** no reading another module's storage.
 - **Typing:** no `any`/`@ts-ignore`; timestamps ISO.

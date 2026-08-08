@@ -26,7 +26,7 @@
 
 ## 4. Event model (if async)
 - EventEnvelope: `{ id, type, version, source, time, data }`.
-- Stream/subjects: `pmos.>`, one stream, durable consumers, DLQ.
+- Stream/subjects: `app.>`, one stream, durable consumers, DLQ.
 - Idempotency: consumers keyed by `id`; duplicate events harmless.
 - Full catalog: `contracts/asyncapi/events.yaml` (machine truth).
 

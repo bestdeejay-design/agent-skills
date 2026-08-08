@@ -1,11 +1,12 @@
-# pmOS — real-world canonical reference
+# Example monorepo — real-world canonical reference
 
-> **What this is:** a condensed picture of the **pmOS monorepo** — the project this
+> **What this is:** a condensed picture of an **example monorepo** — the shape this
 > skill's L2/L3·microservices canonical layout was derived from. Use it as a concrete
 > "this is what the system looks like when fully applied" reference. Not a copy-paste
-> of every file — the patterns & rationale.
+> of every file — the patterns & rationale. Replace `<owner>/<repo>` and all concrete
+> numbers with your own project's.
 
-> **Source repo:** `github.com/bestdeejay-design/pmos` — 17 microservices (16 CRUD +
+> **Source repo:** `<owner>/<repo>` — 17 microservices (16 CRUD +
 > ops/DLQ panel) + React SPA, TypeScript strict, Fastify, Postgres, NATS JetStream.
 > Status at extraction: typecheck green (20 packages), unit+integration green, contract
 > 17/17, E2E (Playwright), **~4,100 docs lines + ~11,100 contract lines ≈ 15,200**.
@@ -28,7 +29,7 @@
 ## Real directory layout (abridged, ch `##` marks the docs-system files)
 
 ```
-pmos/
+example-monorepo/
 ├── README.md  README.ru.md        # EN/RU overview, structure, status, quick start
 ├── ENTRY.md                       # ★ entry point — "start here", topic→file routing
 ├── AGENT.md                       # runbook for the auto-build agent (phases, DoD, commit gate)
@@ -79,7 +80,7 @@ pmos/
 
 ## What the reference model proves
 
-| docs-system principle | How pmOS shows it |
+| docs-system principle | How the example monorepo shows it |
 |------------------------|-------------------|
 | Single entry point | `ENTRY.md` — a real "start here" router |
 | The map exists & is maintained | `docs/REFERENCE.md` — purpose/structure/facts/links for **every** doc + hierarchy + drift |

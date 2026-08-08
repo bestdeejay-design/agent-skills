@@ -29,7 +29,7 @@ This skill codifies the *system* that makes documentation useful:
 - a **completeness checklist** — proof that nothing was forgotten;
 - **levels** (optional reference) — right-sizing for small vs large systems.
 
-The reference model behind this skill is the pmOS monorepo (`examples/pmos/`):
+The reference model behind this skill is the example monorepo (`examples/example-monorepo/`):
 a microservices project whose docs stayed consistent for hundreds of commits
 because every file had a purpose, there was an explicit hierarchy of truth, a
 single entry point (`ENTRY.md`), a documentation map (`REFERENCE.md`), and a
@@ -94,7 +94,7 @@ delivery gate.
 6. If auditing an existing project: first map what exists, then fill gaps in
    catalog order (see `references/project-docs.md` → map rule).
 
-## Two golden rules (from pmOS)
+## Two golden rules (from example monorepo)
 
 1. **Machine truth before code.** Contracts/OpenAPI/events (anything that *is* the
    interface) are written **before** implementation. Code implements the contract,
@@ -116,4 +116,4 @@ delivery gate.
 | `references/levels.md` | (Reference) L1/L2/L3 + profile layouts for large systems |
 | `templates/product/*.tmpl` | Skeletons: VISION, PRD, ROADMAP |
 | `templates/project/*.tmpl` | Skeletons: README, ARCHITECTURE, ADR, SAGA, TEST_CASES, DEV_GUIDE, IMPROVEMENTS, TROUBLESHOOTING, BACKLOG, REVIEW, STATUS, REFERENCE, ENTRY, FEATURES |
-| `examples/pmos/` | Real-world canonical reference (pmOS monorepo) |
+| `examples/example-monorepo/` | Real-world canonical reference (example monorepo) |
