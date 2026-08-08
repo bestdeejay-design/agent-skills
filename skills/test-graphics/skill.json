@@ -31,7 +31,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/test-graphics.py"
+    "scripts/test-graphics.py",
+    "references/canonical-patterns.md"
   ],
   "requirements": {
     "tools": [
@@ -41,5 +42,5 @@
     ],
     "script": "scripts/test-graphics.py"
   },
-  "updated": "2026-08-07"
+  "updated": "2026-08-09"
 }

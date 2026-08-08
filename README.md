@@ -52,6 +52,7 @@
 | [`web-scraper`](docs/showcase/showcase-web-scraper-lovii.md) | lovii.ru landing (White Paper) | Scraping the public page → Markdown summary (sections, metrics, contacts, table) |
 | [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Textual SPA architecture → Mermaid flowchart of role-based screen structure |
 | [`github-repo-hygiene`](docs/showcase/showcase-github-repo-hygiene-lovii.md) | lovii_demo repository | Community Health audit (0% → 100%): missing files, metadata, API checklists |
+| [`test-graphics`](docs/showcase/showcase-test-graphics-lovii.md) | lovii_demo mock data + brand | Partner avatars, product placeholders, Lucide icons, batch for e2e |
 
 ---
 

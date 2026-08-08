@@ -198,3 +198,14 @@ scripts/test-graphics.py photo 800 600 ./public/images/hero.jpg
 
 Агент (Sisyphus) координирует: определяет что нужно (фото/иконка/placeholder),
 выбирает размеры и цвета, запускает скрипт, сообщает результат.
+
+## Canonical analogues
+
+Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны:
+
+- **DiceBear** — детерминированные аватары: `Fnv1a`+`Mulberry32` PRNG, версионированный HTTP API (`10.x`), rate limits (50/10 rps), CLI пачка с `--optimize-check`, EOL 5.x–8.x 30.04.2028.
+- **Playwright Test** — fixtures (`scope: 'worker', auto: true`), `toHaveScreenshot` с `maxDiffPixelRatio`, `testInfo.attach`/`outputPath()` для артефактов.
+- **SVGO** — `optimize()` + `multipass` + `preset-default` (~30 плагинов), CLI `datauri=base64`, оптимизация сгенерированных SVG.
+- **Lucide** — `createLucideIcon` фабрика + tree-shaking, дефолтные атрибуты `stroke="currentColor"`, `fill="none"`, `strokeWidth=2`, `dynamicIconImports`.
+- **Cypress** — `cy.fixture` (base64/Buffer), `cy.intercept({fixture})` для перехвата изображений, кодировки и лимит ~100 MB.
+- **Storybook** — `staticDirs` паттерн: placeholder-картинки как локальные статические ассеты вместо внешних URL.
