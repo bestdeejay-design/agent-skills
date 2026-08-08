@@ -51,6 +51,7 @@
 |---|---|---|
 | [`web-scraper`](docs/showcase/showcase-web-scraper-lovii.md) | lovii.ru (лендинг White Paper) | Скраппинг публичной страницы → Markdown-сводка (разделы, метрики, контакты, таблица) |
 | [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Текстовая архитектура SPA → Mermaid flowchart структуры экранов по ролям |
+| [`github-repo-hygiene`](docs/showcase/showcase-github-repo-hygiene-lovii.md) | lovii_demo репозиторий | Аудит Community Health (0% → 100%): отсутствующие файлы, метаданные, API-чеклисты |
 
 ---
 

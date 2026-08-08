@@ -185,3 +185,16 @@ gh api repos/<owner>/<repo>/community-enabled   # или /community/get
 - Антипаттерны: битые бейджи (хуже отсутствующих), ASCII-арт, «AI-slop»-формулировки,
   расхождение локализованных README, отсутствие лицензии у публичного репо, отсутствие
   SECURITY.md при приёме контрибьюций.
+
+## Canonical analogues
+
+Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны:
+
+- **GitHub Docs: Community Profile API** (`GET /repos/{owner}/{repo}/community/profile`) — эталонный аудит с метрикой `health_percentage` (эталон `github/docs` = 100%), готовый чеклист файлов.
+- **GitHub Docs: Default community health files** — org-level `.github` репозиторий, приоритет поиска файлов, правило «LICENSE не наследуется», полный список health-файлов (включая `FUNDING.yml`, `GOVERNANCE.md`).
+- **GitHub CLI (`gh repo edit`, `gh release create`)** — полный набор флагов: add/remove-topic, template, default-branch, enable-* (advanced-security, secret-scanning), draft-then-publish flow для релизов, immutable releases.
+- **GitHub REST API** (Repositories / Pages / Licenses / Custom Properties) — PATCH /repos (все поля), PUT /repos/topics (только так), Pages API (cname, health check, build_type workflow), Custom Properties API, security_and_analysis, archival/transfer, SPDX License API.
+- **github/docs** — эталон 100% community health: CODEOWNERS, dependabot.yml, issue-формы YAML + config.yml, custom properties (ownership/deployable/CodeQL-Block).
+- **facebook/react, kubernetes/kubernetes, vercel/next.js, microsoft/vscode** — SUPPORT.md (редирект), SECURITY_CONTACTS, AGENTS.md/CLAUDE.md (AI-instructions), CODENOTIFY/OWNERS.
+- **Contributor Covenant v2.1** — канонический текст CoC (key `contributor_covenant` в community profile).
+- **SPDX License List** — канонические SPDX-идентификаторы, на них опирается GitHub Licenses API.

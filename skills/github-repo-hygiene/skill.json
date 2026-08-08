@@ -41,7 +41,8 @@
   "category": "repository",
   "entrypoint": "SKILL.md",
   "files": [
-    "SKILL.md"
+    "SKILL.md",
+    "references/canonical-patterns.md"
   ],
   "requirements": {
     "tools": [
@@ -52,5 +53,5 @@
       "repo:write"
     ]
   },
-  "updated": "2026-08-07"
+  "updated": "2026-08-09"
 }
