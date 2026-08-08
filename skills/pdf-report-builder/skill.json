@@ -1,0 +1,46 @@
+{
+  "name": "pdf-report-builder",
+  "version": "1.0.0",
+  "description": "Сборка PDF-отчётов из Markdown без обязательных зависимостей. Скрипт pdf_report_builder.py конвертирует markdown (файл или stdin) в HTML (pandoc или встроенный конвертер) и далее в PDF первым доступным движком: Chromium/Chrome headless --print-to-pdf, weasyprint или pandoc с PDF-движком (pdflatex/tectonic/typst). Поддержка заголовков, списков, таблиц, кода, цитат, ссылок, кастомный заголовок документа. Триггеры: 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'pdf report', 'markdown to pdf', 'отчёт для клиента', 'document to pdf'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "pdf",
+    "report",
+    "markdown",
+    "export",
+    "document",
+    "weasyprint",
+    "pandoc",
+    "chromium",
+    "print"
+  ],
+  "triggers": [
+    "отчёт в pdf",
+    "markdown в pdf",
+    "собери отчёт",
+    "сделай отчёт",
+    "pdf report",
+    "markdown to pdf",
+    "отчёт для клиента",
+    "document to pdf"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/pdf_report_builder.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/pdf_report_builder.py",
+    "optional": [
+      "Chrome/Chromium/Edge",
+      "weasyprint",
+      "pandoc + pdflatex/tectonic/typst"
+    ]
+  },
+  "updated": "2026-08-08"
+}

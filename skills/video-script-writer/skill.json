@@ -1,0 +1,39 @@
+{
+  "name": "video-script-writer",
+  "version": "1.0.0",
+  "description": "Создание структурированного сценария видео из темы: Hook (захват внимания в первые секунды), Body (сцены с тайм-слотами: проблема, основы, разбор, ошибки, совет), CTA (призыв к действию). Скрипт video_script_writer.py генерирует markdown-сценарий с таймкодами, хронометражем (секунды), языком (ru/en), кастомным CTA, выбором полного сценария или outline. Триггеры: 'сценарий видео', 'video script', 'напиши сценарий', 'план видео', 'структура ролика', 'video outline', 'сценарий для youtube', 'план ролика'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "script",
+    "outline",
+    "youtube",
+    "hook",
+    "cta",
+    "screen-record"
+  ],
+  "triggers": [
+    "сценарий видео",
+    "video script",
+    "напиши сценарий",
+    "план видео",
+    "структура ролика",
+    "video outline",
+    "сценарий для youtube",
+    "план ролика"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/video_script_writer.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/video_script_writer.py"
+  },
+  "updated": "2026-08-08"
+}
