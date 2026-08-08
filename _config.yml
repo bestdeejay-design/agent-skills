@@ -1,0 +1,13 @@
+# Jekyll configuration for GitHub Pages
+#
+# Docs: https://jekyllrb.com/docs/configuration/
+# GitHub Pages dependency versions: https://pages.github.com/versions.json
+
+# jekyll-relative-links rewrites relative links to *.md files into their
+# compiled *.html URLs at build time. This makes the same README links work
+# both on GitHub (open the raw .md) and on the Pages site (open rendered HTML).
+plugins:
+  - jekyll-relative-links
+
+title: Agent Skills
+description: Skill collection for AI agents (Sisyphus, opencode) — autonomous instructions with skill.json manifests, CI validation.
