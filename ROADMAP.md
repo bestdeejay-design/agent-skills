@@ -47,6 +47,16 @@
 - [ ] `security-review` — dependency/linting security audit for a repo (per `trailofbits/skills`)
 - [ ] `secret-scanner` — detect leaked tokens/keys in a codebase (per `NVIDIA/SkillSpector`)
 
+## 🔁 v1.5 — Automation & Release
+
+> Связки, замыкающие цикл кодовых скиллов v1.1 (`commit-message-writer` →
+> `changelog-generator` → релиз/QA-автоматизация).
+
+- [ ] `version-bumper` — bump версии по Conventional Commits + тег релиза (замыкает `commit-message-writer`/`changelog-generator`)
+- [ ] `commit-lint` — валидация Conventional Commits в CI (локальный аналог commitlint)
+- [ ] `coverage-analyzer` — анализ и трекинг покрытия после `test-generator`
+- [ ] `api-contract-testing` — генерация тестов/проверок контракта из OpenAPI (после `api-doc-generator`)
+
 ## 🌟 v2.0 — Ecosystem
 
 - [ ] MCP adapter (load skills via Model Context Protocol)
@@ -56,19 +66,18 @@
 - [ ] `skills.sh.json` catalog — publish to the skills.sh registry (per `vercel-labs`)
 - [ ] Multi-harness packaging — convert skills to `.claude-plugin`/`.codex-plugin`/`.cursor-plugin` (per `obra/superpowers`)
 - [x] `skill-suggester` — auto-recommend a skill from task description
-- [ ] `task-decomposer`, `prompt-optimizer` — meta/agent skills
+- [ ] `issue-to-plan`, `prompt-optimizer` — meta/agent skills
 
 ## 💡 Backlog (unordered)
 
 - `diagram-svg-theming` — custom palettes/themes for Mermaid output
 - `infra-diagram` — AWS/GCP topology renderer
-- `pr-description-writer` — auto PR description from changeset
-- `release-notes` — tag-to-tag notes for release page
+- `pr-description-writer` — auto PR description from changeset (overlap: с `commit-message-writer`/`code-review`)
 - `code-explainer` — walk through an unfamiliar module for onboarding
 - `seo-basics` — On-page/GEO basics for new pages (per `coreyhaines31`, `AgriciDaniel`)
 - `pkm-obsidian` — export notes to Obsidian-compatible markdown (per `kepano/obsidian-skills`)
 - `career-builder` — resume/ATS optimization toolkit (per `Paramchoudhary/ResumeSkills`)
-- `mock-data-synth` — synthetic test data beyond images (rows/JSON/API fixtures)
+- `mock-data-synth` — synthetic test data beyond images (rows/JSON/API fixtures) (overlap: `test-generator`/`test-graphics`)
 
 ## 🤝 Contributing
 
