@@ -61,7 +61,93 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
 9. Рекомендуется использовать **относительные** ссылки на файлы репо (абсолютные ломаются в клонах).
 10. GitHub автогенерирует TOC — ручной оглавление не требуется.
 
-## Правило двух версий (анти-дрейф)
+## Визуальное оформление README (header/footer) — дополнение
+
+Применять по умолчанию к каждому репозиторию, который проходит через скилл:
+README получает **header** (начало файла) и **footer** (конец файла) через
+[`capsule-render`](https://github.com/kyechan99/capsule-render). Оба элемента
+обязательны в **обеих языковых версиях** (`README.md` + `README.<lang>.md`),
+когда локальная версия существует.
+
+### Цветовая схема
+
+- **Акцентные цвета проекта** — если указаны в проекте (package.json, брендинг,
+  дизайн-система, логотип), брать оттуда.
+- **Если акцентных нет** — AI подбирает 2 гармоничных цвета:
+  - один тёплый + один холодный;
+  - высокий контраст между ними;
+  - подходит под тематику проекта.
+- **Текст на градиентах**: `#FFFFFF` или `#1A1A2E` (зависит от светлоты градиента).
+- **Запрещено**: белый цвет в середине градиента — сливается с текстом.
+
+### Логика подбора цветов (по тематике проекта)
+
+| Тип проекта | Палитра |
+|-------------|---------|
+| Дизайн/UI | розовый + бирюзовый, фиолетовый + жёлтый |
+| Backend/инфраструктура | синий + зелёный, тёмно-синий + оранжевый |
+| Игры/развлечения | красный + фиолетовый, жёлтый + синий |
+| AI/ML | фиолетовый + голубой, зелёный + чёрный |
+| Финансы/серьёзное | тёмно-синий + золотой, чёрный + серебряный |
+| Универсальный fallback | `#F64A8A` + `#0ABAB5` |
+
+### Header (верх профиля)
+
+- Файл: **начало** `README.md`.
+- Тип: `waving`; градиент: `color=0:COLD,100:WARM`.
+- Содержание:
+  - `text`: название проекта → название репозитория → fallback «Sergey Kuzyukov»;
+  - `desc`: короткое описание (1–2 слова) — по сути проекта.
+- Параметры: `animation=fadeIn`, `fontColor=ffffff` (или `1A1A2E` на светлом
+  градиенте), `fontSize=38`, `descSize=24`, `fontAlignY=38`, `descAlignY=60`,
+  `height=290`.
+
+### Footer (низ профиля)
+
+- Файл: **конец** `README.md`.
+- Тип: `waving`; градиент: `color=0:WARM,100:COLD` (**инверсия header**).
+- Содержание: `text=@USERNAME` (пример: `@bestdeejay`).
+- Параметры: `height=80`, `section=footer`, `fontAlignY=80`,
+  `animation=twinkling`, `fontColor=ffffff`, `fontSize=21`.
+
+### Логика подстановки содержимого
+
+1. `text` header: название проекта (package.json) → название репозитория →
+   fallback «Sergey Kuzyukov».
+2. `desc` header (1–2 слова): описание из package.json/README → по языку/стеку
+   (React → «Frontend», Python → «Backend») → по типу (бот → «Automation»,
+   сайт → «Web App») → fallback «Founder LOVII».
+
+Примеры сгенерированных `desc`: React-проект → «Frontend Developer»;
+API на Node.js → «Backend Engineer»; UI-кит → «Designer & Developer»;
+бот для Telegram → «Automation Tool»; портфолио → «Creative Developer»;
+CLI-утилита → «Developer Tool»; мобильное приложение → «Mobile App».
+
+### Обязательная структура разметки
+
+Header и footer оборачиваются в `<p align="center">`, внутри —
+`<a href="https://github.com/USERNAME" target="_blank">`, внутри — `<img>`.
+**Не использовать base64** — только обычные URL.
+
+**HEADER:**
+
+```html
+<p align="center">
+  <a href="https://github.com/USERNAME" target="_blank">
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=290&color=0:COLD,WARM&text=PROJECT_NAME&desc=PROJECT_DESC&fontColor=ffffff&animation=fadeIn&fontAlignY=38&descSize=24&descAlignY=60" alt="header" />
+  </a>
+</p>
+```
+
+**FOOTER:**
+
+```html
+<p align="center">
+  <a href="https://github.com/USERNAME" target="_blank">
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=80&color=0:WARM,COLD&text=@USERNAME&fontColor=FFFFFF&fontSize=21&section=footer&fontAlignY=80&animation=twinkling" alt="footer" />
+  </a>
+</p>
+```
 
 - `README.md` — **всегда на английском** (международный стандарт GitHub).
 - `README.<lang>.md` — русская версия, **зеркало**: при изменении англ. версии
