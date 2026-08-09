@@ -33,14 +33,14 @@
 
     <g>
       <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
-      <text x="602" y="105" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#000000" opacity="0.28" text-anchor="middle">AI Agent</text>
-      <text x="600" y="103" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle">AI Agent</text>
+      <text x="602" y="105" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#000000" opacity="0.28" text-anchor="middle">Agent Skills</text>
+      <text x="600" y="103" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Agent Skills</text>
     </g>
 
     <g>
       <animate attributeName="opacity" values="0;1" dur="1.5s" begin="0.5s" fill="freeze"/>
-      <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#000000" opacity="0.30" text-anchor="middle">Skill Collection</text>
-      <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#FFFFFF" opacity="0.95" text-anchor="middle">Skill Collection</text>
+      <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#000000" opacity="0.30" text-anchor="middle">AI Agent Skills Collection</text>
+      <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#FFFFFF" opacity="0.95" text-anchor="middle">AI Agent Skills Collection</text>
     </g>
   </g>
 </svg>
