@@ -185,7 +185,11 @@ README). Визуально фон страницы «наплывает» на 
 
 ### Что умеет анимация (лучше, чем у внешних сервисов)
 
-- **Переливающийся градиент** — цвета плавно перетекают друг в друга (8s).
+- **Переливающийся градиент** — цвета плавно перетекают друг в друга (8s);
+  оба цвета видны одновременно по горизонтали.
+- **Блик-проход (средний цвет)** — раз в ~16s по баннеру от края до края
+  проскальзывает приглушённый светлый блик: узкий мягкий ореол (`opacity 0.25`,
+  края растушёваны), первый проход сразу после загрузки, затем редкий цикл.
 - **Морфинг волн** — форма каждой волны (и выреза в маске) плавно
   **деформируется**: `animate attributeName="d"` с **4 кадрами**
   (`keyTimes="0;0.333;0.667;1"`), гребни `Q`+`T` (smooth quadratic) реально
@@ -227,10 +231,28 @@ README). Визуально фон страницы «наплывает» на 
           values="M0,290 L0,245 Q150,222 400,245 T800,245 T1200,245 L1200,290 Z;M0,290 L0,250 Q150,230 400,250 T800,250 T1200,250 L1200,290 Z;M0,290 L0,240 Q150,214 400,240 T800,240 T1200,240 L1200,290 Z;M0,290 L0,245 Q150,222 400,245 T800,245 T1200,245 L1200,290 Z"/>
       </path>
     </mask>
+    <!-- Блик среднего цвета: статичный градиент (узкий мягкий ореол), движется сам rect -->
+    <linearGradient id="flash" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="48%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="52%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
   </defs>
 
   <g mask="url(#wave)">
     <rect width="1200" height="290" fill="url(#bg)"/>
+
+    <!-- Блик: первый проход сразу, затем раз в 16s; от края до края; гаснет и телепортируется невидимым -->
+    <rect width="1200" height="290" fill="url(#flash)">
+      <animateTransform attributeName="transform" type="translate" values="-600,0;-600,0;600,0;600,0" keyTimes="0;0.05;0.28;1" dur="16s" calcMode="linear" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.03;0.05;0.28;0.35;1" dur="16s" repeatCount="indefinite"/>
+    </rect>
 
     <!-- Средняя волна (0.25), морфинг d, сдвиг 30% (-1.8s) -->
     <path fill="#FFFFFF" opacity="0.25" d="M0,290 L0,232 Q200,210 500,232 T1000,232 T1200,232 L1200,290 Z">
@@ -290,10 +312,28 @@ Footer — **зеркало header по вертикали**: дыра (чёрн
           values="M0,-12 L0,21 Q200,29 400,21 T800,21 T1200,21 L1200,-12 Z;M0,-12 L0,23 Q200,32 400,23 T800,23 T1200,23 L1200,-12 Z;M0,-12 L0,19 Q200,26 400,19 T800,19 T1200,19 L1200,-12 Z;M0,-12 L0,21 Q200,29 400,21 T800,21 T1200,21 L1200,-12 Z"/>
       </path>
     </mask>
+    <!-- Блик среднего цвета: статичный градиент (узкий мягкий ореол), движется сам rect -->
+    <linearGradient id="flash" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="48%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="52%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
   </defs>
 
   <g mask="url(#wave)">
     <rect width="1200" height="60" fill="url(#fg)"/>
+
+    <!-- Блик: первый проход сразу, затем раз в 16s; от края до края; гаснет и телепортируется невидимым -->
+    <rect width="1200" height="60" fill="url(#flash)">
+      <animateTransform attributeName="transform" type="translate" values="-600,0;-600,0;600,0;600,0" keyTimes="0;0.05;0.28;1" dur="16s" calcMode="linear" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.03;0.05;0.28;0.35;1" dur="16s" repeatCount="indefinite"/>
+    </rect>
 
     <!-- Средняя волна (0.25), морфинг d, сдвиг 30% (-1.8s), запас -12 -->
     <path fill="#FFFFFF" opacity="0.25" d="M0,-12 L0,27 Q150,35 300,27 T600,27 T900,27 T1200,27 L1200,-12 Z">
@@ -383,6 +423,17 @@ Footer — **зеркало header по вертикали**: дыра (чёрн
 
 - `dur="8s"` (header) / `dur="6s"` (footer) — скорость перетекания градиента (можно 4–10s).
 - `dur="6s"` — период морфинга волн (можно 4–8s).
+- **Блик-проход** — `dur="16s"` (редкий, «раз в ~16 секунд»; можно 8–30s):
+  - `values="-600,0;-600,0;600,0;600,0"` с `keyTimes="0;0.05;0.28;1"` —
+    стоит у левого края (центр x=0), проезжает весь холст до правого края
+    (центр x=1200) за ~23% периода, затем держится за холстом (невидим).
+  - opacity `values="0;0;1;1;1;0;0"` с `keyTimes="0;0.03;0.05;0.28;0.35;1"` —
+    блик видим ровно в окно прохода, гаснет до телепорта обратно
+    (телепорт происходит при opacity=0 — незаметен).
+  - Яркость: пик `stop-opacity="0.25"` (можно 0.15–0.4 — «еле уловимый»),
+    стопы-хвосты `0.10/0.20` — мягкий размытый ореол, а не резкая полоса.
+  - **Важно**: анимируется НЕ `gradientTransform` (ненадёжно в Safari),
+    а `transform` самого `rect`; градиент блика статичен.
 - **Рассинхрон 30%**: задержки волн считаются как `begin = -dur * 0.3 * n`
   для `n = 0, 1, 2`. При `dur="6s"`: `0s` (верхняя), `-1.8s` (средняя),
   `-3.6s` (вырез). Слои никогда не совпадают по фазе.
