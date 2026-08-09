@@ -8,6 +8,18 @@
         <animate attributeName="stop-color" values="#0ABAB5;#F64A8A;#0ABAB5" dur="6s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
+    <!-- Блик среднего цвета (приглушённый белый): статичный градиент, движется сам rect -->
+    <linearGradient id="flash" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="48%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="52%" stop-color="#FFFFFF" stop-opacity="0.20"/>
+      <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
     <!-- Маска: чёрная волна морфится и вырезает цвет баннера сверху — фон наплывает на футер. Запас y=-12 против полоски -->
     <mask id="wave">
       <rect width="1200" height="60" fill="#FFFFFF"/>
@@ -21,6 +33,12 @@
 
   <g mask="url(#wave)">
     <rect width="1200" height="60" fill="url(#fg)"/>
+
+    <!-- Приглушённый белый блик: раз в ~3s скользит слева направо через центр баннера -->
+    <rect width="1200" height="60" fill="url(#flash)">
+      <animateTransform attributeName="transform" type="translate" values="-600,0;-600,0;600,0;600,0" keyTimes="0;0.05;0.28;1" dur="4s" calcMode="linear" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.03;0.05;0.28;0.35;1" dur="4s" repeatCount="indefinite"/>
+    </rect>
 
     <!-- Средняя волна (0.25), морфинг d, сдвиг 30% (-1.8s), запас -12 -->
     <path fill="#FFFFFF" opacity="0.25" d="M0,-12 L0,27 Q150,35 300,27 T600,27 T900,27 T1200,27 L1200,-12 Z">
