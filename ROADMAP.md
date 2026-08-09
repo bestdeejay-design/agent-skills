@@ -86,14 +86,18 @@
 > Связки, замыкающие цикл кодовых скиллов v1.1 (`commit-message-writer` →
 > `changelog-generator` → релиз/QA-автоматизация).
 
-- [ ] `version-bumper` — bump версии по Conventional Commits + тег релиза (замыкает `commit-message-writer`/`changelog-generator`)
+- [x] `version-bumper` — bump версии по Conventional Commits + тег релиза (замыкает `commit-message-writer`/`changelog-generator`)
   - [x] verified & enriched
-- [ ] `commit-lint` — валидация Conventional Commits в CI (локальный аналог commitlint)
+  - [x] выпущен в каталог (v1.5.0): 25-й скилл, детерминированный bump, showcase `docs/showcase/showcase-version-bumper-lovii.md`
+- [x] `commit-lint` — валидация Conventional Commits в CI (локальный аналог commitlint)
   - [x] verified & enriched
-- [ ] `coverage-analyzer` — анализ и трекинг покрытия после `test-generator`
+  - [x] выпущен в каталог (v1.5.0): 26-й скилл, showcase `docs/showcase/showcase-commit-lint-lovii.md`
+- [x] `coverage-analyzer` — анализ и трекинг покрытия после `test-generator`
   - [x] verified & enriched
-- [ ] `api-contract-testing` — генерация тестов/проверок контракта из OpenAPI (после `api-doc-generator`)
+  - [x] выпущен в каталог (v1.5.0): 27-й скилл, showcase `docs/showcase/showcase-coverage-analyzer-lovii.md`
+- [x] `api-contract-testing` — генерация тестов/проверок контракта из OpenAPI (после `api-doc-generator`)
   - [x] verified & enriched
+  - [x] выпущен в каталог (v1.5.0): 28-й скилл
 
 ## 🧪 v1.6 — Skill Showcase (examples on real project)
 

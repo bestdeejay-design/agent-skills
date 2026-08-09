@@ -1,7 +1,7 @@
 {
  "name": "agent-skills",
  "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
- "version": "1.4.0",
+ "version": "1.5.0",
  "author": "best",
  "license": "MIT",
  "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -559,6 +559,86 @@
     "уязвимости в зависимостях",
     "grype",
     "vulnerability report"
+   ],
+   "updated": "2026-08-09"
+  },
+  {
+   "name": "version-bumper",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Детерминированное определение следующей семвер-версии по git-истории (Conventional Commits): читает теги git (или стартует с 0.0.0), считает feat/fix/breaking в диапазоне, предлагает bump (major/minor/patch) и release-тег. Чистый Python 3 stdlib, офлайн, read-only. Триггеры: 'version bump', 'next version', 'какая следующая версия', 'release tag', 'semver bump', 'определи версию'.",
+   "path": "skills/version-bumper",
+   "triggers": [
+    "version bump",
+    "next version",
+    "bump version",
+    "semver",
+    "release tag",
+    "какая следующая версия",
+    "определи версию",
+    "версию поднять",
+    "вычислить версию",
+    "next release version"
+   ],
+   "updated": "2026-08-09"
+  },
+  {
+   "name": "commit-lint",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Валидация git-коммитов по Conventional Commits v1.0.0: читает git log (или stdin), парсит type/scope/subject, сообщает нарушения (missing/invalid type, регистр, длина subject/header/body, точка в конце). Отчёт text/JSON, exit 0/1/2. Чистый Python 3 stdlib, офлайн, read-only. Триггеры: 'commit lint', 'проверка коммитов', 'conventional commit check', 'валидация коммитов', 'commit message check'.",
+   "path": "skills/commit-lint",
+   "triggers": [
+    "commit lint",
+    "lint commits",
+    "conventional commits",
+    "check commit messages",
+    "validate commits",
+    "проверка коммитов",
+    "валидация коммитов",
+    "проверь коммиты",
+    "commit style check",
+    "commit-lint"
+   ],
+   "updated": "2026-08-09"
+  },
+  {
+   "name": "coverage-analyzer",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Анализ покрытия кода тестами: читает coverage.py XML/JSON отчёты (python -m coverage xml/json), считает statement/line/branch coverage, строит отчёт по файлам с проблемными местами (ниже порога), итоговый процент и рекомендации. Чистый Python 3 stdlib, офлайн. Триггеры: 'coverage analysis', 'покрытие кода', 'coverage report', 'анализ покрытия', 'test coverage', 'процент покрытия'.",
+   "path": "skills/coverage-analyzer",
+   "triggers": [
+    "coverage",
+    "coverage analysis",
+    "coverage report",
+    "test coverage",
+    "покрытие кода",
+    "анализ покрытия",
+    "процент покрытия",
+    "код не покрыт",
+    "branch coverage",
+    "coverage threshold"
+   ],
+   "updated": "2026-08-09"
+  },
+  {
+   "name": "api-contract-testing",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Проверка контракта API против OpenAPI 3.x-спецификации (JSON/YAML, встроенный YAML-парсер, без PyYAML): перечисляет операции (paths+webhooks), проверяет внутреннюю консистентность ($ref, дубликаты), сверяет manifest эндпоинтов со спекой офлайн и в live-режиме шлёт HTTP-запросы и сравнивает статусы. JSON-отчёт, exit 0/1/2. Чистый Python 3 stdlib. Триггеры: 'api contract testing', 'проверь контракт API', 'validate openapi spec', 'spec vs manifest', 'тест контракта'.",
+   "path": "skills/api-contract-testing",
+   "triggers": [
+    "api contract testing",
+    "contract test",
+    "validate openapi spec",
+    "spec vs manifest",
+    "endpoint coverage",
+    "проверь контракт API",
+    "тест контракта",
+    "валидация openapi",
+    "сверь спецификацию с API",
+    "check the API against the spec"
    ],
    "updated": "2026-08-09"
   }

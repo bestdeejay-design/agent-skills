@@ -1,0 +1,58 @@
+{
+  "name": "api-contract-testing",
+  "version": "1.0.0",
+  "description": "Validate an API contract against an OpenAPI 3.x specification (JSON or YAML) and an optional manifest of expected endpoints. Script api_contract.py enumerates operations (paths + webhooks), checks spec internal consistency (unresolved $refs, duplicates, missing responses), compares the manifest against the spec offline, and in live mode probes each manifest endpoint over HTTP and compares the actual status with the expected one. Pure Python 3 stdlib (argparse, json, pathlib, sys, urllib.request) with a built-in minimal YAML subset parser — no PyYAML, no requests. Emits a machine-readable JSON report (endpoints_count, missing_from_spec, contract_violations, conformant, errors) and uses exit codes 0/1/2. Closes the loop for api-doc-generator and test-generator. Triggers: 'api contract testing', 'contract test', 'validate openapi spec', 'spec vs manifest', 'endpoint coverage', 'проверь контракт API', 'тест контракта', 'валидация openapi', 'контрактное тестирование', 'check the API against the spec'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "api",
+    "contract",
+    "openapi",
+    "swagger",
+    "spec",
+    "manifest",
+    "endpoint",
+    "validation",
+    "yaml",
+    "json",
+    "контракт",
+    "спецификация",
+    "эндпоинты"
+  ],
+  "triggers": [
+    "api contract testing",
+    "contract test",
+    "validate openapi spec",
+    "spec vs manifest",
+    "endpoint coverage",
+    "check the API against the spec",
+    "does the API match the spec",
+    "missing endpoints",
+    "expected status codes",
+    "проверь контракт API",
+    "тест контракта",
+    "сверь спецификацию с API",
+    "валидация openapi",
+    "проверка эндпоинтов",
+    "контрактное тестирование"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/api_contract.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/api_contract.py",
+    "permissions": [
+      "file:read",
+      "exec"
+    ]
+  },
+  "updated": "2026-08-09"
+}

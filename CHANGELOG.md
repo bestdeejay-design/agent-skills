@@ -7,6 +7,29 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.5.0] - 2026-08-09
+
+### Added
+- **`version-bumper`** — deterministic semver bump from git history
+  (`bumper.py`, stdlib-only): reads git tags (fallback `0.0.0`), counts
+  feat/fix/breaking commits in range, suggests bump (major/minor/patch) and
+  release tag. Offline, read-only. Showcase:
+  [`showcase-version-bumper-lovii.md`](docs/showcase/showcase-version-bumper-lovii.md).
+- **`commit-lint`** — Conventional Commits v1.0.0 validation (`commit_lint.py`,
+  stdlib-only): reads `git log` or stdin, parses type/scope/subject, reports
+  violations (missing/invalid type, type case, subject/header/body length,
+  trailing dot), text/JSON report, exit 0/1/2. Offline, read-only. Showcase:
+  [`showcase-commit-lint-lovii.md`](docs/showcase/showcase-commit-lint-lovii.md).
+- **`coverage-analyzer`** — test coverage analysis (`coverage_analyzer.py`,
+  stdlib-only): reads coverage.py XML/JSON reports, computes statement/line/
+  branch coverage, flags files below threshold, summary + recommendations.
+  Showcase: [`showcase-coverage-analyzer-lovii.md`](docs/showcase/showcase-coverage-analyzer-lovii.md).
+- **`api-contract-testing`** — API contract validation against OpenAPI 3.x
+  (`api_contract.py`, stdlib-only, built-in YAML subset parser, no PyYAML):
+  enumerates paths + webhooks, checks internal consistency ($refs, duplicates),
+  compares endpoint manifest offline, live mode probes HTTP statuses. JSON
+  report, exit 0/1/2.
+
 ## [1.4.0] - 2026-08-09
 
 ### Added

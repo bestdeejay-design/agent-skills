@@ -1,0 +1,54 @@
+{
+  "name": "coverage-analyzer",
+  "version": "1.0.0",
+  "description": "Parse coverage.py XML reports (coverage.xml) into a human-readable coverage analysis: total line/branch percent, files with zero coverage, worst-10 ranking, delta vs a stored JSON baseline, and a PASS/FAIL verdict against an optional threshold. Stdlib-only Python script (xml.etree.ElementTree, json, argparse) that closes the loop after test-generator. Triggers: 'coverage analysis', 'coverage.xml', 'покрытие кода', 'процент покрытия', 'coverage report', 'проверь покрытие', 'coverage threshold', 'baseline coverage', 'test coverage check'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "coverage",
+    "coverage.py",
+    "coverage.xml",
+    "line-rate",
+    "branch-rate",
+    "baseline",
+    "threshold",
+    "pytest",
+    "CI",
+    "покрытие",
+    "тесты"
+  ],
+  "triggers": [
+    "coverage analysis",
+    "coverage.xml",
+    "coverage report",
+    "покрытие кода",
+    "процент покрытия",
+    "анализ покрытия",
+    "проверь покрытие",
+    "coverage threshold",
+    "baseline coverage",
+    "coverage delta",
+    "coverage-analyzer",
+    "покрытие тестами",
+    "test coverage check",
+    "coverage gate"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/coverage_analyzer.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/coverage_analyzer.py",
+    "permissions": [
+      "file:read"
+    ]
+  },
+  "updated": "2026-08-09"
+}

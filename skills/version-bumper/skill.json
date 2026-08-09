@@ -1,0 +1,52 @@
+{
+  "name": "version-bumper",
+  "version": "1.0.0",
+  "description": "Suggest the next semantic version and release tag from Conventional Commits in git history. Script bumper.py reads `git log` subjects (fallback: COMMITS env or --commits FILE for testability), classifies commit types (feat->MINOR, fix/perf/refactor->PATCH, `!` or BREAKING CHANGE->MAJOR) and prints latest_tag, next_version, suggested_tag (e.g. v1.5.0) and counts by type. Pure Python 3 stdlib, offline, deterministic output (-s), read-only (never creates tags). Closes the loop for commit-message-writer and changelog-generator. Triggers: 'bump version', 'next version', 'release tag', 'semver', 'поднять версию', 'следующая версия', 'тег релиза', 'версионирование', 'suggest version', 'version bump'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "version",
+    "semver",
+    "bump",
+    "release",
+    "tag",
+    "conventional-commits",
+    "git",
+    "версия",
+    "релиз",
+    "тег"
+  ],
+  "triggers": [
+    "bump version",
+    "next version",
+    "suggest version",
+    "release tag",
+    "semver",
+    "version bump",
+    "поднять версию",
+    "следующая версия",
+    "какой тег релиза",
+    "версионирование",
+    "v bump",
+    "release version"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/bumper.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/bumper.py",
+    "permissions": [
+      "file:read",
+      "exec"
+    ]
+  },
+  "updated": "2026-08-09"
+}

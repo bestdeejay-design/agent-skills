@@ -1,0 +1,54 @@
+{
+  "name": "commit-lint",
+  "version": "1.0.0",
+  "description": "Validate git commit messages against Conventional Commits v1.0.0. Script commit_lint.py reads `git log` (subprocess) of a real repository (or stdin with --stdin), parses each commit as <type>(scope)!: subject, and reports violations: missing type, invalid type, type case, subject length (default 50), subject capitalization, trailing dot/space, header length (default 100), body line length (default 72). Plain-text Markdown report or JSON (--json). Exit codes: 0 all clean, 1 violations found, 2 error. Pure Python 3 stdlib, offline, read-only. Closes the loop for commit-message-writer and version-bumper. Triggers: 'commit lint', 'lint commits', 'conventional commits check', 'проверка коммитов', 'валидация коммитов', 'commit message check', 'check commit messages', 'conventional commit lint'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "commit",
+    "lint",
+    "conventional-commits",
+    "git",
+    "validation",
+    "commitlint",
+    "gitlint",
+    "commit message",
+    "коммиты",
+    "проверка"
+  ],
+  "triggers": [
+    "commit lint",
+    "lint commits",
+    "commit message lint",
+    "conventional commits",
+    "conventional commit check",
+    "check commit messages",
+    "validate commits",
+    "commit message validation",
+    "проверка коммитов",
+    "валидация коммитов",
+    "проверь коммиты",
+    "conventional commit lint",
+    "commit style check",
+    "commit-lint"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/commit_lint.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/commit_lint.py",
+    "permissions": [
+      "file:read",
+      "exec"
+    ]
+  },
+  "updated": "2026-08-09"
+}

@@ -3,7 +3,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 24](https://img.shields.io/badge/Skills-24-blue.svg)](index.json)
+[![Skills: 28](https://img.shields.io/badge/Skills-28-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--09-green.svg)](index.json)
@@ -43,6 +43,10 @@
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | `media` | 13 SEO-команд для AI-агентов: технический аудит, Core Web Vitals, crawlability, schema.org, ключевые слова, meta-теги, контент-анализ, изображения, отчёты, сравнение с конкурентами, автономные исправления. URL-режим + файловый режим. Скиптер `seo_toolkit.py`: аудит meta/заголовков/alt, плотность ключей, валидация JSON-LD. | `seo audit`, `core web vitals`, `schema org`, `json-ld`, `keywords analysis`, `seo report`, `meta tags`, `crawlability` |
 | [**secret-scanner**](skills/secret-scanner/SKILL.md) | `code` | Сканирование кода и git-репозиториев на утечки секретов и токенов (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, приватные ключи, JWT) по паттернам gitleaks v8.30.1 + энтропийный фильтр Шеннона + allowlist шума. Чистый Python 3 stdlib, офлайн, отчёты JSON/Markdown/text, редактирование секретов, CI-шлюз. | `secret scan`, `проверь секреты`, `leaked token`, `scan for keys`, `hardcoded credentials` |
 | [**security-review**](skills/security-review/SKILL.md) | `code` | Оркестрация security-ревью зависимостей и кода: инвентаризация lockfiles (npm/pip/cargo/go/gem/maven/gradle/composer), классификатор exit-кодов 13 инструментов (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit), нормализация JSON-отчётов в единую схему. Офлайн, stdlib. | `security review`, `audit dependencies`, `lockfile audit`, `проверь зависимости`, `уязвимости`, `osv-scanner` |
+| [**version-bumper**](skills/version-bumper/SKILL.md) | `code` | Детерминированный bump семвер-версии по git-истории: читает теги (fallback `0.0.0`), считает feat/fix/breaking-коммиты в Conventional Commits, предлагает bump (major/minor/patch) + release-тег, режим `-s`. Офлайн, stdlib, read-only. Замыкает `commit-message-writer`/`changelog-generator`. | `version bump`, `next version`, `semver`, `release tag`, `какая следующая версия`, `определи версию` |
+| [**commit-lint**](skills/commit-lint/SKILL.md) | `code` | Валидация git-коммитов по Conventional Commits v1.0.0: читает `git log` (или stdin), парсит type/scope/subject, сообщает нарушения (missing/invalid type, регистр, длина subject/header/body, точка в конце), отчёт text/JSON, exit 0/1/2. Офлайн, stdlib, read-only. Локальный аналог commitlint. | `commit lint`, `lint commits`, `conventional commits`, `check commit messages`, `проверка коммитов`, `валидация коммитов`, `commit style check` |
+| [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | `code` | Анализ покрытия кода тестами из coverage.py отчётов (XML/JSON): statement/line/branch coverage, разбивка по файлам с проблемными (ниже порогов), итоговый процент, рекомендации. Офлайн, stdlib. Пара к `test-generator`. | `coverage`, `coverage analysis`, `coverage report`, `test coverage`, `покрытие кода`, `анализ покрытия`, `branch coverage` |
+| [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | `code` | Проверка контракта API против OpenAPI 3.x (JSON/YAML, встроенный YAML-парсер, без PyYAML): перечисляет операции (paths + webhooks), проверяет внутреннюю консистентность ($ref, дубликаты, отсутствующие responses), сверяет manifest эндпоинтов офлайн, в live-режиме шлёт HTTP-запросы и сравнивает статусы. JSON-отчёт, exit 0/1/2. Офлайн, stdlib. | `api contract testing`, `contract test`, `validate openapi spec`, `spec vs manifest`, `endpoint coverage`, `проверь контракт API`, `тест контракта` |
 
 ## 🎬 Showcase — примеры на реальных проектах
 
@@ -59,6 +63,9 @@
 | [`seo-toolkit`](docs/showcase/showcase-seo-toolkit-lovii.md) | lovii.ru (лендинг White Paper) | SEO-аудит публичной страницы: meta/OG/заголовки/alt через helper + Core Web Vitals + пробелы JSON-LD |
 | [`secret-scanner`](docs/showcase/showcase-secret-scanner-lovii.md) | lovii_demo репо | Скан репозитория: 1 Medium (generic-api-key, UUID false positive, `index.js:7`) — энтропия + allowlist |
 | [`security-review`](docs/showcase/showcase-security-review-lovii.md) | lovii_demo репо | Инвентаризация lockfiles (npm `package-lock.json` в `.opencode/`), классификация exit-кодов (osv-scanner 129 = API-ошибка, semgrep 1 = находки) |
+| [`version-bumper`](docs/showcase/showcase-version-bumper-lovii.md) | agent-skills + lovii_demo | Следующая semver-версия по git-истории: agent-skills `v1.0.0` → `v1.1.0` (minor), lovii_demo fallback `0.0.0` → `v0.1.0` |
+| [`commit-lint`](docs/showcase/showcase-commit-lint-lovii.md) | agent-skills + lovii_demo | Валидация Conventional Commits: 12/12 agent-skills (длинные subject + тип `i18n`), lovii_demo — классы type-case и missing-type |
+| [`coverage-analyzer`](docs/showcase/showcase-coverage-analyzer-lovii.md) | agent-skills | Отчёт покрытия из coverage.py XML: statements/line/branch, файлы ниже порога, итоговый процент |
 
 ---
 
