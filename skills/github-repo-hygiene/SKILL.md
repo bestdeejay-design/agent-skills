@@ -173,19 +173,36 @@ README.md
 - Запрещено использовать белый (`#FFFFFF`) в середине градиента — сольётся с текстом.
 - `FONTCOLOR`: `#FFFFFF` (или `#1A1A2E`, если градиент светлый).
 
+### Эффект «фон наплывает» (главный паттерн)
+
+Баннер — это **не просто градиент с волнами поверх**, а градиент с **вырезом**:
+нижняя волна задаётся в `<mask>` **чёрным** цветом и **полностью убирает цвет
+баннера** в своей области (дыра), сквозь которую виден фон страницы (белый фон
+README). Визуально фон страницы «наплывает» на баннер волнистой линией снизу
+(header) или сверху (footer). Полупрозрачные белые волны (`0.25`, `0.5`) лежат
+ПОВЕРХ градиента внутри группы с маской и не вырезают — они только подсвечивают
+слои.
+
 ### Что умеет анимация (лучше, чем у внешних сервисов)
 
 - **Переливающийся градиент** — цвета плавно перетекают друг в друга (8s).
-- **Дрейфующие волны** — 2 полупрозрачные волны бесшовно плывут по фону с разной
-  скоростью (движущееся «море»).
+- **«Дыхание» волн** — волны и вырез плавно покачиваются по вертикали
+  (`translateY`, spline) **в рассинхроне 30%**: при `dur="6s"` задержки
+  `0s` / `-1.8s` / `-3.6s` — живое «море», слои не совпадают по фазе.
+- **Фон наплывает** — чёрная волна в маске вырезает цвет → виден фон страницы.
 - **Плавное появление** — название и описание появляются с лёгким подъёмом (fade + slide).
 - **Twinkling в footer** — ник владельца мерцает (пульсирует яркостью).
 - Анимация держится только на SMIL `<animate>`/`<animateTransform>` — работает
-  в `<img>` на GitHub без скриптов.
+  в `<img>` на GitHub без скриптов и без внешних сервисов.
 
 ### Шаблон header.svg
 
-Подставить: `COLD`, `WARM` (цвета без `#`-риска — с `#`), `PROJECT_NAME`, `PROJECT_DESC`, `FONTCOLOR`.
+Подставить: `COLD`, `WARM` (с `#`), `PROJECT_NAME`, `PROJECT_DESC`, `FONTCOLOR`.
+Ключевые правила: чёрная волна в маске `wave` вырезает низ баннера (фон
+наплывает); патчи волн начинаются у низа холста и уходят за его границу
+(`L…,290`) — при анимации вниз не открывается полоска; задержки `begin`
+смещены на 30% (`0s` / `-1.8s` / `-3.6s` при `dur="6s"`); у текста тёмный
+дубль-тень под основным (читаемость на любом градиенте).
 
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-label="PROJECT_NAME — PROJECT_DESC">
@@ -198,65 +215,96 @@ README.md
         <animate attributeName="stop-color" values="WARM;COLD;WARM" dur="8s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
+    <!-- Маска: чёрная волна вырезает цвет баннера снизу (фон страницы «наплывает») -->
+    <mask id="wave">
+      <rect width="1200" height="290" fill="#FFFFFF"/>
+      <path fill="#000000"
+            d="M0,290 L0,245 C150,222 350,268 600,245 C850,222 1050,268 1200,245 L1200,290 Z">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,5;0,0" dur="6s" begin="-3.6s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+      </path>
+    </mask>
   </defs>
 
-  <rect width="1200" height="290" fill="url(#bg)"/>
+  <g mask="url(#wave)">
+    <rect width="1200" height="290" fill="url(#bg)"/>
 
-  <!-- Дрейфующая волна 1 (период 300, бесшовный сдвиг) -->
-  <path fill="#FFFFFF" opacity="0.14"
-        d="M-300,270 Q-225,230 -150,270 Q-75,310 0,270 Q75,230 150,270 Q225,310 300,270 Q375,230 450,270 Q525,310 600,270 Q675,230 750,270 Q825,310 900,270 Q975,230 1050,270 Q1125,310 1200,270 Q1275,230 1350,270 Q1425,310 1500,270 L1500,290 L-300,290 Z">
-    <animateTransform attributeName="transform" type="translate" values="0,0;-300,0;0,0" dur="9s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.14;0.22;0.14" dur="6s" repeatCount="indefinite"/>
-  </path>
+    <!-- Средняя волна (0.25), пики смещены относительно выреза; сдвиг 30% (-1.8s) -->
+    <path fill="#FFFFFF" opacity="0.25"
+          d="M0,290 L0,232 C200,210 450,256 720,232 C950,212 1100,250 1200,232 L1200,290 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="6s" begin="-1.8s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+    <!-- Верхняя волна (0.5), гребни чаще; сдвиг 0s -->
+    <path fill="#FFFFFF" opacity="0.5"
+          d="M0,290 L0,220 C280,198 520,244 800,222 C1000,204 1120,238 1200,220 L1200,290 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,11;0,0" dur="6s" begin="0s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
 
-  <!-- Дрейфующая волна 2 (период 450, другая скорость) -->
-  <path fill="#FFFFFF" opacity="0.10"
-        d="M-450,275 Q-337.5,260 -225,275 Q-112.5,290 0,275 Q112.5,260 225,275 Q337.5,290 450,275 Q562.5,260 675,275 Q787.5,290 900,275 Q1012.5,260 1125,275 Q1237.5,290 1350,275 L1350,290 L-450,290 Z">
-    <animateTransform attributeName="transform" type="translate" values="0,0;-450,0;0,0" dur="14s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.10;0.16;0.10" dur="7s" repeatCount="indefinite"/>
-  </path>
+    <g>
+      <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
+      <text x="602" y="105" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#000000" opacity="0.28" text-anchor="middle">PROJECT_NAME</text>
+      <text x="600" y="103" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="FONTCOLOR" text-anchor="middle">PROJECT_NAME</text>
+    </g>
 
-  <g>
-    <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
-    <animateTransform attributeName="transform" type="translate" values="0,16;0,0" dur="1.5s" fill="freeze"/>
-    <text x="600" y="140" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="FONTCOLOR" text-anchor="middle">PROJECT_NAME</text>
-  </g>
-
-  <g>
-    <animate attributeName="opacity" values="0;1" dur="1.5s" begin="0.5s" fill="freeze"/>
-    <animateTransform attributeName="transform" type="translate" values="0,12;0,0" dur="1.5s" begin="0.5s" fill="freeze"/>
-    <text x="600" y="196" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="FONTCOLOR" opacity="0.92" text-anchor="middle">PROJECT_DESC</text>
+    <g>
+      <animate attributeName="opacity" values="0;1" dur="1.5s" begin="0.5s" fill="freeze"/>
+      <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#000000" opacity="0.30" text-anchor="middle">PROJECT_DESC</text>
+      <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="FONTCOLOR" opacity="0.95" text-anchor="middle">PROJECT_DESC</text>
+    </g>
   </g>
 </svg>
 ```
 
 ### Шаблон footer.svg
 
+Подставить: `COLD`, `WARM` (с `#`), `USERNAME`.
+Footer — **зеркало header по вертикали**: дыра (чёрная волна в маске) вырезает
+цвет баннера **сверху** — фон страницы наплывает на футер сверху, текст снизу.
+Высота **60px** (компактный — высокий футер выглядит как «дыра после контента»).
+Ключевое: все патчи начинаются **выше холста** (`y=-12` / `y=-16`) — запас больше
+максимальной амплитуды анимации, иначе при покачивании сверху открывается
+градиентная полоска.
+
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="80" viewBox="0 0 1200 80" role="img" aria-label="@USERNAME">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="60" viewBox="0 0 1200 60" role="img" aria-label="@USERNAME">
   <defs>
     <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="WARM">
-        <animate attributeName="stop-color" values="WARM;COLD;WARM" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="stop-color" values="WARM;COLD;WARM" dur="6s" repeatCount="indefinite"/>
       </stop>
       <stop offset="100%" stop-color="COLD">
-        <animate attributeName="stop-color" values="COLD;WARM;COLD" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="stop-color" values="COLD;WARM;COLD" dur="6s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
+    <!-- Маска: чёрная волна вырезает цвет баннера сверху (фон страницы наплывает на футер) -->
+    <mask id="wave">
+      <rect width="1200" height="60" fill="#FFFFFF"/>
+      <path fill="#000000"
+            d="M0,-12 L0,21 C200,29 400,12 600,21 C800,30 1000,13 1200,21 L1200,-12 Z">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,4;0,0" dur="6s" begin="-3.6s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+      </path>
+    </mask>
   </defs>
 
-  <rect width="1200" height="80" fill="url(#fg)"/>
+  <g mask="url(#wave)">
+    <rect width="1200" height="60" fill="url(#fg)"/>
 
-  <path fill="#FFFFFF" opacity="0.15"
-        d="M-300,70 Q-225,55 -150,70 Q-75,85 0,70 Q75,55 150,70 Q225,85 300,70 Q375,55 450,70 Q525,85 600,70 Q675,55 750,70 Q825,85 900,70 Q975,55 1050,70 Q1125,85 1200,70 Q1275,55 1350,70 Q1425,85 1500,70 L1500,80 L-300,80 Z">
-    <animateTransform attributeName="transform" type="translate" values="0,0;-300,0;0,0" dur="11s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.15;0.25;0.15" dur="5s" repeatCount="indefinite"/>
-  </path>
+    <!-- Средняя волна (0.25), пики смещены; сдвиг 30% (-1.8s), запас сверху -12 -->
+    <path fill="#FFFFFF" opacity="0.25"
+          d="M0,-12 L0,27 C120,35 260,20 420,27 C560,36 700,21 860,27 C980,35 1120,21 1200,27 L1200,-12 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,6;0,0" dur="6s" begin="-1.8s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+    <!-- Верхняя волна (0.5), гребни чаще; сдвиг 0s, запас сверху -16 -->
+    <path fill="#FFFFFF" opacity="0.5"
+          d="M0,-16 L0,35 C90,42 180,27 270,35 C360,44 450,29 540,35 C630,44 720,29 810,35 C900,44 990,29 1080,35 C1140,30 1170,40 1200,35 L1200,-16 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="6s" begin="0s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
 
-  <text x="600" y="52" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
-    @USERNAME
-    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-  </text>
+    <text x="602" y="51" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#000000" opacity="0.30" text-anchor="middle">@USERNAME</text>
+    <text x="600" y="49" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+      @USERNAME
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+    </text>
+  </g>
 </svg>
 ```
 
@@ -283,7 +331,7 @@ README.md
 ```
 
 - Ссылки **относительные** (`assets/header.svg`) — работают в клонах и форках;
-  GitHub сам масштабирует SVG (1200×290 / 1200×80) под ширину контейнера.
+  GitHub сам масштабирует SVG (1200×290 / 1200×60) под ширину контейнера.
 - Кликабельность (переход на профиль владельца) обеспечивает обёртка `<a>` —
   внутри самого `<img>` SVG ссылки не срабатывают.
 
@@ -308,6 +356,11 @@ README.md
 - Не добавлять header/footer, если они уже есть (только по запросу).
 - Не использовать `<script>` в SVG — GitHub блокирует скрипты; только SMIL `<animate>`.
 - Не использовать base64 — обычные файлы в `assets/`.
+- Вырез цвета делает **только чёрная волна в `<mask>`**; полупрозрачные волны
+  (`#FFFFFF` с `opacity`) не вырезают — они подсвечивают слои поверх градиента.
+- В маске обязательно белый `<rect>` на весь холст (видимость) + чёрные патчи-вырезы;
+  без белого rect маска «погасит» весь баннер.
+- Footer всегда **зеркало** header по вертикали: дыра сверху — у header снизу.
 
 ### Кодировка текста в SVG
 
@@ -319,14 +372,25 @@ README.md
 
 ### Параметры анимации (настраиваемые)
 
-- `dur="8s"` — скорость перетекания градиента (можно 4–10s).
-- `dur="9s"/"14s"` — скорость дрейфа волн 1/2 (можно 6–18s; разные периоды
-  создают глубину).
+- `dur="8s"` (header) / `dur="6s"` (footer) — скорость перетекания градиента (можно 4–10s).
+- `dur="6s"` — период «дыхания» волн и выреза (можно 4–8s).
+- **Рассинхрон 30%**: задержки волн считаются как `begin = -dur * 0.3 * n`
+  для `n = 0, 1, 2`. При `dur="6s"`: `0s` (верхняя), `-1.8s` (средняя),
+  `-3.6s` (вырез). Слои никогда не совпадают по фазе.
+- `calcMode="spline"` + `keySplines="0.5 0 0.5 1;0.5 0 0.5 1"` — плавное
+  покачивание без рывков (иначе движение будет линейным и «дёрганым»).
+- Амплитуды: вырез 4–5px, средняя 6–8px, верхняя 8–11px — чем выше волна,
+  тем больше размах; суммарно вырез и волны не должны «уезжать» за пределы
+  цветной зоны.
+- **Запас патча**: любой патч, упирающийся в край холста, должен выходить
+  за него минимум на свою максимальную амплитуду (footer: верх патчей
+  `y=-12` / `y=-16` при амплитудах 4/8), иначе при анимации с края
+  открывается полоска градиента.
 - `dur="1.5s"` — скорость появления текста (можно 1–2s), `begin="0.5s"` —
   задержка появления desc.
 - `dur="2s"` — скорость мерцания footer (можно 1.5–3s).
-- Периоды волн в `d`-path должны быть **кратны сдвигу** в `animateTransform`
-  (например, период 300 ↔ сдвиг -300), иначе сдвиг не будет бесшовным.
+- Пики волн в `d`-path **не должны совпадать по фазе** между слоями:
+  у каждого слоя свои `C`-контрольные точки (иначе слои сливаются в одну волну).
 
 - `README.md` — **всегда на английском** (международный стандарт GitHub).
 - `README.<lang>.md` — русская версия, **зеркало**: при изменении англ. версии
