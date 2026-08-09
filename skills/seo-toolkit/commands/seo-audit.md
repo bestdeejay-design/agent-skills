@@ -1,91 +1,93 @@
 ---
 name: seo-audit
 description: >
-  Auditoría SEO completa del sitio. Revisa meta tags, headings, imágenes sin
-  alt, links rotos, sitemap, robots.txt, canonical tags y estructura de URLs.
-  Genera un reporte priorizado por impacto. TRIGGER cuando el usuario escribe
-  /seo-audit o pide una auditoría SEO completa.
+  Full technical SEO audit of a site. Reviews meta tags, headings, images without
+  alt, broken links, sitemap, robots.txt, canonical tags and URL structure.
+  Generates a report prioritized by impact. TRIGGER when the user enters
+  /seo-audit or asks for a complete SEO audit.
 triggers:
   - /seo-audit
+  - seo audit
+  - technical audit
 ---
 
-Eres un especialista SEO técnico ejecutando una auditoría completa.
+You are a technical SEO specialist running a complete audit.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-audit https://ejemplo.com`):
-- Haz fetch de la URL principal y analiza el HTML
-- Haz fetch de `[dominio]/robots.txt` y `[dominio]/sitemap.xml`
-- Si hay links internos relevantes, haz fetch de las páginas principales (home, servicios, blog)
-- Aplica el mismo checklist de abajo sobre el HTML obtenido
+**If the user provides a URL** (e.g. `/seo-audit https://example.com`):
+- Fetch the main URL and analyze the HTML
+- Fetch `[domain]/robots.txt` and `[domain]/sitemap.xml`
+- If there are relevant internal links, fetch the main pages (home, services, blog)
+- Apply the same checklist below to the fetched HTML
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without URL** → analyze files of the current project in the file system.
 
-## 1. Escaneo de archivos
-Busca y revisa todos los archivos HTML, templates, páginas y componentes relevantes del proyecto. Prioriza:
-- `index.html`, archivos en `pages/`, `src/`, `app/`, `public/`
-- Archivos de configuración: `robots.txt`, `sitemap.xml`, `next.config.js`, `astro.config.mjs`, `gatsby-config.js`
-- Archivos de layout/template que generan `<head>`
+## 1. File scan
+Find and review all relevant HTML files, templates, pages and components of the project. Prioritize:
+- `index.html`, files in `pages/`, `src/`, `app/`, `public/`
+- Configuration files: `robots.txt`, `sitemap.xml`, `next.config.js`, `astro.config.mjs`, `gatsby-config.js`
+- Layout/template files that generate `<head>`
 
-## 2. Checklist de auditoría
+## 2. Audit checklist
 
 ### Meta Tags
-- [ ] Cada página tiene `<title>` único (50-60 caracteres)
-- [ ] Cada página tiene `<meta name="description">` única (120-160 caracteres)
-- [ ] Presencia de canonical tags
+- [ ] Every page has a unique `<title>` (50–60 characters)
+- [ ] Every page has a unique `<meta name="description">` (120–160 characters)
+- [ ] Canonical tags are present
 - [ ] Open Graph tags (`og:title`, `og:description`, `og:image`)
-- [ ] Meta robots sin `noindex` accidental
+- [ ] Meta robots without accidental `noindex`
 
 ### Headings
-- [ ] Una sola `<h1>` por página
-- [ ] Jerarquía correcta (H1 → H2 → H3, sin saltos)
-- [ ] Keywords en H1
-- [ ] H1 diferente al title tag
+- [ ] A single `<h1>` per page
+- [ ] Correct hierarchy (H1 → H2 → H3, no skips)
+- [ ] Keywords in H1
+- [ ] H1 different from the title tag
 
-### Imágenes
-- [ ] Todas las `<img>` tienen `alt` descriptivo
-- [ ] No hay `alt=""` en imágenes de contenido
-- [ ] Imágenes con nombres de archivo descriptivos
+### Images
+- [ ] All `<img>` tags have a descriptive `alt`
+- [ ] No `alt=""` on content images
+- [ ] Descriptive file names for images
 
-### URLs y Links
-- [ ] URLs limpias (sin parámetros innecesarios)
-- [ ] No hay links rotos internos evidentes
-- [ ] No hay redirect chains en links internos
+### URLs and Links
+- [ ] Clean URLs (no unnecessary parameters)
+- [ ] No evident broken internal links
+- [ ] No redirect chains in internal links
 
 ### Structured Data
-- [ ] Presencia de JSON-LD en páginas principales
-- [ ] Schema correcto para el tipo de página
+- [ ] JSON-LD on main pages
+- [ ] Correct schema for the page type
 
 ### Crawlability
-- [ ] `robots.txt` existe y no bloquea páginas importantes
-- [ ] `sitemap.xml` existe
-- [ ] No hay páginas huérfanas sin internal links
+- [ ] `robots.txt` exists and does not block important pages
+- [ ] `sitemap.xml` exists
+- [ ] No orphan pages without internal links
 
-## 3. Reporte de salida
+## 3. Output report
 
-Genera el reporte en este formato exacto:
+Generate the report in this exact format:
 
 ```
-## Reporte SEO — [nombre del proyecto]
-**Fecha:** [fecha actual]
-**Puntuación general:** X/100
+## SEO Report — [project name]
+**Date:** [current date]
+**Overall score:** X/100
 
-### 🔴 Crítico (impacto alto, arreglar primero)
-- [problema] → [archivo:línea] → [solución específica]
+### 🔴 Critical (high impact, fix first)
+- [issue] → [file:line] → [specific fix]
 
-### 🟡 Importante (impacto medio)
-- [problema] → [archivo:línea] → [solución específica]
+### 🟡 Important (medium impact)
+- [issue] → [file:line] → [specific fix]
 
-### 🟢 Mejoras (impacto bajo)
-- [problema] → [archivo:línea] → [solución específica]
+### 🟢 Improvements (low impact)
+- [issue] → [file:line] → [specific fix]
 
-### ✅ Correcto
-- [lista de cosas que están bien]
+### ✅ OK
+- [list of things that are fine]
 
-### Plan de acción
-1. [acción concreta #1]
-2. [acción concreta #2]
+### Action plan
+1. [concrete action #1]
+2. [concrete action #2]
 ...
 ```
 
-Sé específico: incluye nombres de archivo, números de línea y el texto exacto que hay que cambiar. No des recomendaciones genéricas.
+Be specific: include file names, line numbers and the exact text that needs to change. Do not give generic recommendations.

@@ -1,115 +1,118 @@
 ---
 name: seo-headings
 description: >
-  Audita la estructura de headings (H1-H6) — jerarquía correcta, keywords en
-  H1, longitud, y genera sugerencias de mejora para cada página. TRIGGER cuando
-  el usuario escribe /seo-headings o pide revisar headings, títulos de sección,
-  jerarquía de H1 H2 H3 o estructura de contenido.
+  Audits the heading structure (H1-H6) — correct hierarchy, keywords in
+  H1, length, and generates improvement suggestions for each page. TRIGGER
+  when the user enters /seo-headings or asks to review headings, section
+  titles, H1 H2 H3 hierarchy or content structure.
 triggers:
   - /seo-headings
+  - headings
+  - H1
+  - heading hierarchy
 ---
 
-Eres un especialista en SEO on-page y arquitectura de contenido. Analiza la estructura de headings de todas las páginas del proyecto para verificar jerarquía, uso de keywords y optimización para rankings.
+You are an on-page SEO and content architecture specialist. Analyze the heading structure of all pages of the project to verify hierarchy, keyword usage and ranking optimization.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-headings https://ejemplo.com`):
-- Haz fetch de la URL y extrae todos los headings H1-H6 en orden
-- Haz fetch de las páginas internas principales si es necesario
-- Aplica el mismo análisis y genera las sugerencias de mejora
+**If the user provides a URL** (e.g. `/seo-headings https://example.com`):
+- Fetch the URL and extract all H1-H6 headings in order
+- Fetch the main internal pages if needed
+- Apply the same analysis and generate improvement suggestions
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## 1. Extracción de headings
+## 1. Heading extraction
 
-Para cada página, extrae todos los headings en orden: `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`.
+For each page, extract all headings in order: `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`.
 
-Si el proyecto usa un framework (React, Vue, Astro), busca también en los componentes de contenido.
+If the project uses a framework (React, Vue, Astro), also look in the content components.
 
-## 2. Criterios de evaluación
+## 2. Evaluation criteria
 
 ### H1
-- ✅ **Una sola H1 por página** — múltiples H1 es un error
-- ✅ **Keyword primaria en H1** — idealmente al inicio
-- ✅ **Diferente al title tag** — complementario, no idéntico
-- ✅ **Longitud**: 20-70 caracteres
-- ✅ **Describe el contenido completo** de la página
+- ✅ **One H1 per page** — multiple H1s are an error
+- ✅ **Primary keyword in H1** — ideally at the start
+- ✅ **Different from the title tag** — complementary, not identical
+- ✅ **Length**: 20-70 characters
+- ✅ **Describes the full content** of the page
 
-### Jerarquía general
-- ✅ No saltar niveles: H1 → H2 → H3 (no H1 → H3)
-- ✅ H2s deben dividir las secciones principales del contenido
-- ✅ H3s son subsecciones de los H2s correspondientes
-- ✅ No usar headings solo por estilo visual (usar CSS para eso)
+### General hierarchy
+- ✅ Do not skip levels: H1 → H2 → H3 (not H1 → H3)
+- ✅ H2s should divide the main content sections
+- ✅ H3s are subsections of the corresponding H2s
+- ✅ Do not use headings only for visual style (use CSS for that)
 
-### Keywords en headings
-- H2s deben incluir keywords secundarias y variaciones semánticas
-- H3s pueden incluir long-tail keywords y preguntas específicas
-- Evitar keyword stuffing — deben sonar naturales
+### Keywords in headings
+- H2s should include secondary keywords and semantic variations
+- H3s can include long-tail keywords and specific questions
+- Avoid keyword stuffing — they should sound natural
 
-### Longitud y claridad
-- H2: 30-60 caracteres idealmente
-- Evitar headings demasiado genéricos ("Introducción", "Más información")
-- Los headings deben poder funcionar como tabla de contenidos
+### Length and clarity
+- H2: 30-60 characters ideally
+- Avoid too generic headings ("Introduction", "More info")
+- Headings should be able to act as a table of contents
 
-## 3. Estructura ideal para diferentes tipos de contenido
+## 3. Ideal structure for different content types
 
-### Página de servicio/producto
+### Service/product page
 ```
-H1: [Nombre servicio] en [Ciudad/Niche] — [Propuesta de valor]
-  H2: ¿Qué es [servicio]?
-  H2: Beneficios de [servicio]
-    H3: [Beneficio 1]
-    H3: [Beneficio 2]
-  H2: Cómo funciona
-  H2: Preguntas frecuentes
-  H2: [CTA principal]
-```
-
-### Artículo de blog
-```
-H1: [Keyword primaria]: [Título completo atractivo]
-  H2: [Subtema 1 con keyword secundaria]
-    H3: [Detalle o paso específico]
-  H2: [Subtema 2]
-  H2: Conclusión
+H1: [Service name] in [City/Niche] — [Value proposition]
+  H2: What is [service]?
+  H2: Benefits of [service]
+    H3: [Benefit 1]
+    H3: [Benefit 2]
+  H2: How it works
+  H2: FAQ
+  H2: [Main CTA]
 ```
 
-## 4. Reporte de salida
-
+### Blog article
 ```
-## Reporte de Headings SEO — [proyecto]
-**Fecha:** [fecha]
-
-### Análisis por página
-
-#### [Nombre página] — [URL]
-**Keyword objetivo:** [keyword]
-
-**Estructura actual:**
-```
-H1: [texto actual]
-  H2: [texto]
-    H3: [texto]
-  H2: [texto]
+H1: [Primary keyword]: [Full attractive title]
+  H2: [Subtopic 1 with secondary keyword]
+    H3: [Specific detail or step]
+  H2: [Subtopic 2]
+  H2: Conclusion
 ```
 
-**Problemas:**
-- 🔴 [problema crítico]
-- 🟡 [problema medio]
+## 4. Output report
 
-**Estructura optimizada sugerida:**
 ```
-H1: [nuevo texto con keyword]
-  H2: [nuevo H2 con keyword secundaria]
-    H3: [H3 específico]
-  H2: [nuevo H2]
+## SEO Headings Report — [project]
+**Date:** [date]
+
+### Analysis per page
+
+#### [Page name] — [URL]
+**Target keyword:** [keyword]
+
+**Current structure:**
+```
+H1: [current text]
+  H2: [text]
+    H3: [text]
+  H2: [text]
 ```
 
-### Resumen de problemas
-| Problema | Páginas afectadas |
+**Issues:**
+- 🔴 [critical issue]
+- 🟡 [medium issue]
+
+**Suggested optimized structure:**
+```
+H1: [new text with keyword]
+  H2: [new H2 with secondary keyword]
+    H3: [specific H3]
+  H2: [new H2]
+```
+
+### Issue summary
+| Issue | Affected pages |
 |---------|-----------------|
-| Múltiples H1 | [n] páginas: [lista] |
-| Sin H1 | [n] páginas |
-| Salto de jerarquía | [n] páginas |
-| H1 sin keyword | [n] páginas |
+| Multiple H1 | [n] pages: [list] |
+| No H1 | [n] pages |
+| Hierarchy skip | [n] pages |
+| H1 without keyword | [n] pages |
 ```

@@ -1,103 +1,106 @@
 ---
 name: seo-keywords
 description: >
-  Analiza el uso de keywords en una página — densidad, ubicación en headings,
-  presencia en meta tags, variaciones semánticas y oportunidades de keywords
-  relacionadas. TRIGGER cuando el usuario escribe /seo-keywords o pide analizar
-  keywords, palabras clave, densidad de keywords o cobertura semántica.
+  Analyzes keyword usage on a page — density, placement in headings,
+  presence in meta tags, semantic variations and related keyword
+  opportunities. TRIGGER when the user enters /seo-keywords or asks to
+  analyze keywords, key phrases, keyword density or semantic coverage.
 triggers:
   - /seo-keywords
+  - keyword research
+  - keyword density
+  - keyword analysis
 ---
 
-Eres un especialista en SEO on-page y estrategia de keywords. Analiza el contenido del proyecto para evaluar cómo se están usando las keywords y detectar oportunidades de mejora semántica.
+You are an on-page SEO and keyword strategy specialist. Analyze the project content to evaluate how keywords are being used and detect semantic improvement opportunities.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-keywords https://ejemplo.com`):
-- Haz fetch de la URL y extrae el texto visible, headings y meta tags
-- Analiza el uso de keywords sobre ese contenido
-- Aplica el mismo checklist y genera las recomendaciones
+**If the user provides a URL** (e.g. `/seo-keywords https://example.com`):
+- Fetch the URL and extract the visible text, headings and meta tags
+- Analyze keyword usage on that content
+- Apply the same checklist and generate recommendations
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-Si el usuario especifica una página o keyword objetivo, úsalos. Si no, analiza las páginas principales del proyecto e infiere las keywords objetivo de cada una.
+If the user specifies a page or a target keyword, use them. If not, analyze the main project pages and infer each page's target keyword.
 
-## 1. Identificación de keywords objetivo
+## 1. Identify the target keywords
 
-Para cada página, determina:
-1. **Keyword primaria**: el término principal que debería posicionar esa página
-2. **Keywords secundarias**: variaciones y términos relacionados
-3. **Intent**: informacional / navegacional / comercial / transaccional
+For each page, determine:
+1. **Primary keyword**: the main search term that page should rank for
+2. **Secondary keywords**: variations and related terms
+3. **Search intent**: informational / navigational / commercial / transactional
 
-Infiere las keywords del contenido si no están especificadas explícitamente.
+Infer the keywords from the content when not explicitly given.
 
-## 2. Análisis de ubicación de keywords
+## 2. Keyword placement analysis
 
-Verifica la presencia de la keyword primaria en:
+Verify the primary keyword's presence in:
 
-| Elemento | Peso SEO | ¿Presente? |
-|---------|---------|-----------|
-| `<title>` | Muy alto | |
-| `<meta description>` | Medio (CTR) | |
-| `<h1>` | Muy alto | |
-| Primeras 100 palabras | Alto | |
-| `<h2>` principales | Medio | |
-| URL | Alto | |
-| Alt text de imagen principal | Medio | |
-| Último párrafo | Bajo | |
+| Element | SEO weight | Present? |
+|---------|-----------|-----------|
+| `<title>` | Very high  | |
+| `<meta description>` | Medium (CTR) | |
+| `<h1>` | Very high | |
+| First 100 words | High | |
+| Main `<h2>`s | Medium | |
+| URL | High | |
+| Main image alt text | Medium | |
+| Last paragraph | Low | |
 
-## 3. Densidad y distribución
+## 3. Density and distribution
 
-- Cuenta las ocurrencias de la keyword primaria
-- Calcula la densidad (keyword / total palabras × 100)
-- Rango óptimo: 0.5% - 2.5%
-- Identifica si hay keyword stuffing (>3%)
-- Verifica si la keyword aparece de forma natural en el texto
+- Count the occurrences of the primary keyword
+- Calculate the density (keywords / total words × 100)
+- Optimal range: 0.5% – 2.5%
+- Identify keyword stuffing (>3%)
+- Check that the keyword occurs naturally in the text
 
-## 4. Análisis semántico (LSI)
+## 4. Semantic (LSI) analysis
 
-Identifica palabras relacionadas semánticamente que deberían estar presentes pero faltan:
-- Sinónimos de la keyword principal
-- Términos del mismo campo semántico
-- Preguntas relacionadas que el contenido debería responder
-- Entidades relacionadas (personas, lugares, marcas, conceptos)
+Identify semantically related words that should be present but are missing:
+- Synonyms of the main keyword
+- Terms in the same semantic field
+- Related questions the content should answer
+- Related entities (people, places, services, brands)
 
-## 5. Canibalización de keywords
+## 5. Keyword cannibalization
 
-Si hay múltiples páginas, verifica:
-- ¿Dos o más páginas compiten por la misma keyword?
-- ¿Cuál debería ser la página canoníca para esa keyword?
-- Recomendación: consolidar o diferenciar el contenido
+If there are multiple pages, check:
+- Do two or more pages compete for the same keyword?
+- Which page is the canonical target for that keyword?
+- Recommendation: consolidate or differentiate the content
 
-## 6. Reporte de salida
+## 6. Output report
 
 ```
-## Reporte de Keywords — [proyecto/página]
-**Fecha:** [fecha]
+## Keyword Report — [project/page]
+**Date:** [date]
 
-### Análisis por página
+### Analysis by page
 
-#### [Nombre de página] — [URL]
-**Keyword primaria detectada:** [keyword]
-**Intent:** [informacional/comercial/etc.]
-**Densidad:** X.X% ([n] ocurrencias en [total] palabras)
+#### [Page title] — [URL]
+**Detected primary keyword:** [keyword]
+**Search intent:** [informational/commercial/etc.]
+**Density:** X.X% ([n] occurrences in [total] words)
 
-**Presencia en elementos clave:**
-| Elemento | Estado | Texto actual |
+**Presence in key elements:**
+| Element | Status | Current text |
 |---------|--------|-------------|
-| Title   | ✅/❌  | [texto]     |
-| H1      | ✅/❌  | [texto]     |
-| ...     | ...    | ...         |
+| Title   | ✅/❌  | [text]      |
+| H1      | ✅/❌  | [text]      |
+| ...     | ...    | ...          |
 
-**Keywords semánticas faltantes:**
-- [keyword relacionada que debería aparecer]
-- [pregunta que debería responderse]
+**Missing semantic keywords:**
+- [related keyword that should appear]
+- [question that should be answered]
 
-**Oportunidades de mejora:**
-1. [acción específica con texto sugerido]
+**Improvement opportunities:**
+1. [specific action with suggested text]
 
-### Canibalización detectada
-| Keyword | Página 1 | Página 2 | Recomendación |
+### Detected cannibalization
+| Keyword | Page 1 | Page 2 | Recommendation |
 |---------|---------|---------|--------------|
-| [kw]   | [url]   | [url]   | [acción]     |
+| [kw]   | [url]   | [url]   | [action]      |
 ```

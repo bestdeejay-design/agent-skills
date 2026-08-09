@@ -1,82 +1,85 @@
 ---
 name: seo-structure
 description: >
-  Revisa la arquitectura del sitio — jerarquía de URLs, internal linking,
-  profundidad de clicks, páginas huérfanas y distribución de autoridad interna.
-  TRIGGER cuando el usuario escribe /seo-structure o pide analizar la
-  arquitectura, estructura o internal linking del sitio.
+  Reviews the site architecture — URL hierarchy, internal linking,
+  click depth, orphan pages and internal authority distribution.
+  TRIGGER when the user enters /seo-structure or asks to analyze the
+  architecture, structure or internal linking of the site.
 triggers:
   - /seo-structure
+  - site structure
+  - URL structure
+  - internal linking
 ---
 
-Eres un especialista en arquitectura de sitios web y SEO estructural. Analiza la estructura del proyecto para identificar problemas de internal linking, jerarquía de URLs y distribución de autoridad de página.
+You are a specialist in website architecture and structural SEO. Analyze the project structure to identify internal linking issues, URL, hierarchy and page authority distribution.
 
-## 1. Mapeo del sitio
+## 1. Site mapping
 
-Primero identifica todas las páginas del proyecto:
-- En proyectos Next.js/Nuxt: carpeta `pages/` o `app/`
-- En proyectos Astro: carpeta `src/pages/`
-- En proyectos Hugo/Jekyll: carpeta `content/`
-- HTML estático: todos los archivos `.html`
-- Revisa el `sitemap.xml` si existe
+First identify all pages of the project:
+- In Next.js/Nuxt projects: `pages/` or `app/` folder
+- In Astro projects: `src/pages/` folder
+- In Hugo/Jekyll projects: `content/` folder
+- Static HTML: all `.html` files
+- Check the `sitemap.xml` if present
 
-Crea un mapa de todas las URLs del sitio.
+Create a map of all site URLs.
 
-## 2. Análisis de arquitectura
+## 2. Architecture analysis
 
-### Jerarquía de URLs
-- ¿Las URLs reflejan la jerarquía del contenido? (`/blog/categoria/articulo`)
-- ¿Hay URLs con más de 3 niveles de profundidad? (problema de crawl)
-- ¿Las URLs son descriptivas y contienen keywords?
-- ¿Hay parámetros en URLs que deberían ser rutas limpias?
+### URL hierarchy
+- Do URLs reflect the content hierarchy? (`/blog/categoria/articulo`)
+- Are there URLs more than 3 levels deep? (crawl issue)
+- Are URLs descriptive and keyword-rich?
+- Are there parameters in URLs that should be clean paths?
 
-### Profundidad de clicks
-- ¿Cuántos clicks necesita un usuario (o crawler) para llegar a cada página desde home?
-- Páginas a más de 3 clicks de profundidad = problema
-- Páginas huérfanas = sin ningún link interno apuntando a ellas
+### Click depth
+- How many clicks does a user (or crawler) need to reach each page from the home?
+- Pages more than 3 clicks deep = problem
+- Orphan pages = no internal links pointing to them
 
 ### Internal Linking
-- ¿Las páginas principales tienen suficientes links internos apuntando a ellas?
-- ¿Hay links internos rotos?
-- ¿El texto ancla de los links internos contiene keywords descriptivas?
-- ¿Existe una página de sitemap HTML para usuarios?
+- Do the main pages have enough internal links pointing to them?
+- Are there broken internal links?
+- Does the anchor text of internal links contain descriptive keywords?
+- Is there an HTML sitemap page for users?
 
-### Distribución de autoridad (PageRank interno)
-- ¿La página home linkea a las páginas más importantes?
-- ¿Las páginas importantes se linkean entre sí?
-- ¿Hay páginas que reciben mucho tráfico pero pocos internal links?
+### Authority distribution (internal PageRank)
+- Does the home page link to the most important pages?
+- Do important pages link to each other?
+- Are there pages that receive a lot of traffic but few internal links?
 
-## 3. Reporte de salida
+## 3. Output report
 
 ```
-## Reporte de Arquitectura SEO — [proyecto]
-**Fecha:** [fecha]
-**Total de páginas:** X
+## SEO Architecture Report — [project]
+**Date:** [date]
+**Total pages:** X
 
-### Mapa del sitio detectado
+### Detected site map
 ```
 / (home)
-├── /página-1
-│   ├── /página-1/sub-1
-│   └── /página-1/sub-2
-├── /página-2
+├── /page-1
+│   ├── /page-1/sub-1
+│   └── /page-1/sub-2
+├── /page-2
 └── ...
 ```
 
-### 🔴 Problemas críticos de estructura
-- [problema específico con archivos y rutas]
+### 🔴 Critical structure issues
+- [specific issue with files and paths]
 
-### 🟡 Oportunidades de mejora
-- [oportunidad con implementación sugerida]
+### 🟡 Improvement opportunities
+- [opportunity with suggested implementation]
 
-### Internal Links sugeridos
-| Página origen | Página destino | Texto ancla sugerido |
+### Suggested Internal Links
+| Source page | Target page | Suggested anchor text |
 |--------------|---------------|---------------------|
-| [url]        | [url]         | [texto]             |
+| [url]        | [url]         | [text]               |
 
-### Páginas huérfanas detectadas
-- [lista de páginas sin internal links]
+### Detected orphan pages
+- [list of pages without internal links]
 
-### Plan de arquitectura recomendado
-[Descripción de la estructura ideal para el sitio]
+### Recommended architecture plan
+[Description of the ideal structure for the site]
 ```

@@ -10,84 +10,86 @@ metadata:
 
 # SEO Toolkit — 13 SEO Commands for AI Agents
 
-Загружай этот скилл, когда нужно выполнить **любую SEO-задачу**: технический аудит, анализ Core Web Vitals, проверку crawlability, валидацию schema.org, ключевые слова, meta-теги, контент, изображения, отчёты, сравнение с конкурентами или автономные исправления.
+Load this skill whenever you need to run **any SEO task**: technical audit, Core
+Web Vitals analysis, crawlability checks, schema.org validation, keywords, meta
+tags, content, images, reports, competitor comparison, or autonomous fixes.
 
-Скилл работает в **двух режимах**:
-- **URL mode** — fetch внешнего сайта + `robots.txt` + `sitemap.xml` + ключевые страницы
-- **File mode** — анализ локального проекта (`pages/`, `app/`, `public/`, конфиги фреймворка)
+The skill works in **two modes**:
+- **URL mode** — fetch external site + `robots.txt` + `sitemap.xml` + key pages
+- **File mode** — analyze a local project (`pages/`, `app/`, `public/`, framework configs)
 
 ---
 
-## Команды (13 slash-команд)
+## Commands (13 slash-commands)
 
-| Команда | Описание | Режим | Триггеры |
+| Command | Description | Mode | Triggers |
 |---|---|---|---|
-| [`seo-audit`](commands/seo-audit.md) | Полный технический аудит: meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure | URL / File | `/seo-audit`, `seo audit`, `технический аудит` |
-| [`seo-speed`](commands/seo-speed.md) | Core Web Vitals (LCP/CLS/INP), блокирующие ресурсы, неиспользуемый CSS/JS, кэширование | URL / File | `/seo-speed`, `core web vitals`, `скорость сайта` |
-| [`seo-structure`](commands/seo-structure.md) | Внутренняя ссылка, глубина кликов, orphan pages, иерархия URL, breadcrumbs | URL / File | `/seo-structure`, `site structure`, `структура сайта` |
-| [`seo-crawl`](commands/seo-crawl.md) | Crawlability: robots.txt, noindex, canonical, redirect chains, sitemap.xml | URL / File | `/seo-crawl`, `crawlability`, `роботы` |
-| [`seo-schema`](commands/seo-schema.md) | JSON-LD schema.org: Product, Article, Organization, Breadcrumb, FAQ, валидация | URL / File | `/seo-schema`, `json-ld`, `schema org`, `микроразметка` |
-| [`seo-keywords`](commands/seo-keywords.md) | Плотность ключей, канибализация, LSI, long-tail, intent mapping | URL / File | `/seo-keywords`, `keywords`, `ключевые слова` |
-| [`seo-meta`](commands/seo-meta.md) | Генерация title/description: длины, уникальность, CTR, Open Graph, Twitter Cards | URL / File | `/seo-meta`, `meta tags`, `title description` |
-| [`seo-headings`](commands/seo-headings.md) | Иерархия H1-H6, порядок, ключи в заголовках, доступность | URL / File | `/seo-headings`, `headings`, `h1 h2 h3` |
-| [`seo-content`](commands/seo-content.md) | Thin content, дубликаты, читаемость (Flesch-Kincaid), E-E-A-T сигналы | URL / File | `/seo-content`, `content audit`, `контент аудит` |
-| [`seo-images`](commands/seo-images.md) | Alt text, WebP/AVIF, lazy loading, размеры, srcset, lazy loading | URL / File | `/seo-images`, `image seo`, `изображения seo` |
-| [`seo-report`](commands/seo-report.md) | Комплексный отчёт со скорингом (7 измерений, веса 100%), план действий по неделям | URL / File | `/seo-report`, `seo report`, `seo отчёт` |
-| [`seo-compare`](commands/seo-compare.md) | Сравнение с конкурентом: gaps, overlapping keywords, content gaps | URL | `/seo-compare`, `competitor seo`, `сравнение seo` |
-| [`seo-fix`](commands/seo-fix.md) | Автономный агент исправлений: P1-P5 приоритизация, diff-before-apply, safety rules | File | `/seo-fix`, `seo fix`, `автоисправление seo` |
+| [`seo-audit`](commands/seo-audit.md) | Full technical audit: meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure | URL / File | `/seo-audit`, `seo audit`, `technical audit` |
+| [`seo-speed`](commands/seo-speed.md) | Core Web Vitals (LCP/CLS/INP), blocking resources, unused CSS/JS, caching | URL / File | `/seo-speed`, `core web vitals`, `site speed` |
+| [`seo-structure`](commands/seo-structure.md) | Internal linking, click depth, orphan pages, URL hierarchy, breadcrumbs | URL / File | `/seo-structure`, `site structure`, `URL structure` |
+| [`seo-crawl`](commands/seo-crawl.md) | Crawlability: robots.txt, noindex, canonical, redirect chains, sitemap.xml | URL / File | `/seo-crawl`, `crawlability`, `robots txt` |
+| [`seo-schema`](commands/seo-schema.md) | JSON-LD schema.org: Product, Article, Organization, Breadcrumb, FAQ, validation | URL / File | `/seo-schema`, `json-ld`, `schema org`, `structured data` |
+| [`seo-keywords`](commands/seo-keywords.md) | Keyword density, cannibalization, LSI, long-tail, intent mapping | URL / File | `/seo-keywords`, `keywords`, `keyword research` |
+| [`seo-meta`](commands/seo-meta.md) | Title/description generation: lengths, uniqueness, CTR, Open Graph, Twitter Cards | URL / File | `/seo-meta`, `meta tags`, `title description` |
+| [`seo-headings`](commands/seo-headings.md) | H1-H6 hierarchy, order, keywords in headings, accessibility | URL / File | `/seo-headings`, `headings`, `h1 h2 h3` |
+| [`seo-content`](commands/seo-content.md) | Thin content, duplicates, readability (Flesch-Kincaid), E-E-A-T signals | URL / File | `/seo-content`, `content audit`, `content analysis` |
+| [`seo-images`](commands/seo-images.md) | Alt text, WebP/AVIF, lazy loading, dimensions, srcset | URL / File | `/seo-images`, `image seo`, `image optimization` |
+| [`seo-report`](commands/seo-report.md) | Comprehensive scored report (7 dimensions, weights 100%), weekly action plan | URL / File | `/seo-report`, `seo report`, `SEO summary` |
+| [`seo-compare`](commands/seo-compare.md) | Competitor comparison: gaps, overlapping keywords, content gaps | URL | `/seo-compare`, `competitor seo`, `competitor analysis` |
+| [`seo-fix`](commands/seo-fix.md) | Autonomous fix agent: P1-P5 prioritization, diff-before-apply, safety rules | File | `/seo-fix`, `seo fix`, `automated seo fixes` |
 
 ---
 
-## Режимы работы
+## Operating modes
 
-### URL Mode (по умолчанию для внешних сайтов)
+### URL Mode (default for external sites)
 ```
 User: /seo-audit https://lovii.ru
-Agent: fetch https://lovii.ru + robots.txt + sitemap.xml + ключевые внутренние страницы → аудит
+Agent: fetch https://lovii.ru + robots.txt + sitemap.xml + key internal pages → run the audit
 ```
 
-### File Mode (для локальных проектов)
+### File Mode (for local projects)
 ```
 User: /seo-audit file:///path/to/project
-Agent: анализ файлов pages/, app/, public/, конфиги next.config.js, astro.config.mjs, .htaccess
+Agent: analyze files in pages/, app/, public/, configs like next.config.js, astro.config.mjs, .htaccess
 ```
 
 ---
 
-## Канонические паттерны (для разработки/обогащения)
+## Canonical patterns (for development/enrichment)
 
-Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны:
+Full deep-dive — in `references/canonical-patterns.md`. Key canons:
 
-- **Dual URL/FS mode** — каждая команда работает в обоих режимах: по URL (`https://...`) или по локальным файлам (`file:///path`), как test fixtures в Playwright
-- **Weighted scoring** — 7 измерений с весами (seo-report): Meta 20%, Content 20%, Crawl 15%, Images 15%, Schema 10%, Perf 10%, Links 10% (модель Google Lighthouse)
-- **P1–P5 prioritization** — автоисправления с приоритетами по влиянию (как security advisories)
-- **Diff-before-apply** — обязательный показ diff перед применением правок (как GitHub PR review)
-- **Safety rules** — никогда не менять URL, не удалять контент, не трогать логику без подтверждения
+- **Dual URL/FS mode** — every command works in both modes: by URL (`https://...`) or local files (`file:///path`), like Playwright test fixtures
+- **Weighted scoring** — 7 dimensions with weights (seo-report): Meta 20%, Content 20%, Crawl 15%, Images 15%, Schema 10%, Perf 10%, Links 10% (Google Lighthouse model)
+- **P1–P5 prioritization** — autonomous fixes prioritized by impact (like security advisories)
+- **Diff-before-apply** — mandatory diff display before applying changes (like GitHub PR review)
+- **Safety rules** — never change URLs, delete content, or touch logic without confirmation
 
 ---
 
-## Примеры использования
+## Usage examples
 
 ```bash
-# Полный аудит lovii.ru
+# Full audit of lovii.ru
 /seo-audit https://lovii.ru
 
-# Core Web Vitals для локального Next.js проекта
+# Core Web Vitals for a local Next.js project
 /seo-speed file:///path/to/lovii_demo
 
-# Schema.org валидация JSON-LD на странице
+# JSON-LD schema.org validation on a page
 /seo-schema https://lovii.ru
 
-# Ключевые слова + канибализация
+# Keywords + cannibalization
 /seo-keywords https://lovii.ru
 
-# Комплексный отчёт с планом действий
+# Comprehensive report with an action plan
 /seo-report https://lovii.ru
 
-# Сравнение с конкурентом
+# Compare with a competitor
 /seo-compare https://lovii.ru https://competitor.com
 
-# Автономные исправления (только file mode)
+# Autonomous fixes (file mode only)
 /seo-fix file:///path/to/lovii_demo
 ```
 
@@ -95,14 +97,14 @@ Agent: анализ файлов pages/, app/, public/, конфиги next.conf
 
 ## Canonical analogues
 
-Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны:
+Full deep-dive — in `references/canonical-patterns.md`. Key canons:
 
-- **Google Lighthouse / PageSpeed Insights** — пороги Core Web Vitals (LCP ≤ 2.5s, CLS ≤ 0.1, INP ≤ 200ms), веса скоринга
-- **Google Search Central / Search Console** — правила crawlability, sitemap.xml, robots.txt, canonical, rich snippets
-- **schema.org** — словарь JSON-LD (Product, Article, Organization, Breadcrumb, FAQ) и обязательные поля
-- **Playwright Test** — dual-mode fixtures: URL + файловая система
-- **Screaming Frog / Ahrefs / Semrush** — паттерны crawl, детекция каннибализации ключей, content gaps
-- **GitHub Security Advisories** — P1–P5 приоритизация и diff-before-apply safety
+- **Google Lighthouse / PageSpeed Insights** — Core Web Vitals thresholds (LCP ≤ 2.5s, CLS ≤ 0.1, INP ≤ 200ms), scoring weights
+- **Google Search Central / Search Console** — crawlability rules, sitemap.xml, robots.txt, canonical, rich snippets
+- **schema.org** — JSON-LD vocabulary (Product, Article, Organization, Breadcrumb, FAQ) and required properties
+- **Playwright Test** — dual-mode fixtures: URL + file system
+- **Screaming Frog / Ahrefs / Semrush** — crawl patterns, keyword cannibalization detection, content gaps
+- **GitHub Security Advisories** — P1–P5 prioritization and diff-before-apply safety
 
 ---
 

@@ -1,135 +1,137 @@
 ---
 name: seo-compare
 description: >
-  Compara el SEO de dos páginas o de tu página contra un competidor. Muestra
-  diferencias en meta tags, estructura, contenido, schema y velocidad lado a
-  lado. TRIGGER cuando el usuario escribe /seo-compare o pide comparar páginas,
-  analizar un competidor o ver diferencias SEO entre dos URLs.
+  Compares the SEO of two pages or your page against a competitor. Shows
+  differences in meta tags, structure, content, schema and speed side by
+  side. TRIGGER when the user enters /seo-compare or asks to compare pages,
+  analyze a competitor or see SEO differences between two URLs.
 triggers:
   - /seo-compare
+  - competitor analysis
+  - compare pages
 ---
 
-Eres un especialista en análisis competitivo SEO. Compara dos páginas o sitios para identificar brechas y oportunidades de mejora.
+You are a competitive SEO analysis specialist. Compare two pages or websites to identify gaps and improvement opportunities.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona dos URLs o dos páginas del proyecto:** compáralas directamente.
+**If the user provides two URLs or two project pages:** compare them directly.
 
-**Si el usuario proporciona solo una URL de competidor:** compara esa URL con la página principal equivalente del proyecto actual.
+**If the user provides only one competitor URL:** compare that URL with the equivalent main page of the current project.
 
-**Si no se especifica nada:** pide al usuario las dos páginas o URLs a comparar.
+**If nothing is specified:** ask the user for the two pages or URLs to compare.
 
-## 1. Datos a comparar
+## 1. Data to compare
 
-Para cada página, analiza:
+For each page, analyze:
 
 ### A. Meta Tags
-- Title tag (texto + longitud)
-- Meta description (texto + longitud)
-- Keywords en title y description
+- Title tag (text + length)
+- Meta description (text + length)
+- Keywords in title and description
 
 ### B. Headings
-- Texto de H1
-- Número y texto de H2s
-- Profundidad de estructura
+- H1 text
+- Number and text of H2s
+- Structure depth
 
-### C. Contenido
-- Conteo aproximado de palabras
-- Temas cubiertos
-- Preguntas respondidas
-- Multimedia (imágenes, videos, infografías)
+### C. Content
+- Approximate word count
+- Topics covered
+- Questions answered
+- Multimedia (images, videos, infographics)
 
 ### D. Schema
-- Tipos de schema presentes
-- Riqueza de datos estructurados
+- Schema types present
+- Richness of structured data
 
 ### E. Internal Linking
-- Número de links internos
-- Anclas usadas
+- Number of internal links
+- Anchor texts used
 
-### F. Señales de Performance (si es código propio)
-- Formatos de imagen
+### F. Performance signals (if your own code)
+- Image formats
 - Lazy loading
-- Tamaño de scripts
+- Script size
 
-## 2. Análisis de brechas
+## 2. Gap analysis
 
-Identifica específicamente:
-- ¿Qué tiene el competidor que tú no tienes?
-- ¿Qué tienes tú que el competidor no tiene? (ventajas)
-- ¿Qué keywords cubre el competidor que tu página no menciona?
-- ¿Qué secciones de contenido son exclusivas del competidor?
+Identify specifically:
+- What does the competitor have that you do not?
+- What do you have that the competitor does not? (advantages)
+- Which keywords does the competitor cover that your page does not mention?
+- Which content sections are exclusive to the competitor?
 
-## 3. Reporte de salida
+## 3. Output report
 
 ```
-## Comparación SEO — [Página A] vs [Página B]
-**Fecha:** [fecha]
+## SEO Comparison — [Page A] vs [Page B]
+**Date:** [date]
 
-### Resumen
-| Dimensión | [Página A] | [Página B] | Ventaja |
+### Summary
+| Dimension | [Page A] | [Page B] | Advantage |
 |-----------|-----------|-----------|---------|
 | Title (chars) | [n] | [n] | ✅/❌ |
 | Meta desc (chars) | [n] | [n] | ✅/❌ |
-| H1 con keyword | ✅/❌ | ✅/❌ | |
-| Número de H2s | [n] | [n] | |
-| Palabras de contenido | [n] | [n] | |
-| Schema presente | ✅/❌ | ✅/❌ | |
+| H1 with keyword | ✅/❌ | ✅/❌ | |
+| Number of H2s | [n] | [n] | |
+| Content words | [n] | [n] | |
+| Schema present | ✅/❌ | ✅/❌ | |
 
 ---
 
 ### Meta Tags
-| | [Página A] | [Página B] |
+| | [Page A] | [Page B] |
 |-|-----------|-----------|
-| **Title** | [texto] | [texto] |
-| **Description** | [texto] | [texto] |
+| **Title** | [text] | [text] |
+| **Description** | [text] | [text] |
 
-**Análisis:** [quién está mejor posicionado y por qué]
+**Analysis:** [who ranks better and why]
 
 ---
 
-### Estructura de Headings
-**[Página A]:**
+### Heading Structure
+**[Page A]:**
 ```
-H1: [texto]
-  H2: [texto]
-  H2: [texto]
-```
-
-**[Página B]:**
-```
-H1: [texto]
-  H2: [texto]
+H1: [text]
+  H2: [text]
+  H2: [text]
 ```
 
-**Diferencias clave:** [análisis]
+**[Page B]:**
+```
+H1: [text]
+  H2: [text]
+```
+
+**Key differences:** [analysis]
 
 ---
 
-### Contenido
-| | [Página A] | [Página B] |
+### Content
+| | [Page A] | [Page B] |
 |-|-----------|-----------|
-| Palabras | [n] | [n] |
-| Temas cubiertos | [lista] | [lista] |
-| Preguntas respondidas | [lista] | [lista] |
+| Words | [n] | [n] |
+| Topics covered | [list] | [list] |
+| Questions answered | [list] | [list] |
 
-**Brechas de contenido en [Página A]:**
-- Tema que cubre [B] pero no [A]: [tema] — **acción: añadir sección**
-- Pregunta que responde [B]: "[pregunta]" — **acción: añadir como H2 + párrafo**
+**Content gaps in [Page A]:**
+- Topic covered by [B] but not [A]: [topic] — **action: add a section**
+- Question [B] answers: "[question]" — **action: add as H2 + paragraph**
 
 ---
 
 ### Schema
-| | [Página A] | [Página B] |
+| | [Page A] | [Page B] |
 |-|-----------|-----------|
-| Tipos | [lista] | [lista] |
-| Rich snippets posibles | [lista] | [lista] |
+| Types | [list] | [list] |
+| Possible rich snippets | [list] | [list] |
 
 ---
 
-### Plan de acción para [Página A]
-Basado en las brechas identificadas:
-1. [acción específica para cerrar la brecha más importante]
-2. [acción específica #2]
-3. [acción específica #3]
+### Action plan for [Page A]
+Based on the gaps identified:
+1. [specific action to close the most important gap]
+2. [specific action #2]
+3. [specific action #3]
 ```

@@ -1,163 +1,165 @@
 ---
 name: seo-report
 description: >
-  Genera un reporte SEO completo en markdown — combina auditoría técnica,
-  contenido y schema en un documento con puntuación general y plan de acción
-  priorizado. TRIGGER cuando el usuario escribe /seo-report o pide un reporte
-  SEO completo, resumen SEO o informe SEO.
+  Generates a complete SEO report in markdown — combines technical audit,
+  content and schema in one document with an overall score and prioritized
+  action plan. TRIGGER when the user enters /seo-report or asks for a full
+  SEO report, SEO summary or SEO audit report.
 triggers:
   - /seo-report
+  - seo report
+  - full seo audit
 ---
 
-Eres un consultor SEO senior generando un reporte ejecutivo completo. Realiza un análisis integral del proyecto cubriendo todas las dimensiones SEO y produce un documento estructurado listo para compartir con un cliente o equipo.
+You are a senior SEO consultant generating a complete executive report. Run a comprehensive analysis of the project covering all SEO dimensions and produce a structured document ready to share with a client or a team.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-report https://ejemplo.com`):
-- Haz fetch de la URL principal y las páginas más importantes del sitio
-- Haz fetch de `[dominio]/robots.txt` y `[dominio]/sitemap.xml`
-- Analiza el HTML obtenido aplicando todas las dimensiones del reporte
+**If the user provides a URL** (e.g. `/seo-report https://example.com`):
+- Fetch the main URL and the most important pages of the site
+- Fetch `[domain]/robots.txt` and `[domain]/sitemap.xml`
+- Analyze the fetched HTML applying all report dimensions
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## Proceso de análisis
+## Analysis process
 
-Ejecuta sequencialmente estos análisis (internamente, sin mostrar el proceso):
-1. Meta tags y título de todas las páginas
-2. Headings (H1-H6) y estructura de contenido
-3. Imágenes y alt text
-4. robots.txt y sitemap
+Run these analyses sequentially (internally, without showing the process):
+1. Meta tags and title of all pages
+2. Headings (H1-H6) and content structure
+3. Images and alt text
+4. robots.txt and sitemap
 5. Canonical tags
 6. Structured data / JSON-LD
-7. Performance signals (imágenes sin optimizar, lazy loading)
-8. Internal linking básico
-9. URLs y estructura
+7. Performance signals (unoptimized images, lazy loading)
+8. Basic internal linking
+9. URLs and structure
 
-## Sistema de puntuación
+## Scoring system
 
-Calcula una puntuación de 0-100 para cada dimensión:
+Calculate a 0-100 score for each dimension:
 
-| Dimensión | Peso |
+| Dimension | Weight |
 |-----------|------|
 | Meta tags (title + description) | 20% |
-| Contenido y headings | 20% |
+| Content and headings | 20% |
 | Crawlability (robots, sitemap, canonical) | 15% |
-| Imágenes | 15% |
+| Images | 15% |
 | Schema / Structured data | 10% |
 | Performance | 10% |
 | Internal linking | 10% |
 
-**Escala de puntuación total:**
-- 85-100: Excelente 🟢
-- 70-84: Bueno 🟡
-- 50-69: Necesita mejoras 🟠
-- 0-49: Crítico 🔴
+**Total score scale:**
+- 85-100: Excellent 🟢
+- 70-84: Good 🟡
+- 50-69: Needs improvement 🟠
+- 0-49: Critical 🔴
 
-## Formato del reporte
+## Report format
 
 ```markdown
-# Reporte SEO — [Nombre del Proyecto]
-**Fecha:** [fecha]
-**URL del sitio:** [url]
-**Preparado por:** SEO Toolkit
+# SEO Report — [Project Name]
+**Date:** [date]
+**Site URL:** [url]
+**Prepared by:** SEO Toolkit
 
 ---
 
-## Puntuación General: [X]/100 [emoji]
+## Overall Score: [X]/100 [emoji]
 
-| Dimensión | Puntuación | Estado |
+| Dimension | Score | Status |
 |-----------|-----------|--------|
 | Meta Tags | X/20 | 🟢/🟡/🟠/🔴 |
-| Contenido | X/20 | ... |
+| Content | X/20 | ... |
 | Crawlability | X/15 | ... |
-| Imágenes | X/15 | ... |
+| Images | X/15 | ... |
 | Schema | X/10 | ... |
 | Performance | X/10 | ... |
 | Internal Linking | X/10 | ... |
 
 ---
 
-## Resumen Ejecutivo
+## Executive Summary
 
-[2-3 párrafos describiendo el estado general del sitio, los problemas más importantes y el potencial de mejora con las optimizaciones recomendadas]
+[2-3 paragraphs describing the overall state of the site, the most important issues and the improvement potential with the recommended optimizations]
 
 ---
 
-## Hallazgos por Dimensión
+## Findings by Dimension
 
 ### 1. Meta Tags
-**Puntuación: X/20**
+**Score: X/20**
 
-[Tabla con estado de todas las páginas]
+[Table with the status of all pages]
 
-**Problemas encontrados:**
-- 🔴 [crítico]: [descripción y páginas afectadas]
-- 🟡 [importante]: [descripción]
+**Issues found:**
+- 🔴 [critical]: [description and affected pages]
+- 🟡 [important]: [description]
 
 ---
 
-### 2. Contenido y Headings
-**Puntuación: X/20**
-[Análisis y problemas]
+### 2. Content and Headings
+**Score: X/20**
+[Analysis and issues]
 
 ---
 
 ### 3. Crawlability
-**Puntuación: X/15**
-[Análisis de robots.txt, sitemap, canonicals]
+**Score: X/15**
+[Analysis of robots.txt, sitemap, canonicals]
 
 ---
 
-### 4. Imágenes
-**Puntuación: X/15**
-[Análisis de alt text, formatos, rendimiento]
+### 4. Images
+**Score: X/15**
+[Analysis of alt text, formats, performance]
 
 ---
 
 ### 5. Schema / Structured Data
-**Puntuación: X/10**
-[Análisis de JSON-LD existente y oportunidades]
+**Score: X/10**
+[Analysis of existing JSON-LD and opportunities]
 
 ---
 
 ### 6. Performance
-**Puntuación: X/10**
-[Señales de velocidad detectadas en el código]
+**Score: X/10**
+[Speed signals detected in the code]
 
 ---
 
 ### 7. Internal Linking
-**Puntuación: X/10**
-[Análisis de enlaces internos y páginas huérfanas]
+**Score: X/10**
+[Analysis of internal links and orphan pages]
 
 ---
 
-## Plan de Acción Priorizado
+## Prioritized Action Plan
 
-### Semana 1 — Impacto inmediato (Quick wins)
-1. ✅ [acción] → [archivo/página] → [impacto estimado]
-2. ✅ [acción] → [archivo/página] → [impacto estimado]
+### Week 1 — Immediate impact (Quick wins)
+1. ✅ [action] → [file/page] → [estimated impact]
+2. ✅ [action] → [file/page] → [estimated impact]
 
-### Semana 2-4 — Optimizaciones importantes
-1. [acción] → [descripción detallada]
+### Weeks 2-4 — Important optimizations
+1. [action] → [detailed description]
 
-### Mes 2+ — Mejoras de largo plazo
-1. [acción estratégica]
+### Month 2+ — Long-term improvements
+1. [strategic action]
 
 ---
 
-## Métricas a monitorear
+## Metrics to monitor
 
-Después de implementar las mejoras, monitorea:
-- [ ] Impresiones en Google Search Console
-- [ ] Posición promedio de keywords objetivo
+After implementing the improvements, monitor:
+- [ ] Impressions in Google Search Console
+- [ ] Average position of target keywords
 - [ ] Core Web Vitals (LCP, CLS, INP)
-- [ ] Tasa de click (CTR) en resultados de búsqueda
-- [ ] Páginas indexadas vs. páginas del sitio
+- [ ] Click-through rate (CTR) in search results
+- [ ] Indexed pages vs. pages on the site
 
 ---
 
-*Generado con SEO Toolkit — [fecha]*
+*Generated with SEO Toolkit — [date]*
 ```
 
-Genera este reporte completo basándote en un análisis real de todos los archivos del proyecto.
+Generate this complete report based on a real analysis of all project files.

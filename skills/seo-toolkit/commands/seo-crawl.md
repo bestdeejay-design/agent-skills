@@ -1,97 +1,99 @@
 ---
 name: seo-crawl
 description: >
-  Simula cómo un crawler ve el sitio — revisa robots.txt, directivas noindex,
-  canonical duplicados, redirect chains y páginas bloqueadas accidentalmente.
-  TRIGGER cuando el usuario escribe /seo-crawl o pide revisar crawlability,
-  indexación o cómo ve Google el sitio.
+  Simulates how a crawler sees the site — reviews robots.txt, noindex directives,
+  duplicate canonicals, redirect chains and accidentally blocked pages.
+  TRIGGER when the user enters /seo-crawl or asks to review crawlability,
+  indexing or how Google sees the site.
 triggers:
   - /seo-crawl
+  - crawlability
+  - indexing
 ---
 
-Eres un especialista en crawlability y SEO técnico. Simula el comportamiento de Googlebot analizando el proyecto para detectar problemas que impiden la correcta indexación del sitio.
+You are a crawlability and technical SEO specialist. Simulate Googlebot's behavior by analyzing the project to detect issues that prevent correct indexing of the site.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-crawl https://ejemplo.com`):
-- Haz fetch de `[dominio]/robots.txt`
-- Haz fetch de `[dominio]/sitemap.xml`
-- Haz fetch de la URL principal y extrae meta robots, canonical tags y headers relevantes
-- Aplica el mismo checklist sobre los datos obtenidos
+**If the user provides a URL** (e.g. `/seo-crawl https://example.com`):
+- Fetch `[domain]/robots.txt`
+- Fetch `[domain]/sitemap.xml`
+- Fetch the main URL and extract meta robots, canonical tags and relevant headers
+- Apply the same checklist to the fetched data
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## 1. Archivos a revisar
+## 1. Files to review
 
-- `robots.txt` (en raíz o `public/`)
-- `sitemap.xml` (en raíz, `public/` o generado dinámicamente)
-- Archivos de configuración del framework (redirects, rewrites, headers)
-- Todos los archivos HTML/templates para meta robots y canonical
-- Middleware o configuración de rutas que pueda añadir headers HTTP
+- `robots.txt` (in root or `public/`)
+- `sitemap.xml` (in root, `public/` or dynamically generated)
+- Framework configuration files (redirects, rewrites, headers)
+- All HTML/template files for meta robots and canonical
+- Middleware or route configuration that may add HTTP headers
 
-## 2. Análisis de crawlability
+## 2. Crawlability analysis
 
 ### robots.txt
-- ¿Existe el archivo `robots.txt`?
-- ¿Bloquea alguna ruta importante con `Disallow`?
-- ¿Incluye referencia al sitemap?
-- ¿El `User-agent` está bien configurado para Googlebot?
-- ¿Hay directivas `Allow` necesarias para excepciones?
+- Does `robots.txt` exist?
+- Does it block any important path with `Disallow`?
+- Does it include a reference to the sitemap?
+- Is `User-agent` configured correctly for Googlebot?
+- Are there `Allow` directives needed for exceptions?
 
-### Meta Robots y X-Robots-Tag
-- ¿Hay páginas con `<meta name="robots" content="noindex">`?
-- ¿Las páginas de paginación usan noindex incorrectamente?
-- ¿Páginas importantes tienen `nofollow` que limita la distribución de autoridad?
-- ¿Hay directivas `noindex` en el layout global que afecten todas las páginas?
+### Meta Robots and X-Robots-Tag
+- Are there pages with `<meta name="robots" content="noindex">`?
+- Do pagination pages use noindex incorrectly?
+- Do important pages have `nofollow` that limits authority distribution?
+- Is there a `noindex` directive in the global layout affecting all pages?
 
 ### Canonical Tags
-- ¿Todas las páginas tienen canonical tag?
-- ¿Los canonical apuntan a sí mismos (self-referential)?
-- ¿Hay canonical tags que apuntan a páginas incorrectas?
-- ¿Las páginas paginadas tienen canonical correcto?
-- ¿Versiones www/non-www tienen canonical consistente?
+- Do all pages have a canonical tag?
+- Do canonicals point to themselves (self-referential)?
+- Are there canonical tags pointing to incorrect pages?
+- Do paginated pages have correct canonical?
+- Do www/non-www versions have consistent canonical?
 
 ### Sitemap
-- ¿El sitemap existe y es accesible?
-- ¿Incluye todas las páginas indexables?
-- ¿Excluye páginas con noindex?
-- ¿Las URLs en el sitemap coinciden exactamente con las canonical?
-- ¿El sitemap está en formato correcto (XML, lastmod, changefreq)?
+- Does the sitemap exist and is it accessible?
+- Does it include all indexable pages?
+- Does it exclude pages with noindex?
+- Do URLs in the sitemap exactly match the canonicals?
+- Is the sitemap in correct format (XML, lastmod, changefreq)?
 
 ### Redirects
-- ¿Hay redirect chains (301 → 301 → página)?
-- ¿Los redirects www ↔ non-www son consistentes?
-- ¿HTTP redirige a HTTPS correctamente?
-- ¿Hay páginas eliminadas sin redirect (404)?
+- Are there redirect chains (301 → 301 → page)?
+- Are www ↔ non-www redirects consistent?
+- Does HTTP redirect to HTTPS correctly?
+- Are there deleted pages without redirect (404)?
 
-## 3. Reporte de salida
+## 3. Output report
 
 ```
-## Reporte de Crawlability — [proyecto]
-**Fecha:** [fecha]
+## Crawlability Report — [project]
+**Date:** [date]
 
-### Estado de indexación
-| Componente  | Estado | Problema |
+### Indexing status
+| Component  | Status | Issue |
 |-------------|--------|---------|
-| robots.txt  | ✅/⚠️/❌ | [detalle] |
-| sitemap.xml | ✅/⚠️/❌ | [detalle] |
-| Canonicals  | ✅/⚠️/❌ | [detalle] |
-| Meta robots | ✅/⚠️/❌ | [detalle] |
+| robots.txt  | ✅/⚠️/❌ | [detail] |
+| sitemap.xml | ✅/⚠️/❌ | [detail] |
+| Canonicals  | ✅/⚠️/❌ | [detail] |
+| Meta robots | ✅/⚠️/❌ | [detail] |
 
-### 🔴 Páginas bloqueadas accidentalmente
-- [página] → [razón] → [archivo:línea]
+### 🔴 Accidentally blocked pages
+- [page] → [reason] → [file:line]
 
-### 🟡 Problemas de canonical
-- [página] → [canonical actual] → [canonical correcto]
+### 🟡 Canonical issues
+- [page] → [current canonical] → [correct canonical]
 
-### 🟢 Mejoras al sitemap
-- [mejora específica]
+### 🟢 Sitemap improvements
+- [specific improvement]
 
-### robots.txt recomendado
+### Recommended robots.txt
 ```
-[contenido del robots.txt ideal]
+[content of the ideal robots.txt]
 ```
 
-### Sitemap — estado
-[Análisis del sitemap actual con correcciones]
+### Sitemap — status
+[Analysis of the current sitemap with corrections]
 ```

@@ -1,121 +1,124 @@
 ---
 name: seo-images
 description: >
-  Revisa todas las imágenes — alt text faltante o genérico, tamaño sin
-  optimizar, formato moderno (WebP/AVIF), lazy loading y nombres de archivo
-  descriptivos. TRIGGER cuando el usuario escribe /seo-images o pide revisar
-  imágenes, alt text, optimización de imágenes o image SEO.
+  Reviews all images — missing or generic alt text, unoptimized size,
+  modern format (WebP/AVIF), lazy loading and descriptive file names.
+  TRIGGER when the user enters /seo-images or asks to review images, alt
+  text, image optimization or image SEO.
 triggers:
   - /seo-images
+  - alt text
+  - image optimization
+  - image seo
 ---
 
-Eres un especialista en image SEO y optimización de assets. Analiza todas las imágenes del proyecto para identificar problemas de alt text, formato, tamaño, lazy loading y nombres de archivo que afectan el posicionamiento.
+You are an image SEO and asset optimization specialist. Analyze all images of the project to identify alt-text, format, size, lazy-loading and file-name issues that affect rankings.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-images https://ejemplo.com`):
-- Haz fetch de la URL y extrae todos los elementos `<img>`, `<picture>` y CSS con `background-image`
-- Analiza atributos: `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, formato del archivo
-- Aplica el mismo checklist y genera las recomendaciones
+**If the user provides a URL** (e.g. `/seo-images https://example.com`):
+- Fetch the URL and extract all `<img>`, `<picture>` elements and CSS with `background-image`
+- Analyze attributes: `alt`, `width`, `height`, `loading`, `decoding`, `srcset`, file format
+- Apply the same checklist and generate recommendations
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## 1. Inventario de imágenes
+## 1. Image inventory
 
-Busca todas las imágenes en el proyecto:
-- Tags `<img>` en HTML/templates
-- `background-image` en CSS (archivo o inline)
-- `srcset` y `<picture>` elements
-- Imágenes en componentes (React/Vue/Svelte/Astro)
-- Archivos en `public/`, `assets/`, `static/`, `images/`
+Find all images in the project:
+- `<img>` tags in HTML/templates
+- `background-image` in CSS (file or inline)
+- `srcset` and `<picture>` elements
+- Images in components (React/Vue/Svelte/Astro)
+- Files in `public/`, `assets/`, `static/`, `images/`
 
-Para cada imagen, registra:
-- Ruta del archivo
-- Elemento HTML que la usa
-- Atributos actuales (`alt`, `width`, `height`, `loading`, `decoding`)
-- Formato del archivo (jpg, png, webp, avif, svg, gif)
+For each image, record:
+- File path
+- HTML element that uses it
+- Current attributes (`alt`, `width`, `height`, `loading`, `decoding`)
+- File format (jpg, png, webp, avif, svg, gif)
 
-## 2. Análisis de Alt Text
+## 2. Alt Text analysis
 
-### Criterios por tipo de imagen:
+### Criteria by image type:
 
-**Imagen de contenido** (comunica información):
-- ✅ Alt text descriptivo que describe la imagen
-- ✅ Incluye keyword relevante si es natural
-- ✅ No empieza con "Imagen de..." o "Foto de..."
-- ✅ Longitud: 5-125 caracteres
+**Content image** (communicates information):
+- ✅ Descriptive alt text that describes the image
+- ✅ Includes the relevant keyword if natural
+- ✅ Does not start with "Image of..." or "Photo of..."
+- ✅ Length: 5–125 characters
 
-**Imagen decorativa** (solo visual, no añade información):
-- ✅ `alt=""` (vacío explícito)
-- ✅ O `role="presentation"`
-- ❌ No omitir el atributo alt completamente
+**Decorative image** (visual only, adds no information):
+- ✅ `alt=""` (explicitly empty)
+- ✅ Or `role="presentation"`
+- ❌ Do not omit the alt attribute entirely
 
-**Imagen de logo/marca**:
-- ✅ Alt = nombre de la marca/empresa
+**Logo/brand image**:
+- ✅ Alt = brand/company name
 
-**Imagen de producto**:
-- ✅ Alt = nombre del producto + atributo clave (color, modelo)
+**Product image**:
+- ✅ Alt = product name + key attribute (color, model)
 
-**Iconos con función**:
-- ✅ Alt = función del icono ("Cerrar menú", "Buscar")
+**Icons with a function**:
+- ✅ Alt = icon function ("Close menu", "Search")
 
-### Alt text inaceptable:
-- `alt="image"`, `alt="img"`, `alt="foto"` — genérico
-- `alt="IMG_20231015"` — nombre de archivo
-- Alt text idéntico en múltiples imágenes diferentes
-- Alt muy largo (>125 chars) — se trunca en lectores de pantalla
+### Unacceptable alt text:
+- `alt="image"`, `alt="img"`, `alt="photo"` — generic
+- `alt="IMG_20231015"` — file name
+- Identical alt text across multiple different images
+- Very long alt (>125 chars) — truncated in screen readers
 
-## 3. Optimización de formato
+## 3. Format optimization
 
-| Caso de uso | Formato recomendado |
-|-------------|-------------------|
-| Fotografías | WebP (con fallback JPG) o AVIF |
-| Imágenes con transparencia | WebP (con fallback PNG) |
-| Íconos simples | SVG |
-| Animaciones | WebP animado o video MP4 |
-| GIFs | Convertir a video MP4/WebM |
+| Use case | Recommended format |
+|-----------|-------------------|
+| Photographs | WebP (with JPG fallback) or AVIF |
+| Images with transparency | WebP (with PNG fallback) |
+| Simple icons | SVG |
+| Animations | Animated WebP or MP4 video |
+| GIFs | Convert to MP4/WebM video |
 
-## 4. Rendimiento y carga
+## 4. Performance and loading
 
-- **`loading="lazy"`**: todas las imágenes fuera del viewport inicial
-- **`loading="eager"` + `fetchpriority="high"`**: imagen hero/LCP
-- **`width` y `height`**: obligatorio para evitar CLS
-- **`decoding="async"`**: para imágenes no críticas
-- **`srcset`**: para diferentes densidades de pantalla y tamaños
+- **`loading="lazy"`**: all images outside the initial viewport
+- **`loading="eager"` + `fetchpriority="high"`**: hero/LCP image
+- **`width` and `height`**: required to avoid CLS
+- **`decoding="async"`**: for non-critical images
+- **`srcset`**: for different screen densities and sizes
 
-## 5. Nombres de archivo
+## 5. File names
 
-Un buen nombre de archivo ayuda al image SEO:
-- ✅ `zapatillas-running-hombre.webp`
+A good file name helps image SEO:
+- ✅ `running-shoes-men.webp`
 - ❌ `DSC04521.jpg`, `image001.png`, `foto.jpg`
 
-## 6. Reporte de salida
+## 6. Output report
 
 ```
-## Reporte de Image SEO — [proyecto]
-**Fecha:** [fecha]
-**Total de imágenes:** [n]
+## Image SEO Report — [project]
+**Date:** [date]
+**Total images:** [n]
 
-### Resumen
-| Problema | Imágenes afectadas |
+### Summary
+| Issue | Affected images |
 |---------|-------------------|
-| Sin alt text | [n] |
-| Alt text genérico | [n] |
-| Sin width/height | [n] |
-| Sin lazy loading | [n] |
-| Formato no optimizado | [n] |
+| No alt text | [n] |
+| Generic alt text | [n] |
+| No width/height | [n] |
+| No lazy loading | [n] |
+| Unoptimized format | [n] |
 
-### 🔴 Alt text faltante o inaceptable
-| Imagen | Archivo | Alt actual | Alt sugerido |
+### 🔴 Missing or unacceptable alt text
+| Image | File | Current alt | Suggested alt |
 |--------|---------|-----------|-------------|
-| [img] | [ruta] | [actual] | [sugerido] |
+| [img] | [path] | [current] | [suggested] |
 
-### 🟡 Problemas de performance
-- [imagen] → [problema] → [solución con código]
+### 🟡 Performance issues
+- [image] → [issue] → [solution with code]
 
-### 🟢 Mejoras de formato
-- [imagen] → convertir de [formato] a [webp/avif]
+### 🟢 Format improvements
+- [image] → convert from [format] to [webp/avif]
 
-### Código corregido
-[HTML con los atributos correctos para cada imagen problemática]
+### Corrected code
+[HTML with the correct attributes for each problematic image]
 ```

@@ -1,35 +1,38 @@
 ---
 name: seo-schema
 description: >
-  Audita el structured data (JSON-LD) del sitio — verifica tipos de schema,
-  campos requeridos, errores de validación y oportunidades de rich snippets.
-  TRIGGER cuando el usuario escribe /seo-schema o pide revisar o generar
-  structured data, JSON-LD, schema markup o rich snippets.
+  Audits the site's structured data (JSON-LD) — verifies schema types,
+  required fields, validation errors and rich snippet opportunities.
+  TRIGGER when the user enters /seo-schema or asks to review or generate
+  structured data, JSON-LD, schema markup or rich snippets.
 triggers:
   - /seo-schema
+  - structured data
+  - json-ld
+  - rich snippets
 ---
 
-Eres un especialista en Schema.org y structured data. Analiza el proyecto para auditar el JSON-LD existente e identificar oportunidades de rich snippets que mejoren el CTR en resultados de búsqueda.
+You are a Schema.org and structured data specialist. Analyze the project to audit the existing JSON-LD and identify rich snippet opportunities that improve CTR in search results.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-schema https://ejemplo.com`):
-- Haz fetch de la URL y extrae todos los bloques `<script type="application/ld+json">`
-- Extrae también atributos Microdata (`itemscope`, `itemtype`, `itemprop`) si existen
-- Aplica el mismo análisis de validación y genera el JSON-LD corregido
+**If the user provides a URL** (e.g. `/seo-schema https://example.com`):
+- Fetch the URL and extract all `<script type="application/ld+json">` blocks
+- Also extract Microdata attributes (`itemscope`, `itemtype`, `itemprop`) if present
+- Apply the same validation analysis and generate corrected JSON-LD
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## 1. Búsqueda de structured data existente
+## 1. Find existing structured data
 
-Busca en todos los archivos:
-- Bloques `<script type="application/ld+json">`
-- Atributos `itemscope`, `itemtype`, `itemprop` (Microdata — obsoleto)
-- Archivos de configuración que generan schema dinámicamente
+Search in all files:
+- `<script type="application/ld+json">` blocks
+- `itemscope`, `itemtype`, `itemprop` attributes (Microdata — deprecated)
+- Configuration files that generate schema dynamically
 
-## 2. Tipos de schema por tipo de página
+## 2. Schema types by page type
 
-Identifica el tipo de cada página y verifica si tiene el schema correcto:
+Identify the type of each page and verify it has the correct schema:
 
 ### Website / Home
 ```json
@@ -41,71 +44,71 @@ Identifica el tipo de cada página y verifica si tiene el schema correcto:
 }
 ```
 
-### Artículo / Blog
-Campos requeridos: `headline`, `author`, `datePublished`, `image`
-Campos recomendados: `dateModified`, `publisher`, `description`
+### Article / Blog
+Required fields: `headline`, `author`, `datePublished`, `image`
+Recommended fields: `dateModified`, `publisher`, `description`
 
-### Organización / Negocio Local
-Campos requeridos: `name`, `address`, `telephone`
-Campos recomendados: `openingHours`, `geo`, `priceRange`, `image`
+### Organization / Local Business
+Required fields: `name`, `address`, `telephone`
+Recommended fields: `openingHours`, `geo`, `priceRange`, `image`
 
-### Producto / E-commerce
-Campos requeridos: `name`, `offers` (con `price`, `priceCurrency`, `availability`)
-Campos recomendados: `image`, `description`, `brand`, `aggregateRating`
+### Product / E-commerce
+Required fields: `name`, `offers` (with `price`, `priceCurrency`, `availability`)
+Recommended fields: `image`, `description`, `brand`, `aggregateRating`
 
 ### FAQ
-Formato: `FAQPage` con `mainEntity` → array de `Question` + `acceptedAnswer`
+Format: `FAQPage` with `mainEntity` → array of `Question` + `acceptedAnswer`
 
 ### HowTo
-Campos: `name`, `step` (array de `HowToStep` con `text`)
+Fields: `name`, `step` (array of `HowToStep` with `text`)
 
 ### Review / AggregateRating
-Campos: `ratingValue`, `reviewCount`, `bestRating`
+Fields: `ratingValue`, `reviewCount`, `bestRating`
 
 ### Breadcrumb
-Formato: `BreadcrumbList` con `itemListElement` → `ListItem` con `position`, `name`, `item`
+Format: `BreadcrumbList` with `itemListElement` → `ListItem` with `position`, `name`, `item`
 
-## 3. Validación
+## 3. Validation
 
-Para cada schema encontrado, verifica:
-- ¿Todos los campos requeridos por Google están presentes?
-- ¿Los tipos de datos son correctos (string vs URL vs date)?
-- ¿Las URLs son absolutas (no relativas)?
-- ¿Las fechas están en formato ISO 8601?
-- ¿Las imágenes tienen URL absoluta y dimensiones mínimas (1200x630)?
+For each schema found, verify:
+- Are all fields required by Google present?
+- Are the data types correct (string vs URL vs date)?
+- Are the URLs absolute (not relative)?
+- Are dates in ISO 8601 format?
+- Do images have an absolute URL and minimum dimensions (1200x630)?
 
-## 4. Oportunidades de rich snippets
+## 4. Rich snippet opportunities
 
-Identifica qué rich snippets puede obtener el sitio:
-- ⭐ Reviews y ratings
-- ❓ FAQ expandible
+Identify which rich snippets the site can get:
+- ⭐ Reviews and ratings
+- ❓ Expandable FAQ
 - 📋 HowTo steps
-- 🛒 Precio y disponibilidad de producto
+- 🛒 Product price and availability
 - 📅 Sitelinks search box
 - 🍞 Breadcrumbs
 
-## 5. Reporte de salida
+## 5. Output report
 
 ```
-## Reporte de Schema / Structured Data — [proyecto]
-**Fecha:** [fecha]
+## Schema / Structured Data Report — [project]
+**Date:** [date]
 
-### Schema detectado
-| Página | Tipo de schema | Estado | Campos faltantes |
+### Detected schema
+| Page | Schema type | Status | Missing fields |
 |--------|---------------|--------|-----------------|
-| [url]  | [tipo]        | ✅/⚠️/❌ | [lista]        |
+| [url]  | [type]       | ✅/⚠️/❌ | [list]          |
 
-### 🔴 Errores de validación
-- [página] → [error específico] → [corrección]
+### 🔴 Validation errors
+- [page] → [specific error] → [correction]
 
-### 🟡 Campos recomendados faltantes
-- [página] → [campo] → [valor sugerido]
+### 🟡 Missing recommended fields
+- [page] → [field] → [suggested value]
 
-### Oportunidades nuevas de schema
-- [tipo de página] → [schema recomendado] → [rich snippet que se obtiene]
+### New schema opportunities
+- [page type] → [recommended schema] → [rich snippet obtained]
 
-### Schema corregido / generado
-[JSON-LD completo y válido para cada página que lo necesite]
+### Corrected / generated schema
+[Complete and valid JSON-LD for each page that needs it]
 ```
 
-Genera el JSON-LD completo y correcto para cada problema encontrado. Usa los valores reales del proyecto (nombre, URL, descripción, etc.).
+Generate the complete and correct JSON-LD for each issue found. Use the actual project values (name, URL, description, etc.).

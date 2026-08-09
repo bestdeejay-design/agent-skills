@@ -109,6 +109,18 @@
 - [ ] Showcase v1.3: `sql-helper`, `csv-pro`, `web-scraper`, `data-analysis` (на данных/коде `lovii_demo`)
 - [x] `docs/showcase/` — сборник showcase-демо (по файлу на скилл) + таблица в `README`/`README.ru` (web-scraper, diagram-maker, github-repo-hygiene, test-graphics, seo-toolkit)
 
+## 🇬🇧 v1.7 — Catalog Language Policy (English-primary)
+
+> Языковая политика закреплена в `CONTRIBUTING.md` (английский — основной язык
+> скиллов, русский — по желанию). Текущий каталог написан в основном на русском —
+> мигрируем все `SKILL.md`/`references`/`index.json` на английский язык.
+
+- [x] `seo-toolkit` — импорт из skills.sh был на испанском: переведён на английский (SKILL.md, 13 команд, canonical-patterns, helper)
+- [ ] Ревизия CONTRIBUTING.md — языковая политика описана явно (EN-primary, RU и другие языки по желанию)
+- [ ] Перевод `SKILL.md` оставшихся 21 скиллов на английский
+- [ ] Перевод `references/canonical-patterns.md` на английский (где ещё русский)
+- [ ] `index.json` + README/README.ru — синхронизация описаний (EN-дефолт, RU-зеркала)
+
 ## 🌟 v2.0 — Ecosystem
 
 - [ ] MCP adapter (load skills via Model Context Protocol)

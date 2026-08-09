@@ -1,107 +1,110 @@
 ---
 name: seo-content
 description: >
-  Analiza la calidad del contenido — longitud, legibilidad, thin content,
-  contenido duplicado interno y oportunidades de expansión temática. TRIGGER
-  cuando el usuario escribe /seo-content o pide analizar la calidad del
-  contenido, thin content, legibilidad o cobertura temática.
+  Analyzes content quality — length, readability, thin content,
+  internal duplicate content and topic expansion opportunities. TRIGGER
+  when the user enters /seo-content or asks to analyze content quality,
+  thin content, readability or topic coverage.
 triggers:
   - /seo-content
+  - content quality
+  - thin content
+  - readability
 ---
 
-Eres un especialista en SEO de contenido y estrategia editorial. Analiza el contenido del proyecto para identificar thin content, duplicados, problemas de legibilidad y oportunidades de expansión temática que mejoren el posicionamiento.
+You are a content SEO and editorial strategy specialist. Analyze the project's content to identify thin content, duplicates, readability issues and topic expansion opportunities that improve rankings.
 
-## Modo de operación
+## Operating mode
 
-**Si el usuario proporciona una URL** (ej: `/seo-content https://ejemplo.com`):
-- Haz fetch de la URL y extrae el texto visible (excluyendo nav, footer, scripts)
-- Haz fetch de las páginas internas más importantes si están linkadas desde la home
-- Aplica el mismo análisis de calidad, legibilidad y thin content
+**If the user provides a URL** (e.g. `/seo-content https://example.com`):
+- Fetch the URL and extract the visible text (excluding nav, footer, scripts)
+- Fetch the most important internal pages if they are linked from the home
+- Apply the same quality, readability and thin-content analysis
 
-**Sin URL** → analiza los archivos del proyecto actual en el sistema de archivos.
+**Without a URL** → analyze files of the current project in the file system.
 
-## 1. Inventario de contenido
+## 1. Content inventory
 
-Crea un inventario de todas las páginas con:
+Create an inventory of all pages with:
 - URL
-- Conteo aproximado de palabras
-- Tipo de contenido (home, servicio, blog, about, contacto, etc.)
-- Keyword objetivo inferida
+- Approximate word count
+- Content type (home, service, blog, about, contact, etc.)
+- Inferred target keyword
 
-## 2. Análisis de thin content
+## 2. Thin content analysis
 
-**Thin content**: páginas con menos palabras de las necesarias para competir.
+**Thin content**: pages with fewer words than needed to compete.
 
-Umbrales por tipo de página:
-| Tipo de página | Mínimo recomendado | Competitivo |
-|---------------|-------------------|-------------|
-| Home | 300 palabras | 500+ |
-| Página de servicio | 500 palabras | 800+ |
-| Artículo de blog | 800 palabras | 1,500+ |
-| Landing page | 400 palabras | 700+ |
-| Categoría | 200 palabras | 400+ |
-| FAQ | 150 palabras por pregunta | 300+ |
+Thresholds by page type:
+| Page type | Recommended minimum | Competitive |
+|-----------|---------------------|-------------|
+| Home | 300 words | 500+ |
+| Service page | 500 words | 800+ |
+| Blog article | 800 words | 1,500+ |
+| Landing page | 400 words | 700+ |
+| Category | 200 words | 400+ |
+| FAQ | 150 words per question | 300+ |
 
-**Señales adicionales de thin content:**
-- Contenido duplicado de otras páginas del mismo sitio
-- Páginas con solo imágenes o videos sin texto de soporte
-- Páginas de categoría vacías
-- Páginas con contenido genérico/boilerplate
+**Additional thin-content signals:**
+- Content duplicated from other pages of the same site
+- Pages with only images or videos and no supporting text
+- Empty category pages
+- Pages with generic/boilerplate content
 
-## 3. Detección de contenido duplicado interno
+## 3. Internal duplicate content detection
 
-Busca:
-- Párrafos o secciones muy similares en múltiples páginas
-- Meta descriptions duplicadas (ya cubierto en `/seo-meta`, reportar brevemente)
-- Páginas con el mismo contenido en diferentes URLs (sin canonical)
-- Templates que generan contenido idéntico para múltiples páginas
+Look for:
+- Very similar paragraphs or sections across multiple pages
+- Duplicate meta descriptions (covered in `/seo-meta`, report briefly)
+- Pages with the same content at different URLs (no canonical)
+- Templates that generate identical content for multiple pages
 
-## 4. Análisis de legibilidad
+## 4. Readability analysis
 
-Evalúa:
-- **Párrafos**: demasiado largos (>150 palabras por párrafo)
-- **Oraciones**: demasiado largas (>25 palabras)
-- **Vocabulario**: demasiado técnico para la audiencia objetivo
-- **Listas y viñetas**: ¿se usan para facilitar la lectura?
-- **Espaciado visual**: ¿hay suficientes saltos entre secciones?
-- **Subheadings**: ¿cada 200-300 palabras hay un heading que divide el texto?
+Evaluate:
+- **Paragraphs**: too long (>150 words per paragraph)
+- **Sentences**: too long (>25 words)
+- **Vocabulary**: too technical for the target audience
+- **Lists and bullets**: are they used to ease reading?
+- **Visual spacing**: are there enough breaks between sections?
+- **Subheadings**: is there a heading every 200–300 words dividing the text?
 
-## 5. Oportunidades de expansión temática
+## 5. Topic expansion opportunities
 
-Para cada página principal, identifica:
-- **Preguntas sin responder** que los usuarios buscarían junto a la keyword
-- **Subtemas relacionados** que la competencia probablemente cubre
-- **Secciones que se podrían añadir**: FAQ, casos de uso, ejemplos, comparaciones
-- **Contenido de soporte faltante**: glosario, guías relacionadas, estudios de caso
+For each main page, identify:
+- **Unanswered questions** users would search along with the keyword
+- **Related subtopics** the competition probably covers
+- **Sections to add**: FAQ, use cases, examples, comparisons
+- **Missing supporting content**: glossary, related guides, case studies
 
-## 6. Reporte de salida
+## 6. Output report
 
 ```
-## Reporte de Calidad de Contenido — [proyecto]
-**Fecha:** [fecha]
+## Content Quality Report — [project]
+**Date:** [date]
 
-### Inventario de contenido
-| Página | URL | Palabras | Estado | Problema principal |
+### Content inventory
+| Page | URL | Words | Status | Main issue |
 |--------|-----|---------|--------|-------------------|
-| Home   | /   | [n]     | ✅/⚠️/❌ | [descripción]   |
+| Home   | /   | [n]     | ✅/⚠️/❌ | [description]   |
 
-### 🔴 Thin content crítico
-- [página] — [n] palabras — Necesita ~[objetivo] palabras
-  **Secciones sugeridas para añadir:**
-  - [sección específica con descripción]
+### 🔴 Critical thin content
+- [page] — [n] words — Needs ~[target] words
+  **Suggested sections to add:**
+  - [specific section with description]
 
-### 🟡 Contenido duplicado interno
-- [página 1] y [página 2] tienen contenido muy similar en: [sección]
-  **Recomendación:** [consolidar/diferenciar/canonical]
+### 🟡 Internal duplicate content
+- [page 1] and [page 2] have very similar content in: [section]
+  **Recommendation:** [consolidate/differentiate/canonical]
 
-### 🟢 Oportunidades de expansión
-**[Página]**: añadir [sección/tipo de contenido] para cubrir [subtema/pregunta]
+### 🟢 Expansion opportunities
+**[Page]**: add [section/content type] to cover [subtopic/question]
 
-### Legibilidad
-- Páginas con párrafos muy largos: [lista]
-- Páginas sin estructura de headings adecuada: [lista]
+### Readability
+- Pages with very long paragraphs: [list]
+- Pages without a proper heading structure: [list]
 
-### Plan editorial sugerido
-1. [acción concreta #1 con estimado de impacto]
-2. [acción concreta #2]
+### Suggested editorial plan
+1. [concrete action #1 with impact estimate]
+2. [concrete action #2]
 ```
