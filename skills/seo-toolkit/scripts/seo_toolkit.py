@@ -108,7 +108,13 @@ def cmd_meta(path):
 
 def cmd_density(path, keyword):
     html = read_source(path)
-    text = re.sub(r"<[^>]+>", " ", html)
+    # Strip <script>/<style> content first: CSS/JS source is not visible text
+    # and must not inflate the word count (density gets skewed ~2-3x otherwise).
+    text = re.sub(
+        r"<(script|style)\b[^>]*>.*?</\1\s*>", " ", html,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).lower()
     words = re.findall(r"[a-zа-я0-9]+", text)
     total = len(words)
@@ -156,6 +162,8 @@ def cmd_jsonld(path):
                 errors.append("Article: expected headline+author")
             if t == "FAQPage" and "mainEntity" not in data:
                 errors.append("FAQPage: expected mainEntity")
+            if t == "Organization" and not (data.get("name") and data.get("url")):
+                errors.append("Organization: expected name+url")
         print(f"  block {i}: @type={types} — {'OK' if not errors else '; '.join(errors)}")
 
 
@@ -188,16 +196,19 @@ def main():
     ap.add_argument("--jsonld", action="store_true", help="JSON-LD validation")
     ap.add_argument("--file", help="HTML file (or stdin if omitted)")
     ap.add_argument("--keyword", default="", help="keyword for --density")
+    ap.add_argument("paths", nargs="*", help="HTML file (positional; fallback for --file)")
     args = ap.parse_args()
 
+    file = args.file or (args.paths[0] if args.paths else None)
+
     if args.meta:
-        cmd_meta(args.file)
+        cmd_meta(file)
     elif args.density:
         if not args.keyword:
             ap.error("--density requires --keyword")
-        cmd_density(args.file, args.keyword)
+        cmd_density(file, args.keyword)
     elif args.jsonld:
-        cmd_jsonld(args.file)
+        cmd_jsonld(file)
     else:
         ap.print_help()
 
