@@ -7,7 +7,26 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.4.0] - 2026-08-09
+
+### Added
+- **`secret-scanner`** — static secret/token scanning for codebases and git
+  repos (`secret_scanner.py`, stdlib-only): gitleaks v8.30.1 pattern table
+  (19 rule families — AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack,
+  private keys, JWT, generic), Shannon-entropy gating, allowlist noise
+  filters, JSON/Markdown/text reports, redaction, CI exit-code gate.
+  Showcase: [`showcase-secret-scanner-lovii.md`](docs/showcase/showcase-secret-scanner-lovii.md).
+- **`security-review`** — security review orchestrator (`security_review.py`,
+  stdlib-only): lockfile/manifest inventory (npm/pnpm/yarn, pip/poetry, cargo,
+  go, gem, maven/gradle, composer), exit-code classifier for 13 SCA/SAST tools
+  (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov,
+  trivy, grype, npm audit, cargo audit, dependency-check) with verified
+  semantics, JSON normalizers (osv-scanner, pip-audit, semgrep, gitleaks,
+  bandit) to one unified finding schema, plain/markdown/JSON reports.
+  Showcase: `docs/showcase/showcase-security-review-lovii.md`.
+
 ## [1.3.0] - 2026-08-08
+
 
 ### Added
 - **`sql-helper`** — SQL generation from a text question + DDL schema

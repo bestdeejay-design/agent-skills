@@ -3,10 +3,10 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 21](https://img.shields.io/badge/Skills-21-blue.svg)](index.json)
+[![Skills: 24](https://img.shields.io/badge/Skills-24-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--08-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--09-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
@@ -41,6 +41,8 @@
 | [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Polite HTML scraping to Markdown/JSON: simple CSS selector (tag/tag#id/tag.class), text/links/tables extraction; legal guardrails — robots.txt check, honest User-Agent, request delay, 10 MB page limit. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
 | [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Profiles datasets (CSV or JSON array): field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin histogram, top-3 Pearson correlations, anomalies, recommendations; markdown or JSON report. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | `media` | 13 SEO commands for AI agents: technical audit, Core Web Vitals, crawlability, schema.org, keywords, meta tags, content analysis, images, reports, competitor comparison, autonomous fixes. URL mode (fetch external sites) + file mode (local projects). Helper `seo_toolkit.py`: meta/headings/alt audit, keyword density, JSON-LD validation. | `seo audit`, `core web vitals`, `schema org`, `json-ld`, `keywords analysis`, `seo report`, `meta tags`, `crawlability` |
+| [**secret-scanner**](skills/secret-scanner/SKILL.md) | `code` | Static secret/token scanning for codebases and git repos: AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs via gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline, JSON/Markdown/text reports, redaction, CI exit-code gate. | `secret scan`, `проверь секреты`, `leaked token`, `scan for keys`, `hardcoded credentials` |
+| [**security-review**](skills/security-review/SKILL.md) | `code` | Security review orchestrator: lockfile inventory (npm/pip/cargo/go/gem/maven/gradle/composer), exit-code classifier for 13 sca tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), JSON normalizer to one unified finding schema, reports. Stdlib-only, offline, OWASP-aligned. | `security review`, `audit dependencies`, `lockfile audit`, `проверь зависимости`, `osv-scanner`, `уязвимости` |
 
 ## 🎬 Showcase — real-project examples
 
@@ -55,6 +57,8 @@
 | [`github-repo-hygiene`](docs/showcase/showcase-github-repo-hygiene-lovii.md) | lovii_demo repository | Community Health audit (0% → 100%): missing files, metadata, API checklists |
 | [`test-graphics`](docs/showcase/showcase-test-graphics-lovii.md) | lovii_demo mock data + brand | Partner avatars, product placeholders, Lucide icons, batch for e2e |
 | [`seo-toolkit`](docs/showcase/showcase-seo-toolkit-lovii.md) | lovii.ru landing (White Paper) | SEO-audit of the public page: meta/OG/headings/alt via helper + Core Web Vitals checklist, JSON-LD (0 blocks) |
+| [`secret-scanner`](docs/showcase/showcase-secret-scanner-lovii.md) | lovii_demo repo | Secret scan of the repo: 1 Medium (generic-api-key, UUID false positive, `index.js:7`) — entropy + allowlist interpretation |
+| [`security-review`](docs/showcase/showcase-security-review-lovii.md) | lovii_demo repo | Lockfile inventory (npm `package-lock.json` in `.opencode/`), exit-code classification (osv-scanner 129 = API error, semgrep 1 = findings) |
 
 ---
 
