@@ -172,6 +172,14 @@ not the internal version bumps of individual skills.
   templates and the example README; event-subject prefixes `pmos.*` → `app.*`;
   paths in README tree and `skill.json` updated.
 
+### Fixed
+- **`seo-toolkit`** helper (`scripts/seo_toolkit.py`): keyword density now strips
+  `<script>`/`<style>` content before counting (visible-text word count only;
+  CSS/JS source previously inflated it ~2-3×); JSON-LD validator now supports
+  `Organization` (requires `name` + `url`, consistent with Product/Article/FAQPage
+  rules); CLI accepts a positional HTML path as a fallback for `--file`
+  (`--meta <file>` no longer fails with `unrecognized arguments`).
+
 ## [1.0.0] - 2026-08-07
 
 ### Added

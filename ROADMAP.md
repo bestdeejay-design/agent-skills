@@ -116,6 +116,7 @@
 > мигрируем все `SKILL.md`/`references`/`index.json` на английский язык.
 
 - [x] `seo-toolkit` — импорт из skills.sh был на испанском: переведён на английский (SKILL.md, 13 команд, canonical-patterns, helper)
+  - [x] выпущен в каталог (v1.7.0): 22-й скилл, 13 SEO-команд, helper `scripts/seo_toolkit.py`, canonical analogues (Lighthouse, Google Search Central, schema.org, Screaming Frog)
 - [ ] Ревизия CONTRIBUTING.md — языковая политика описана явно (EN-primary, RU и другие языки по желанию)
 - [ ] Перевод `SKILL.md` оставшихся 21 скиллов на английский
 - [ ] Перевод `references/canonical-patterns.md` на английский (где ещё русский)
