@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/bestdeejay-design" target="_blank">
+    <img src="assets/header.svg" alt="header" />
+  </a>
+</p>
+
 # Agent Skills — Коллекция скиллов для AI-агентов
 
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
@@ -19,7 +25,7 @@
 
 | Скилл | Категория | Описание | Триггеры |
 |-------|-----------|----------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU) + визуальное оформление header/footer (capsule-render, waving-градиенты), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, социальное превью, релизы, description, topics, GitHub Pages, community health. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy`, `шапка readme`, `capsule render`, `waving banner` |
+| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU) + визуальное оформление header/footer **локальными анимированными SVG** (`assets/header.svg` + `assets/footer.svg`, SMIL-волны и градиент — без внешних сервисов), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, социальное превью, релизы, description, topics, GitHub Pages, community health. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy`, `шапка readme`, `анимированный svg`, `waving banner` |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma/SKILL.md) | `social` | Систематическая работа на Reddit для набора кармы вашего аккаунта: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. Настройте никнейм, сабы и целевой ресурс под себя. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker/SKILL.md) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |
@@ -351,3 +357,11 @@ MIT License — см. [LICENSE](LICENSE).
 ## 📜 Кодекс поведения
 
 См. [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
+
+---
+
+<p align="center">
+  <a href="https://github.com/bestdeejay-design" target="_blank">
+    <img src="assets/footer.svg" alt="footer" />
+  </a>
+</p>

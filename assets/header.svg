@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-label="Agent Skills — AI Agent Skills">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0ABAB5">
+        <animate attributeName="stop-color" values="#0ABAB5;#F64A8A;#0ABAB5" dur="8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#F64A8A">
+        <animate attributeName="stop-color" values="#F64A8A;#0ABAB5;#F64A8A" dur="8s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <!-- Маска: нижняя волна чёрная -> вырезает цвет баннера, снизу виден фон страницы (эффект «фон наплывает») -->
+    <mask id="wave">
+      <rect width="1200" height="290" fill="#FFFFFF"/>
+      <path fill="#000000"
+            d="M0,290 L0,245 C150,222 350,268 600,245 C850,222 1050,268 1200,245 L1200,290 Z">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,5;0,0" dur="6s" begin="-3.6s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+      </path>
+    </mask>
+  </defs>
+
+  <g mask="url(#wave)">
+    <rect width="1200" height="290" fill="url(#bg)"/>
+
+    <!-- Полупрозрачные волны поверх градиента (средняя 0.25, верхняя 0.5), фазовый сдвиг 30% -->
+    <path fill="#FFFFFF" opacity="0.25"
+          d="M0,290 L0,232 C200,210 450,256 720,232 C950,212 1100,250 1200,232 L1200,290 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="6s" begin="-1.8s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+    <path fill="#FFFFFF" opacity="0.5"
+          d="M0,290 L0,220 C280,198 520,244 800,222 C1000,204 1120,238 1200,220 L1200,290 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,11;0,0" dur="6s" begin="0s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+
+    <g>
+      <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
+      <text x="602" y="105" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#000000" opacity="0.28" text-anchor="middle">Agent Skills</text>
+      <text x="600" y="103" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Agent Skills</text>
+    </g>
+
+    <g>
+      <animate attributeName="opacity" values="0;1" dur="1.5s" begin="0.5s" fill="freeze"/>
+      <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#000000" opacity="0.30" text-anchor="middle">AI Agent Skills</text>
+      <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#FFFFFF" opacity="0.95" text-anchor="middle">AI Agent Skills</text>
+    </g>
+  </g>
+</svg>

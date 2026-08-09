@@ -167,16 +167,20 @@ gh repo edit bestdeejay-design/lovii_demo \
 - **URL**: https://github.com/spdx/license-list-data
 - **Паттерн**: Канонические SPDX-идентификаторы (MIT, Apache-2.0, CC-BY-4.0...); GitHub Licenses API conforms to SPDX specification.
 
-### 9. Capsule Render (visual README header/footer)
-- **URL**: https://github.com/kyechan99/capsule-render
-- **Паттерн**: SVG-бейдж с waving-волной через query-параметры: `type=waving`,
-  `height=290` (header) / `height=80&section=footer` (footer), градиент
-  `color=0:COLD,100:WARM` (header) / `color=0:WARM,100:COLD` (footer-инверсия),
-  `text`, `desc`, `fontColor`, `fontSize`, `fontAlignY`, `descAlignY`,
-  `animation=fadeIn|twinkling`. Встраивание: `<p align="center"><a href="https://github.com/USERNAME" target="_blank"><img src="..." alt="header" /></a></p>`.
+### 9. Локальные анимированные SVG (visual README header/footer)
+- **Канон**: никаких внешних сервисов-баннеров (`capsule-render` и аналоги) —
+  README ссылается на собственные `assets/header.svg` + `assets/footer.svg`
+  относительными путями, анимация — декларативный SMIL (`<animate>`,
+  `<animateTransform>`), без `<script>`.
+- **Паттерн**: header 1200×290, градиент `COLD→WARM` + 2 дрейфующие
+  полупрозрачные волны (бесшовный сдвиг кратен периоду волны); footer 1200×80,
+  инверсия `WARM→COLD` + twinkling-текст `@USERNAME`. Встраивание:
+  `<p align="center"><a href="https://github.com/USERNAME" target="_blank"><img src="assets/header.svg" alt="header" /></a></p>`.
 - **Паттерны**: градиенты тёплый+холодный, высокий контраст, текст `FFFFFF`
   на тёмном / `1A1A2E` на светлом, запрет белого в середине градиента,
-  инверсия палитры header→footer, только URL (без base64).
+  инверсия палитры header→footer, относительные ссылки (работают в клонах/форках).
+- **Ограничение GitHub**: в SVG внутри `<img>` запрещены скрипты — анимация
+  только SMIL; SMIL-анимации работают в README (SRC через raw.githubusercontent.com).
 
 ---
 

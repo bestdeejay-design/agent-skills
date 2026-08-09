@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="60" viewBox="0 0 1200 60" role="img" aria-label="@bestdeejay-design">
+  <defs>
+    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F64A8A">
+        <animate attributeName="stop-color" values="#F64A8A;#0ABAB5;#F64A8A" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#0ABAB5">
+        <animate attributeName="stop-color" values="#0ABAB5;#F64A8A;#0ABAB5" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <!-- Маска: верхняя волна чёрная -> вырезает цвет баннера сверху. Запас сверху -12, чтобы при анимации не открывалась полоска -->
+    <mask id="wave">
+      <rect width="1200" height="60" fill="#FFFFFF"/>
+      <path fill="#000000"
+            d="M0,-12 L0,21 C200,29 400,12 600,21 C800,30 1000,13 1200,21 L1200,-12 Z">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,4;0,0" dur="6s" begin="-3.6s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+      </path>
+    </mask>
+  </defs>
+
+  <g mask="url(#wave)">
+    <rect width="1200" height="60" fill="url(#fg)"/>
+
+    <!-- Средняя волна (0.25): до y=27, пики смещены относительно выреза -->
+    <path fill="#FFFFFF" opacity="0.25"
+          d="M0,-12 L0,27 C120,35 260,20 420,27 C560,36 700,21 860,27 C980,35 1120,21 1200,27 L1200,-12 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,6;0,0" dur="6s" begin="-1.8s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+    <!-- Верхняя волна (0.5): до y=35, гребни чаще -->
+    <path fill="#FFFFFF" opacity="0.5"
+          d="M0,-16 L0,35 C90,42 180,27 270,35 C360,44 450,29 540,35 C630,44 720,29 810,35 C900,44 990,29 1080,35 C1140,30 1170,40 1200,35 L1200,-16 Z">
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="6s" begin="0s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite"/>
+    </path>
+
+    <text x="602" y="51" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#000000" opacity="0.30" text-anchor="middle">
+      @bestdeejay-design
+    </text>
+    <text x="600" y="49" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+      @bestdeejay-design
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+    </text>
+  </g>
+</svg>

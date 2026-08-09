@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/bestdeejay-design" target="_blank">
+    <img src="assets/header.svg" alt="header" />
+  </a>
+</p>
+
 # Agent Skills — AI Agent Skill Collection
 
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
@@ -19,7 +25,7 @@
 
 | Skill | Category | Description | Triggers |
 |-------|----------|-------------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU) + visual header/footer (capsule-render waving gradients), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR templates, social preview, releases, description, topics, GitHub Pages, community health. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy`, `readme header`, `capsule render`, `waving banner` |
+| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Validates and updates GitHub repo descriptive section: README (EN+RU) + visual header/footer as **local animated SVG** (`assets/header.svg` + `assets/footer.svg`, SMIL waves & gradient — no external services), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR templates, social preview, releases, description, topics, GitHub Pages, community health. | `github hygiene`, `setup repository`, `update readme`, `github page`, `repo description`, `search tags`, `topics`, `contributing`, `license`, `security policy`, `readme header`, `animated svg`, `waving banner` |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | `media` | Generates test images, photos, icons, placeholders via Python + free APIs (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `test pictures`, `icons for test`, `stubs`, `mock data images`, `generate photo` |
 | [**reddit-karma**](skills/reddit-karma/SKILL.md) | `social` | Systematic Reddit karma building for your account: topic search, response drafting, tone detection, thank-you templates, routine runs. Configure your username, subreddits and target resource. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
 | [**presentation-maker**](skills/presentation-maker/SKILL.md) | `media` | Presentation generator: Markdown outline, HTML 16:9 slides, .pptx via python-pptx. Auto-layouts, themes, design-system (tokens, mood), product-design module (narrative, data-viz, a11y, premium). | `make presentation`, `presentation`, `slides`, `pptx`, `make deck`, `generate slides` |
@@ -351,3 +357,11 @@ See [SECURITY.md](SECURITY.md).
 ## 📜 Code of Conduct
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
+
+---
+
+<p align="center">
+  <a href="https://github.com/bestdeejay-design" target="_blank">
+    <img src="assets/footer.svg" alt="footer" />
+  </a>
+</p>
