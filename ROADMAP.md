@@ -102,12 +102,12 @@
 > https://github.com/bestdeejay-design/lovii_demo). Требование закреплено в
 > `CONTRIBUTING.md` (шаг 6 — showcase обязателен для нового скилла).
 
-- [ ] Showcase-шаблон: `docs/showcase-template.md` — каркас демо (вход/запуск/вывод/интерпретация)
+- [x] Showcase-шаблон: `docs/showcase-template.md` — каркас демо (вход/запуск/вывод/интерпретация)
 - [ ] Showcase v1.0: `github-repo-hygiene`, `test-graphics`, `reddit-karma`, `presentation-maker`, `docs-system`
 - [ ] Showcase v1.1: `commit-message-writer`, `changelog-generator`, `code-review`, `api-doc-generator`, `test-generator`, `plan-skill`, `systematic-debugger`
 - [ ] Showcase v1.2: `diagram-maker`, `mermaid-to-image`, `pdf-report-builder`, `video-script-writer`
 - [ ] Showcase v1.3: `sql-helper`, `csv-pro`, `web-scraper`, `data-analysis` (на данных/коде `lovii_demo`)
-- [ ] `docs/showcase/` — сборник showcase-демо (по файлу на скилл) + таблица в `README`/`README.ru`
+- [x] `docs/showcase/` — сборник showcase-демо (по файлу на скилл) + таблица в `README`/`README.ru` (web-scraper, diagram-maker, github-repo-hygiene, test-graphics, seo-toolkit)
 
 ## 🌟 v2.0 — Ecosystem
 

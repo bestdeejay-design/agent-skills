@@ -73,6 +73,19 @@ not the internal version bumps of individual skills.
 ## [Unreleased]
 
 ### Added
+- **`seo-toolkit`** — 13 SEO-команд для AI-агентов (импорт из открытого каталога
+  skills.sh, переименование без привязки к вендорскому имени: `claude-seo` →
+  `seo-toolkit`): технический аудит, Core Web Vitals, crawlability, schema.org,
+  keywords, meta, content, images, отчёты со взвешенным скорингом, сравнение с
+  конкурентами, автономные исправления (P1–P5, diff-before-apply). Два режима —
+  URL (fetch сайтов) и файловый. Новый helper `scripts/seo_toolkit.py`
+  (Python 3 stdlib): аудит meta/headings/img alt, плотность ключей, валидация
+  JSON-LD. Канонические аналоги (Lighthouse, Google Search Central, schema.org,
+  sitemaps.org, RFC 9309, Screaming Frog, Rich Results Test) — в
+  `references/canonical-patterns.md`; showcase на lovii.ru —
+  `docs/showcase/showcase-seo-toolkit-lovii.md`.
+- Catalog (`index.json`) updated 21 → 22 entries; README/README.ru skill tables,
+  showcase tables and repo trees updated.
 - **`docs/SKILLS_CATALOG.md`** — ecosystem catalog: 11 domains, 15 benchmark
   vendor libraries, formats/standards, 8 trends, coverage gaps, 8 roadmap
   recommendations (from two research passes: ecosystem map + skills audit).

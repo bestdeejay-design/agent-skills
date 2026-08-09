@@ -40,6 +40,7 @@
 | [**csv-pro**](skills/csv-pro/SKILL.md) | `data` | Profiles CSV files: column types, min/max/mean, missing, unique, top-3 frequent; anomaly detection (zero variance, >95% empty, duplicate rows, >1000-char rows, ≥5×IQR outliers); markdown or JSON output; delimiter detection, file or stdin. | `csv profile`, `профиль csv`, `анализ csv`, `аномалии csv`, `csv anomalies` |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Polite HTML scraping to Markdown/JSON: simple CSS selector (tag/tag#id/tag.class), text/links/tables extraction; legal guardrails — robots.txt check, honest User-Agent, request delay, 10 MB page limit. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
 | [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Profiles datasets (CSV or JSON array): field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin histogram, top-3 Pearson correlations, anomalies, recommendations; markdown or JSON report. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
+| [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | `media` | 13 SEO commands for AI agents: technical audit, Core Web Vitals, crawlability, schema.org, keywords, meta tags, content analysis, images, reports, competitor comparison, autonomous fixes. URL mode (fetch external sites) + file mode (local projects). Helper `seo_toolkit.py`: meta/headings/alt audit, keyword density, JSON-LD validation. | `seo audit`, `core web vitals`, `schema org`, `json-ld`, `keywords analysis`, `seo report`, `meta tags`, `crawlability` |
 
 ## 🎬 Showcase — real-project examples
 
@@ -53,6 +54,7 @@
 | [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Textual SPA architecture → Mermaid flowchart of role-based screen structure |
 | [`github-repo-hygiene`](docs/showcase/showcase-github-repo-hygiene-lovii.md) | lovii_demo repository | Community Health audit (0% → 100%): missing files, metadata, API checklists |
 | [`test-graphics`](docs/showcase/showcase-test-graphics-lovii.md) | lovii_demo mock data + brand | Partner avatars, product placeholders, Lucide icons, batch for e2e |
+| [`seo-toolkit`](docs/showcase/showcase-seo-toolkit-lovii.md) | lovii.ru landing (White Paper) | SEO-audit of the public page: meta/OG/headings/alt via helper + Core Web Vitals checklist, JSON-LD (0 blocks) |
 
 ---
 
@@ -216,10 +218,16 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/data_analyze.py
-    └── web-scraper/
+    ├── web-scraper/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/scrape.py
+    └── seo-toolkit/
         ├── SKILL.md
         ├── skill.json
-        └── scripts/scrape.py
+        ├── references/canonical-patterns.md
+        ├── scripts/seo_toolkit.py
+        └── commands/ (13 × seo-*.md)
 ```
 
 ---

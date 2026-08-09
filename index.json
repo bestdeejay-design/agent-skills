@@ -496,6 +496,29 @@
         "json"
       ],
       "updated": "2026-08-08"
+    },
+    {
+      "name": "seo-toolkit",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "13 SEO-команд для AI-агентов: технический аудит, Core Web Vitals, crawlability, schema.org, ключевые слова, meta-теги, контент-анализ, изображения, отчёты, сравнение с конкурентами и автономные исправления. Работает в URL-режиме (fetch внешних сайтов) и файловом режиме (анализ локального проекта). Скрипт seo_toolkit.py: аудит meta/заголовков/alt, подсчёт плотности ключей, валидация JSON-LD. Триггеры: 'seo audit', 'core web vitals', 'schema org', 'json-ld', 'keywords analysis', 'seo report', 'сео аудит', 'meta tags', 'crawlability'.",
+      "path": "skills/seo-toolkit",
+      "triggers": [
+        "seo audit",
+        "seo report",
+        "core web vitals",
+        "schema org",
+        "json-ld",
+        "keywords analysis",
+        "meta tags",
+        "content audit",
+        "sitemap",
+        "robots txt",
+        "crawlability",
+        "competitor seo",
+        "seo fix"
+      ],
+      "updated": "2026-08-09"
     }
   ],
   "categories": {

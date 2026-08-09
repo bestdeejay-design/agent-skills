@@ -40,6 +40,7 @@
 | [**csv-pro**](skills/csv-pro/SKILL.md) | `data` | Профилирование CSV-файлов: типы колонок, min/max/mean, пропуски, уникальные, топ-3 частых; аномалии (нулевая дисперсия, >95% пустых, дубликаты строк, строки >1000 символов, выбросы ≥5×IQR); markdown или JSON, определение разделителя, файл или stdin. | `csv profile`, `профиль csv`, `анализ csv`, `аномалии csv`, `csv anomalies` |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Вежливый скраппинг HTML в Markdown/JSON: простой CSS-селектор (tag/tag#id/tag.class), извлечение текста/ссылок/таблиц; легальные guardrails — проверка robots.txt, честный User-Agent, задержка запросов, лимит 10 МБ. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
 | [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Профилирование датасетов (CSV или JSON-массив): типы полей, count/unique/missing, min/max/mean/std, мода + топ-N, гистограмма 5 корзин, топ-3 корреляции Пирсона, аномалии, рекомендации; markdown или JSON отчёт. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
+| [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | `media` | 13 SEO-команд для AI-агентов: технический аудит, Core Web Vitals, crawlability, schema.org, ключевые слова, meta-теги, контент-анализ, изображения, отчёты, сравнение с конкурентами, автономные исправления. URL-режим + файловый режим. Скиптер `seo_toolkit.py`: аудит meta/заголовков/alt, плотность ключей, валидация JSON-LD. | `seo audit`, `core web vitals`, `schema org`, `json-ld`, `keywords analysis`, `seo report`, `meta tags`, `crawlability` |
 
 ## 🎬 Showcase — примеры на реальных проектах
 
@@ -53,6 +54,7 @@
 | [`diagram-maker`](docs/showcase/showcase-diagram-maker-lovii.md) | lovii_demo `docs/ARCHITECTURE.md` | Текстовая архитектура SPA → Mermaid flowchart структуры экранов по ролям |
 | [`github-repo-hygiene`](docs/showcase/showcase-github-repo-hygiene-lovii.md) | lovii_demo репозиторий | Аудит Community Health (0% → 100%): отсутствующие файлы, метаданные, API-чеклисты |
 | [`test-graphics`](docs/showcase/showcase-test-graphics-lovii.md) | lovii_demo мок-данные + бренд | Аватары партнёров, placeholder-ы товаров, иконки Lucide, batch для e2e |
+| [`seo-toolkit`](docs/showcase/showcase-seo-toolkit-lovii.md) | lovii.ru (лендинг White Paper) | SEO-аудит публичной страницы: meta/OG/заголовки/alt через helper + Core Web Vitals + пробелы JSON-LD |
 
 ---
 
@@ -216,10 +218,16 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/data_analyze.py
-    └── web-scraper/
+    ├── web-scraper/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   └── scripts/scrape.py
+    └── seo-toolkit/
         ├── SKILL.md
         ├── skill.json
-        └── scripts/scrape.py
+        ├── references/canonical-patterns.md
+        ├── scripts/seo_toolkit.py
+        └── commands/ (13 × seo-*.md)
 ```
 
 ---
