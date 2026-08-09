@@ -1,0 +1,59 @@
+{
+  "name": "security-review",
+  "version": "1.0.0",
+  "description": "Security review orchestrator for dependency lockfiles and source: lockfile inventory (npm/pnpm/yarn, pip/poetry, cargo, go, gem, maven, gradle, composer), exit-code classifier for 13 security tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), and JSON normalizer to unified findings. Stdlib-only offline helper. Triggers: 'security review', 'audit dependencies', 'проверить зависимости', 'semgrep scan', 'lockfile audit', 'osv-scanner', 'vulnerability check', 'уязвимости', 'bandit report'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "dependencies",
+    "lockfile",
+    "audit",
+    "vulnerabilities",
+    "semgrep",
+    "bandit",
+    "osv-scanner",
+    "pip-audit",
+    "gitleaks",
+    "trufflehog",
+    "checkov",
+    "trivy",
+    "уязвимости",
+    "аудит"
+  ],
+  "triggers": [
+    "security review",
+    "audit dependencies",
+    "lockfile audit",
+    "проверь зависимости",
+    "semgrep scan",
+    "osv-scanner",
+    "bandit findings",
+    "dependency-check",
+    "scan for vulnerabilities",
+    "уязвимости в зависимостях",
+    "security-review",
+    "audit lockfiles",
+    "grype scan",
+    "vulnerability report"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/security_review.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/security_review.py",
+    "permissions": [
+      "file:read",
+      "process:execute"
+    ]
+  },
+  "updated": "2026-08-09"
+}
