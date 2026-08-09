@@ -99,7 +99,18 @@
   - [x] verified & enriched
   - [x] выпущен в каталог (v1.5.0): 28-й скилл
 
-## 🧪 v1.6 — Skill Showcase (examples on real project)
+## 🎯 v1.6 — Frontend Perfection (released 2026-08-09)
+
+> Отдельный каталоговый релиз (catalog 28 → 29): скилл аудита и доводки
+> фронтенда, созданный с учётом разбора реальных проблем built-in `frontend`
+> (стабильный раннер вместо Playwright-интерналов, Lighthouse ≥13 API,
+> изолированные зависимости, crop-safe OG-методология).
+
+- [x] `frontend-perfection` — аудит и доводка фронтенда до проверяемого идеала (Lighthouse ≥13 через chrome-launcher, SEO-мета-слой, контрасты по яркости, дизайн-токены, OG-crop-safe, scroll-padding, брейкпоинты)
+  - [x] verified & enriched
+  - [x] выпущен в каталог (v1.6.0): 29-й скилл, showcase `docs/showcase/showcase-frontend-perfection-lovii.md`, план `docs/plans/frontend-perfection-plan.md`
+
+## 🧪 v1.8 — Skill Showcase (examples on real project)
 
 > После завершения v1.x и перед v2.0 — подготовить рабочие примеры **каждого**
 > скилла на реальном проекте (эталон: **lovii.ru** / `lovii_demo`,

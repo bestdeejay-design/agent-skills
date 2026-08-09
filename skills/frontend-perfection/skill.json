@@ -1,0 +1,73 @@
+{
+  "name": "frontend-perfection",
+  "version": "1.0.0",
+  "description": "Audit and polish frontend to verifiable perfection: real-Chrome Lighthouse >=13 runs via chrome-launcher + Node API (mobile+desktop, no Playwright internals, .default fallback, self-resolved deps — exits 0/1/2 with compact JSON report of failed audit ids), plus an offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens with zero raw hex outside the token block, fixed-header scroll-padding, breakpoints) and crop-safe OG-image generation (1200x630 with ~640px central safe zone, URL change instead of overwrite to bust social caches, forced reflow before screenshot). report.json is written per run; every fix binds to an audit id. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'проверь вёрстку', 'довести фронтенд до идеала', 'og-image для соцсетей', 'SEO-мета слой', 'контраст цветов', 'дизайн-токены'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "frontend",
+    "lighthouse",
+    "performance",
+    "accessibility",
+    "seo",
+    "og-image",
+    "design-tokens",
+    "wcag",
+    "contrast",
+    "adaptive",
+    "вёрстка",
+    "перформанс",
+    "контраст",
+    "дизайн-токены",
+    "сниппет для соцсетей"
+  ],
+  "triggers": [
+    "frontend audit",
+    "perfect the layout",
+    "lighthouse check",
+    "make it 100/100/100/100",
+    "100 lighthouse",
+    "audit the page",
+    "fix performance",
+    "check the frontend",
+    "og image",
+    "social share meta",
+    "contrast check",
+    "design tokens",
+    "проверь вёрстку",
+    "довести фронтенд до идеала",
+    "логический аудит",
+    "og-image для соцсетей",
+    "SEO-мета слой",
+    "контраст цветов",
+    "дизайн-токены",
+    "оптимизация лендинга"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/audit.js",
+    "scripts/meta_audit.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "node",
+      "python3",
+      "chrome"
+    ],
+    "npm": [
+      "lighthouse",
+      "chrome-launcher"
+    ],
+    "script": "scripts/audit.js",
+    "permissions": [
+      "file:read",
+      "exec",
+      "network:localhost"
+    ]
+  },
+  "updated": "2026-08-09"
+}

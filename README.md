@@ -3,7 +3,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 28](https://img.shields.io/badge/Skills-28-blue.svg)](index.json)
+[![Skills: 29](https://img.shields.io/badge/Skills-29-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--09-green.svg)](index.json)
@@ -47,6 +47,7 @@
 | [**commit-lint**](skills/commit-lint/SKILL.md) | `code` | Conventional Commits v1.0.0 validation: reads `git log` (or stdin), parses type/scope/subject, reports violations (missing/invalid type, case, subject/header/body length, trailing dot), text/JSON report, exit 0/1/2. Stdlib-only, offline, read-only. Local commitlint analog. | `commit lint`, `lint commits`, `conventional commits`, `check commit messages`, `проверка коммитов`, `валидация коммитов`, `commit style check` |
 | [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | `code` | Test coverage analysis from coverage.py XML/JSON reports: statement/line/branch coverage, per-file breakdown with files below threshold, total percentage, actionable recommendations. Stdlib-only, offline. Pairs with `test-generator`. | `coverage`, `coverage analysis`, `coverage report`, `test coverage`, `покрытие кода`, `анализ покрытия`, `branch coverage` |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | `code` | API contract validation against OpenAPI 3.x spec (JSON/YAML, built-in YAML subset parser, no PyYAML): enumerates paths + webhooks, checks internal consistency ($refs, duplicates, missing responses), compares endpoint manifest offline, live mode probes HTTP statuses. JSON report, exit 0/1/2. Stdlib-only. Pairs with `api-doc-generator`. | `api contract testing`, `contract test`, `validate openapi spec`, `spec vs manifest`, `endpoint coverage`, `проверь контракт API`, `тест контракта` |
+| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | `code` | Frontend audit & polish to verifiable perfection: real Chrome through chrome-launcher + Lighthouse ≥13 Node API (mobile+desktop, no Playwright internals, `.default` fallback, self-resolved deps, exit 0/1/2, compact JSON with failed audit ids); offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens — zero raw hex outside tokens, scroll-padding under fixed header, breakpoints); crop-safe OG-image generation (1200×630 with ~640px central safe zone, rename not overwrite to bust social caches, forced reflow before capture). Every fix binds to an audit id. | `frontend audit`, `lighthouse check`, `make it 100/100/100/100`, `perfect the layout`, `og image`, `contrast check`, `design tokens`, `проверь вёрстку`, `довести фронтенд до идеала` |
 
 ## 🎬 Showcase — real-project examples
 
@@ -66,6 +67,7 @@
 | [`version-bumper`](docs/showcase/showcase-version-bumper-lovii.md) | agent-skills + lovii_demo | Next semver from git history: agent-skills `v1.0.0` → `v1.1.0` (minor), lovii_demo fallback `0.0.0` → `v0.1.0` |
 | [`commit-lint`](docs/showcase/showcase-commit-lint-lovii.md) | agent-skills + lovii_demo | Conventional Commits validation: 12/12 agent-skills (long subjects + `i18n` type), lovii_demo type-case + missing-type classes |
 | [`coverage-analyzer`](docs/showcase/showcase-coverage-analyzer-lovii.md) | agent-skills | Coverage report from coverage.py XML: statements/line/branch, files below threshold, summary percentage |
+| [`frontend-perfection`](docs/showcase/showcase-frontend-perfection-lovii.md) | lovii_demo | Real-Chrome Lighthouse across form factors (mobile 94/96/100/91, desktop 72/96/100/91) + offline meta audit (17 checks, 12 violations: meta layer, tokens, contrast, scroll-padding) |
 
 ---
 
@@ -233,12 +235,18 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/scrape.py
-    └── seo-toolkit/
+    ├── seo-toolkit/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── references/canonical-patterns.md
+    │   ├── scripts/seo_toolkit.py
+    │   └── commands/ (13 × seo-*.md)
+    └── frontend-perfection/
         ├── SKILL.md
         ├── skill.json
         ├── references/canonical-patterns.md
-        ├── scripts/seo_toolkit.py
-        └── commands/ (13 × seo-*.md)
+        ├── scripts/audit.js
+        └── scripts/meta_audit.py
 ```
 
 ---

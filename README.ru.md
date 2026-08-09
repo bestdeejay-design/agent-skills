@@ -3,7 +3,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 28](https://img.shields.io/badge/Skills-28-blue.svg)](index.json)
+[![Skills: 29](https://img.shields.io/badge/Skills-29-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--09-green.svg)](index.json)
@@ -47,6 +47,7 @@
 | [**commit-lint**](skills/commit-lint/SKILL.md) | `code` | Валидация git-коммитов по Conventional Commits v1.0.0: читает `git log` (или stdin), парсит type/scope/subject, сообщает нарушения (missing/invalid type, регистр, длина subject/header/body, точка в конце), отчёт text/JSON, exit 0/1/2. Офлайн, stdlib, read-only. Локальный аналог commitlint. | `commit lint`, `lint commits`, `conventional commits`, `check commit messages`, `проверка коммитов`, `валидация коммитов`, `commit style check` |
 | [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | `code` | Анализ покрытия кода тестами из coverage.py отчётов (XML/JSON): statement/line/branch coverage, разбивка по файлам с проблемными (ниже порогов), итоговый процент, рекомендации. Офлайн, stdlib. Пара к `test-generator`. | `coverage`, `coverage analysis`, `coverage report`, `test coverage`, `покрытие кода`, `анализ покрытия`, `branch coverage` |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | `code` | Проверка контракта API против OpenAPI 3.x (JSON/YAML, встроенный YAML-парсер, без PyYAML): перечисляет операции (paths + webhooks), проверяет внутреннюю консистентность ($ref, дубликаты, отсутствующие responses), сверяет manifest эндпоинтов офлайн, в live-режиме шлёт HTTP-запросы и сравнивает статусы. JSON-отчёт, exit 0/1/2. Офлайн, stdlib. | `api contract testing`, `contract test`, `validate openapi spec`, `spec vs manifest`, `endpoint coverage`, `проверь контракт API`, `тест контракта` |
+| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | `code` | Аудит и доводка фронтенда до проверяемого идеала: реальный Chrome через chrome-launcher + Lighthouse ≥13 Node API (mobile+desktop, без Playwright-интерналов, с `.default`-фолбэком и авто-резолюцией зависимостей, exit 0/1/2, компактный JSON с failed audit-id); офлайн Python-stdlib аудит статики (SEO-мета-слой, контрасты WCAG по вычисленной яркости, порядок заголовков, дизайн-токены — ноль raw-hex вне токенов, scroll-padding под fixed-хедер, брейкпоинты); генерация crop-safe OG-изображений (1200×630 с центральной безопасной зоной ~640px, смена имени вместо перезаписи для сброса кеша соцсетей, принудительный reflow перед скриншотом). Каждый фикс привязывается к audit-id. | `frontend audit`, `lighthouse check`, `make it 100/100/100/100`, `perfect the layout`, `og image`, `contrast check`, `design tokens`, `проверь вёрстку`, `довести фронтенд до идеала` |
 
 ## 🎬 Showcase — примеры на реальных проектах
 
@@ -66,6 +67,7 @@
 | [`version-bumper`](docs/showcase/showcase-version-bumper-lovii.md) | agent-skills + lovii_demo | Следующая semver-версия по git-истории: agent-skills `v1.0.0` → `v1.1.0` (minor), lovii_demo fallback `0.0.0` → `v0.1.0` |
 | [`commit-lint`](docs/showcase/showcase-commit-lint-lovii.md) | agent-skills + lovii_demo | Валидация Conventional Commits: 12/12 agent-skills (длинные subject + тип `i18n`), lovii_demo — классы type-case и missing-type |
 | [`coverage-analyzer`](docs/showcase/showcase-coverage-analyzer-lovii.md) | agent-skills | Отчёт покрытия из coverage.py XML: statements/line/branch, файлы ниже порога, итоговый процент |
+| [`frontend-perfection`](docs/showcase/showcase-frontend-perfection-lovii.md) | lovii_demo | Реальный Chrome-Lighthouse по форм-факторам (mobile 94/96/100/91, desktop 72/96/100/91) + офлайн meta-аудит (17 проверок, 12 нарушений: мета-слой, токены, контраст, scroll-padding) |
 
 ---
 
@@ -233,12 +235,18 @@ agent-skills/
     │   ├── SKILL.md
     │   ├── skill.json
     │   └── scripts/scrape.py
-    └── seo-toolkit/
+    ├── seo-toolkit/
+    │   ├── SKILL.md
+    │   ├── skill.json
+    │   ├── references/canonical-patterns.md
+    │   ├── scripts/seo_toolkit.py
+    │   └── commands/ (13 × seo-*.md)
+    └── frontend-perfection/
         ├── SKILL.md
         ├── skill.json
         ├── references/canonical-patterns.md
-        ├── scripts/seo_toolkit.py
-        └── commands/ (13 × seo-*.md)
+        ├── scripts/audit.js
+        └── scripts/meta_audit.py
 ```
 
 ---

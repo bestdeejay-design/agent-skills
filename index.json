@@ -1,7 +1,7 @@
 {
  "name": "agent-skills",
  "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
- "version": "1.5.0",
+ "version": "1.6.0",
  "author": "best",
  "license": "MIT",
  "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -639,6 +639,32 @@
     "валидация openapi",
     "сверь спецификацию с API",
     "check the API against the spec"
+   ],
+   "updated": "2026-08-09"
+  },
+  {
+   "name": "frontend-perfection",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Аудит и доводка фронтенда до проверяемого идеала: реальный Chrome через chrome-launcher + Lighthouse >=13 Node API (mobile+desktop, без Playwright-интерналов, с .default-фолбэком и авто-резолюцией зависимостей; exit 0/1/2, компактный JSON-отчёт с audit-ids), плюс офлайн Python-stdlib аудит статики (SEO-мета-слой, контрасты WCAG по вычисленной яркости, порядок заголовков, дизайн-токены — ноль raw-hex вне токенов, scroll-padding под fixed-хедер, брейкпоинты) и генерация crop-safe OG-изображений (1200x630 с центральной безопасной зоной ~640px, смена URL вместо перезаписи для сброса кеша соцсетей, принудительный reflow перед скриншотом). Каждый фикс привязывается к audit-id. Триггеры: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'проверь вёрстку', 'довести фронтенд до идеала', 'og-image для соцсетей', 'SEO-мета слой', 'контраст цветов', 'дизайн-токены'.",
+   "path": "skills/frontend-perfection",
+   "triggers": [
+    "frontend audit",
+    "perfect the layout",
+    "lighthouse check",
+    "make it 100/100/100/100",
+    "audit the page",
+    "og image",
+    "social share meta",
+    "contrast check",
+    "design tokens",
+    "проверь вёрстку",
+    "довести фронтенд до идеала",
+    "og-image для соцсетей",
+    "SEO-мета слой",
+    "контраст цветов",
+    "дизайн-токены",
+    "оптимизация лендинга"
    ],
    "updated": "2026-08-09"
   }

@@ -7,6 +7,28 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.6.0] - 2026-08-09
+
+### Added
+- **`frontend-perfection`** — frontend audit & polish skill. Lighthouse ≥13
+  runner `scripts/audit.js` uses chrome-launcher + the Lighthouse Node API
+  (no Playwright internals, `.default` fallback, dependencies resolve local →
+  `NODE_PATH` → `npm root -g`; mobile/desktop, `--threshold`, compact JSON
+  with failed audit ids, exit 0/1/2). Static audit `scripts/meta_audit.py`
+  (Python stdlib, offline): SEO meta layer (title/description/canonical/OG/
+  Twitter/JSON-LD/robots/sitemap), WCAG contrast by computed luminance,
+  heading order, design tokens (zero raw hex outside token block),
+  fixed-header `scroll-padding-top`, breakpoint check. Crop-safe OG-image
+  methodology (1200×630, ~640px central safe zone, rename-not-overwrite to
+  bust social caches, forced reflow before capture). Every fix binds to an
+  audit id. Plan: `docs/plans/frontend-perfection-plan.md`. Showcase:
+  [`showcase-frontend-perfection-lovii.md`](docs/showcase/showcase-frontend-perfection-lovii.md)
+  — lovii_demo Lighthouse mobile 94/96/100/91, desktop 72/96/100/91;
+  meta audit 17 checks / 12 violations.
+- Catalog (`index.json`) updated 28 → 29 entries, version `1.6.0`;
+  ROADMAP v1.6 section released; README/README.ru skill tables, showcase
+  tables and badges updated (Skills: 29).
+
 ## [1.5.0] - 2026-08-09
 
 ### Added
