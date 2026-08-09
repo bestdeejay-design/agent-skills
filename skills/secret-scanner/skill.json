@@ -1,0 +1,52 @@
+{
+  "name": "secret-scanner",
+  "version": "1.0.0",
+  "description": "Static secret/token scanning for codebases and git repos: detects leaked credentials (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs) using the gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline by design, with JSON/Markdown/text reports, redaction, and a CI exit-code gate. Triggers: 'secret scan', 'проверь секреты', 'leaked token', 'утечка ключей', 'scan for keys', 'hardcoded credentials', 'git secrets check', 'проверить на секреты'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "secret",
+    "token",
+    "credentials",
+    "leak",
+    "gitleaks",
+    "entropy",
+    "api-key",
+    "security",
+    "ключи",
+    "секреты"
+  ],
+  "triggers": [
+    "secret scan",
+    "проверь секреты",
+    "leaked tokens",
+    "get_token",
+    "secret scan",
+    "leaked keys",
+    "scan for secrets",
+    "secret-scanner",
+    "secret scanning",
+    "проверить на утечки",
+    "найди ключи в репозитории",
+    "credential leak check",
+    "tokens in code"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/secret_scanner.py",
+    "references/canonical-patterns.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/secret_scanner.py",
+    "permissions": [
+      "file:read"
+    ]
+  },
+  "updated": "2026-08-09"
+}
