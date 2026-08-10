@@ -1,11 +1,11 @@
 ---
 name: github-repo-hygiene
-description: "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes'."
+description: "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health + визуальное оформление header/footer локальными анимированными SVG (4 пресета: default/minimal/dark-first/monochrome). Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes', 'шапка readme', 'readme header', 'анимированный svg', 'визуальное оформление', 'waving svg', 'пресеты оформления', 'extract context'."
 license: MIT
 metadata:
-  author: best
-  version: "1.3.0"
-compatibility: "Requires gh CLI and network access to api.github.com"
+  author: bestdeejay-design
+  version: "1.5.0"
+compatibility: "Requires gh CLI and network access to api.github.com for metadata checks; pure-Python scripts (python3, stdlib only) for generation/validation"
 ---
 
 # GitHub Repo Hygiene — оформление и поддержание описательной части репозитория
@@ -26,6 +26,20 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
   пользователь не просил изменений — не «улучшай» без запроса.
 - Для одного точечного фикса (например, только обновить один бейдж) скилл не нужен —
   делай правку напрямую, без загрузки скилла.
+
+## Инструменты скилла (scripts/)
+
+Скилл поставляется с тремя скриптами (pure Python 3 stdlib) — используй их вместо
+ручной работы, где возможно:
+
+| Скрипт | Назначение | Вызов |
+|---|---|---|
+| `scripts/generate_assets.py` | Детерминированная генерация `assets/header.svg` + `assets/footer.svg` (пресеты: `--preset default\|minimal\|dark-first\|monochrome`) | `python3 scripts/generate_assets.py --name X --desc Y --user Z --cold #HEX --warm #HEX [--preset default]` |
+| `scripts/extract_context.py` | Авто-детект контекста генерации: name/desc/стек/topic/цвета COLD/WARM/user из git remote | `python3 scripts/extract_context.py [--path DIR] [--gh-repo owner/repo] [--text]` |
+| `scripts/validate_svg.py` | Валидация SVG по правилам скилла (SMIL, маска, морфинг) | `python3 scripts/validate_svg.py assets/` |
+| `scripts/validate_repo.py` | Прогон 16-пунктового чек-листа (gh API + filesystem) | `python3 scripts/validate_repo.py [owner/repo]` |
+
+Детали каждого — в его docstring; отчёты в JSON, exit code 0/1 (пригодны для CI).
 
 ## Обязательные / желательные файлы репозитория
 
@@ -61,408 +75,60 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
 9. Рекомендуется использовать **относительные** ссылки на файлы репо (абсолютные ломаются в клонах).
 10. GitHub автогенерирует TOC — ручной оглавление не требуется.
 
-## Визуальное оформление README (header/footer) — локальные анимированные SVG
+- `README.md` — **всегда на английском** (международный стандарт GitHub).
+- `README.<lang>.md` — локализованная версия, **зеркало**: при изменении англ. версии
+  переносить правки (структуру заголовков 1:1, цифры, статусы).
+- Расхождение локализованных версий — типичный антипаттерн; перед релизом делать
+  программную сверку заголовков обоих файлов (есть в `scripts/validate_repo.py`).
+- Избегать «AI-slop» формулировок: «seamless», «unleash», «empower», перегруз эмодзи.
 
-Применять по умолчанию к каждому репозиторию, который проходит через скилл:
-README получает **header** (начало файла) и **footer** (конец файла) в виде
-**локальных анимированных SVG-файлов** в репозитории. Оба элемента обязательны
-в **обеих языковых версиях** (`README.md` + `README.<lang>.md`), когда локальная
-версия существует.
+## Визуальное оформление README — локальные анимированные SVG
+
+По умолчанию каждый репозиторий, проходящий через скилл, получает **header** (начало
+README) и **footer** (конец README) — **локальные анимированные SVG** в `assets/`
+(`assets/header.svg`, `assets/footer.svg`), обязательны в обеих языковых версиях.
 
 **Принцип: ноль внешних сервисов.** Никаких `capsule-render`, `shields`-генераторов
-и прочих URL-баннеров. AI создаёт файлы `assets/header.svg` и `assets/footer.svg`
-прямо в репозитории, README ссылается на них относительными путями. Анимация
-реализуется **SMIL-атрибутами `<animate>`** — она работает в GitHub (и любом
-браузере) в теге `<img>` без скриптов и без внешних запросов. Пользователи скилла
-не зависят ни от одного внешнего сервиса при оформлении.
+и URL-баннеров. Анимация — только **SMIL** (`<animate>`, `<animateTransform>`):
+работает в `<img>` на GitHub без скриптов и внешних запросов.
 
-### Структура файлов
+Ключевые приёмы: эффект «фон наплывает» (чёрная волна в `<mask>` вырезает цвет →
+виден фон страницы), морфинг `d`-path 4 кадрами (гребни `Q`+`T`, одинаковая
+последовательность команд во всех кадрах), рассинхрон волн 30%, блик-проход раз
+в ~16s, twinkling-ник в footer.
 
-В корне репозитория:
+**Полная спецификация + шаблоны header/footer → `references/svg-animation.md`**
+**Определение значений (USERNAME/PROJECT_NAME/PROJECT_DESC/COLD/WARM) → `references/color-tokens.md`**
+**Пресеты оформления (default/minimal/dark-first/monochrome) → `references/svg-presets.md`**
 
-```
-assets/
-  ├── header.svg
-  └── footer.svg
-README.md
-```
+Выбор пресета: по умолчанию `default` (анимированный градиент). `minimal` — для
+документации/стабильных инструментов (статичный градиент, без волн);
+`dark-first` — глубокая тёмная подложка (тёмная тема GitHub по умолчанию);
+`monochrome` — книги/печать/спеки (ч/б, без SMIL). Проси пользователя указать
+пресет, либо бери `default`.
 
-### Определение владельца (USERNAME)
+### Как генерировать (рекомендуемый путь)
 
-- `USERNAME` = сегмент после `github.com/` в URL репозитория.
-- Пример: `github.com/bestdeejay-design/repo` → `USERNAME = "bestdeejay-design"`.
-- Если владелец неочевиден — подтвердить у пользователя до генерации.
+**Скриптом** (детерминированно, затем валидация):
 
-### Определение названия проекта (PROJECT_NAME)
-
-Приоритет (от высокого к низкому):
-1. Поле `name` в `package.json`
-2. Поле `name` в `pyproject.toml` / `setup.py` / `Cargo.toml`
-3. Поле `name` в `composer.json` / `pubspec.yaml`
-4. Название репозитория (без префикса владельца)
-5. Заголовок первого `#` в существующем README
-
-### Определение описания (PROJECT_DESC)
-
-Приоритет:
-1. Поле `description` в `package.json` / `pyproject.toml`
-2. Поле `description` репозитория на GitHub
-3. Анализ технологий → автогенерация (см. таблицу ниже)
-4. По типу репозитория (см. таблицу)
-5. Fallback: `Open Source Project`
-
-#### Таблица автогенерации desc
-
-| Технология/Тип | desc |
-|---|---|
-| React/Vue/Svelte/Next.js | `Frontend Developer` |
-| Node.js/Express/Fastify | `Backend Engineer` |
-| Python/Django/Flask | `Backend Developer` |
-| TypeScript | `Type-Safe Code` |
-| Rust | `Systems Programming` |
-| Go | `Backend Tool` |
-| Telegram/Discord/Slack bot | `Automation Tool` |
-| CLI/terminal | `Developer Utility` |
-| Mobile (React Native/Flutter/Swift) | `Mobile App` |
-| UI library/design system | `UI Components` |
-| Portfolio | `Creative Developer` |
-| Documentation | `Knowledge Base` |
-| API | `API Service` |
-| Database/ORM | `Data Layer` |
-| AI/ML/PyTorch/TensorFlow | `AI / Machine Learning` |
-| DevOps/Docker/K8s | `DevOps Tool` |
-| Game/Unity/Godot | `Game Development` |
-| Chrome/Firefox extension | `Browser Extension` |
-| VS Code extension | `IDE Plugin` |
-| Web App (без конкретного стека) | `Web Application` |
-| Library (общее) | `Developer Library` |
-
-### Определение цветовой схемы (COLD + WARM)
-
-Приоритет:
-1. Явно указанные цвета проекта (брендинг, design tokens, бейджи README, `og-image`)
-2. Цвета из настроек VSCode / темы (если присутствуют в репо)
-3. AI подбирает по тематике (см. таблицу)
-4. Fallback: `#0ABAB5` + `#F64A8A`
-
-#### Таблица подбора цветов
-
-| Тематика | Цвет 1 | Цвет 2 |
-|---|---|---|
-| Дизайн / UI / Frontend | `#0ABAB5` | `#F64A8A` |
-| Backend / API / Инфра | `#1E3A8A` | `#F59E0B` |
-| AI / ML / Data | `#7C3AED` | `#06B6D4` |
-| DevOps / Cloud | `#0EA5E9` | `#10B981` |
-| Mobile | `#8B5CF6` | `#EC4899` |
-| Боты / Automation | `#9B4DCA` | `#00D4FF` |
-| Игры | `#DC2626` | `#7C3AED` |
-| Финансы / Крипто | `#1E293B` | `#FBBF24` |
-| Безопасность | `#18181B` | `#EF4444` |
-| Образование | `#2563EB` | `#F97316` |
-| Open source общее | `#6366F1` | `#EC4899` |
-| Fallback | `#0ABAB5` | `#F64A8A` |
-
-Из таблицы: **Цвет 1 → COLD**, **Цвет 2 → WARM** (или наоборот — AI выбирает
-направление так, чтобы градиент был контрастным; оба варианта допустимы, главное —
-единообразие в рамках проекта).
-
-### Правила для градиента
-
-- **HEADER**: слева `COLD` → справа `WARM`.
-- **FOOTER**: слева `WARM` → справа `COLD` (**инверсия header**).
-- Запрещено использовать белый (`#FFFFFF`) в середине градиента — сольётся с текстом.
-- `FONTCOLOR`: `#FFFFFF` (или `#1A1A2E`, если градиент светлый).
-
-### Эффект «фон наплывает» (главный паттерн)
-
-Баннер — это **не просто градиент с волнами поверх**, а градиент с **вырезом**:
-нижняя волна задаётся в `<mask>` **чёрным** цветом и **полностью убирает цвет
-баннера** в своей области (дыра), сквозь которую виден фон страницы (белый фон
-README). Визуально фон страницы «наплывает» на баннер волнистой линией снизу
-(header) или сверху (footer). Полупрозрачные белые волны (`0.25`, `0.5`) лежат
-ПОВЕРХ градиента внутри группы с маской и не вырезают — они только подсвечивают
-слои.
-
-### Что умеет анимация (лучше, чем у внешних сервисов)
-
-- **Переливающийся градиент** — цвета плавно перетекают друг в друга (8s);
-  оба цвета видны одновременно по горизонтали.
-- **Блик-проход (средний цвет)** — раз в ~16s по баннеру от края до края
-  проскальзывает приглушённый светлый блик: узкий мягкий ореол (`opacity 0.25`,
-  края растушёваны), первый проход сразу после загрузки, затем редкий цикл.
-- **Морфинг волн** — форма каждой волны (и выреза в маске) плавно
-  **деформируется**: `animate attributeName="d"` с **4 кадрами**
-  (`keyTimes="0;0.333;0.667;1"`), гребни `Q`+`T` (smooth quadratic) реально
-  «текут» — это настоящее море, а не покачивание полосы. Слои **в рассинхроне
-  30%**: при `dur="6s"` задержки `0s` / `-1.8s` / `-3.6s`.
-- **Фон наплывает** — чёрная волна в маске вырезает цвет → виден фон страницы.
-- **Плавное появление** — название и описание появляются с лёгким подъёмом (fade + slide).
-- **Twinkling в footer** — ник владельца мерцает (пульсирует яркостью).
-- Анимация держится только на SMIL `<animate>`/`<animateTransform>` — работает
-  в `<img>` на GitHub без скриптов и без внешних сервисов.
-
-### Шаблон header.svg
-
-Подставить: `COLD`, `WARM` (с `#`), `PROJECT_NAME`, `PROJECT_DESC`, `FONTCOLOR`.
-Ключевые правила: чёрная волна в маске `wave` вырезает низ баннера (фон
-наплывает); волны анимируются **морфингом `d`-path** (4 кадра, гребни `Q`+`T` —
-во всех кадрах **одинаковая последовательность команд**, иначе морфинг ломается);
-задержки `begin` смещены на 30% (`0s` / `-1.8s` / `-3.6s` при `dur="6s"`);
-патчи уходят за нижний край (`L…,290`) — при движении вниз не открывается
-полоска; у текста тёмный дубль-тень под основным (читаемость на любом градиенте).
-
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-label="PROJECT_NAME — PROJECT_DESC">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="COLD">
-        <animate attributeName="stop-color" values="COLD;WARM;COLD" dur="8s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="100%" stop-color="WARM">
-        <animate attributeName="stop-color" values="WARM;COLD;WARM" dur="8s" repeatCount="indefinite"/>
-      </stop>
-    </linearGradient>
-    <!-- Маска: чёрная волна морфится и вырезает цвет баннера снизу (фон «наплывает») -->
-    <mask id="wave">
-      <rect width="1200" height="290" fill="#FFFFFF"/>
-      <path fill="#000000" d="M0,290 L0,245 Q150,222 400,245 T800,245 T1200,245 L1200,290 Z">
-        <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="-3.6s"
-          keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-          values="M0,290 L0,245 Q150,222 400,245 T800,245 T1200,245 L1200,290 Z;M0,290 L0,250 Q150,230 400,250 T800,250 T1200,250 L1200,290 Z;M0,290 L0,240 Q150,214 400,240 T800,240 T1200,240 L1200,290 Z;M0,290 L0,245 Q150,222 400,245 T800,245 T1200,245 L1200,290 Z"/>
-      </path>
-    </mask>
-    <!-- Блик среднего цвета: статичный градиент (узкий мягкий ореол), движется сам rect -->
-    <linearGradient id="flash" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-      <stop offset="48%" stop-color="#FFFFFF" stop-opacity="0.20"/>
-      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
-      <stop offset="52%" stop-color="#FFFFFF" stop-opacity="0.20"/>
-      <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-      <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-
-  <g mask="url(#wave)">
-    <rect width="1200" height="290" fill="url(#bg)"/>
-
-    <!-- Блик: первый проход сразу, затем раз в 16s; от края до края; гаснет и телепортируется невидимым -->
-    <rect width="1200" height="290" fill="url(#flash)">
-      <animateTransform attributeName="transform" type="translate" values="-600,0;-600,0;600,0;600,0" keyTimes="0;0.05;0.28;1" dur="16s" calcMode="linear" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.03;0.05;0.28;0.35;1" dur="16s" repeatCount="indefinite"/>
-    </rect>
-
-    <!-- Средняя волна (0.25), морфинг d, сдвиг 30% (-1.8s) -->
-    <path fill="#FFFFFF" opacity="0.25" d="M0,290 L0,232 Q200,210 500,232 T1000,232 T1200,232 L1200,290 Z">
-      <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="-1.8s"
-        keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-        values="M0,290 L0,232 Q200,210 500,232 T1000,232 T1200,232 L1200,290 Z;M0,290 L0,238 Q200,220 500,238 T1000,238 T1200,238 L1200,290 Z;M0,290 L0,226 Q200,200 500,226 T1000,226 T1200,226 L1200,290 Z;M0,290 L0,232 Q200,210 500,232 T1000,232 T1200,232 L1200,290 Z"/>
-    </path>
-    <!-- Верхняя волна (0.5), морфинг d, сдвиг 0s -->
-    <path fill="#FFFFFF" opacity="0.5" d="M0,290 L0,220 Q150,198 300,220 T600,220 T900,220 T1200,220 L1200,290 Z">
-      <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="0s"
-        keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-        values="M0,290 L0,220 Q150,198 300,220 T600,220 T900,220 T1200,220 L1200,290 Z;M0,290 L0,228 Q150,210 300,228 T600,228 T900,228 T1200,228 L1200,290 Z;M0,290 L0,212 Q150,186 300,212 T600,212 T900,212 T1200,212 L1200,290 Z;M0,290 L0,220 Q150,198 300,220 T600,220 T900,220 T1200,220 L1200,290 Z"/>
-    </path>
-
-    <g>
-      <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/>
-      <text x="602" y="105" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="#000000" opacity="0.28" text-anchor="middle">PROJECT_NAME</text>
-      <text x="600" y="103" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="bold" fill="FONTCOLOR" text-anchor="middle">PROJECT_NAME</text>
-    </g>
-
-    <g>
-      <animate attributeName="opacity" values="0;1" dur="1.5s" begin="0.5s" fill="freeze"/>
-      <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="#000000" opacity="0.30" text-anchor="middle">PROJECT_DESC</text>
-      <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" fill="FONTCOLOR" opacity="0.95" text-anchor="middle">PROJECT_DESC</text>
-    </g>
-  </g>
-</svg>
+```bash
+python3 scripts/generate_assets.py \
+  --name "Project Name" --desc "Short description" --user "username" \
+  --cold "#0ABAB5" --warm "#F64A8A"
+python3 scripts/validate_svg.py assets/        # должно быть: all passed
 ```
 
-### Шаблон footer.svg
+**Вручную** (когда скрипт недоступен): прочитай `references/svg-animation.md`,
+подставь `COLD`, `WARM`, `PROJECT_NAME`, `PROJECT_DESC`, `FONTCOLOR`, `USERNAME`
+в шаблоны, создай `assets/`, добавь ссылки (см. «Вставка в README.md» в reference).
 
-Подставить: `COLD`, `WARM` (с `#`), `USERNAME`.
-Footer — **зеркало header по вертикали**: дыра (чёрная волна в маске) вырезает
-цвет баннера **сверху** — фон страницы наплывает на футер сверху, текст снизу.
-Высота **60px** (компактный — высокий футер выглядит как «дыра после контента»).
-Волны — **морфинг `d`-path** с 4 кадрами (гребни `Q`+`T`). Все патчи начинаются
-**выше холста** (`y=-12` / `y=-16`) — запас больше размаха морфинга, иначе сверху
-открывается градиентная полоска.
-
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="60" viewBox="0 0 1200 60" role="img" aria-label="@USERNAME">
-  <defs>
-    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="WARM">
-        <animate attributeName="stop-color" values="WARM;COLD;WARM" dur="6s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="100%" stop-color="COLD">
-        <animate attributeName="stop-color" values="COLD;WARM;COLD" dur="6s" repeatCount="indefinite"/>
-      </stop>
-    </linearGradient>
-    <!-- Маска: чёрная волна морфится и вырезает цвет баннера сверху (фон наплывает на футер) -->
-    <mask id="wave">
-      <rect width="1200" height="60" fill="#FFFFFF"/>
-      <path fill="#000000" d="M0,-12 L0,21 Q200,29 400,21 T800,21 T1200,21 L1200,-12 Z">
-        <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="-3.6s"
-          keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-          values="M0,-12 L0,21 Q200,29 400,21 T800,21 T1200,21 L1200,-12 Z;M0,-12 L0,23 Q200,32 400,23 T800,23 T1200,23 L1200,-12 Z;M0,-12 L0,19 Q200,26 400,19 T800,19 T1200,19 L1200,-12 Z;M0,-12 L0,21 Q200,29 400,21 T800,21 T1200,21 L1200,-12 Z"/>
-      </path>
-    </mask>
-    <!-- Блик среднего цвета: статичный градиент (узкий мягкий ореол), движется сам rect -->
-    <linearGradient id="flash" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="44%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-      <stop offset="48%" stop-color="#FFFFFF" stop-opacity="0.20"/>
-      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
-      <stop offset="52%" stop-color="#FFFFFF" stop-opacity="0.20"/>
-      <stop offset="56%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-      <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-
-  <g mask="url(#wave)">
-    <rect width="1200" height="60" fill="url(#fg)"/>
-
-    <!-- Блик: первый проход сразу, затем раз в 16s; от края до края; гаснет и телепортируется невидимым -->
-    <rect width="1200" height="60" fill="url(#flash)">
-      <animateTransform attributeName="transform" type="translate" values="-600,0;-600,0;600,0;600,0" keyTimes="0;0.05;0.28;1" dur="16s" calcMode="linear" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.03;0.05;0.28;0.35;1" dur="16s" repeatCount="indefinite"/>
-    </rect>
-
-    <!-- Средняя волна (0.25), морфинг d, сдвиг 30% (-1.8s), запас -12 -->
-    <path fill="#FFFFFF" opacity="0.25" d="M0,-12 L0,27 Q150,35 300,27 T600,27 T900,27 T1200,27 L1200,-12 Z">
-      <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="-1.8s"
-        keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-        values="M0,-12 L0,27 Q150,35 300,27 T600,27 T900,27 T1200,27 L1200,-12 Z;M0,-12 L0,29 Q150,38 300,29 T600,29 T900,29 T1200,29 L1200,-12 Z;M0,-12 L0,25 Q150,32 300,25 T600,25 T900,25 T1200,25 L1200,-12 Z;M0,-12 L0,27 Q150,35 300,27 T600,27 T900,27 T1200,27 L1200,-12 Z"/>
-    </path>
-    <!-- Верхняя волна (0.5), морфинг d, сдвиг 0s, запас -16 -->
-    <path fill="#FFFFFF" opacity="0.5" d="M0,-16 L0,35 Q120,44 240,35 T480,35 T720,35 T960,35 T1200,35 L1200,-16 Z">
-      <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="0s"
-        keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-        values="M0,-16 L0,35 Q120,44 240,35 T480,35 T720,35 T960,35 T1200,35 L1200,-16 Z;M0,-16 L0,38 Q120,48 240,38 T480,38 T720,38 T960,38 T1200,38 L1200,-16 Z;M0,-16 L0,32 Q120,40 240,32 T480,32 T720,32 T960,32 T1200,32 L1200,-16 Z;M0,-16 L0,35 Q120,44 240,35 T480,35 T720,35 T960,35 T1200,35 L1200,-16 Z"/>
-    </path>
-
-    <text x="602" y="51" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#000000" opacity="0.30" text-anchor="middle">@USERNAME</text>
-    <text x="600" y="49" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
-      @USERNAME
-      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-    </text>
-  </g>
-</svg>
-```
-
-### Вставка в README.md
-
-В **начало** README.md:
-
-```html
-<p align="center">
-  <a href="https://github.com/USERNAME" target="_blank">
-    <img src="assets/header.svg" alt="header" />
-  </a>
-</p>
-```
-
-В **конец** README.md:
-
-```html
-<p align="center">
-  <a href="https://github.com/USERNAME" target="_blank">
-    <img src="assets/footer.svg" alt="footer" />
-  </a>
-</p>
-```
-
-- Ссылки **относительные** (`assets/header.svg`) — работают в клонах и форках;
-  GitHub сам масштабирует SVG (1200×290 / 1200×60) под ширину контейнера.
-- Кликабельность (переход на профиль владельца) обеспечивает обёртка `<a>` —
-  внутри самого `<img>` SVG ссылки не срабатывают.
-
-### Алгоритм работы AI
-
-1. Определи `USERNAME` из URL репозитория (подтвердить, если неочевиден).
-2. Определи `PROJECT_NAME` по приоритетам выше.
-3. Определи `PROJECT_DESC` по приоритетам / таблице.
-4. Определи `COLD` и `WARM` по приоритетам / таблице цветов.
-5. Определи `FONTCOLOR` (`#FFFFFF` по умолчанию).
-6. Создай `assets/` (если нет) и сгенерируй `assets/header.svg` по шаблону.
-7. Сгенерируй `assets/footer.svg` по шаблону.
-8. Добавь ссылки в начало и конец README.md (и в `README.<lang>.md`, если есть).
-9. Если `assets/header.svg` / `assets/footer.svg` уже существуют — спросить:
-   перезаписать?
-
-### Правила безопасности
+### Безопасность генерации
 
 - Не генерировать без подтверждения `USERNAME`, если он неочевиден.
 - Не перезаписывать существующие `.svg` без явного запроса.
 - Не трогать контент README между header и footer.
 - Не добавлять header/footer, если они уже есть (только по запросу).
-- Не использовать `<script>` в SVG — GitHub блокирует скрипты; только SMIL `<animate>`.
-- Не использовать base64 — обычные файлы в `assets/`.
-- Вырез цвета делает **только чёрная волна в `<mask>`**; полупрозрачные волны
-  (`#FFFFFF` с `opacity`) не вырезают — они подсвечивают слои поверх градиента.
-- В маске обязательно белый `<rect>` на весь холст (видимость) + чёрные патчи-вырезы;
-  без белого rect маска «погасит» весь баннер.
-- Footer всегда **зеркало** header по вертикали: дыра сверху — у header снизу.
-
-### Кодировка текста в SVG
-
-- Пробелы остаются пробелами (это SVG, не URL — URL-encoding не нужен).
-- Спецсимволы — HTML entities при необходимости (`&amp;` для `&`).
-- Если `PROJECT_NAME` длиннее 20 символов — уменьшить `font-size` до 36.
-- Если длиннее 30 символов — уменьшить до 28.
-- Если длиннее 40 — перенести часть в `PROJECT_DESC`.
-
-### Параметры анимации (настраиваемые)
-
-- `dur="8s"` (header) / `dur="6s"` (footer) — скорость перетекания градиента (можно 4–10s).
-- `dur="6s"` — период морфинга волн (можно 4–8s).
-- **Блик-проход** — `dur="16s"` (редкий, «раз в ~16 секунд»; можно 8–30s):
-  - `values="-600,0;-600,0;600,0;600,0"` с `keyTimes="0;0.05;0.28;1"` —
-    стоит у левого края (центр x=0), проезжает весь холст до правого края
-    (центр x=1200) за ~23% периода, затем держится за холстом (невидим).
-  - opacity `values="0;0;1;1;1;0;0"` с `keyTimes="0;0.03;0.05;0.28;0.35;1"` —
-    блик видим ровно в окно прохода, гаснет до телепорта обратно
-    (телепорт происходит при opacity=0 — незаметен).
-  - Яркость: пик `stop-opacity="0.25"` (можно 0.15–0.4 — «еле уловимый»),
-    стопы-хвосты `0.10/0.20` — мягкий размытый ореол, а не резкая полоса.
-  - **Важно**: анимируется НЕ `gradientTransform` (ненадёжно в Safari),
-    а `transform` самого `rect`; градиент блика статичен.
-- **Рассинхрон 30%**: задержки волн считаются как `begin = -dur * 0.3 * n`
-  для `n = 0, 1, 2`. При `dur="6s"`: `0s` (верхняя), `-1.8s` (средняя),
-  `-3.6s` (вырез). Слои никогда не совпадают по фазе.
-- **Морфинг `d`-path**: `animate attributeName="d"` с **4 кадрами** —
-  `keyTimes="0;0.333;0.667;1"`, `calcMode="spline"`,
-  `keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"`, 4-й кадр = 1-й
-  (замкнутый цикл).
-- **Критично для морфинга**: во ВСЕХ кадрах `values` — **одинаковая
-  последовательность команд** (`M L Q T T L Z`), меняются только координаты.
-  Иначе анимация `d` ломается. Разные слои могут иметь разное число гребней
-  (вырез 2–3, верхняя волна 4–5) — внутри одного элемента оно одинаково.
-- Гребни — **`Q`+`T`** (smooth quadratic): `T` автоматически зеркалит
-  контрольную точку предыдущей `Q` → идеально гладкая периодическая волна
-  без ручных расчётов.
-- Пики волн в `d`-path **не должны совпадать по фазе** между слоями
-  (разные `Q`-точки, разное число гребней) — иначе слои сливаются в одну волну.
-- **Запас патча**: любой патч, упирающийся в край холста, должен выходить
-  за него минимум на свой размах морфинга (footer: верх патчей `y=-12` / `y=-16`
-  при размахе 4/6), иначе при анимации с края открывается полоска градиента.
-- `dur="1.5s"` — скорость появления текста (можно 1–2s), `begin="0.5s"` —
-  задержка появления desc.
-- `dur="2s"` — скорость мерцания footer (можно 1.5–3s).
-
-- `README.md` — **всегда на английском** (международный стандарт GitHub).
-- `README.<lang>.md` — русская версия, **зеркало**: при изменении англ. версии
-  переносить правки в русскую (структуру заголовков 1:1, цифры, статусы).
-- Расхождение локализованных версий — типичный антипаттерн; перед релизом делать
-  программную сверку заголовков обоих файлов.
-- Избегать «AI-slop» формулировок: «seamless», «unleash», «empower», перегруз эмодзи.
+- SVG: без `<script>`, без base64, только SMIL; маска с белым `<rect>` на весь холст.
 
 ## Теги поиска (topics) и описание
 
@@ -472,7 +138,7 @@ Footer — **зеркало header по вертикали**: дыра (чёрн
 # Описание репозитория (лимит UI ~350 символов) — перечислять ВСЕ ключевые компоненты
 gh repo edit --description "<полное описание с ключевыми словами>"
 
-# Теги (массив через -f 'names[]=...')
+# Теги (массив через -f 'names[]=...') — только PUT, полная замена списка
 gh api -X PUT repos/<owner>/<repo>/topics \
   -f 'names[]=python' -f 'names[]=markdown' -f 'names[]=documentation' \
   -f 'names[]=agents' -f 'names[]=skills' -f 'names[]=opencode'
@@ -486,7 +152,7 @@ gh api -X PUT repos/<owner>/<repo>/topics \
 
 ## GitHub Pages
 
-Евл. Pages включён (`gh api repos/<owner>/<repo>/pages`):
+Если Pages включён (`gh api repos/<owner>/<repo>/pages`):
 - в README обязательна ссылка `https://<owner>.github.io/<repo>/` — проверять, что рабочая
 - в About поле «Website» = URL Pages (`gh repo edit --homepage https://…`)
 
@@ -505,68 +171,15 @@ gh api -X PUT repos/<owner>/<repo>/topics \
 
 ## Чек-лист проверки при мажорном изменении
 
-Запускать при: новый сервис/фича/сага, смена стека, смена портов/схем, изменение
-контрактов, изменение процессов (CI/коммиты), любой релиз/гейт, delivery gate.
+16-пунктовый чек-лист (файлы → метаданные → community health → релизы → финал) с
+командами проверки: **`references/community-checklist.md`**.
 
-### A. Файлы — на месте и распознаны GitHub
-
-1. [ ] `README.md` отражает новое состояние (структура, сервисы, цифры тестов, статус).
-2. [ ] `README.<lang>.md` синхронизирован с англ. версией (заголовки 1:1).
-3. [ ] `LICENSE` на месте, owner/year корректны, GitHub **распознаёт** лицензию (`spdx_id`).
-4. [ ] `CODE_OF_CONDUCT.md` — полный текст Contributor Covenant 2.1 с контактом;
-      GitHub **распознаёт** как Covenant (`key: contributor_covenant`, **не** `other`).
-5. [ ] `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md` (имя строго в upper-case).
-6. [ ] `.github/ISSUE_TEMPLATE/` (bug_report + feature_request, forms yml) и
-      `.github/pull_request_template.md` на месте с валидным frontmatter
-      (`name`+`about` для `.md`, `name`+`description` для `.yml`).
-
-### B. Метаданные GitHub
-
-7. [ ] `gh repo edit --description` актуально, перечисляет ВСЕ компоненты (≤350 символов на UI).
-8. [ ] topics (`gh api .../topics`) актуальны, ≤ 20, lowercase, ≤ 50 символов каждый.
-9. [ ] Homepage (`gh repo edit --homepage https://<user>.github.io/<repo>/`) — при Pages; рабочая ссылка.
-10. [ ] Social preview задан (1280×640, < 1 MB) — если есть Settings.
-11. [ ] CI-бейдж/статус в README соответствует реальному состоянию (не stale).
-
-### C. Community Health
-
-12. [ ] `gh api repos/<owner>/<repo>/community/profile` → `health_percentage >= 100`,
-      `files.issue_template` и `files.pull_request_template` не `null`.
-13. [ ] `has_discussions` желательно `true` (Discussions включены) для вопросов.
-
-### D. Релизы
-
-14. [ ] Существует релиз с semver-тегом (последний «latest»), `.github/release.yml` настроен.
-15. [ ] `CHANGELOG.md` (Keep a Changelog) обновлён под новый релиз.
-
-### E. Финальная
-
-16. [ ] Коммит/пуш сделан, изменения видны на GitHub; CI зелёный.
-
-## Команды проверки
+Автоматизированный прогон:
 
 ```bash
-# Файлы на месте
-ls LICENSE CODE_OF_CONDUCT.md CONTRIBUTING.md SECURITY.md SUPPORT.md README.md README.ru.md
-
-# Описание + homepage + темы
-gh repo view --json description,homepageUrl,repositoryTopics
-
-# Теги
-gh api repos/<owner>/<repo>/topics
-
-# Pages
-gh api repos/<owner>/<repo>/pages
-
-# Community health (!!) — самый информативный чек
-gh api repos/<owner>/<repo>/community/profile
-
-# Распознавание лицензии и CoC (ключи)
-gh api repos/<owner>/<repo>/community-enabled   # или /community/get
+python3 scripts/validate_repo.py            # авто-детект из git remote
+python3 scripts/validate_repo.py owner/repo # явный репозиторий
 ```
-
-Замена отображения в WEB-интерфейсе (бейджи, community health %) занимает
-1–5 минут после пуша — проверять не сразу после коммита, а с небольшой паузой.
 
 ## Примечания
 
@@ -585,10 +198,10 @@ gh api repos/<owner>/<repo>/community-enabled   # или /community/get
 Полный разбор — в `references/canonical-patterns.md`. Ключевые каноны:
 
 - **GitHub Docs: Community Profile API** (`GET /repos/{owner}/{repo}/community/profile`) — эталонный аудит с метрикой `health_percentage` (эталон `github/docs` = 100%), готовый чеклист файлов.
-- **GitHub Docs: Default community health files** — org-level `.github` репозиторий, приоритет поиска файлов, правило «LICENSE не наследуется», полный список health-файлов (включая `FUNDING.yml`, `GOVERNANCE.md`).
-- **GitHub CLI (`gh repo edit`, `gh release create`)** — полный набор флагов: add/remove-topic, template, default-branch, enable-* (advanced-security, secret-scanning), draft-then-publish flow для релизов, immutable releases.
-- **GitHub REST API** (Repositories / Pages / Licenses / Custom Properties) — PATCH /repos (все поля), PUT /repos/topics (только так), Pages API (cname, health check, build_type workflow), Custom Properties API, security_and_analysis, archival/transfer, SPDX License API.
-- **github/docs** — эталон 100% community health: CODEOWNERS, dependabot.yml, issue-формы YAML + config.yml, custom properties (ownership/deployable/CodeQL-Block).
-- **facebook/react, kubernetes/kubernetes, vercel/next.js, microsoft/vscode** — SUPPORT.md (редирект), SECURITY_CONTACTS, AGENTS.md/CLAUDE.md (AI-instructions), CODENOTIFY/OWNERS.
+- **GitHub Docs: Default community health files** — org-level `.github` репозиторий, приоритет поиска файлов, правило «LICENSE не наследуется», полный список health-файлов.
+- **GitHub CLI (`gh repo edit`, `gh release create`)** — полный набор флагов, draft-then-publish flow для релизов, immutable releases.
+- **GitHub REST API** — PATCH /repos, PUT /repos/topics (только так), Pages API, Custom Properties API, security_and_analysis, SPDX License API.
+- **github/docs** — эталон 100% community health: CODEOWNERS, dependabot.yml, issue-формы YAML + config.yml.
+- **facebook/react, kubernetes/kubernetes, vercel/next.js, microsoft/vscode** — SUPPORT.md, SECURITY_CONTACTS, AGENTS.md/CLAUDE.md.
 - **Contributor Covenant v2.1** — канонический текст CoC (key `contributor_covenant` в community profile).
-- **SPDX License List** — канонические SPDX-идентификаторы, на них опирается GitHub Licenses API.
+- **SPDX License List** — канонические идентификаторы, на них опирается GitHub Licenses API.

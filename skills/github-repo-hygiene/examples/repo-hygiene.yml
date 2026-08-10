@@ -1,0 +1,54 @@
+# Example: run the skill's validators on every push/PR.
+#
+# Copy this file into your repository as .github/workflows/repo-hygiene.yml
+# (adjust arguments to match your repo layout).
+#
+# What it does:
+#   1. validate_svg.py  — fails if any assets/*.svg violates the skill's rules
+#      (script/base64/CSS, mask white rect, d-path morph consistency, clearance)
+#   2. validate_repo.py — fails if the 16-point checklist has failed items
+#      (uses the skill's scripts from the local checkout; requires gh + GITHUB_TOKEN,
+#       which GitHub Actions provides automatically)
+#
+# Note: by default the workflow is read-only (check mode) — it never edits
+# the repository. Use as a pre-merge gate; fix failures locally via the skill.
+
+name: repo-hygiene-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 1) SVG assets — validate generation rules (no network needed)
+      - name: Validate SVG assets
+        run: |
+          if [ -d assets ]; then
+            python3 scripts/validate_svg.py assets/
+          else
+            echo "no assets/ directory — skipping SVG validation"
+          fi
+
+      # 2) Full 16-point checklist — files + gh API (clone is already checked out)
+      - name: Repo hygiene checklist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f scripts/validate_repo.py ]; then
+            python3 scripts/validate_repo.py "${{ github.repository }}" --json
+          else
+            echo "scripts/validate_repo.py not present — add it from the github-repo-hygiene skill"
+          fi
