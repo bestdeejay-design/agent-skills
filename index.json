@@ -225,6 +225,25 @@
    ]
   },
   {
+   "name": "frontend-design-taste",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Give a website a distinctive, deliberate visual direction that does not read as templated AI output. Grounds in the subject, proposes a compact token system (palette 4-6 hexes, display/body/utility type roles, layout concept, ONE signature element), runs a uniqueness gate against the three AI-default looks, and rewrites copy from the user's side of the screen. Includes a condensed worked example (ishotgirls). No scripts. Triggers: 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design', 'signature element'.",
+   "path": "skills/frontend-design-taste",
+   "triggers": [
+    "design direction",
+    "design taste",
+    "make it look good",
+    "not templated",
+    "redesign with taste",
+    "visual identity",
+    "aesthetic direction",
+    "design brief",
+    "anti-templated design",
+    "signature element"
+   ]
+  },
+  {
    "name": "frontend-perfection",
    "version": "1.1.0",
    "category": "code",

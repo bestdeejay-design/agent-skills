@@ -9,7 +9,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 33](https://img.shields.io/badge/Skills-33-blue.svg)](index.json)
+[![Skills: 34](https://img.shields.io/badge/Skills-34-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--12-green.svg)](index.json)
@@ -58,6 +58,7 @@
 | [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | `code` | Test coverage analysis from coverage.py XML/JSON reports: statement/line/branch coverage, per-file breakdown with files below threshold, total percentage, actionable recommendations. Stdlib-only, offline. Pairs with `test-generator`. | `coverage`, `coverage analysis`, `coverage report`, `test coverage`, `покрытие кода`, `анализ покрытия`, `branch coverage` |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | `code` | API contract validation against OpenAPI 3.x spec (JSON/YAML, built-in YAML subset parser, no PyYAML): enumerates paths + webhooks, checks internal consistency ($refs, duplicates, missing responses), compares endpoint manifest offline, live mode probes HTTP statuses. JSON report, exit 0/1/2. Stdlib-only. Pairs with `api-doc-generator`. | `api contract testing`, `contract test`, `validate openapi spec`, `spec vs manifest`, `endpoint coverage`, `проверь контракт API`, `тест контракта` |
 | [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | `code` | Frontend audit & polish to verifiable perfection: real Chrome through chrome-launcher + Lighthouse ≥13 Node API (mobile+desktop, no Playwright internals, `.default` fallback, self-resolved deps, exit 0/1/2, compact JSON with failed audit ids); offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens — zero raw hex outside tokens, scroll-padding under fixed header, breakpoints); crop-safe OG-image generation (1200×630 with ~640px central safe zone, rename not overwrite to bust social caches, forced reflow before capture). Every fix binds to an audit id. | `frontend audit`, `lighthouse check`, `make it 100/100/100/100`, `perfect the layout`, `og image`, `contrast check`, `design tokens`, `проверь вёрстку`, `довести фронтенд до идеала` |
+| [**frontend-design-taste**](skills/frontend-design-taste/SKILL.md) | `media` | Give a website a distinctive visual direction that does not read as templated AI: subject grounding, token system (palette/type/layout/signature), uniqueness gate vs the three AI-default looks, user-side copy. Adapted from anthropics/skills, worked example included. | `design direction`, `design taste`, `make it look good`, `redesign with taste`, `visual identity`, `aesthetic direction`, `design brief` |
 
 ## 🎬 Showcase — real-project examples
 
