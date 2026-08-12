@@ -6,6 +6,9 @@ Checks:
   2. Every skill folder has a well-formed skill.json with all required fields.
   3. index.json skills[] cross-match the skills/ folders.
   4. Every skill folder contains a SKILL.md.
+  5. index.json entries mirror their skill.json (name, version, category,
+     triggers, description, path) — drift between the two is forbidden
+     (see CONTRIBUTING.md versioning rule).
 Returns non-zero exit code on any failure so the GitHub Actions step fails.
 """
 import json
@@ -71,6 +74,31 @@ def main() -> None:
         if not os.path.isfile(os.path.join(folder, "SKILL.md")):
             fail(f"Skill {name} is missing SKILL.md")
         print(f"✅ {data.get('name', name)} v{data.get('version', '?')} OK")
+
+    # Drift check: every index.json entry must mirror its skill.json.
+    drift_problems = []
+    for entry in sorted(idx.get("skills", []), key=lambda s: s.get("name", "")):
+        name = entry.get("name")
+        manifest = os.path.join(SKILLS_DIR, name, "skill.json")
+        if not os.path.isfile(manifest):
+            continue  # missing manifest already fails above
+        data = load_json(manifest)
+        mism = []
+        if entry.get("version") != data.get("version"):
+            mism.append(f"version index={entry.get('version')!r} json={data.get('version')!r}")
+        if entry.get("category") != data.get("category"):
+            mism.append(f"category index={entry.get('category')!r} json={data.get('category')!r}")
+        if set(entry.get("triggers", [])) != set(data.get("triggers", [])):
+            mism.append(f"triggers differ (index={len(entry.get('triggers', []))} json={len(data.get('triggers', []))})")
+        if entry.get("description") != data.get("description"):
+            mism.append("description differs")
+        if entry.get("path") != f"skills/{name}":
+            mism.append(f"path index={entry.get('path')!r} expected=skills/{name}")
+        if mism:
+            drift_problems.append(f"{name}: " + "; ".join(mism))
+    if drift_problems:
+        fail("DRIFT между index.json и skill.json:\n  - " + "\n  - ".join(drift_problems))
+    print(f"✅ Drift check: all {len(idx.get('skills', []))} index entries mirror skill.json")
 
     # Every folder should be listed in index.json (warning only).
     for name in sorted(folder_skills - indexed_skills):
