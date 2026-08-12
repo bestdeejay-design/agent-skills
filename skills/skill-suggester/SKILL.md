@@ -1,6 +1,6 @@
 ---
 name: skill-suggester
-description: "Подбор скиллов из библиотеки по задаче пользователя. Триггеры: 'какой скилл использовать', 'что выбрать', 'рекомендовать скилл', 'suggest skill', 'подобрать инструмент', 'какой команды', 'подбор скилла', 'рекомендация скилла', 'какой навык применить'. Читает index.json, скорит триггеры и описания, возвращает топ-5 с релевантностью и комбо до 3 скиллов. Триггеры: 'какой скилл использовать', 'какой скилл', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'какой навык', 'подобрать инструмент', 'какой команды', 'какой skill', 'какой skill использовать', 'recommend a skill', 'which skill', 'подобрать навык'."
+description: "Skill recommendation for AI agents from the agent-skills library. Reads the master catalog index.json (default ~/Projects/agent-skills/index.json, override with env AGENT_SKILLS_INDEX or --index), scores triggers and descriptions, returns top-5 with relevance plus up to 3 combos for multi-step tasks. Supports ad-hoc apply: prints SKILL.md paths so the agent can read and apply a skill's instructions directly even if it is not installed. Triggers: 'какой скилл использовать', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'recommend a skill', 'which skill', 'подобрать навык'."
 license: MIT
 metadata:
   author: best
@@ -59,6 +59,26 @@ compatibility: "Requires Python3; reads index.json"
 python3 scripts/skill_suggest.py "нужно описать репозиторий"
 python3 scripts/skill_suggest.py "сгенерируй презентацию" --combo
 ```
+
+
+## On-demand loading (ad-hoc apply)
+
+Скилл — это просто набор инструкций в `SKILL.md`. Если нужного скилла нет в системе,
+его можно применить **ad-hoc**: прочитать его `SKILL.md` из мастер-каталога и выполнить
+инструкции напрямую — формальная установка не требуется.
+
+**Мастер-каталог:** `~/Projects/agent-skills` (локальный клон) или
+`https://github.com/bestdeejay-design/agent-skills` (GitHub raw).
+
+Скрипт `skill_suggest.py` после выдачи топа печатает путь к `SKILL.md` каждого
+подходящего скилла. Если скилл не установлен:
+
+1. Прочитай `skills/<name>/SKILL.md` из мастер-каталога.
+2. Проверь триггеры и «Do NOT use» — убедись, что скилл действительно подходит.
+3. Выполни инструкции скилла в текущей сессии.
+
+Если мастер-каталог в другом месте — задай его через env `AGENT_SKILLS_INDEX`
+или флаг `--index`.
 
 ## Scoring
 

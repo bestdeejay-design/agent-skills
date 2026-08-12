@@ -9,10 +9,10 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 29](https://img.shields.io/badge/Skills-29-blue.svg)](index.json)
+[![Skills: 33](https://img.shields.io/badge/Skills-33-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--09-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--12-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
@@ -25,7 +25,11 @@
 
 | Скилл | Категория | Описание | Триггеры |
 |-------|-----------|----------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | Проверка и обновление описательной части GitHub-репозитория: README (EN+RU) + визуальное оформление header/footer **локальными анимированными SVG** (`assets/header.svg` + `assets/footer.svg`, SMIL-маска «фон наплывает», морфинг d-path и рассинхрон волн 30% — без внешних сервисов), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, социальное превью, релизы, description, topics, GitHub Pages, community health. | `github hygiene`, `оформить репозиторий`, `обновить readme`, `github page`, `описание репозитория`, `теги для поиска`, `topics`, `contributing`, `license`, `security policy`, `шапка readme`, `анимированный svg`, `waving banner` |
+| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | **УСТАРЕЛ** — роутер-скилл. Разбит на четыре фокусных скилла: repo-readme-assets, repo-community-files, repo-metadata-health, repo-social-preview. Загружай один из них напрямую. | `github hygiene`, `repo polish`, `github repo docs` |
+| [**repo-readme-assets**](skills/repo-readme-assets/SKILL.md) | `repository` | создание и обновление `README.md` (английская версия) + локализованного | `readme header`, `animated svg`, `waving svg`, `svg banner`, `readme assets`, `readme visual`, `smil animation`, `repo header`, `readme footer`, `readme generator`, `update readme`, `readme badges` |
+| [**repo-community-files**](skills/repo-community-files/SKILL.md) | `repository` | создание и сопровождение легальных/community-файлов репозитория: | `license file`, `code of conduct`, `contributing guide`, `security policy`, `support file`, `issue template`, `pr template`, `funding yml`, `community files`, `repo legal files`, `contributor covenant` |
+| [**repo-metadata-health**](skills/repo-metadata-health/SKILL.md) | `repository` | аудит и обновление метаданных и community-здоровья репозитория на | `repo description`, `repo topics`, `github topics`, `github pages`, `community health`, `repo audit`, `repo metadata`, `repo checklist`, `health percentage`, `repo about` |
+| [**repo-social-preview**](skills/repo-social-preview/SKILL.md) | `repository` | генерация кастомного social preview (og:image) репозитория — PNG | `social preview`, `og image`, `og:image`, `social share image`, `repo preview png`, `open graph image`, `github social preview` |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | `media` | Генерация тестовых изображений, фото, иконок, placeholders через Python + бесплатные API (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `тестовые картинки`, `иконки для теста`, `заглушки`, `mock data images`, `сгенерировать фото` |
 | [**reddit-karma**](skills/reddit-karma/SKILL.md) | `social` | Систематическая работа на Reddit для набора кармы вашего аккаунта: поиск тем, подготовка ответов, распознавание тона, шаблоны благодарностей, регулярный забег. Настройте никнейм, сабы и целевой ресурс под себя. | `reddit`, `карма`, `karma`, `r/LocalLLaMA`, `поднять карму`, `ответить на комментарии`, `забег по reddit` |
 | [**presentation-maker**](skills/presentation-maker/SKILL.md) | `media` | Генератор презентаций: Markdown-аутлайн, HTML 16:9 слайды, .pptx через python-pptx. Авто-лейауты, темы, дизайн-система (токены, mood), модуль «Продакт-дизайнер» (нарратив, дата-виз, a11y, премиум). | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад`, `презентация для`, `generate slides`, `make a deck` |

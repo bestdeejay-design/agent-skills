@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """skill_suggest.py — подбор скиллов из библиотеки agent-skills по запросу.
 
-Загружает index.json из корня репозитория, читает у каждого скилла поля
+Загружает index.json из мастер-каталога (по умолчанию ~/Projects/agent-skills/index.json или env AGENT_SKILLS_INDEX), читает у каждого скилла поля
 triggers и description, нормализует запрос и скорит совпадения:
   - совпадение триггера (фраза или слово) → вес 3
   - совпадение слова из описания          → вес 1
@@ -22,7 +22,24 @@ import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "..", ".."))
-DEFAULT_INDEX = os.path.join(REPO_ROOT, "index.json")
+SCRIPT_DEFAULT = os.path.join(REPO_ROOT, "index.json")
+MASTER_INDEX = os.path.expanduser("~/Projects/agent-skills/index.json")
+
+
+def resolve_index() -> str:
+    """Locate the master catalog index.json.
+
+    Priority:
+      1. env AGENT_SKILLS_INDEX (explicit override)
+      2. ~/Projects/agent-skills/index.json (master repo, works when installed standalone)
+      3. script-relative repo root (fallback for the agent-skills repo itself)
+    """
+    env = os.environ.get("AGENT_SKILLS_INDEX")
+    if env and os.path.isfile(env):
+        return env
+    if os.path.isfile(MASTER_INDEX):
+        return MASTER_INDEX
+    return SCRIPT_DEFAULT
 
 # Стоп-слова RU/EN — не несут смысла для скоринга.
 STOPWORDS = {
@@ -106,8 +123,8 @@ def main() -> None:
     )
     parser.add_argument("query", nargs="?", default="",
                         help="описание задачи свободным текстом")
-    parser.add_argument("--index", default=DEFAULT_INDEX,
-                        help="путь к index.json (по умолчанию корень репозитория)")
+    parser.add_argument("--index", default=resolve_index(),
+                        help="путь к index.json (по умолчанию мастер-каталог agent-skills)")
     parser.add_argument("--combo", action="store_true",
                         help="вывести цепочку из 2-3 скиллов для многоэтапной задачи")
     parser.add_argument("--top", type=int, default=5,
@@ -150,6 +167,13 @@ def main() -> None:
     for i, (score, skill, reasons) in enumerate(top, start=1):
         why = "; ".join(dedupe(reasons)[:3]) if reasons else "совпадение по описанию"
         print(f"{i}. {skill['name']} ({score}) — {why}")
+
+    index_dir = os.path.dirname(os.path.abspath(args.index))
+    print("\n📄 Ad-hoc apply: если скилл не установлен — прочитай его SKILL.md из мастер-каталога:")
+    for _, skill, _ in top:
+        rel = skill.get("path", f"skills/{skill['name']}")
+        p = os.path.join(index_dir, rel, "SKILL.md")
+        print(f"   {skill['name']}: {p}")
 
     if args.combo and len(top) >= 2:
         chain = top[: min(3, len(top))]

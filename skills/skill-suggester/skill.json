@@ -1,22 +1,10 @@
 {
   "name": "skill-suggester",
-  "version": "1.0.0",
-  "description": "Подбор скиллов из библиотеки по задаче пользователя. Триггеры: 'какой скилл использовать', 'что выбрать', 'рекомендовать скилл', 'suggest skill', 'подобрать инструмент', 'какой команды', 'подбор скилла', 'рекомендация скилла', 'какой навык применить'. Читает index.json, скорит триггеры и описания, возвращает топ-5 с релевантностью и комбо до 3 скиллов. Триггеры: 'какой скилл использовать', 'какой скилл', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'какой навык', 'подобрать инструмент', 'какой команды', 'какой skill', 'какой skill использовать', 'recommend a skill', 'which skill', 'подобрать навык'.",
-  "author": "best",
+  "version": "1.1.0",
+  "description": "Skill recommendation for AI agents from the agent-skills library. Reads the master catalog index.json (default ~/Projects/agent-skills/index.json, override with env AGENT_SKILLS_INDEX or --index), scores triggers and descriptions, returns top-5 with relevance plus up to 3 combos (chains) for multi-step tasks. Supports ad-hoc apply: prints SKILL.md paths so the agent can read and apply a skill's instructions directly even if it is not installed. Triggers: 'какой скилл использовать', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'recommend a skill', 'which skill', 'подобрать навык', 'какой skill использовать'.",
+  "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": [
-    "skill",
-    "suggester",
-    "recommendation",
-    "recommend",
-    "skills",
-    "подбор",
-    "рекомендация",
-    "catalog",
-    "triggers",
-    "combo",
-    "каталог скиллов"
-  ],
+  "keywords": ["skill", "suggester", "recommendation", "catalog", "triggers", "combo", "ad-hoc", "on-demand", "router"],
   "triggers": [
     "какой скилл использовать",
     "какой скилл",
@@ -41,10 +29,8 @@
     "scripts/skill_suggest.py"
   ],
   "requirements": {
-    "tools": [
-      "python3"
-    ],
+    "tools": ["python3"],
     "script": "scripts/skill_suggest.py"
   },
-  "updated": "2026-08-08"
+  "updated": "2026-08-12"
 }

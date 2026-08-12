@@ -1,11 +1,35 @@
 {
  "name": "agent-skills",
  "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
- "version": "1.6.0",
+ "version": "1.7.0",
  "author": "best",
  "license": "MIT",
  "repository": "https://github.com/bestdeejay-design/agent-skills",
  "skills": [
+  {
+   "name": "api-contract-testing",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Validate an API contract against an OpenAPI 3.x specification (JSON or YAML) and an optional manifest of expected endpoints. Script api_contract.py enumerates operations (paths + webhooks), checks spec internal consistency (unresolved $refs, duplicates, missing responses), compares the manifest against the spec offline, and in live mode probes each manifest endpoint over HTTP and compares the actual status with the expected one. Pure Python 3 stdlib (argparse, json, pathlib, sys, urllib.request) with a built-in minimal YAML subset parser — no PyYAML, no requests. Emits a machine-readable JSON report (endpoints_count, missing_from_spec, contract_violations, conformant, errors) and uses exit codes 0/1/2. Closes the loop for api-doc-generator and test-generator. Triggers: 'api contract testing', 'contract test', 'validate openapi spec', 'spec vs manifest', 'endpoint coverage', 'проверь контракт API', 'тест контракта', 'валидация openapi', 'контрактное тестирование', 'check the API against the spec'.",
+   "path": "skills/api-contract-testing",
+   "triggers": [
+    "api contract testing",
+    "contract test",
+    "validate openapi spec",
+    "spec vs manifest",
+    "endpoint coverage",
+    "check the API against the spec",
+    "does the API match the spec",
+    "missing endpoints",
+    "expected status codes",
+    "проверь контракт API",
+    "тест контракта",
+    "сверь спецификацию с API",
+    "валидация openapi",
+    "проверка эндпоинтов",
+    "контрактное тестирование"
+   ]
+  },
   {
    "name": "api-doc-generator",
    "version": "1.0.0",
@@ -22,8 +46,7 @@
     "api reference",
     "описать API",
     "rest api docs"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "changelog-generator",
@@ -40,8 +63,7 @@
     "keep a changelog",
     "generate changelog",
     "сборка changelog"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "code-review",
@@ -62,8 +84,30 @@
     "проверь изменения",
     "review diff",
     "ревью пул-реквеста"
-   ],
-   "updated": "2026-08-08"
+   ]
+  },
+  {
+   "name": "commit-lint",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Validate git commit messages against Conventional Commits v1.0.0. Script commit_lint.py reads `git log` (subprocess) of a real repository (or stdin with --stdin), parses each commit as <type>(scope)!: subject, and reports violations: missing type, invalid type, type case, subject length (default 50), subject capitalization, trailing dot/space, header length (default 100), body line length (default 72). Plain-text Markdown report or JSON (--json). Exit codes: 0 all clean, 1 violations found, 2 error. Pure Python 3 stdlib, offline, read-only. Closes the loop for commit-message-writer and version-bumper. Triggers: 'commit lint', 'lint commits', 'conventional commits check', 'проверка коммитов', 'валидация коммитов', 'commit message check', 'check commit messages', 'conventional commit lint'.",
+   "path": "skills/commit-lint",
+   "triggers": [
+    "commit lint",
+    "lint commits",
+    "commit message lint",
+    "conventional commits",
+    "conventional commit check",
+    "check commit messages",
+    "validate commits",
+    "commit message validation",
+    "проверка коммитов",
+    "валидация коммитов",
+    "проверь коммиты",
+    "conventional commit lint",
+    "commit style check",
+    "commit-lint"
+   ]
   },
   {
    "name": "commit-message-writer",
@@ -80,8 +124,30 @@
     "написать коммит",
     "commit",
     "закоммитить"
-   ],
-   "updated": "2026-08-08"
+   ]
+  },
+  {
+   "name": "coverage-analyzer",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Parse coverage.py XML reports (coverage.xml) into a human-readable coverage analysis: total line/branch percent, files with zero coverage, worst-10 ranking, delta vs a stored JSON baseline, and a PASS/FAIL verdict against an optional threshold. Stdlib-only Python script (xml.etree.ElementTree, json, argparse) that closes the loop after test-generator. Triggers: 'coverage analysis', 'coverage.xml', 'покрытие кода', 'процент покрытия', 'coverage report', 'проверь покрытие', 'coverage threshold', 'baseline coverage', 'test coverage check'.",
+   "path": "skills/coverage-analyzer",
+   "triggers": [
+    "coverage analysis",
+    "coverage.xml",
+    "coverage report",
+    "покрытие кода",
+    "процент покрытия",
+    "анализ покрытия",
+    "проверь покрытие",
+    "coverage threshold",
+    "baseline coverage",
+    "coverage delta",
+    "coverage-analyzer",
+    "покрытие тестами",
+    "test coverage check",
+    "coverage gate"
+   ]
   },
   {
    "name": "csv-pro",
@@ -98,18 +164,7 @@
     "csv anomalies",
     "профилирование csv",
     "что в csv"
-   ],
-   "keywords": [
-    "csv",
-    "profile",
-    "profiling",
-    "data",
-    "statistics",
-    "anomalies",
-    "analysis",
-    "quality"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "data-analysis",
@@ -127,17 +182,7 @@
     "data profiling",
     "разведочный анализ",
     "eda"
-   ],
-   "keywords": [
-    "data",
-    "analysis",
-    "dataset",
-    "statistics",
-    "profiling",
-    "anomalies",
-    "correlation"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "diagram-maker",
@@ -158,8 +203,7 @@
     "draw a diagram",
     "схема",
     "architecture diagram"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "docs-system",
@@ -178,38 +222,50 @@
     "docs for new project",
     "documentation plan",
     "системная документация"
-   ],
-   "updated": "2026-08-07"
+   ]
+  },
+  {
+   "name": "frontend-perfection",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Audit and polish frontend to verifiable perfection: real-Chrome Lighthouse >=13 runs via chrome-launcher + Node API (mobile+desktop, no Playwright internals, .default fallback, self-resolved deps — exits 0/1/2 with compact JSON report of failed audit ids), plus an offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens with zero raw hex outside the token block, fixed-header scroll-padding, breakpoints) and crop-safe OG-image generation (1200x630 with ~640px central safe zone, URL change instead of overwrite to bust social caches, forced reflow before screenshot). report.json is written per run; every fix binds to an audit id. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'проверь вёрстку', 'довести фронтенд до идеала', 'og-image для соцсетей', 'SEO-мета слой', 'контраст цветов', 'дизайн-токены'.",
+   "path": "skills/frontend-perfection",
+   "triggers": [
+    "frontend audit",
+    "perfect the layout",
+    "lighthouse check",
+    "make it 100/100/100/100",
+    "100 lighthouse",
+    "audit the page",
+    "fix performance",
+    "check the frontend",
+    "og image",
+    "social share meta",
+    "contrast check",
+    "design tokens",
+    "проверь вёрстку",
+    "довести фронтенд до идеала",
+    "логический аудит",
+    "og-image для соцсетей",
+    "SEO-мета слой",
+    "контраст цветов",
+    "дизайн-токены",
+    "оптимизация лендинга"
+   ]
   },
   {
    "name": "github-repo-hygiene",
-   "version": "1.1.0",
+   "version": "2.0.0",
    "category": "repository",
-   "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes'.",
+   "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
    "path": "skills/github-repo-hygiene",
    "triggers": [
     "github hygiene",
-    "оформить репозиторий",
-    "обновить readme",
-    "github page",
-    "описание репозитория",
-    "теги для поиска",
-    "topics",
-    "contributing",
-    "license",
-    "security policy",
-    "полностью оформить гитхаб",
-    "репозиторий готов к публикации",
     "repo polish",
     "github repo docs",
-    "community health",
-    "issue template",
-    "pr template",
-    "social preview",
-    "релиз",
-    "release notes"
-   ],
-   "updated": "2026-08-07"
+    "оформить репозиторий",
+    "репозиторий готов к публикации"
+   ]
   },
   {
    "name": "mermaid-to-image",
@@ -226,19 +282,7 @@
     "диаграмма в svg",
     "схема в картинку",
     "mermaid to image"
-   ],
-   "keywords": [
-    "mermaid",
-    "diagram",
-    "png",
-    "svg",
-    "render",
-    "visualization",
-    "flowchart",
-    "sequence-diagram",
-    "mmd"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "pdf-report-builder",
@@ -255,19 +299,7 @@
     "markdown to pdf",
     "отчёт для клиента",
     "document to pdf"
-   ],
-   "keywords": [
-    "pdf",
-    "report",
-    "markdown",
-    "export",
-    "document",
-    "weasyprint",
-    "pandoc",
-    "chromium",
-    "print"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "plan-skill",
@@ -288,8 +320,7 @@
     "technical plan",
     "write a plan",
     "спланируй разработку"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "presentation-maker",
@@ -307,8 +338,7 @@
     "сделай слайды по теме",
     "generate slides",
     "make a deck"
-   ],
-   "updated": "2026-08-07"
+   ]
   },
   {
    "name": "reddit-karma",
@@ -326,14 +356,156 @@
     "забег по reddit",
     "оставить след",
     "благодарность за ответ"
-   ],
-   "updated": "2026-08-08"
+   ]
+  },
+  {
+   "name": "repo-community-files",
+   "version": "1.0.0",
+   "category": "repository",
+   "description": "Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. Triggers: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'support file', 'issue template', 'pr template', 'funding yml', 'community files', 'repo legal files', 'contributor covenant'.",
+   "path": "skills/repo-community-files",
+   "triggers": [
+    "license file",
+    "code of conduct",
+    "contributing guide",
+    "security policy",
+    "support file",
+    "issue template",
+    "pr template",
+    "funding yml",
+    "community files",
+    "repo legal files",
+    "contributor covenant"
+   ]
+  },
+  {
+   "name": "repo-metadata-health",
+   "version": "1.0.0",
+   "category": "repository",
+   "description": "Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). Triggers: 'repo description', 'repo topics', 'github topics', 'github pages', 'community health', 'repo audit', 'repo metadata', 'repo checklist', 'health percentage', 'repo about'.",
+   "path": "skills/repo-metadata-health",
+   "triggers": [
+    "repo description",
+    "repo topics",
+    "github topics",
+    "github pages",
+    "community health",
+    "repo audit",
+    "repo metadata",
+    "repo checklist",
+    "health percentage",
+    "repo about"
+   ]
+  },
+  {
+   "name": "repo-readme-assets",
+   "version": "1.0.0",
+   "category": "repository",
+   "description": "README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). Triggers: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'readme visual', 'smil animation', 'repo header', 'readme footer', 'readme generator', 'update readme', 'readme badges'.",
+   "path": "skills/repo-readme-assets",
+   "triggers": [
+    "readme header",
+    "animated svg",
+    "waving svg",
+    "svg banner",
+    "readme assets",
+    "readme visual",
+    "smil animation",
+    "repo header",
+    "readme footer",
+    "readme generator",
+    "update readme",
+    "readme badges"
+   ]
+  },
+  {
+   "name": "repo-social-preview",
+   "version": "1.0.0",
+   "category": "repository",
+   "description": "Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
+   "path": "skills/repo-social-preview",
+   "triggers": [
+    "social preview",
+    "og image",
+    "og:image",
+    "social share image",
+    "repo preview png",
+    "open graph image",
+    "github social preview"
+   ]
+  },
+  {
+   "name": "secret-scanner",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Static secret/token scanning for codebases and git repos: detects leaked credentials (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs) using the gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline by design, with JSON/Markdown/text reports, redaction, and a CI exit-code gate. Triggers: 'secret scan', 'проверь секреты', 'leaked token', 'утечка ключей', 'scan for keys', 'hardcoded credentials', 'git secrets check', 'проверить на секреты'.",
+   "path": "skills/secret-scanner",
+   "triggers": [
+    "secret scan",
+    "проверь секреты",
+    "leaked tokens",
+    "get_token",
+    "secret scan",
+    "leaked keys",
+    "scan for secrets",
+    "secret-scanner",
+    "secret scanning",
+    "проверить на утечки",
+    "найди ключи в репозитории",
+    "credential leak check",
+    "tokens in code"
+   ]
+  },
+  {
+   "name": "security-review",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Security review orchestrator for dependency lockfiles and source: lockfile inventory (npm/pnpm/yarn, pip/poetry, cargo, go, gem, maven, gradle, composer), exit-code classifier for 13 security tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), and JSON normalizer to unified findings. Stdlib-only offline helper. Triggers: 'security review', 'audit dependencies', 'проверить зависимости', 'semgrep scan', 'lockfile audit', 'osv-scanner', 'vulnerability check', 'уязвимости', 'bandit report'.",
+   "path": "skills/security-review",
+   "triggers": [
+    "security review",
+    "audit dependencies",
+    "lockfile audit",
+    "проверь зависимости",
+    "semgrep scan",
+    "osv-scanner",
+    "bandit findings",
+    "dependency-check",
+    "scan for vulnerabilities",
+    "уязвимости в зависимостях",
+    "security-review",
+    "audit lockfiles",
+    "grype scan",
+    "vulnerability report"
+   ]
+  },
+  {
+   "name": "seo-toolkit",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "13 SEO commands for AI agents: technical audit, Core Web Vitals, crawlability, schema.org, keywords, meta tags, content analysis, images, reports, competitor comparison, and autonomous fixes. Works in URL mode (fetch external sites) and file mode (analyze local project). Canonical patterns: weighted scoring, P1-P5 prioritization, diff-before-apply safety, dual URL/FS modes.",
+   "path": "skills/seo-toolkit",
+   "triggers": [
+    "seo audit",
+    "seo report",
+    "core web vitals",
+    "schema org",
+    "json-ld",
+    "keywords analysis",
+    "meta tags",
+    "content audit",
+    "sitemap",
+    "robots txt",
+    "crawlability",
+    "competitor seo",
+    "seo fix"
+   ]
   },
   {
    "name": "skill-suggester",
-   "version": "1.0.0",
+   "version": "1.1.0",
    "category": "code",
-   "description": "Подбор скиллов из библиотеки по задаче пользователя. Триггеры: 'какой скилл использовать', 'что выбрать', 'рекомендовать скилл', 'suggest skill', 'подобрать инструмент', 'какой команды', 'подбор скилла', 'рекомендация скилла', 'какой навык применить'. Читает index.json, скорит триггеры и описания, возвращает топ-5 с релевантностью и комбо до 3 скиллов. Триггеры: 'какой скилл использовать', 'какой скилл', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'какой навык', 'подобрать инструмент', 'какой команды', 'какой skill', 'какой skill использовать', 'recommend a skill', 'which skill', 'подобрать навык'.",
+   "description": "Skill recommendation for AI agents from the agent-skills library. Reads the master catalog index.json (default ~/Projects/agent-skills/index.json, override with env AGENT_SKILLS_INDEX or --index), scores triggers and descriptions, returns top-5 with relevance plus up to 3 combos (chains) for multi-step tasks. Supports ad-hoc apply: prints SKILL.md paths so the agent can read and apply a skill's instructions directly even if it is not installed. Triggers: 'какой скилл использовать', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'recommend a skill', 'which skill', 'подобрать навык', 'какой skill использовать'.",
    "path": "skills/skill-suggester",
    "triggers": [
     "какой скилл использовать",
@@ -351,8 +523,7 @@
     "recommend a skill",
     "which skill",
     "подобрать навык"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "sql-helper",
@@ -369,19 +540,7 @@
     "напиши sql",
     "formatted sql",
     "sql formatting"
-   ],
-   "keywords": [
-    "sql",
-    "query",
-    "generation",
-    "ddl",
-    "sqlite",
-    "explain",
-    "database",
-    "select",
-    "join"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "systematic-debugger",
@@ -401,8 +560,7 @@
     "fix the bug",
     "ошибка в коде",
     "не работает как ожидалось"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "test-generator",
@@ -419,8 +577,7 @@
     "unit tests для функций",
     "тесты на функции",
     "создать тесты"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "test-graphics",
@@ -439,8 +596,28 @@
     "test data icons",
     "заполнить картинками",
     "тестовые данные изображения"
-   ],
-   "updated": "2026-08-07"
+   ]
+  },
+  {
+   "name": "version-bumper",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Suggest the next semantic version and release tag from Conventional Commits in git history. Script bumper.py reads `git log` subjects (fallback: COMMITS env or --commits FILE for testability), classifies commit types (feat->MINOR, fix/perf/refactor->PATCH, `!` or BREAKING CHANGE->MAJOR) and prints latest_tag, next_version, suggested_tag (e.g. v1.5.0) and counts by type. Pure Python 3 stdlib, offline, deterministic output (-s), read-only (never creates tags). Closes the loop for commit-message-writer and changelog-generator. Triggers: 'bump version', 'next version', 'release tag', 'semver', 'поднять версию', 'следующая версия', 'тег релиза', 'версионирование', 'suggest version', 'version bump'.",
+   "path": "skills/version-bumper",
+   "triggers": [
+    "bump version",
+    "next version",
+    "suggest version",
+    "release tag",
+    "semver",
+    "version bump",
+    "поднять версию",
+    "следующая версия",
+    "какой тег релиза",
+    "версионирование",
+    "v bump",
+    "release version"
+   ]
   },
   {
    "name": "video-script-writer",
@@ -457,17 +634,7 @@
     "video outline",
     "сценарий для youtube",
     "план ролика"
-   ],
-   "keywords": [
-    "video",
-    "script",
-    "outline",
-    "youtube",
-    "hook",
-    "cta",
-    "screen-record"
-   ],
-   "updated": "2026-08-08"
+   ]
   },
   {
    "name": "web-scraper",
@@ -484,201 +651,7 @@
     "извлечь данные",
     "scrape",
     "scraping"
-   ],
-   "keywords": [
-    "web-scraping",
-    "scraper",
-    "html",
-    "parser",
-    "robots.txt",
-    "data-extraction",
-    "markdown",
-    "json"
-   ],
-   "updated": "2026-08-08"
-  },
-  {
-   "name": "seo-toolkit",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "13 SEO-команд для AI-агентов: технический аудит, Core Web Vitals, crawlability, schema.org, ключевые слова, meta-теги, контент-анализ, изображения, отчёты, сравнение с конкурентами и автономные исправления. Работает в URL-режиме (fetch внешних сайтов) и файловом режиме (анализ локального проекта). Скрипт seo_toolkit.py: аудит meta/заголовков/alt, подсчёт плотности ключей, валидация JSON-LD. Триггеры: 'seo audit', 'core web vitals', 'schema org', 'json-ld', 'keywords analysis', 'seo report', 'сео аудит', 'meta tags', 'crawlability'.",
-   "path": "skills/seo-toolkit",
-   "triggers": [
-    "seo audit",
-    "seo report",
-    "core web vitals",
-    "schema org",
-    "json-ld",
-    "keywords analysis",
-    "meta tags",
-    "content audit",
-    "sitemap",
-    "robots txt",
-    "crawlability",
-    "competitor seo",
-    "seo fix"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "secret-scanner",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Сканирование кода и git-репозиториев на утечки секретов и токенов (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, приватные ключи, JWT) по таблице паттернов gitleaks v8.30.1 + энтропийный фильтр Шеннона + allowlist шума. Чистый Python 3 stdlib, офлайн, отчёты JSON/Markdown/text, редактирование части, CI exit-code. Триггеры: 'secret scan', 'проверь секреты', 'leaked token', 'утечка ключей', 'scan for keys', 'hardcoded credentials'.",
-   "path": "skills/secret-scanner",
-   "triggers": [
-    "secret scan",
-    "проверь секреты",
-    "leaked tokens",
-    "leaked keys",
-    "scan for secrets",
-    "секреты в коде",
-    "проверить на утечки",
-    "credential leak check",
-    "tokens in code",
-    "hardcoded credentials"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "security-review",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Оркестрация security-ревью зависимостей и кода: инвентаризация lockfile'ов (npm/pnpm/yarn, pip/poetry, cargo, go, gem, maven, gradle, composer), классификатор exit-кодов 13 security-инструментов (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), нормализация JSON-отчётов в единую схему, отчёты. Чистый Python 3 stdlib, офлайн. Триггеры: 'security review', 'audit dependencies', 'lockfile audit', 'проверь зависимости', 'semgrep', 'bandit', 'osv-scanner', 'уязвимости'.",
-   "path": "skills/security-review",
-   "triggers": [
-    "security review",
-    "audit dependencies",
-    "lockfile audit",
-    "проверь зависимости",
-    "semgrep",
-    "bandit",
-    "osv-scanner",
-    "dependency-check",
-    "scan for vulnerabilities",
-    "уязвимости в зависимостях",
-    "grype",
-    "vulnerability report"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "version-bumper",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Детерминированное определение следующей семвер-версии по git-истории (Conventional Commits): читает теги git (или стартует с 0.0.0), считает feat/fix/breaking в диапазоне, предлагает bump (major/minor/patch) и release-тег. Чистый Python 3 stdlib, офлайн, read-only. Триггеры: 'version bump', 'next version', 'какая следующая версия', 'release tag', 'semver bump', 'определи версию'.",
-   "path": "skills/version-bumper",
-   "triggers": [
-    "version bump",
-    "next version",
-    "bump version",
-    "semver",
-    "release tag",
-    "какая следующая версия",
-    "определи версию",
-    "версию поднять",
-    "вычислить версию",
-    "next release version"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "commit-lint",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Валидация git-коммитов по Conventional Commits v1.0.0: читает git log (или stdin), парсит type/scope/subject, сообщает нарушения (missing/invalid type, регистр, длина subject/header/body, точка в конце). Отчёт text/JSON, exit 0/1/2. Чистый Python 3 stdlib, офлайн, read-only. Триггеры: 'commit lint', 'проверка коммитов', 'conventional commit check', 'валидация коммитов', 'commit message check'.",
-   "path": "skills/commit-lint",
-   "triggers": [
-    "commit lint",
-    "lint commits",
-    "conventional commits",
-    "check commit messages",
-    "validate commits",
-    "проверка коммитов",
-    "валидация коммитов",
-    "проверь коммиты",
-    "commit style check",
-    "commit-lint"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "coverage-analyzer",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Анализ покрытия кода тестами: читает coverage.py XML/JSON отчёты (python -m coverage xml/json), считает statement/line/branch coverage, строит отчёт по файлам с проблемными местами (ниже порога), итоговый процент и рекомендации. Чистый Python 3 stdlib, офлайн. Триггеры: 'coverage analysis', 'покрытие кода', 'coverage report', 'анализ покрытия', 'test coverage', 'процент покрытия'.",
-   "path": "skills/coverage-analyzer",
-   "triggers": [
-    "coverage",
-    "coverage analysis",
-    "coverage report",
-    "test coverage",
-    "покрытие кода",
-    "анализ покрытия",
-    "процент покрытия",
-    "код не покрыт",
-    "branch coverage",
-    "coverage threshold"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "api-contract-testing",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Проверка контракта API против OpenAPI 3.x-спецификации (JSON/YAML, встроенный YAML-парсер, без PyYAML): перечисляет операции (paths+webhooks), проверяет внутреннюю консистентность ($ref, дубликаты), сверяет manifest эндпоинтов со спекой офлайн и в live-режиме шлёт HTTP-запросы и сравнивает статусы. JSON-отчёт, exit 0/1/2. Чистый Python 3 stdlib. Триггеры: 'api contract testing', 'проверь контракт API', 'validate openapi spec', 'spec vs manifest', 'тест контракта'.",
-   "path": "skills/api-contract-testing",
-   "triggers": [
-    "api contract testing",
-    "contract test",
-    "validate openapi spec",
-    "spec vs manifest",
-    "endpoint coverage",
-    "проверь контракт API",
-    "тест контракта",
-    "валидация openapi",
-    "сверь спецификацию с API",
-    "check the API against the spec"
-   ],
-   "updated": "2026-08-09"
-  },
-  {
-   "name": "frontend-perfection",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Аудит и доводка фронтенда до проверяемого идеала: реальный Chrome через chrome-launcher + Lighthouse >=13 Node API (mobile+desktop, без Playwright-интерналов, с .default-фолбэком и авто-резолюцией зависимостей; exit 0/1/2, компактный JSON-отчёт с audit-ids), плюс офлайн Python-stdlib аудит статики (SEO-мета-слой, контрасты WCAG по вычисленной яркости, порядок заголовков, дизайн-токены — ноль raw-hex вне токенов, scroll-padding под fixed-хедер, брейкпоинты) и генерация crop-safe OG-изображений (1200x630 с центральной безопасной зоной ~640px, смена URL вместо перезаписи для сброса кеша соцсетей, принудительный reflow перед скриншотом). Каждый фикс привязывается к audit-id. Триггеры: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'проверь вёрстку', 'довести фронтенд до идеала', 'og-image для соцсетей', 'SEO-мета слой', 'контраст цветов', 'дизайн-токены'.",
-   "path": "skills/frontend-perfection",
-   "triggers": [
-    "frontend audit",
-    "perfect the layout",
-    "lighthouse check",
-    "make it 100/100/100/100",
-    "audit the page",
-    "og image",
-    "social share meta",
-    "contrast check",
-    "design tokens",
-    "проверь вёрстку",
-    "довести фронтенд до идеала",
-    "og-image для соцсетей",
-    "SEO-мета слой",
-    "контраст цветов",
-    "дизайн-токены",
-    "оптимизация лендинга"
-   ],
-   "updated": "2026-08-09"
+   ]
   }
- ],
- "categories": {
-  "repository": "Работа с репозиториями (GitHub, CI, docs)",
-  "media": "Генерация контента (презентации, графика, документы)",
-  "social": "Социальные платформы (Reddit, Twitter, LinkedIn)",
-  "code": "Работа с кодом (генерация, рефакторинг, анализ)",
-  "data": "Обработка и анализ данных"
- },
- "installation": {
-  "opencode": "Скопируйте нужную папку скилла в ~/.config/opencode/skills/ или укажите путь при загрузке через skill tool.",
-  "manual": "Каждый скилл — папка с SKILL.md (инструкция) и skill.json (манифест). Загружайте в агент по необходимости."
- },
- "updated": "2026-08-09"
+ ]
 }

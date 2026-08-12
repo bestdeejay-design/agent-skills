@@ -1,0 +1,33 @@
+{
+  "name": "repo-metadata-health",
+  "version": "1.0.0",
+  "description": "Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). Triggers: 'repo description', 'repo topics', 'github topics', 'github pages', 'community health', 'repo audit', 'repo metadata', 'repo checklist', 'health percentage', 'repo about'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["description", "topics", "github-pages", "community-health", "audit", "metadata", "checklist", "gh", "repository"],
+  "triggers": [
+    "repo description",
+    "repo topics",
+    "github topics",
+    "github pages",
+    "community health",
+    "repo audit",
+    "repo metadata",
+    "repo checklist",
+    "health percentage",
+    "repo about"
+  ],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/validate_repo.py",
+    "references/community-checklist.md",
+    "examples/repo-hygiene.yml"
+  ],
+  "requirements": {
+    "tools": ["python3", "gh"],
+    "script": "scripts/validate_repo.py"
+  },
+  "updated": "2026-08-12"
+}

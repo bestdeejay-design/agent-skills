@@ -1,180 +1,27 @@
 {
   "name": "github-repo-hygiene",
-  "version": "1.6.0",
-  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU) + визуальное оформление header/footer локальными анимированными SVG (assets/header.svg + assets/footer.svg, эффект «фон наплывает» через SMIL-маску, морфинг d-path, редкий блик-проход и рассинхрон волн 30% — без внешних сервисов; 4 пресета: default/minimal/dark-first/monochrome), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Пакет скриптов: generate_assets.py (генерация SVG с пресетами), extract_context.py (авто-детект name/desc/стека/цветов), validate_svg.py (валидация SVG-правил), validate_repo.py (16-пунктовый чек-лист через gh API + filesystem), generate_social_preview.py (генерация social preview PNG 1280×640 через Pillow). CI-пример examples/repo-hygiene.yml. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes', 'шапка readme', 'readme header', 'анимированный svg', 'визуальное оформление', 'waving svg'.",
+  "version": "2.0.0",
+  "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": [
-    "github",
-    "repo",
-    "hygiene",
-    "readme",
-    "license",
-    "contributing",
-    "security",
-    "topics",
-    "pages",
-    "community-health",
-    "animated-svg",
-    "svg-header",
-    "svg-footer",
-    "local-assets",
-    "smil",
-    "waving",
-    "gradient",
-    "presets",
-    "validation",
-    "context-extraction",
-    "social-preview",
-    "og-image",
-    "open-graph",
-    "cli"
-  ],
+  "keywords": ["deprecated", "router", "github", "repository", "hygiene"],
   "triggers": [
     "github hygiene",
-    "оформить репозиторий",
-    "обновить readme",
-    "github page",
-    "описание репозитория",
-    "теги для поиска",
-    "topics",
-    "contributing",
-    "license",
-    "security policy",
-    "полностью оформить гитхаб",
-    "репозиторий готов к публикации",
     "repo polish",
     "github repo docs",
-    "community health",
-    "issue template",
-    "pr template",
-    "social preview",
-    "релиз",
-    "release notes",
-    "шапка readme",
-    "readme header",
-    "анимированный svg",
-    "визуальное оформление",
-    "waving svg",
-    "пресеты оформления",
-    "preset",
-    "extract context",
-    "авто-детект контекста",
-    "social preview generation",
-    "og image",
-    "превью для соцсетей",
-    "og-image"
+    "оформить репозиторий",
+    "репозиторий готов к публикации"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
     "README.md",
-    "showcase.md",
-    "references/canonical-patterns.md",
-    "references/svg-animation.md",
-    "references/color-tokens.md",
-    "references/community-checklist.md",
-    "references/svg-presets.md",
-    "references/social-preview.md",
-    "scripts/generate_assets.py",
-    "scripts/extract_context.py",
-    "scripts/validate_svg.py",
-    "scripts/validate_repo.py",
-    "scripts/generate_social_preview.py",
-    "examples/repo-hygiene.yml"
+    "showcase.md"
   ],
   "requirements": {
-    "tools": [
-      "python3"
-    ],
-    "tools_optional": [
-      "gh",
-      "git"
-    ],
-    "gh_required_for": [
-      "edit description",
-      "set topics",
-      "set homepage",
-      "create release",
-      "community profile check",
-      "fetch repo description"
-    ],
-    "permissions": {
-      "filesystem": {
-        "read": [
-          "./",
-          "./references/"
-        ],
-        "write": [
-          "./assets/"
-        ]
-      },
-      "github_api": {
-        "scopes": [
-          "repo"
-        ],
-        "endpoints": [
-          "GET /repos/{owner}/{repo}/community/profile",
-          "GET /repos/{owner}/{repo}/topics",
-          "PUT /repos/{owner}/{repo}/topics",
-          "GET /repos/{owner}/{repo}/pages",
-          "GET /repos/{owner}/{repo}/license",
-          "GET /repos/{owner}/{repo}"
-        ]
-      }
-    }
-  },
-  "inputs": {
-    "repo": {
-      "type": "string",
-      "format": "owner/repo",
-      "required": false,
-      "description": "Если не указан — берётся из git remote"
-    },
-    "mode": {
-      "type": "enum",
-      "values": [
-        "check",
-        "fix",
-        "deep-fix"
-      ],
-      "default": "check",
-      "description": "check = dry-run, fix = только SVG, deep-fix = всё"
-    },
-    "force_overwrite_assets": {
-      "type": "boolean",
-      "default": false,
-      "description": "Перезаписать существующие assets/header.svg"
-    },
-    "preset": {
-      "type": "enum",
-      "values": [
-        "default",
-        "minimal",
-        "dark-first",
-        "monochrome"
-      ],
-      "default": "default",
-      "description": "Пресет оформления SVG (см. references/svg-presets.md)"
-    }
-  },
-  "outputs": {
-    "checklist_result": {
-      "format": "json",
-      "schema": "{passed:[], failed:[{item,reason,fix_suggestion}], warnings:[]}"
-    },
-    "assets_created": {
-      "type": "string[]",
-      "example": [
-        "assets/header.svg",
-        "assets/footer.svg"
-      ]
-    },
-    "context_extracted": {
-      "format": "json",
-      "schema": "{name, desc, stack_desc, topic, cold, warm, user}"
-    }
+    "tools": [],
+    "script": null
   },
   "updated": "2026-08-12"
 }
