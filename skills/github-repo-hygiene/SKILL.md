@@ -29,8 +29,8 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
 
 ## Инструменты скилла (scripts/)
 
-Скилл поставляется с тремя скриптами (pure Python 3 stdlib) — используй их вместо
-ручной работы, где возможно:
+Скилл поставляется с пятью скриптами (pure Python 3 stdlib; social preview
+требует `pip install pillow`) — используй их вместо ручной работы, где возможно:
 
 | Скрипт | Назначение | Вызов |
 |---|---|---|
@@ -38,6 +38,7 @@ social preview, теги поиска, релизы, ссылка на GitHub Pa
 | `scripts/extract_context.py` | Авто-детект контекста генерации: name/desc/стек/topic/цвета COLD/WARM/user из git remote | `python3 scripts/extract_context.py [--path DIR] [--gh-repo owner/repo] [--text]` |
 | `scripts/validate_svg.py` | Валидация SVG по правилам скилла (SMIL, маска, морфинг) | `python3 scripts/validate_svg.py assets/` |
 | `scripts/validate_repo.py` | Прогон 16-пунктового чек-листа (gh API + filesystem) | `python3 scripts/validate_repo.py [owner/repo]` |
+| `scripts/generate_social_preview.py` | Генерация social preview PNG 1280×640 (og:image): хедер-композиция + волны | `python3 scripts/generate_social_preview.py --name X --desc Y --user Z --cold #HEX --warm #HEX [--out og.png]` |
 
 Детали каждого — в его docstring; отчёты в JSON, exit code 0/1 (пригодны для CI).
 
@@ -162,6 +163,8 @@ gh api -X PUT repos/<owner>/<repo>/topics \
   рекомендовано **1280×640**.
 - Устанавливается в Settings → Social preview → Edit → Upload (только через UI).
 - Прозрачность поддерживается, но сплошной фон рекомендуется.
+- Генерация файла — `scripts/generate_social_preview.py` (требует `pip install
+  pillow`); детали и OG-теги для Pages — в `references/social-preview.md`.
 
 ## Релизы
 

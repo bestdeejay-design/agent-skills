@@ -1,7 +1,7 @@
 {
   "name": "github-repo-hygiene",
-  "version": "1.5.0",
-  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU) + визуальное оформление header/footer локальными анимированными SVG (assets/header.svg + assets/footer.svg, эффект «фон наплывает» через SMIL-маску, морфинг d-path, редкий блик-проход и рассинхрон волн 30% — без внешних сервисов; 4 пресета: default/minimal/dark-first/monochrome), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Пакет скриптов: generate_assets.py (генерация SVG с пресетами), extract_context.py (авто-детект name/desc/стека/цветов), validate_svg.py (валидация SVG-правил), validate_repo.py (16-пунктовый чек-лист через gh API + filesystem). CI-пример examples/repo-hygiene.yml. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes', 'шапка readme', 'readme header', 'анимированный svg', 'визуальное оформление', 'waving svg'.",
+  "version": "1.6.0",
+  "description": "Проверка и обновление описательной части GitHub-репозитория при мажорных изменениях: README (EN+RU) + визуальное оформление header/footer локальными анимированными SVG (assets/header.svg + assets/footer.svg, эффект «фон наплывает» через SMIL-маску, морфинг d-path, редкий блик-проход и рассинхрон волн 30% — без внешних сервисов; 4 пресета: default/minimal/dark-first/monochrome), LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR-шаблоны, social preview, релизы, description, topics, ссылки на GitHub Pages, community health. Пакет скриптов: generate_assets.py (генерация SVG с пресетами), extract_context.py (авто-детект name/desc/стека/цветов), validate_svg.py (валидация SVG-правил), validate_repo.py (16-пунктовый чек-лист через gh API + filesystem), generate_social_preview.py (генерация social preview PNG 1280×640 через Pillow). CI-пример examples/repo-hygiene.yml. Триггеры: 'github hygiene', 'оформить репозиторий', 'обновить readme', 'github page', 'описание репозитория', 'теги для поиска', 'topics', 'contributing', 'license', 'security policy', 'полностью оформить гитхаб', 'репозиторий готов к публикации', 'repo polish', 'github repo docs', 'community health', 'issue template', 'pr template', 'social preview', 'релиз', 'release notes', 'шапка readme', 'readme header', 'анимированный svg', 'визуальное оформление', 'waving svg'.",
   "author": "bestdeejay-design",
   "license": "MIT",
   "keywords": [
@@ -25,6 +25,9 @@
     "presets",
     "validation",
     "context-extraction",
+    "social-preview",
+    "og-image",
+    "open-graph",
     "cli"
   ],
   "triggers": [
@@ -56,7 +59,11 @@
     "пресеты оформления",
     "preset",
     "extract context",
-    "авто-детект контекста"
+    "авто-детект контекста",
+    "social preview generation",
+    "og image",
+    "превью для соцсетей",
+    "og-image"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
@@ -69,10 +76,12 @@
     "references/color-tokens.md",
     "references/community-checklist.md",
     "references/svg-presets.md",
+    "references/social-preview.md",
     "scripts/generate_assets.py",
     "scripts/extract_context.py",
     "scripts/validate_svg.py",
     "scripts/validate_repo.py",
+    "scripts/generate_social_preview.py",
     "examples/repo-hygiene.yml"
   ],
   "requirements": {
@@ -167,5 +176,5 @@
       "schema": "{name, desc, stack_desc, topic, cold, warm, user}"
     }
   },
-  "updated": "2026-08-10"
+  "updated": "2026-08-12"
 }

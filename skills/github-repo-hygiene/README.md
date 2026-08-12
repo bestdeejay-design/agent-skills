@@ -24,6 +24,7 @@ SMIL (`<animate>`), работает в `<img>` на GitHub без скрипт�
   - `scripts/extract_context.py` — авто-определение name/desc/стека/цветов
   - `scripts/validate_svg.py` — валидация SVG по правилам
   - `scripts/validate_repo.py` — 16-пунктовый чек-лист (gh API + filesystem)
+  - `scripts/generate_social_preview.py` — генерация social preview PNG 1280×640 (требует Pillow)
 - **CI-интеграция**: пример `examples/repo-hygiene.yml` — валидаторы как
   pre-merge check (read-only).
 
@@ -76,7 +77,8 @@ python3 scripts/validate_repo.py owner/repo --clone
 | `references/community-checklist.md` | 16 пунктов + команды проверки |
 | `references/svg-presets.md` | пресеты оформления |
 | `references/canonical-patterns.md` | каноны: GitHub Docs/API/github-docs/SPDX |
-| `scripts/` | 4 скрипта генерации/валидации |
+| `references/social-preview.md` | генерация social preview (og:image) |
+| `scripts/` | 5 скриптов генерации/валидации |
 | `examples/repo-hygiene.yml` | CI-воркфлоу-пример |
 | `showcase.md` | «до/после» для каталогов |
 

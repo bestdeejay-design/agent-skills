@@ -285,19 +285,23 @@ class Checker:
             self.skip("C.12 community profile", "gh api community/profile failed")
             return
         health = data.get("health_percentage", 0)
-        files = data.get("files", {})
-        issues = []
-        if health < 100:
-            issues.append(f"health_percentage={health} (< 100)")
-        for key, label in (("issue_template", "issue_template"),
-                           ("pull_request_template", "pull_request_template")):
-            if not files.get(key):
-                issues.append(f"{label} not counted by GitHub")
-        if issues:
-            self.fail("C.12 community profile", "; ".join(issues),
-                      "Fix file frontmatter (name+about for .md, name+description for .yml)")
+        files = data.get("files", {}) or {}
+        # GitHub reports health_percentage=100 only when every counted community-health
+        # file is present. The deprecated API keys `issue_template` / `pull_request_template`
+        # come back as null when the repo uses the modern .github/ISSUE_TEMPLATE/ directory
+        # or .github/pull_request_template.md — that is NOT a gap (GitHub still counts them).
+        # So we trust health_percentage and only flag files the API explicitly marks
+        # "not_detected".
+        missing = [k for k, meta in files.items()
+                   if isinstance(meta, dict) and meta.get("state") == "not_detected"]
+        if health >= 100 and not missing:
+            self.ok(f"C.12 community profile health={health}")
         else:
-            self.ok(f"C.12 community profile health=100 (files counted)")
+            detail = f"health_percentage={health}"
+            if missing:
+                detail += f"; not detected: {', '.join(missing)}"
+            self.fail("C.12 community profile", detail,
+                      "Add the missing community-health files (see GitHub community profile)")
 
     def check_c13_discussions(self):
         if self.local_only:
