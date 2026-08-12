@@ -1,6 +1,6 @@
 ---
 name: frontend-perfection
-description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
+description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
 ---
 
 # frontend-perfection
@@ -83,6 +83,11 @@ Checks and their ids:
 | `contrast:wcag-aa` | computed WCAG relative luminance, fg/bg pairs ≥ 4.5:1 |
 | `adaptive:scroll-padding` | fixed header ⇒ `scroll-padding-top` present |
 | `adaptive:media-queries` | responsive breakpoints exist for tablet widths |
+| `a11y:img-alt` | every `<img>` has an `alt` attribute (decorative may be empty) — WCAG 1.1.1 / axe `image-alt` |
+| `a11y:button-name` / `a11y:link-name` | buttons and links have an accessible name (text or aria-label) — WCAG 4.1.2 / axe `button-name`, `link-name` |
+| `a11y:form-label` | inputs/selects/textareas have a label (`<label for>`, wrapper, aria-label) — WCAG 4.1.2 / axe `label` |
+| `a11y:aria-valid` | every `aria-*` attribute name is in the WAI-ARIA 1.2 set — axe `aria-valid-attr` |
+| `a11y:landmark-unique` | at most one `<main>`; multiple `<nav>` need distinct labels — WCAG 1.3.1 / axe `landmark-unique` |
 
 ## Design tokens — "colors as constants"
 

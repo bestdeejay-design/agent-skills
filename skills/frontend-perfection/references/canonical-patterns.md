@@ -96,3 +96,6 @@ ever assumed "just available".
 - obra/superpowers: <https://github.com/obra/superpowers>
 - Open Graph protocol: <https://ogp.me/>
 - WCAG 2.2: <https://www.w3.org/TR/WCAG22/>
+- WAI-ARIA 1.2: <https://www.w3.org/TR/wai-aria-1.2/>
+- axe-core rule catalog (Deque): <https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md>
+- MDN accessibility: <https://developer.mozilla.org/en-US/docs/Web/Accessibility>

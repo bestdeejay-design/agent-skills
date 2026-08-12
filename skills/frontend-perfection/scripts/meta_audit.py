@@ -9,9 +9,12 @@ Offline, dependency-free check of a static frontend (HTML + CSS):
   - Heading order: h1..h6 sequence, exactly one h1.
   - Design tokens: raw hex colors outside the token block (`:root` / tokens
     file) are violations — all colors must live in tokens.
-  - Adaptive hints: fixed-header present -> require scroll-padding-top;
-    horizontal overflow candidates at tablet widths (media queries with
-    min/max-width that don't reflow the container).
+   - Adaptive hints: fixed-header present -> require scroll-padding-top;
+     horizontal overflow candidates at tablet widths (media queries with
+     min/max-width that don't reflow the container).
+   - Accessibility (axe-core rules, offline subset): img-alt (WCAG 1.1.1),
+     button-name / link-name (WCAG 4.1.2, 2.4.4), form-label (WCAG 4.1.2,
+     3.3.2), aria-valid (WAI-ARIA 1.2), landmark-unique (WCAG 1.3.1).
 
 Usage:
   python3 meta_audit.py --html index.html --css css/main.css [--css css/*.css]
@@ -85,9 +88,39 @@ class MetaExtractor(html.parser.HTMLParser):
         self._in_title = False
         self._in_script = False
         self._script_tag = None
+        # axe-core offline subset: image-alt / button-name / link-name / label / aria-valid-attr / landmark-unique
+        self.stack = []            # (tag, attrs, textbuf)
+        self.imgs = []
+        self.buttons = []
+        self.anchors = []
+        self.inputs = []
+        self.labels_for = []
+        self.aria_attrs = []
+        self.landmark_main = 0
+        self.landmark_navs = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        self.stack.append([tag, attrs, []])
+        if tag == "img":
+            self.imgs.append("alt" in attrs)
+        elif tag == "label":
+            self.labels_for.append(attrs.get("for", ""))
+        elif tag == "main":
+            self.landmark_main += 1
+        elif tag == "nav":
+            self.landmark_navs.append(attrs.get("aria-label") or attrs.get("title") or "")
+        elif tag in ("input", "select", "textarea"):
+            self.inputs.append({
+                "tag": tag,
+                "id": attrs.get("id", ""),
+                "aria_label": attrs.get("aria-label"),
+                "aria_labelledby": attrs.get("aria-labelledby"),
+                "wrapped": any(t == "label" for t, _, _ in self.stack[:-1]),
+            })
+        for k in attrs:
+            if k.startswith("aria-"):
+                self.aria_attrs.append(k)
         if tag == "title":
             self._in_title = True
         elif tag == "meta":
@@ -108,6 +141,16 @@ class MetaExtractor(html.parser.HTMLParser):
             pass
 
     def handle_endtag(self, tag):
+        if self.stack:
+            popped = self.stack.pop()
+            ptag, pattrs, buf = popped
+            text = " ".join("".join(buf).split())
+            if self.stack:
+                self.stack[-1][2].append(text)
+            if ptag == "button":
+                self.buttons.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby")})
+            elif ptag == "a":
+                self.anchors.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby") or pattrs.get("title")})
         if tag == "title":
             self._in_title = False
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
@@ -117,6 +160,8 @@ class MetaExtractor(html.parser.HTMLParser):
             self._script_tag = None
 
     def handle_data(self, data):
+        if self.stack:
+            self.stack[-1][2].append(data)
         if self._in_title:
             self.title.append(data)
         elif getattr(self, "_cur_heading", None):
@@ -217,7 +262,7 @@ def audit_meta(ext, path):
 
 def audit_headings(ext):
     checks = []
-    levels = [int(t[1]) for t in ext.headings]
+    levels = [int(t[0][1]) for t in ext.headings]
     h1s = [t for t in ext.headings if t[0] == "h1"]
     checks.append({"id": "headings:single-h1", "ok": len(h1s) == 1, "detail": f"{len(h1s)} h1 tag(s)"})
     order_ok = all(b >= a for a, b in zip(levels, levels[1:]))
@@ -298,8 +343,73 @@ def audit_adaptive(css):
     return checks
 
 
+# ---------------------------------------------------------------- a11y (axe-core subset)
+VALID_ARIA = {
+    "aria-activedescendant", "aria-atomic", "aria-autocomplete", "aria-braillelabel",
+    "aria-brailleroledescription", "aria-busy", "aria-checked", "aria-colcount",
+    "aria-colindex", "aria-colindextext", "aria-colspan", "aria-controls", "aria-current",
+    "aria-describedby", "aria-description", "aria-details", "aria-disabled", "aria-dropeffect",
+    "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup",
+    "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby",
+    "aria-level", "aria-live", "aria-modal", "aria-multiline", "aria-multiselectable",
+    "aria-orientation", "aria-owns", "aria-placeholder", "aria-posinset", "aria-pressed",
+    "aria-readonly", "aria-relevant", "aria-required", "aria-roledescription",
+    "aria-rowcount", "aria-rowindex", "aria-rowindextext", "aria-rowspan", "aria-selected",
+    "aria-setsize", "aria-sort", "aria-valuemax", "aria-valuemin", "aria-valuenow",
+    "aria-valuetext",
+}
+
+
+def audit_a11y(ext):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "a11y:" + name, "ok": ok, "detail": detail})
+
+    bad_imgs = [i for i, has_alt in enumerate(ext.imgs) if not has_alt]
+    add("img-alt", not bad_imgs,
+        f"{len(ext.imgs)} img, {len(bad_imgs)} without alt attribute (WCAG 1.1.1 / axe image-alt)"
+        + (" — decorative images may use empty alt=\"\"" if not bad_imgs else ""))
+
+    bad_btns = [b for b in ext.buttons if not (b["name"] or b["aria"])]
+    add("button-name", not bad_btns,
+        f"{len(ext.buttons)} buttons, {len(bad_btns)} without accessible name (WCAG 4.1.2 / axe button-name)"
+        + (" — icon-only buttons need aria-label" if bad_btns else ""))
+
+    bad_links = [a for a in ext.anchors if not (a["name"] or a["aria"])]
+    add("link-name", not bad_links,
+        f"{len(ext.anchors)} links, {len(bad_links)} without accessible name (WCAG 4.1.2 / axe link-name)"
+        + (" — add text or aria-label" if bad_links else ""))
+
+    bad_inputs = [
+        i for i in ext.inputs
+        if not (i["aria_label"] or i["aria_labelledby"] or i["wrapped"] or i["id"] in ext.labels_for)
+    ]
+    add("form-label", not bad_inputs,
+        f"{len(ext.inputs)} form fields, {len(bad_inputs)} without label (WCAG 4.1.2 / axe label)"
+        + (" — add <label for> or aria-label" if bad_inputs else ""))
+
+    bad_aria = sorted({a for a in ext.aria_attrs if a not in VALID_ARIA})
+    add("aria-valid", not bad_aria,
+        f"{len(ext.aria_attrs)} aria attributes"
+        + (f", invalid: {bad_aria[:5]} (WAI-ARIA 1.2 / axe aria-valid-attr)" if bad_aria
+           else " — all valid names (WAI-ARIA 1.2 / axe aria-valid-attr)"))
+
+    lm = []
+    if ext.landmark_main > 1:
+        lm.append(f"{ext.landmark_main} <main> elements")
+    unlabeled_navs = [l for l in ext.landmark_navs if not l]
+    if len(unlabeled_navs) > 1:
+        lm.append(f"{len(unlabeled_navs)} <nav> without distinct aria-label")
+    add("landmark-unique", not lm,
+        "; ".join(lm) if lm
+        else f"{ext.landmark_main} <main>, {len(ext.landmark_navs)} <nav> — unique (WCAG 1.3.1 / axe landmark-unique)")
+
+    return checks
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Static frontend meta/SEO/design-tokens audit")
+    ap = argparse.ArgumentParser(description="Static frontend meta/SEO/design-tokens/a11y audit")
     ap.add_argument("--html", required=True, help="Path to index.html")
     ap.add_argument("--css", nargs="+", required=True, help="CSS file(s) — globs expanded by shell")
     ap.add_argument("--out", help="Write JSON report to file")
@@ -331,6 +441,7 @@ def main():
     checks += audit_design_tokens(css, tokens_block=True)
     checks += audit_contrast(css)
     checks += audit_adaptive(css)
+    checks += audit_a11y(ext)
 
     violations = [c for c in checks if not c["ok"]]
     report = {
