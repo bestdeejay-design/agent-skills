@@ -1,6 +1,6 @@
 ---
 name: frontend-perfection
-description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'проверь вёрстку', 'довести фронтенд до идеала', 'og-image для соцсетей', 'SEO-мета слой', 'контраст цветов', 'дизайн-токены'."
+description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
 ---
 
 # frontend-perfection
