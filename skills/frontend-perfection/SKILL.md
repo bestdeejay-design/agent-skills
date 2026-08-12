@@ -20,6 +20,13 @@ before/after report bound to audit ids.
 - User reports contrast problems, missing SEO tags, broken anchors under a
   fixed header, colors duplicated as raw hex.
 
+## Composition
+
+- For Core Web Vitals / schema.org / SEO deep-dives — load `seo-toolkit` (this skill
+  measures layout, contrast, tokens and a11y; the SEO-layer breadth lives there).
+- For a distinctive visual DIRECTION before building — load `frontend-design-taste`
+  (palette/type/signature), then run this skill to verify the result.
+
 ## Workflow
 
 1. **Locate the project** — static files (index.html + css/) or built SPA.
