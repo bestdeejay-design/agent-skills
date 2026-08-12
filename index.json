@@ -245,9 +245,9 @@
   },
   {
    "name": "frontend-perfection",
-   "version": "1.2.0",
+   "version": "1.3.0",
    "category": "code",
-   "description": "Audit and polish frontend to verifiable perfection: real-Chrome Lighthouse >=13 runs via chrome-launcher + Node API (mobile+desktop, no Playwright internals, .default fallback, self-resolved deps — exits 0/1/2 with compact JSON report of failed audit ids), plus an offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks per axe-core: img-alt/button-name/link-name/form-label/aria-valid/landmark-unique, design tokens with zero raw hex outside the token block, fixed-header scroll-padding, breakpoints) and crop-safe OG-image generation (1200x630 with ~640px central safe zone, URL change instead of overwrite to bust social caches, forced reflow before screenshot). report.json is written per run; every fix binds to an audit id. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
+   "description": "Audit and polish frontend to verifiable perfection: real-Chrome Lighthouse >=13 runs via chrome-launcher + Node API (mobile+desktop, no Playwright internals, .default fallback, self-resolved deps — exits 0/1/2 with compact JSON report of failed audit ids), plus an offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks per axe-core (img-alt/button-name/link-name/form-label/aria-valid/landmark-unique), a nav:back-to-top check (logo link or floating scroll button required on long pages), design tokens with zero raw hex outside the token block, fixed-header scroll-padding, breakpoints) and crop-safe OG-image generation (1200x630 with ~640px central safe zone, URL change instead of overwrite to bust social caches, forced reflow before screenshot). report.json is written per run; every fix binds to an audit id. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
    "path": "skills/frontend-perfection",
    "triggers": [
     "frontend audit",

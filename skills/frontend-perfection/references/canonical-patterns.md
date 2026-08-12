@@ -99,3 +99,4 @@ ever assumed "just available".
 - WAI-ARIA 1.2: <https://www.w3.org/TR/wai-aria-1.2/>
 - axe-core rule catalog (Deque): <https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md>
 - MDN accessibility: <https://developer.mozilla.org/en-US/docs/Web/Accessibility>
+- WCAG 2.4.1 Bypass Blocks / back-to-top UX: <https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html> + Nielsen Norman 'Back to top' pattern

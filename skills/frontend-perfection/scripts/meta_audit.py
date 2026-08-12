@@ -98,6 +98,9 @@ class MetaExtractor(html.parser.HTMLParser):
         self.aria_attrs = []
         self.landmark_main = 0
         self.landmark_navs = []
+        self.ids = []
+        self.first_top_id = None
+        self.top_markers = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -121,6 +124,16 @@ class MetaExtractor(html.parser.HTMLParser):
         for k in attrs:
             if k.startswith("aria-"):
                 self.aria_attrs.append(k)
+        aid = attrs.get("id", "")
+        if aid:
+            self.ids.append(aid)
+        if tag in ("section", "header", "main") and self.first_top_id is None and aid:
+            self.first_top_id = aid
+        if tag != "html":
+            cls = (attrs.get("class", "") or "").lower()
+            lbl = (attrs.get("aria-label", "") or "").lower()
+            if re.search(r"(to-?top|scroll-?top|back-?to-?top|totop|^top$)", cls + " " + aid) or re.search(r"(back to top|to top|наверх|вверх)", lbl):
+                self.top_markers.append(tag)
         if tag == "title":
             self._in_title = True
         elif tag == "meta":
@@ -150,7 +163,7 @@ class MetaExtractor(html.parser.HTMLParser):
             if ptag == "button":
                 self.buttons.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby")})
             elif ptag == "a":
-                self.anchors.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby") or pattrs.get("title")})
+                self.anchors.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby") or pattrs.get("title"), "href": pattrs.get("href", "")})
         if tag == "title":
             self._in_title = False
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
@@ -408,6 +421,25 @@ def audit_a11y(ext):
     return checks
 
 
+def audit_nav(ext):
+    checks = []
+    top_ids = {"top", "cover", "hero", "home", "main"}
+    if ext.first_top_id:
+        top_ids.add(ext.first_top_id)
+    has_link = any(
+        a.get("href") in ("#", "#top") or a.get("href") == "#" + tid
+        for tid in top_ids for a in ext.anchors
+    )
+    has_btn = bool(ext.top_markers)
+    ok = has_link or has_btn
+    checks.append({
+        "id": "nav:back-to-top",
+        "ok": ok,
+        "detail": ("back-to-top present (logo link or scroll button)" if ok
+                   else "MISSING back-to-top: long pages need a way back — logo links to top and/or a floating scroll-to-top button (arrow in a circle, bottom-right, aria-label, appears after scroll)"),
+    })
+    return checks
+
 def main():
     ap = argparse.ArgumentParser(description="Static frontend meta/SEO/design-tokens/a11y audit")
     ap.add_argument("--html", required=True, help="Path to index.html")
@@ -441,7 +473,11 @@ def main():
     checks += audit_design_tokens(css, tokens_block=True)
     checks += audit_contrast(css)
     checks += audit_adaptive(css)
+
+
+
     checks += audit_a11y(ext)
+    checks += audit_nav(ext)
 
     violations = [c for c in checks if not c["ok"]]
     report = {

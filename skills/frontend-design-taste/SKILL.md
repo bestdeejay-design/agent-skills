@@ -93,6 +93,9 @@ that freedom on a default.
 ## Quality floor (handoff to frontend-perfection)
 
 - Responsive down to mobile; visible keyboard focus (`:focus-visible`); `prefers-reduced-motion` respected.
+- **Long pages need a way back to top**: the logo links to the top and/or a floating
+  scroll-to-top button (arrow in a circle, bottom-right, appears after scrolling,
+  `aria-label`, focusable). Enforced by `frontend-perfection` as `nav:back-to-top`.
 - Then verify measurably (this skill doesn't measure — hand to `frontend-perfection`):
   computed contrast ≥ 4.5:1, fonts actually loaded, theme toggle works, zero raw hex outside tokens.
 
