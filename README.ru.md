@@ -27,7 +27,7 @@
 - [📁 Структура репозитория](#sec-structure)
 - [🔍 Поиск скиллов](#sec-discovery)
 - [🛠 Добавление нового скилла](#sec-adding)
-- [📄 Лицензия](#sec-license) · [🤝 Контрибьютинг](#sec-contributing) · [🔒 Безопасность](#sec-security) · [📜 Кодекс поведения](#sec-coc)
+- [📄 Информация о проекте](#sec-project-info) — лицензия · контрибьютинг · безопасность · кодекс
 
 </details>
 
@@ -306,35 +306,16 @@ ls skills/<name>/SKILL.md skills/<name>/skill.json
 
 ---
 
-<a id="sec-license"></a>
+<a id="sec-project-info"></a>
 
-## 📄 Лицензия
+## 📄 Информация о проекте
 
-MIT License — см. [LICENSE](LICENSE).
-
----
-
-<a id="sec-contributing"></a>
-
-## 🤝 Контрибьютинг
-
-См. [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-<a id="sec-security"></a>
-
-## 🔒 Безопасность
-
-См. [SECURITY.md](SECURITY.md).
-
----
-
-<a id="sec-coc"></a>
-
-## 📜 Кодекс поведения
-
-См. [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
+| | |
+|---|---|
+| **Лицензия** | [MIT](LICENSE) |
+| **Контрибьютинг** | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| **Безопасность** | [SECURITY.md](SECURITY.md) |
+| **Кодекс поведения** | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Contributor Covenant 2.1 |
 
 ---
 

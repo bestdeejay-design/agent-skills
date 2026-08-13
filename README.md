@@ -27,7 +27,7 @@
 - [📁 Repository Structure](#sec-structure)
 - [🔍 Skill Discovery](#sec-discovery)
 - [🛠 Adding a New Skill](#sec-adding)
-- [📄 License](#sec-license) · [🤝 Contributing](#sec-contributing) · [🔒 Security](#sec-security) · [📜 Code of Conduct](#sec-coc)
+- [📄 Project Info](#sec-project-info) — license · contributing · security · code of conduct
 
 </details>
 
@@ -306,35 +306,16 @@ ls skills/<name>/SKILL.md skills/<name>/skill.json
 
 ---
 
-<a id="sec-license"></a>
+<a id="sec-project-info"></a>
 
-## 📄 License
+## 📄 Project Info
 
-MIT License — see [LICENSE](LICENSE).
-
----
-
-<a id="sec-contributing"></a>
-
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-<a id="sec-security"></a>
-
-## 🔒 Security
-
-See [SECURITY.md](SECURITY.md).
-
----
-
-<a id="sec-coc"></a>
-
-## 📜 Code of Conduct
-
-See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1).
+| | |
+|---|---|
+| **License** | [MIT](LICENSE) |
+| **Contributing** | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| **Security** | [SECURITY.md](SECURITY.md) |
+| **Code of Conduct** | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Contributor Covenant 2.1 |
 
 ---
 
