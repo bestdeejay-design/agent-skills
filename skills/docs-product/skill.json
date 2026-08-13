@@ -1,0 +1,25 @@
+{
+  "name": "docs-product",
+  "version": "1.0.0",
+  "description": "Product documentation branch — the 'why' and 'what' of a project: VISION.md, PRD.md, ROADMAP.md, FEATURES.md. Written from an idea forward, before engineering docs. Order: VISION -> PRD -> ROADMAP -> FEATURES. Full catalog + checklist in references/product-docs.md, templates in templates/. Triggers: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'фичи документация', 'product docs', 'требования к продукту', 'документация продукта'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["docs", "product", "vision", "prd", "roadmap", "features", "requirements", "documentation", "продуктовая документация"],
+  "triggers": [
+    "продуктовая документация",
+    "vision",
+    "prd",
+    "роадмап",
+    "roadmap",
+    "фичи документация",
+    "product docs",
+    "требования к продукту",
+    "документация продукта",
+    "продуктовые документы"
+  ],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "references/product-docs.md", "templates/VISION.tmpl", "templates/PRD.tmpl", "templates/ROADMAP.tmpl", "templates/FEATURES.tmpl"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
+}

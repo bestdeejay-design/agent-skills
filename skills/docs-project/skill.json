@@ -1,0 +1,24 @@
+{
+  "name": "docs-project",
+  "version": "1.0.0",
+  "description": "Project (engineering) documentation branch — the 'how': README, ENTRY, AGENT/DELIVERY runbooks, and docs/ (REFERENCE map, ARCHITECTURE, ADR, SAGA, TEST_CASES, DEV_GUIDE, IMPROVEMENTS, TROUBLESHOOTING, BACKLOG, REVIEW, STATUS) plus contracts/ (OpenAPI/AsyncAPI — machine truth written BEFORE code). The map rule: every doc gets a card in REFERENCE.md. Full catalog + checklist in references/project-docs.md. Triggers: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["docs", "project", "architecture", "adr", "contracts", "openapi", "asyncapi", "reference", "engineering", "проектная документация"],
+  "triggers": [
+    "проектная документация",
+    "архитектура документация",
+    "adr",
+    "engineering docs",
+    "документация разработчика",
+    "контракты openapi",
+    "project docs",
+    "инженерная документация",
+    "проектные документы"
+  ],
+  "category": "repository",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "references/project-docs.md", "templates/project/"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
+}

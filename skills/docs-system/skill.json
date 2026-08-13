@@ -1,42 +1,24 @@
 {
   "name": "docs-system",
-  "version": "1.0.0",
-  "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'.",
-  "author": "best",
+  "version": "2.0.0",
+  "description": "Meta-guide + router for documentation: the two branches (docs-product for 'why/what', docs-project for 'how'), the phase order, completeness levels L1/L2/L3, and the completeness checklist. Load a branch directly when the task is clearly product or engineering; load this skill for the big picture, ordering and completeness gates. Triggers: 'документация', 'набор документации', 'каталог документов', 'документация структура', 'полная документация', 'docs catalog', 'documentation structure', 'какую документацию писать'.",
+  "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": [
-    "documentation",
-    "docs",
-    "guide",
-    "product-docs",
-    "project-docs",
-    "templates",
-    "системная документация"
-  ],
+  "keywords": ["docs", "documentation", "system", "guide", "phases", "levels", "completeness", "документация", "каталог документов"],
   "triggers": [
     "документация",
     "набор документации",
     "каталог документов",
+    "документация структура",
+    "полная документация",
     "docs catalog",
     "documentation structure",
-    "из идеи в документацию",
-    "полная документация",
-    "docs for new project",
-    "documentation plan",
-    "системная документация"
+    "какую документацию писать",
+    "документация с нуля"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
-  "files": [
-    "SKILL.md",
-    "ROADMAP.md",
-    "references/*.md",
-    "templates/project/*.tmpl",
-    "templates/product/*.tmpl",
-    "examples/example-monorepo/README.md"
-  ],
-  "requirements": {
-    "tools": []
-  },
-  "updated": "2026-08-07"
+  "files": ["SKILL.md", "skill.json", "references/order.md", "references/levels.md", "references/completeness.md", "ROADMAP.md", "examples/example-monorepo/README.md"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
 }

@@ -261,22 +261,58 @@
    ]
   },
   {
-   "name": "docs-system",
+   "name": "docs-product",
    "version": "1.0.0",
    "category": "repository",
-   "description": "Гайд для AI-агента: как правильно составлять продуктовую и проектную документацию и её состав. Продуктовая ветка (VISION/PRD/ROADMAP/FEATURES) и проектная ветка (ARCHITECTURE/ADR/контракты/TEST_CASES/карта REFERENCE), порядок заполнения (фазы), шаблоны, чек-лист полноты, уровни L1/L2/L3 для больших систем. От идеи до полного набора документации. Триггеры: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'из идеи в документацию', 'полная документация', 'docs for new project', 'documentation plan', 'системная документация'.",
+   "description": "Product documentation branch — the 'why' and 'what' of a project: VISION.md, PRD.md, ROADMAP.md, FEATURES.md. Written from an idea forward, before engineering docs. Order: VISION -> PRD -> ROADMAP -> FEATURES. Full catalog + checklist in references/product-docs.md, templates in templates/. Triggers: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'фичи документация', 'product docs', 'требования к продукту', 'документация продукта'.",
+   "path": "skills/docs-product",
+   "triggers": [
+    "продуктовая документация",
+    "vision",
+    "prd",
+    "роадмап",
+    "roadmap",
+    "фичи документация",
+    "product docs",
+    "требования к продукту",
+    "документация продукта",
+    "продуктовые документы"
+   ]
+  },
+  {
+   "name": "docs-project",
+   "version": "1.0.0",
+   "category": "repository",
+   "description": "Project (engineering) documentation branch — the 'how': README, ENTRY, AGENT/DELIVERY runbooks, and docs/ (REFERENCE map, ARCHITECTURE, ADR, SAGA, TEST_CASES, DEV_GUIDE, IMPROVEMENTS, TROUBLESHOOTING, BACKLOG, REVIEW, STATUS) plus contracts/ (OpenAPI/AsyncAPI — machine truth written BEFORE code). The map rule: every doc gets a card in REFERENCE.md. Full catalog + checklist in references/project-docs.md. Triggers: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'.",
+   "path": "skills/docs-project",
+   "triggers": [
+    "проектная документация",
+    "архитектура документация",
+    "adr",
+    "engineering docs",
+    "документация разработчика",
+    "контракты openapi",
+    "project docs",
+    "инженерная документация",
+    "проектные документы"
+   ]
+  },
+  {
+   "name": "docs-system",
+   "version": "2.0.0",
+   "category": "repository",
+   "description": "Meta-guide + router for documentation: the two branches (docs-product for 'why/what', docs-project for 'how'), the phase order, completeness levels L1/L2/L3, and the completeness checklist. Load a branch directly when the task is clearly product or engineering; load this skill for the big picture, ordering and completeness gates. Triggers: 'документация', 'набор документации', 'каталог документов', 'документация структура', 'полная документация', 'docs catalog', 'documentation structure', 'какую документацию писать'.",
    "path": "skills/docs-system",
    "triggers": [
     "документация",
     "набор документации",
     "каталог документов",
+    "документация структура",
+    "полная документация",
     "docs catalog",
     "documentation structure",
-    "из идеи в документацию",
-    "полная документация",
-    "docs for new project",
-    "documentation plan",
-    "системная документация"
+    "какую документацию писать",
+    "документация с нуля"
    ]
   },
   {
