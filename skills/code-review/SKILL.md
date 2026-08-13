@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'."
+description: "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases, a11y) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'."
 license: MIT
 metadata:
   author: best
@@ -22,7 +22,7 @@ Use this skill when:
 - Нужно ревью PR/commit/diff перед мержем
 - Просят «проверь код», «найди баги», «замечания по коду»
 - Нужен чек-лист code quality перед релизом
-- Нужно быстро прогнать diff по категориям: correctness, security, performance, style, tests, edge cases
+- Нужно быстро прогнать diff по категориям: correctness, security, performance, style, tests, edge cases, a11y
 - Нужен структурированный комментарий к PR с severity и ссылками на файл:строку
 
 Do NOT use when:

@@ -1,7 +1,7 @@
 {
   "name": "code-review",
-  "version": "1.0.0",
-  "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
+  "version": "1.1.0",
+  "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases, a11y) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
   "author": "best",
   "license": "MIT",
   "keywords": [
@@ -45,5 +45,5 @@
     ],
     "script": "scripts/review.py"
   },
-  "updated": "2026-08-08"
+  "updated": "2026-08-13"
 }
