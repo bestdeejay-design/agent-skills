@@ -1,6 +1,9 @@
 <p align="center">
   <a href="https://github.com/bestdeejay-design" target="_blank">
-    <img src="assets/header.svg" alt="header" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
+      <img src="assets/header.svg" alt="Agent Skills — header" />
+    </picture>
   </a>
 </p>
 

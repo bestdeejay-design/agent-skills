@@ -32,9 +32,9 @@
     <path fill="#0ABAB5" opacity="0.85" d="M-600,290 L-600,228 Q-450,214 -300,228 T0,228 T300,228 T600,228 T900,228 T1200,228 T1500,228 T1800,228 L1800,228 L1800,290 Z">
       <animate attributeName="d" dur="6s" repeatCount="indefinite" begin="-1.200s" keyTimes="0;0.333;0.667;1" calcMode="spline" keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" values="M-600,290 L-600,228 Q-450,214 -300,228 T0,228 T300,228 T600,228 T900,228 T1200,228 T1500,228 T1800,228 L1800,228 L1800,290 Z;M-600,290 L-600,232.33012701892218 Q-450,220.4951905283833 -300,232.33012701892218 T0,232.33012701892218 T300,232.33012701892218 T600,232.33012701892218 T900,232.33012701892218 T1200,232.33012701892218 T1500,232.33012701892218 T1800,232.33012701892218 L1800,232.33012701892218 L1800,290 Z;M-600,290 L-600,223.66987298107782 Q-450,207.5048094716167 -300,223.66987298107782 T0,223.66987298107782 T300,223.66987298107782 T600,223.66987298107782 T900,223.66987298107782 T1200,223.66987298107782 T1500,223.66987298107782 T1800,223.66987298107782 L1800,223.66987298107782 L1800,290 Z;M-600,290 L-600,228 Q-450,214 -300,228 T0,228 T300,228 T600,228 T900,228 T1200,228 T1500,228 T1800,228 L1800,228 L1800,290 Z"/>
     </path>
-    <text x="602" y="104" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#FFFFFF" opacity="0">Agent Skills</text>
-    <text x="600" y="102" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#1b1f24">Agent Skills</text>
-    <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" text-anchor="middle" fill="#FFFFFF" opacity="0">43 skills · 5 categories</text>
-    <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" text-anchor="middle" fill="#1b1f24">43 skills · 5 categories</text>
+    <text x="602" y="104" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#000000" opacity="0.3">Agent Skills</text>
+    <text x="600" y="102" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#FFFFFF">Agent Skills</text>
+    <text x="602" y="162" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" text-anchor="middle" fill="#000000" opacity="0.3">43 skills · 5 categories</text>
+    <text x="600" y="160" font-family="'Helvetica Neue',Arial,sans-serif" font-size="26" text-anchor="middle" fill="#FFFFFF">43 skills · 5 categories</text>
   </g>
 </svg>
