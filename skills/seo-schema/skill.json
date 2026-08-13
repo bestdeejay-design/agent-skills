@@ -1,0 +1,25 @@
+{
+  "name": "seo-schema",
+  "version": "1.0.0",
+  "description": "Structured data and meta markup for SEO: JSON-LD schema.org (Product, Article, Organization, Breadcrumb, FAQ — extraction + validation) and title/description/OG/Twitter meta generation (lengths, uniqueness, CTR). Script seo_schema.py: --meta (title/description/OG/canonical/h1/img audit) and --jsonld (extract + validate JSON-LD blocks). Triggers: 'seo schema', 'json-ld', 'schema org', 'structured data', 'meta tags', 'title description', 'разметка', 'jsonld', 'структурированные данные', 'meta теги'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["seo", "schema", "json-ld", "structured-data", "meta", "og", "twitter-card", "разметка"],
+  "triggers": [
+    "seo schema",
+    "json-ld",
+    "schema org",
+    "structured data",
+    "meta tags",
+    "title description",
+    "разметка",
+    "jsonld",
+    "структурированные данные",
+    "meta теги"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "commands/seo-schema.md", "commands/seo-meta.md", "scripts/seo_schema.py"],
+  "requirements": {"tools": ["python3"], "script": "scripts/seo_schema.py"},
+  "updated": "2026-08-13"
+}

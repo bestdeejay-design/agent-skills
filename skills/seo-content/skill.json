@@ -1,0 +1,25 @@
+{
+  "name": "seo-content",
+  "version": "1.0.0",
+  "description": "Content and on-page SEO: thin content & duplicates, readability (Flesch-Kincaid), E-E-A-T signals; keyword density, cannibalization, LSI, long-tail, intent mapping; H1-H6 hierarchy and keywords in headings; image SEO (alt text, WebP/AVIF, lazy loading, dimensions, srcset). Script seo_content.py: keyword density + top terms (script/style stripped). Triggers: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'заголовки h1', 'оптимизация картинок'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["seo", "content", "keywords", "headings", "images", "readability", "density", "контент", "ключевые слова"],
+  "triggers": [
+    "seo content",
+    "content audit",
+    "keywords",
+    "keyword research",
+    "seo headings",
+    "image seo",
+    "контент аудит",
+    "ключевые слова",
+    "заголовки h1",
+    "оптимизация картинок"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "commands/seo-content.md", "commands/seo-keywords.md", "commands/seo-headings.md", "commands/seo-images.md", "scripts/seo_content.py"],
+  "requirements": {"tools": ["python3"], "script": "scripts/seo_content.py"},
+  "updated": "2026-08-13"
+}

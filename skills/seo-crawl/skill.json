@@ -1,0 +1,25 @@
+{
+  "name": "seo-crawl",
+  "version": "1.0.0",
+  "description": "Crawlability and site structure for SEO: robots.txt, noindex, canonical, redirect chains, sitemap.xml; internal linking, click depth, orphan pages, URL hierarchy, breadcrumbs; competitor comparison (gaps, overlapping keywords, content gaps). Commands documented in commands/. Triggers: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'конкуренты seo', 'краулинг'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["seo", "crawl", "robots", "sitemap", "structure", "linking", "competitor", "краулинг", "индексация"],
+  "triggers": [
+    "seo crawl",
+    "crawlability",
+    "robots txt",
+    "site structure",
+    "URL structure",
+    "competitor seo",
+    "индексация",
+    "структура сайта",
+    "конкуренты seo",
+    "краулинг"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "commands/seo-crawl.md", "commands/seo-structure.md", "commands/seo-compare.md"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
+}

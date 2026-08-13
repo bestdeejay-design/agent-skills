@@ -1,0 +1,25 @@
+{
+  "name": "seo-audit",
+  "version": "1.0.0",
+  "description": "Technical SEO audit and health: full technical audit (meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure), Core Web Vitals (LCP/CLS/INP, blocking resources, unused CSS/JS, caching), a comprehensive scored report (7 dimensions, weighted 100%), and the autonomous fix agent (P1-P5 prioritization, diff-before-apply). Commands documented in commands/. Triggers: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["seo", "audit", "core-web-vitals", "speed", "report", "fix", "technical", "аудит", "сео"],
+  "triggers": [
+    "seo audit",
+    "technical audit",
+    "core web vitals",
+    "site speed",
+    "seo report",
+    "seo fix",
+    "технический аудит",
+    "проверка seo",
+    "скорость сайта",
+    "сео аудит"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "commands/seo-audit.md", "commands/seo-speed.md", "commands/seo-report.md", "commands/seo-fix.md"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
+}

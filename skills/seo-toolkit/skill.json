@@ -1,71 +1,19 @@
 {
   "name": "seo-toolkit",
-  "version": "1.0.0",
-  "description": "13 SEO commands for AI agents: technical audit, Core Web Vitals, crawlability, schema.org, keywords, meta tags, content analysis, images, reports, competitor comparison, and autonomous fixes. Works in URL mode (fetch external sites) and file mode (analyze local project). Canonical patterns: weighted scoring, P1-P5 prioritization, diff-before-apply safety, dual URL/FS modes.",
-  "author": "skills-sh",
+  "version": "2.0.0",
+  "description": "DEPRECATED meta-skill. Routes to the four focused SEO skills that replaced it: seo-audit (technical audit + Core Web Vitals + report + fixes), seo-schema (JSON-LD + meta/OG/Twitter), seo-content (content + keywords + headings + images), seo-crawl (crawlability + structure + competitors). Load one of the four directly instead. Triggers: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'.",
+  "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": [
-    "seo",
-    "audit",
-    "core-web-vitals",
-    "schema-org",
-    "keywords",
-    "meta-tags",
-    "content-analysis",
-    "sitemap",
-    "robots-txt",
-    "json-ld",
-    "crawlability",
-    "competitor-analysis"
-  ],
+  "keywords": ["deprecated", "router", "seo", "toolkit"],
   "triggers": [
-    "seo audit",
-    "seo report",
-    "core web vitals",
-    "schema org",
-    "json-ld",
-    "keywords analysis",
-    "meta tags",
-    "content audit",
-    "sitemap",
-    "robots txt",
-    "crawlability",
-    "competitor seo",
-    "seo fix"
+    "seo",
+    "сео",
+    "seo toolkit",
+    "поисковая оптимизация"
   ],
   "category": "media",
   "entrypoint": "SKILL.md",
-  "files": [
-    "SKILL.md",
-    "skill.json",
-    "scripts/seo_toolkit.py",
-    "references/canonical-patterns.md",
-    "commands/seo-audit.md",
-    "commands/seo-speed.md",
-    "commands/seo-structure.md",
-    "commands/seo-crawl.md",
-    "commands/seo-schema.md",
-    "commands/seo-keywords.md",
-    "commands/seo-meta.md",
-    "commands/seo-headings.md",
-    "commands/seo-content.md",
-    "commands/seo-images.md",
-    "commands/seo-report.md",
-    "commands/seo-compare.md",
-    "commands/seo-fix.md"
-  ],
-  "requirements": {
-    "tools": [
-      "python3",
-      "curl",
-      "jq"
-    ],
-    "script": "scripts/seo_toolkit.py",
-    "permissions": [
-      "network:fetch",
-      "file:read",
-      "file:write"
-    ]
-  },
-  "updated": "2026-08-09"
+  "files": ["SKILL.md", "skill.json", "references/canonical-patterns.md", "scripts/seo_toolkit.py"],
+  "requirements": {"tools": ["python3"], "script": "scripts/seo_toolkit.py"},
+  "updated": "2026-08-13"
 }

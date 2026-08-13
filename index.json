@@ -616,25 +616,92 @@
    ]
   },
   {
-   "name": "seo-toolkit",
+   "name": "seo-audit",
    "version": "1.0.0",
    "category": "media",
-   "description": "13 SEO commands for AI agents: technical audit, Core Web Vitals, crawlability, schema.org, keywords, meta tags, content analysis, images, reports, competitor comparison, and autonomous fixes. Works in URL mode (fetch external sites) and file mode (analyze local project). Canonical patterns: weighted scoring, P1-P5 prioritization, diff-before-apply safety, dual URL/FS modes.",
-   "path": "skills/seo-toolkit",
+   "description": "Technical SEO audit and health: full technical audit (meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure), Core Web Vitals (LCP/CLS/INP, blocking resources, unused CSS/JS, caching), a comprehensive scored report (7 dimensions, weighted 100%), and the autonomous fix agent (P1-P5 prioritization, diff-before-apply). Commands documented in commands/. Triggers: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'.",
+   "path": "skills/seo-audit",
    "triggers": [
     "seo audit",
-    "seo report",
+    "technical audit",
     "core web vitals",
-    "schema org",
-    "json-ld",
-    "keywords analysis",
-    "meta tags",
+    "site speed",
+    "seo report",
+    "seo fix",
+    "технический аудит",
+    "проверка seo",
+    "скорость сайта",
+    "сео аудит"
+   ]
+  },
+  {
+   "name": "seo-content",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Content and on-page SEO: thin content & duplicates, readability (Flesch-Kincaid), E-E-A-T signals; keyword density, cannibalization, LSI, long-tail, intent mapping; H1-H6 hierarchy and keywords in headings; image SEO (alt text, WebP/AVIF, lazy loading, dimensions, srcset). Script seo_content.py: keyword density + top terms (script/style stripped). Triggers: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'заголовки h1', 'оптимизация картинок'.",
+   "path": "skills/seo-content",
+   "triggers": [
+    "seo content",
     "content audit",
-    "sitemap",
-    "robots txt",
+    "keywords",
+    "keyword research",
+    "seo headings",
+    "image seo",
+    "контент аудит",
+    "ключевые слова",
+    "заголовки h1",
+    "оптимизация картинок"
+   ]
+  },
+  {
+   "name": "seo-crawl",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Crawlability and site structure for SEO: robots.txt, noindex, canonical, redirect chains, sitemap.xml; internal linking, click depth, orphan pages, URL hierarchy, breadcrumbs; competitor comparison (gaps, overlapping keywords, content gaps). Commands documented in commands/. Triggers: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'конкуренты seo', 'краулинг'.",
+   "path": "skills/seo-crawl",
+   "triggers": [
+    "seo crawl",
     "crawlability",
+    "robots txt",
+    "site structure",
+    "URL structure",
     "competitor seo",
-    "seo fix"
+    "индексация",
+    "структура сайта",
+    "конкуренты seo",
+    "краулинг"
+   ]
+  },
+  {
+   "name": "seo-schema",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Structured data and meta markup for SEO: JSON-LD schema.org (Product, Article, Organization, Breadcrumb, FAQ — extraction + validation) and title/description/OG/Twitter meta generation (lengths, uniqueness, CTR). Script seo_schema.py: --meta (title/description/OG/canonical/h1/img audit) and --jsonld (extract + validate JSON-LD blocks). Triggers: 'seo schema', 'json-ld', 'schema org', 'structured data', 'meta tags', 'title description', 'разметка', 'jsonld', 'структурированные данные', 'meta теги'.",
+   "path": "skills/seo-schema",
+   "triggers": [
+    "seo schema",
+    "json-ld",
+    "schema org",
+    "structured data",
+    "meta tags",
+    "title description",
+    "разметка",
+    "jsonld",
+    "структурированные данные",
+    "meta теги"
+   ]
+  },
+  {
+   "name": "seo-toolkit",
+   "version": "2.0.0",
+   "category": "media",
+   "description": "DEPRECATED meta-skill. Routes to the four focused SEO skills that replaced it: seo-audit (technical audit + Core Web Vitals + report + fixes), seo-schema (JSON-LD + meta/OG/Twitter), seo-content (content + keywords + headings + images), seo-crawl (crawlability + structure + competitors). Load one of the four directly instead. Triggers: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'.",
+   "path": "skills/seo-toolkit",
+   "triggers": [
+    "seo",
+    "сео",
+    "seo toolkit",
+    "поисковая оптимизация"
    ]
   },
   {
