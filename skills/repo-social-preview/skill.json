@@ -1,10 +1,19 @@
 {
   "name": "repo-social-preview",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["social-preview", "og-image", "open-graph", "og:image", "preview", "png", "pillow", "repository"],
+  "keywords": [
+    "social-preview",
+    "og-image",
+    "open-graph",
+    "og:image",
+    "preview",
+    "png",
+    "pillow",
+    "repository"
+  ],
   "triggers": [
     "social preview",
     "og image",
@@ -12,7 +21,12 @@
     "social share image",
     "repo preview png",
     "open graph image",
-    "github social preview"
+    "github social preview",
+    "соц превью",
+    "og картинка",
+    "превью для соцсетей",
+    "картинка для шеринга",
+    "ог изображение"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
@@ -22,8 +36,11 @@
     "references/social-preview.md"
   ],
   "requirements": {
-    "tools": ["python3", "pip"],
+    "tools": [
+      "python3",
+      "pip"
+    ],
     "script": "scripts/generate_social_preview.py"
   },
-  "updated": "2026-08-12"
+  "updated": "2026-08-13"
 }

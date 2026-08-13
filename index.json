@@ -226,7 +226,7 @@
   },
   {
    "name": "frontend-design-taste",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "category": "media",
    "description": "Give a website a distinctive, deliberate visual direction that does not read as templated AI output. Grounds in the subject, proposes a compact token system (palette 4-6 hexes, display/body/utility type roles, layout concept, ONE signature element), runs a uniqueness gate against the three AI-default looks, and rewrites copy from the user's side of the screen. Includes a condensed worked example (ishotgirls). No scripts. Triggers: 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design', 'signature element'.",
    "path": "skills/frontend-design-taste",
@@ -240,12 +240,19 @@
     "aesthetic direction",
     "design brief",
     "anti-templated design",
-    "signature element"
+    "signature element",
+    "сделай красиво",
+    "дизайн-направление",
+    "не как у всех",
+    "переделай со вкусом",
+    "визуальный стиль",
+    "палитра и шрифты",
+    "стиль сайта"
    ]
   },
   {
    "name": "frontend-perfection",
-   "version": "1.3.0",
+   "version": "1.3.1",
    "category": "code",
    "description": "Audit and polish frontend to verifiable perfection: real-Chrome Lighthouse >=13 runs via chrome-launcher + Node API (mobile+desktop, no Playwright internals, .default fallback, self-resolved deps — exits 0/1/2 with compact JSON report of failed audit ids), plus an offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks per axe-core (img-alt/button-name/link-name/form-label/aria-valid/landmark-unique), a nav:back-to-top check (logo link or floating scroll button required on long pages), design tokens with zero raw hex outside the token block, fixed-header scroll-padding, breakpoints) and crop-safe OG-image generation (1200x630 with ~640px central safe zone, URL change instead of overwrite to bust social caches, forced reflow before screenshot). report.json is written per run; every fix binds to an audit id. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
    "path": "skills/frontend-perfection",
@@ -261,7 +268,15 @@
     "og image",
     "social share meta",
     "contrast check",
-    "design tokens"
+    "design tokens",
+    "проверь вёрстку",
+    "довести фронтенд до идеала",
+    "аудит страницы",
+    "контраст цветов",
+    "дизайн-токены",
+    "SEO-мета слой",
+    "ог картинка",
+    "проверка доступности"
    ]
   },
   {
@@ -371,7 +386,7 @@
   },
   {
    "name": "repo-community-files",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "category": "repository",
    "description": "Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. Triggers: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'support file', 'issue template', 'pr template', 'funding yml', 'community files', 'repo legal files', 'contributor covenant'.",
    "path": "skills/repo-community-files",
@@ -386,12 +401,19 @@
     "funding yml",
     "community files",
     "repo legal files",
-    "contributor covenant"
+    "contributor covenant",
+    "лицензия",
+    "код поведения",
+    "политика безопасности",
+    "шаблоны issue",
+    "шаблон pr",
+    "community файлы",
+    "оформить лицензию"
    ]
   },
   {
    "name": "repo-metadata-health",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "category": "repository",
    "description": "Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). Triggers: 'repo description', 'repo topics', 'github topics', 'github pages', 'community health', 'repo audit', 'repo metadata', 'repo checklist', 'health percentage', 'repo about'.",
    "path": "skills/repo-metadata-health",
@@ -405,12 +427,17 @@
     "repo metadata",
     "repo checklist",
     "health percentage",
-    "repo about"
+    "repo about",
+    "описание репозитория",
+    "теги для гитхаба",
+    "аудит репозитория",
+    "метаданные репо",
+    "здоровье репозитория"
    ]
   },
   {
    "name": "repo-readme-assets",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "category": "repository",
    "description": "README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). Triggers: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'readme visual', 'smil animation', 'repo header', 'readme footer', 'readme generator', 'update readme', 'readme badges'.",
    "path": "skills/repo-readme-assets",
@@ -426,12 +453,18 @@
     "readme footer",
     "readme generator",
     "update readme",
-    "readme badges"
+    "readme badges",
+    "шапка readme",
+    "оформить readme",
+    "анимированный svg",
+    "баннер для гитхаба",
+    "визуальное оформление репозитория",
+    "пресеты оформления"
    ]
   },
   {
    "name": "repo-social-preview",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "category": "repository",
    "description": "Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
    "path": "skills/repo-social-preview",
@@ -442,7 +475,12 @@
     "social share image",
     "repo preview png",
     "open graph image",
-    "github social preview"
+    "github social preview",
+    "соц превью",
+    "og картинка",
+    "превью для соцсетей",
+    "картинка для шеринга",
+    "ог изображение"
    ]
   },
   {

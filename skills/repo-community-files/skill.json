@@ -1,10 +1,21 @@
 {
   "name": "repo-community-files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. Triggers: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'support file', 'issue template', 'pr template', 'funding yml', 'community files', 'repo legal files', 'contributor covenant'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["license", "code-of-conduct", "contributing", "security", "support", "issue-template", "pr-template", "community-health", "github", "repository"],
+  "keywords": [
+    "license",
+    "code-of-conduct",
+    "contributing",
+    "security",
+    "support",
+    "issue-template",
+    "pr-template",
+    "community-health",
+    "github",
+    "repository"
+  ],
   "triggers": [
     "license file",
     "code of conduct",
@@ -16,7 +27,14 @@
     "funding yml",
     "community files",
     "repo legal files",
-    "contributor covenant"
+    "contributor covenant",
+    "лицензия",
+    "код поведения",
+    "политика безопасности",
+    "шаблоны issue",
+    "шаблон pr",
+    "community файлы",
+    "оформить лицензию"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
@@ -24,8 +42,10 @@
     "SKILL.md"
   ],
   "requirements": {
-    "tools": ["gh"],
+    "tools": [
+      "gh"
+    ],
     "script": null
   },
-  "updated": "2026-08-12"
+  "updated": "2026-08-13"
 }

@@ -1,10 +1,21 @@
 {
   "name": "repo-readme-assets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). Triggers: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'readme visual', 'smil animation', 'repo header', 'readme footer', 'readme generator', 'update readme', 'readme badges'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["readme", "header", "footer", "svg", "animation", "smil", "banner", "assets", "github", "repository"],
+  "keywords": [
+    "readme",
+    "header",
+    "footer",
+    "svg",
+    "animation",
+    "smil",
+    "banner",
+    "assets",
+    "github",
+    "repository"
+  ],
   "triggers": [
     "readme header",
     "animated svg",
@@ -17,7 +28,13 @@
     "readme footer",
     "readme generator",
     "update readme",
-    "readme badges"
+    "readme badges",
+    "шапка readme",
+    "оформить readme",
+    "анимированный svg",
+    "баннер для гитхаба",
+    "визуальное оформление репозитория",
+    "пресеты оформления"
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
@@ -32,8 +49,10 @@
     "references/canonical-patterns.md"
   ],
   "requirements": {
-    "tools": ["python3"],
+    "tools": [
+      "python3"
+    ],
     "script": "scripts/generate_assets.py"
   },
-  "updated": "2026-08-12"
+  "updated": "2026-08-13"
 }
