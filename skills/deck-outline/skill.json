@@ -1,0 +1,25 @@
+{
+  "name": "deck-outline",
+  "version": "1.0.0",
+  "description": "Build the slide outline and structure for a presentation from a topic or prompt: parameters (n_slides, language, tone, verbosity), content rules (one idea per slide, no bold/italic, no URLs, no emoji — SVG icons only), layout mapping (content -> title/table/chart/comparison/process/metrics...), auto-layout selection. Output: outline.md + a JSON spec consumed by deck-html and deck-pptx. Triggers: 'план презентации', 'структура слайдов', 'аутлайн презентации', 'раскадровка', 'сценарий презентации', 'outline slides', 'slide structure', 'deck outline', 'составь структуру доклада'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["presentation", "outline", "slides", "structure", "deck", "layout", "раскадровка", "структура", "аутлайн"],
+  "triggers": [
+    "план презентации",
+    "структура слайдов",
+    "аутлайн презентации",
+    "раскадровка",
+    "сценарий презентации",
+    "outline slides",
+    "slide structure",
+    "deck outline",
+    "составь структуру доклада",
+    "structure the deck"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
+}

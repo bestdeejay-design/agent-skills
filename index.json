@@ -185,6 +185,61 @@
    ]
   },
   {
+   "name": "deck-html",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Build autonomous HTML slides (16:9) from a presentation JSON spec produced by deck-outline: pick a theme + palette, then build_html.py copies templates/slides.html, injects the palette into :root CSS variables and replaces the layout blocks. Mandatory verification gate: verify_slides.py in real Chromium (Playwright) — overflow/text-clipping/layout/navigation checks, exit 0/1 — plus a visual pass and the product-designer review checklist. Triggers: 'сделай слайды', 'слайды html', 'презентация html', 'html slides', '16:9 слайды', 'собрать слайды', 'build slides', 'сверстать презентацию'.",
+   "path": "skills/deck-html",
+   "triggers": [
+    "сделай слайды",
+    "слайды html",
+    "презентация html",
+    "html slides",
+    "16:9 слайды",
+    "собрать слайды",
+    "build slides",
+    "сверстать презентацию",
+    "slides from outline"
+   ]
+  },
+  {
+   "name": "deck-outline",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Build the slide outline and structure for a presentation from a topic or prompt: parameters (n_slides, language, tone, verbosity), content rules (one idea per slide, no bold/italic, no URLs, no emoji — SVG icons only), layout mapping (content -> title/table/chart/comparison/process/metrics...), auto-layout selection. Output: outline.md + a JSON spec consumed by deck-html and deck-pptx. Triggers: 'план презентации', 'структура слайдов', 'аутлайн презентации', 'раскадровка', 'сценарий презентации', 'outline slides', 'slide structure', 'deck outline', 'составь структуру доклада'.",
+   "path": "skills/deck-outline",
+   "triggers": [
+    "план презентации",
+    "структура слайдов",
+    "аутлайн презентации",
+    "раскадровка",
+    "сценарий презентации",
+    "outline slides",
+    "slide structure",
+    "deck outline",
+    "составь структуру доклада",
+    "structure the deck"
+   ]
+  },
+  {
+   "name": "deck-pptx",
+   "version": "1.0.0",
+   "category": "media",
+   "description": "Build a real PowerPoint (.pptx) from a presentation JSON spec produced by deck-outline: slide list with types/content + palette. Script build_pptx.py draws layouts via python-pptx — textboxes for titles/bullets, TrueTable tables, CategoryChartData charts, palette-colored backgrounds. Triggers: 'сделай pptx', 'pptx', 'powerpoint', 'презентация в powerpoint', 'собрать pptx', 'build pptx', 'конвертировать в pptx', 'отдать в pptx'.",
+   "path": "skills/deck-pptx",
+   "triggers": [
+    "сделай pptx",
+    "pptx",
+    "powerpoint",
+    "презентация в powerpoint",
+    "собрать pptx",
+    "build pptx",
+    "конвертировать в pptx",
+    "отдать в pptx",
+    "ppt from spec"
+   ]
+  },
+  {
    "name": "diagram-maker",
    "version": "1.0.0",
    "category": "data",
@@ -350,20 +405,16 @@
   },
   {
    "name": "presentation-maker",
-   "version": "1.1.0",
+   "version": "2.0.0",
    "category": "media",
-   "description": "Создавай презентации из темы или промпта: структура-аутлайн, слайды 16:9 и готовый .pptx. Используй, когда нужна презентация, доклад, слайды для обучения или питча — как замену серчеру слайдов. Триггеры: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад', 'презентация для', 'сделай слайды по теме', 'generate slides', 'make a deck'.",
+   "description": "DEPRECATED meta-skill. Routes to the three focused deck skills that replaced it: deck-outline (slide structure from a topic -> JSON spec), deck-html (autonomous 16:9 slides.html + verification), deck-pptx (PowerPoint from the spec). Load one of the three directly instead. Triggers: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад'.",
    "path": "skills/presentation-maker",
    "triggers": [
     "сделай презентацию",
     "presentation",
     "слайды",
     "pptx",
-    "сделай доклад",
-    "презентация для",
-    "сделай слайды по теме",
-    "generate slides",
-    "make a deck"
+    "сделай доклад"
    ]
   },
   {

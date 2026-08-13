@@ -1,53 +1,20 @@
 {
   "name": "presentation-maker",
-  "version": "1.1.0",
-  "description": "Создавай презентации из темы или промпта: структура-аутлайн, слайды 16:9 и готовый .pptx. Используй, когда нужна презентация, доклад, слайды для обучения или питча — как замену серчеру слайдов. Триггеры: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад', 'презентация для', 'сделай слайды по теме', 'generate slides', 'make a deck'.",
-  "author": "best",
+  "version": "2.0.0",
+  "description": "DEPRECATED meta-skill. Routes to the three focused deck skills that replaced it: deck-outline (slide structure from a topic -> JSON spec), deck-html (autonomous 16:9 slides.html + verification), deck-pptx (PowerPoint from the spec). Load one of the three directly instead. Triggers: 'сделай презентацию', 'presentation', 'слайды', 'pptx', 'сделай доклад'.",
+  "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": [
-    "presentation",
-    "slides",
-    "pptx",
-    "html",
-    "markdown",
-    "generator",
-    "design-system",
-    "product-design"
-  ],
+  "keywords": ["deprecated", "router", "presentation", "deck", "slides"],
   "triggers": [
     "сделай презентацию",
     "presentation",
     "слайды",
     "pptx",
-    "сделай доклад",
-    "презентация для",
-    "сделай слайды по теме",
-    "generate slides",
-    "make a deck"
+    "сделай доклад"
   ],
   "category": "media",
   "entrypoint": "SKILL.md",
-  "files": [
-    "SKILL.md",
-    "scripts/build_html.py",
-    "scripts/build_pptx.py",
-    "scripts/verify_slides.py",
-    "templates/slides.html",
-    "templates/themes/*.json",
-    "templates/icons/*.svg",
-    "references/design-system.md",
-    "references/product-designer.md"
-  ],
-  "requirements": {
-    "tools": [
-      "python3",
-      "python-pptx"
-    ],
-    "fonts": [
-      "Inter",
-      "Outfit",
-      "Satoshi"
-    ]
-  },
-  "updated": "2026-08-07"
+  "files": ["SKILL.md", "skill.json"],
+  "requirements": {"tools": [], "script": null},
+  "updated": "2026-08-13"
 }
