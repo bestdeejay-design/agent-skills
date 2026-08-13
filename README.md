@@ -12,62 +12,122 @@
 [![Skills: 43](https://img.shields.io/badge/Skills-43-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--12-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--13-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
+[![code: 13](https://img.shields.io/badge/code-13-2F81F7.svg)](README.md#cat-code) [![data: 6](https://img.shields.io/badge/data-6-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
+<details>
+<summary><b>📑 Table of Contents</b></summary>
+
+- [📦 Skill Catalog](#sec-catalog) — 43 skills · 5 categories
+- [🎬 Showcase](#sec-showcase) — real-project examples
+- [🚀 Installation](#sec-installation)
+- [📁 Repository Structure](#sec-structure)
+- [🔍 Skill Discovery](#sec-discovery)
+- [🛠 Adding a New Skill](#sec-adding)
+- [📄 License](#sec-license) · [🤝 Contributing](#sec-contributing) · [🔒 Security](#sec-security) · [📜 Code of Conduct](#sec-coc)
+
+</details>
+
 ---
+
+<a id="sec-catalog"></a>
 
 ## 📦 Skill Catalog
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
 
-| Skill | Category | Description | Triggers |
-|-------|----------|-------------|----------|
-| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | `repository` | **DEPRECATED** — router skill. Split into four focused skills: repo-readme-assets, repo-community-files, repo-metadata-health, repo-social-preview. Load one of those directly. | `github hygiene`, `repo polish`, `github repo docs` |
-| [**repo-readme-assets**](skills/repo-readme-assets/SKILL.md) | `repository` | README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). | `readme header`, `animated svg`, `waving svg`, `svg banner`, `readme assets`, `readme visual`, `smil animation`, `repo header`, `readme footer`, `readme generator`, `update readme`, `readme badges` |
-| [**repo-community-files**](skills/repo-community-files/SKILL.md) | `repository` | Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. | `license file`, `code of conduct`, `contributing guide`, `security policy`, `support file`, `issue template`, `pr template`, `funding yml`, `community files`, `repo legal files`, `contributor covenant` |
-| [**repo-metadata-health**](skills/repo-metadata-health/SKILL.md) | `repository` | Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). | `repo description`, `repo topics`, `github topics`, `github pages`, `community health`, `repo audit`, `repo metadata`, `repo checklist`, `health percentage`, `repo about` |
-| [**repo-social-preview**](skills/repo-social-preview/SKILL.md) | `repository` | Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). | `social preview`, `og image`, `og:image`, `social share image`, `repo preview png`, `open graph image`, `github social preview` |
-| [**test-graphics**](skills/test-graphics/SKILL.md) | `media` | Generates test images, photos, icons, placeholders via Python + free APIs (loremflickr, placehold.co, picsum.dev, Lucide). | `test images`, `placeholder`, `test pictures`, `icons for test`, `stubs`, `mock data images`, `generate photo` |
-| [**reddit-karma**](skills/reddit-karma/SKILL.md) | `social` | Systematic Reddit karma building for your account: topic search, response drafting, tone detection, thank-you templates, routine runs. Configure your username, subreddits and target resource. | `reddit`, `karma`, `r/LocalLLaMA`, `build karma`, `reply to comments`, `reddit run`, `leave trace` |
-| [**presentation-maker**](skills/presentation-maker/SKILL.md) | `media` | **DEPRECATED** — router skill. Split into three focused deck skills: deck-outline, deck-html, deck-pptx. Load one of those directly. | `сделай презентацию`, `presentation`, `слайды`, `pptx`, `сделай доклад` |
-| [**deck-outline**](skills/deck-outline/SKILL.md) | `media` | Build slide structure/outline/layouts from a topic into outline.md + a JSON spec (parameters, content rules, no emoji icons, layout mapping, auto-layout). Consumed by deck-html and deck-pptx. | `структура слайдов`, `аутлайн презентации`, `раскадровка`, `outline slides`, `deck outline`, `план презентации` |
-| [**deck-html**](skills/deck-html/SKILL.md) | `media` | Build autonomous 16:9 HTML slides from the JSON spec: theme + palette, build_html.py (copies template, injects :root palette), mandatory verify_slides.py gate (Playwright) + visual + product-design review. | `сделай слайды`, `слайды html`, `html slides`, `16:9 слайды`, `build slides`, `сверстать презентацию` |
-| [**deck-pptx**](skills/deck-pptx/SKILL.md) | `media` | Build a real .pptx from the JSON spec via python-pptx (textboxes, TrueTable, CategoryChartData charts, palette backgrounds). | `сделай pptx`, `pptx`, `powerpoint`, `собрать pptx`, `build pptx`, `отдать в pptx` |
-| [**docs-system**](skills/docs-system/SKILL.md) | `repository` | **Meta-guide + router** for documentation: two branches (docs-product «why/what», docs-project «how»), phase order, levels L1/L2/L3, completeness checklist. Load a branch directly for focused work. | `документация`, `набор документации`, `docs catalog`, `documentation structure`, `какую документацию писать` |
-| [**docs-product**](skills/docs-product/SKILL.md) | `repository` | Product documentation branch — «why» and «what»: VISION → PRD → ROADMAP → FEATURES. Written from an idea forward, before engineering docs. Templates + checklist included. | `продуктовая документация`, `vision`, `prd`, `роадмап`, `roadmap`, `product docs`, `требования к продукту` |
-| [**docs-project**](skills/docs-project/SKILL.md) | `repository` | Project (engineering) documentation branch — «how»: README, ENTRY, ARCHITECTURE, ADR, contracts (OpenAPI/AsyncAPI before code), tests, REFERENCE map. Templates + checklist included. | `проектная документация`, `архитектура документация`, `adr`, `engineering docs`, `контракты openapi`, `project docs` |
-| [**commit-message-writer**](skills/commit-message-writer/SKILL.md) | `code` | Generates Conventional Commits messages from `git diff --staged`: type inferred from changed files, scope from paths, short summary, optional body. `suggest.py` (Python 3) only analyzes staged changes, never commits. | `commit message`, `write commit`, `git commit`, `conventional commit`, `[сообщение коммита]`, `[написать коммит]`, `[закоммитить]` |
-| [**code-review**](skills/code-review/SKILL.md) | `code` | Structured code review: reads a git diff or path to repo/file, applies checklists by category (correctness, security, performance, style, tests, edge cases) and emits `[severity] file:line` findings with suggested fixes. Analysis only — makes no edits. | `code review`, `[ревью кода]`, `review PR`, `[проверь код]`, `pull request review`, `code quality`, `[найти баги]`, `review commit` |
-| [**diagram-maker**](skills/diagram-maker/SKILL.md) | `data` | Generates diagrams from a text description: flowchart, sequence, architecture, ER — in Mermaid syntax. Input: natural language; output: Mermaid code + rendering recommendation (mermaid.live / mermaid-cli / MCP). | `diagram`, `mermaid`, `flowchart`, `[диаграмма]`, `sequence diagram`, `[архитектура]`, `[ER-схема]`, `draw a diagram` |
-| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | `data` | Renders `.mmd` Mermaid diagrams to PNG/SVG: local `mmdc` (mermaid-cli) preferred, mermaid.ink API fallback; engine/background/scale options, file or stdin. | `mermaid в картинку`, `отрендерить диаграмму`, `render diagram`, `диаграмма в svg`, `mermaid to image` |
-| [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | `media` | Builds PDF reports from Markdown: HTML via pandoc (or built-in converter), PDF via first available engine — Chrome/Chromium headless, weasyprint, or pandoc+PDF engine. Tables/code/quotes supported. | `отчёт в pdf`, `markdown в pdf`, `собери отчёт`, `pdf report`, `document to pdf` |
-| [**skill-suggester**](skills/skill-suggester/SKILL.md) | `code` | Recommends a skill from the library for a user task: reads `index.json`, scores triggers and descriptions, returns top-5 with relevance plus combos of up to 3 skills. | `which skill`, `[какой скилл использовать]`, `suggest skill`, `[подбор скилла]`, `[рекомендовать скилл]`, `[какой навык]` |
-| [**api-doc-generator**](skills/api-doc-generator/SKILL.md) | `repository` | Renders REST API documentation from an OpenAPI 3.x schema (incl. 3.1.0) to Markdown: per-endpoint sections with method/path/params/request/response codes. FastAPI via `app.openapi()`; Express via swagger-jsdoc. | `api doc`, `openapi`, `swagger in markdown`, `api reference`, `document endpoints`, `описать API` |
-| [**changelog-generator**](skills/changelog-generator/SKILL.md) | `repository` | Generates a Keep a Changelog section from git history (Conventional Commits): git log tag..HEAD, type mapping feat→Added/fix→Fixed/perf→Changed, breaking into its own section. Python 3 stdlib. | `changelog`, `generate changelog`, `release notes`, `история изменений`, `keep a changelog` |
-| [**plan-skill**](skills/plan-skill/SKILL.md) | `code` | Implementation planning per `obra/superpowers` v2: brainstorming → writing-plans → executing → verification; HARD-GATE, bite-sized steps, no placeholders, Interfaces (Produces/Consumes). `plan_validator.py` checks the plan is execution-ready. | `спланируй`, `составь план`, `plan`, `разбей на шаги`, `roadmap`, `write a plan` |
-| [**systematic-debugger**](skills/systematic-debugger/SKILL.md) | `code` | Hypothesis-driven debugging per Iron Law: reproduce → hypotheses → isolate root cause → minimal fix + regression test. Red Flags, Rationalization Table. `debug_log.py` renders a phase report. | `debug`, `отладить`, `почему не работает`, `баг`, `debugging`, `fix the bug` |
-| [**test-generator**](skills/test-generator/SKILL.md) | `code` | Generates pytest skeletons from a Python module AST with ghostwriter-style arg heuristics (bool→True/False, int→0/-1/1, str→sample/empty, list/dict→empty, Optional→None). `@pytest.mark.parametrize` scaffolding; TS/Go references. | `generate tests`, `сгенерируй тесты`, `test skeleton`, `pytest скелет`, `покрытие тестами` |
-| [**video-script-writer**](skills/video-script-writer/SKILL.md) | `media` | Generates structured video scripts from a topic: Hook → Body (5 scenes: Problem/Basics/Walkthrough/Pitfalls/Pro tip) → CTA, timecodes table, ru/en, custom CTA, full script or outline. | `сценарий видео`, `video script`, `напиши сценарий`, `план видео`, `video outline` |
-| [**sql-helper**](skills/sql-helper/SKILL.md) | `data` | Generates SQL from a text question + DDL schema: in-memory sqlite3 schema from DDL, question words mapped to tables/columns, intent templates (select/join/where/group/order/count/limit), every candidate checked via EXPLAIN, readable plan with `--explain`. | `sql helper`, `sql генерация`, `сгенерируй sql`, `explain запроса`, `sql formatting` |
-| [**csv-pro**](skills/csv-pro/SKILL.md) | `data` | Profiles CSV files: column types, min/max/mean, missing, unique, top-3 frequent; anomaly detection (zero variance, >95% empty, duplicate rows, >1000-char rows, ≥5×IQR outliers); markdown or JSON output; delimiter detection, file or stdin. | `csv profile`, `профиль csv`, `анализ csv`, `аномалии csv`, `csv anomalies` |
-| [**web-scraper**](skills/web-scraper/SKILL.md) | `data` | Polite HTML scraping to Markdown/JSON: simple CSS selector (tag/tag#id/tag.class), text/links/tables extraction; legal guardrails — robots.txt check, honest User-Agent, request delay, 10 MB page limit. | `web scraping`, `скраппинг`, `скачать данные с сайта`, `парсинг сайта`, `scrape` |
-| [**data-analysis**](skills/data-analysis/SKILL.md) | `data` | Profiles datasets (CSV or JSON array): field types, count/unique/missing, min/max/mean/std, mode + top-N, 5-bin histogram, top-3 Pearson correlations, anomalies, recommendations; markdown or JSON report. | `data analysis`, `анализ данных`, `профиль датасета`, `статистика данных`, `eda` |
-| [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | `media` | **DEPRECATED** — router skill. Split into four focused SEO skills: seo-audit, seo-schema, seo-content, seo-crawl. Load one of those directly. | `seo`, `сео`, `seo toolkit`, `поисковая оптимизация` |
-| [**seo-audit**](skills/seo-audit/SKILL.md) | `media` | Technical SEO health: full audit (meta/headings/alt/broken links/sitemap/robots/canonical), Core Web Vitals, scored report (7 dimensions), autonomous P1–P5 fixes. | `seo audit`, `technical audit`, `core web vitals`, `site speed`, `seo report`, `seo fix`, `технический аудит`, `проверка seo` |
-| [**seo-schema**](skills/seo-schema/SKILL.md) | `media` | Structured data & meta: JSON-LD schema.org (Product/Article/Organization/Breadcrumb/FAQ — extract+validate) and title/description/OG/Twitter meta. Script: seo_schema.py. | `seo schema`, `json-ld`, `schema org`, `structured data`, `meta tags`, `title description`, `разметка`, `jsonld` |
-| [**seo-content**](skills/seo-content/SKILL.md) | `media` | On-page content: thin/duplicates, readability, E-E-A-T; keywords (density, cannibalization, LSI, long-tail); H1–H6 hierarchy; image SEO (alt, WebP/AVIF, lazy, srcset). Script: seo_content.py. | `seo content`, `content audit`, `keywords`, `keyword research`, `seo headings`, `image seo`, `контент аудит`, `ключевые слова` |
-| [**seo-crawl**](skills/seo-crawl/SKILL.md) | `media` | Crawlability & structure: robots.txt, noindex, canonical, redirects, sitemap; internal linking, click depth, orphan pages, breadcrumbs; competitor comparison. | `seo crawl`, `crawlability`, `robots txt`, `site structure`, `URL structure`, `competitor seo`, `индексация`, `структура сайта` |
-| [**secret-scanner**](skills/secret-scanner/SKILL.md) | `code` | Static secret/token scanning for codebases and git repos: AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs via gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline, JSON/Markdown/text reports, redaction, CI exit-code gate. | `secret scan`, `проверь секреты`, `leaked token`, `scan for keys`, `hardcoded credentials` |
-| [**security-review**](skills/security-review/SKILL.md) | `code` | Security review orchestrator: lockfile inventory (npm/pip/cargo/go/gem/maven/gradle/composer), exit-code classifier for 13 sca tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), JSON normalizer to one unified finding schema, reports. Stdlib-only, offline, OWASP-aligned. | `security review`, `audit dependencies`, `lockfile audit`, `проверь зависимости`, `osv-scanner`, `уязвимости` |
-| [**version-bumper**](skills/version-bumper/SKILL.md) | `code` | Deterministic semver bump from git history: reads git tags (fallback `0.0.0`), counts feat/fix/breaking in Conventional Commits range, suggests bump (major/minor/patch) + release tag, `-s` deterministic mode. Stdlib-only, offline, read-only. Closes the loop for `commit-message-writer`/`changelog-generator`. | `version bump`, `next version`, `semver`, `release tag`, `какая следующая версия`, `определи версию`, `next release version` |
-| [**commit-lint**](skills/commit-lint/SKILL.md) | `code` | Conventional Commits v1.0.0 validation: reads `git log` (or stdin), parses type/scope/subject, reports violations (missing/invalid type, case, subject/header/body length, trailing dot), text/JSON report, exit 0/1/2. Stdlib-only, offline, read-only. Local commitlint analog. | `commit lint`, `lint commits`, `conventional commits`, `check commit messages`, `проверка коммитов`, `валидация коммитов`, `commit style check` |
-| [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | `code` | Test coverage analysis from coverage.py XML/JSON reports: statement/line/branch coverage, per-file breakdown with files below threshold, total percentage, actionable recommendations. Stdlib-only, offline. Pairs with `test-generator`. | `coverage`, `coverage analysis`, `coverage report`, `test coverage`, `покрытие кода`, `анализ покрытия`, `branch coverage` |
-| [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | `code` | API contract validation against OpenAPI 3.x spec (JSON/YAML, built-in YAML subset parser, no PyYAML): enumerates paths + webhooks, checks internal consistency ($refs, duplicates, missing responses), compares endpoint manifest offline, live mode probes HTTP statuses. JSON report, exit 0/1/2. Stdlib-only. Pairs with `api-doc-generator`. | `api contract testing`, `contract test`, `validate openapi spec`, `spec vs manifest`, `endpoint coverage`, `проверь контракт API`, `тест контракта` |
-| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | `code` | Frontend audit & polish to verifiable perfection: real Chrome through chrome-launcher + Lighthouse ≥13 Node API (mobile+desktop, no Playwright internals, `.default` fallback, self-resolved deps, exit 0/1/2, compact JSON with failed audit ids); offline Python-stdlib static audit (SEO meta layer, WCAG contrast by computed luminance, heading order, design tokens — zero raw hex outside tokens, scroll-padding under fixed header, breakpoints); crop-safe OG-image generation (1200×630 with ~640px central safe zone, rename not overwrite to bust social caches, forced reflow before capture). Every fix binds to an audit id. | `frontend audit`, `lighthouse check`, `make it 100/100/100/100`, `perfect the layout`, `og image`, `contrast check`, `design tokens`, `проверь вёрстку`, `довести фронтенд до идеала` |
-| [**frontend-design-taste**](skills/frontend-design-taste/SKILL.md) | `media` | Give a website a distinctive visual direction that does not read as templated AI: subject grounding, token system (palette/type/layout/signature), uniqueness gate vs the three AI-default looks, user-side copy. Adapted from anthropics/skills, worked example included. | `design direction`, `design taste`, `make it look good`, `redesign with taste`, `visual identity`, `aesthetic direction`, `design brief` |
+**43 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+
+| Category | Skills | What's inside |
+|----------|:------:|---------------|
+| 💻 [Development & Code](#cat-code) | 13 | commits, review, debugging, tests, coverage, security, planning, frontend |
+| 📊 [Data & Diagrams](#cat-data) | 6 | profiling, SQL, diagrams, scraping |
+| 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
+| 🏗️ [Repository & Docs](#cat-repository) | 10 | README, community files, metadata, documentation, API docs |
+| 💬 [Social](#cat-social) | 1 | Reddit |
+
+<a id="cat-code"></a>
+
+### 💻 Development & Code · `code` · 13
+
+| Skill | Purpose |
+|-------|---------|
+| [**commit-message-writer**](skills/commit-message-writer/SKILL.md) | Conventional Commits message from `git diff --staged`: type/scope inferred, summary + optional body. |
+| [**commit-lint**](skills/commit-lint/SKILL.md) | Validates commit messages against Conventional Commits v1.0.0 (type, scope, lengths, capitalization); text/JSON report, exit 0/1/2. |
+| [**version-bumper**](skills/version-bumper/SKILL.md) | Deterministic next semver + release tag from git history (feat/fix/breaking); `-s` mode, read-only. |
+| [**code-review**](skills/code-review/SKILL.md) | Structured review of a diff/repo: checklists by category (correctness, security, performance, style, tests, edge cases), `[severity] file:line` findings. Analysis only — no edits. |
+| [**systematic-debugger**](skills/systematic-debugger/SKILL.md) | Hypothesis-driven debugging (Iron Law): reproduce → hypotheses → root cause → minimal fix + regression test; Red Flags, phase report. |
+| [**test-generator**](skills/test-generator/SKILL.md) | pytest skeletons from a Python module AST with ghostwriter arg heuristics; parametrize scaffolding, TS/Go references. |
+| [**coverage-analyzer**](skills/coverage-analyzer/SKILL.md) | Coverage analysis from coverage.py XML: total line/branch %, zero-coverage files, worst-10, delta vs baseline, PASS/FAIL gate. |
+| [**secret-scanner**](skills/secret-scanner/SKILL.md) | Static secret scan (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, keys, JWTs): gitleaks patterns + Shannon entropy + allowlists; offline, redaction, CI exit-code. |
+| [**security-review**](skills/security-review/SKILL.md) | Security review orchestrator: lockfile inventory + exit-code classifier for 13 scanners (semgrep, bandit, gitleaks, osv-scanner, trivy, grype…) into one finding schema; OWASP-aligned. |
+| [**plan-skill**](skills/plan-skill/SKILL.md) | Implementation planning (superpowers v2): brainstorm → plan → execute → verify; HARD-GATE, bite-sized steps, no placeholders; validator script. |
+| [**skill-suggester**](skills/skill-suggester/SKILL.md) | Recommends the right skill from this library for a task: scores `index.json` triggers/descriptions, top-5 + combos of up to 3. |
+| [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | Validates an API contract against OpenAPI 3.x (offline manifest check + live HTTP probes); JSON report, exit 0/1/2. |
+| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Frontend audit & polish to verifiable perfection: real-Chrome Lighthouse ≥13 (mobile+desktop), offline meta/SEO/WCAG/token audit, OG-image generation. |
+
+<a id="cat-data"></a>
+
+### 📊 Data & Diagrams · `data` · 6
+
+| Skill | Purpose |
+|-------|---------|
+| [**csv-pro**](skills/csv-pro/SKILL.md) | CSV profiling: column types, statistics, anomalies (empty/duplicates/outliers), delimiter auto-detect; markdown/JSON. |
+| [**data-analysis**](skills/data-analysis/SKILL.md) | Dataset profiling (CSV/JSON): field stats, modes, histograms, top Pearson correlations, anomalies + recommendations. |
+| [**sql-helper**](skills/sql-helper/SKILL.md) | SQL from a text question + DDL: in-memory sqlite schema, intent templates, every candidate verified via EXPLAIN. |
+| [**diagram-maker**](skills/diagram-maker/SKILL.md) | Diagrams from a text description in Mermaid syntax: flowchart, sequence, architecture, ER + rendering advice. |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
+| [**web-scraper**](skills/web-scraper/SKILL.md) | Polite HTML scraping to Markdown/JSON: CSS selectors, text/links/tables; legal guardrails — robots.txt, honest UA, rate limit. |
+
+<a id="cat-media"></a>
+
+### 🎬 Content & Media · `media` · 13
+
+| Skill | Purpose |
+|-------|---------|
+| [**deck-outline**](skills/deck-outline/SKILL.md) | Slide structure from a topic → `outline.md` + JSON spec (params, content rules, layouts) consumed by deck-html/deck-pptx. |
+| [**deck-html**](skills/deck-html/SKILL.md) | Autonomous 16:9 HTML slides from the JSON spec: theme + palette, build script, mandatory Playwright verification gate. |
+| [**deck-pptx**](skills/deck-pptx/SKILL.md) | Real PowerPoint `.pptx` from the JSON spec via python-pptx: textboxes, charts, palette backgrounds. |
+| [**video-script-writer**](skills/video-script-writer/SKILL.md) | Structured video script: Hook → Body (5 timed scenes) → CTA; timecodes, ru/en, full script or outline. |
+| [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown → PDF report: HTML via pandoc/built-in converter, PDF via Chrome headless / weasyprint / pandoc; tables, code, quotes. |
+| [**test-graphics**](skills/test-graphics/SKILL.md) | Test images, placeholders, icons, avatars for mocks/staging/e2e: Python + free APIs (loremflickr, placehold.co, picsum, Lucide). |
+| [**frontend-design-taste**](skills/frontend-design-taste/SKILL.md) | Distinctive visual direction that doesn't read as templated AI: subject grounding, token system, uniqueness gate, user-side copy. |
+| [**seo-audit**](skills/seo-audit/SKILL.md) | Technical SEO audit: meta/headings/alt/links/sitemap/robots, Core Web Vitals, scored report (7 dimensions), autonomous P1–P5 fixes. |
+| [**seo-schema**](skills/seo-schema/SKILL.md) | Structured data & meta: JSON-LD schema.org (Product/Article/Organization/Breadcrumb/FAQ) + title/description/OG/Twitter. |
+| [**seo-content**](skills/seo-content/SKILL.md) | On-page content: thin/duplicates, readability, E-E-A-T, keywords (density, cannibalization, LSI, long-tail), heading hierarchy, image SEO. |
+| [**seo-crawl**](skills/seo-crawl/SKILL.md) | Crawlability: robots.txt, noindex, canonical, redirects, sitemap, internal linking, click depth, orphan pages, competitor comparison. |
+| [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Deprecated router** → use [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
+| [**presentation-maker**](skills/presentation-maker/SKILL.md) | ⚠️ **Deprecated router** → use [deck-outline](skills/deck-outline/SKILL.md) / [deck-html](skills/deck-html/SKILL.md) / [deck-pptx](skills/deck-pptx/SKILL.md). |
+
+<a id="cat-repository"></a>
+
+### 🏗️ Repository & Docs · `repository` · 10
+
+| Skill | Purpose |
+|-------|---------|
+| [**repo-readme-assets**](skills/repo-readme-assets/SKILL.md) | README.md (EN) + localized mirror + local animated SVG header/footer (4 presets), zero external services. |
+| [**repo-community-files**](skills/repo-community-files/SKILL.md) | Community/legal files: LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, SUPPORT, issue/PR templates, FUNDING; drives Community Health. |
+| [**repo-metadata-health**](skills/repo-metadata-health/SKILL.md) | Repo metadata & health: description, topics (≤20), Pages link, Community Health % via gh API + 16-point checklist. |
+| [**repo-social-preview**](skills/repo-social-preview/SKILL.md) | GitHub social preview (og:image) PNG 1280×640: header + waves, <1 MB, solid background recommended. |
+| [**api-doc-generator**](skills/api-doc-generator/SKILL.md) | REST API docs in Markdown from OpenAPI 3.x: per-endpoint sections (method, params, request/response); FastAPI/Express references. |
+| [**changelog-generator**](skills/changelog-generator/SKILL.md) | Keep a Changelog section from git history (Conventional Commits): tag..HEAD, type mapping, dates, commit links. |
+| [**docs-system**](skills/docs-system/SKILL.md) | Meta-guide + router for documentation: product branch (why/what) vs project branch (how), phases, L1–L3 levels, completeness checklist. |
+| [**docs-product**](skills/docs-product/SKILL.md) | Product docs branch — «why» and «what»: VISION → PRD → ROADMAP → FEATURES, from an idea forward; templates + checklist. |
+| [**docs-project**](skills/docs-project/SKILL.md) | Engineering docs branch — «how»: README, ENTRY, ARCHITECTURE, ADR, contracts (OpenAPI/AsyncAPI), tests, REFERENCE map; templates + checklist. |
+| [**github-repo-hygiene**](skills/github-repo-hygiene/SKILL.md) | ⚠️ **Deprecated router** → use [repo-readme-assets](skills/repo-readme-assets/SKILL.md) / [repo-community-files](skills/repo-community-files/SKILL.md) / [repo-metadata-health](skills/repo-metadata-health/SKILL.md) / [repo-social-preview](skills/repo-social-preview/SKILL.md). |
+
+<a id="cat-social"></a>
+
+### 💬 Social · `social` · 1
+
+| Skill | Purpose |
+|-------|---------|
+| [**reddit-karma**](skills/reddit-karma/SKILL.md) | Systematic Reddit karma building: topic search, tone-aware replies, thank-you templates, routine runs; configurable for your account. |
+
+<a id="sec-showcase"></a>
 
 ## 🎬 Showcase — real-project examples
 
@@ -90,6 +150,8 @@
 | [`frontend-perfection`](docs/showcase/showcase-frontend-perfection-lovii.md) | lovii_demo | Real-Chrome Lighthouse across form factors (mobile 94/96/100/91, desktop 72/96/100/91) + offline meta audit (17 checks, 12 violations: meta layer, tokens, contrast, scroll-padding) |
 
 ---
+
+<a id="sec-installation"></a>
 
 ## 🚀 Installation
 
@@ -119,157 +181,49 @@ Agent can parse `index.json` to discover skills by triggers/categories and load 
 
 ---
 
+<a id="sec-structure"></a>
+
 ## 📁 Repository Structure
 
 ```
 agent-skills/
-├── index.json                 # Repository manifest (search/catalog)
-├── README.md                  # This file (English)
-├── README.ru.md               # Russian mirror
-├── CHANGELOG.md               # Keep a Changelog
-├── LICENSE                    # MIT License
-├── CONTRIBUTING.md            # How to add/update skills
-├── SECURITY.md                # Security policy
-├── SUPPORT.md                 # Where to get help
-├── CODE_OF_CONDUCT.md         # Contributor Covenant 2.1
-├── FUNDING.yml                # Sponsor button
-├── og-image.png               # Social preview (1280x640)
+├── index.json                 # Master catalog: name, version, category, description, triggers
+├── README.md · README.ru.md   # This document (EN / RU mirror)
+├── CHANGELOG.md · LICENSE · CONTRIBUTING.md · SECURITY.md · SUPPORT.md · CODE_OF_CONDUCT.md · FUNDING.yml
+├── og-image.png               # Social preview 1280×640
+├── assets/                    # README header/footer SVG
 ├── docs/
-│   └── SKILLS_CATALOG.md      # Ecosystem catalog (vendors, formats, gaps)
+│   ├── SKILLS_CATALOG.md      # AI agent skills ecosystem catalog
+│   ├── showcase/              # Real-project demonstrations (+ template)
+│   └── plans/                 # Planning documents
 ├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.yml     # Issue form (bug)
-│   │   └── feature_request.yml # Issue form (feature)
-│   ├── pull_request_template.md
-│   ├── release.yml            # Auto-generated release notes config
-│   └── workflows/
-│       └── validate-skills.yml # CI: JSON schema, cross-check, Python syntax
-└── skills/
-    ├── github-repo-hygiene/
-    │   ├── SKILL.md
-    │   └── skill.json
-    ├── test-graphics/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/test-graphics.py
-    ├── reddit-karma/
-    │   ├── SKILL.md
-    │   └── skill.json
-    ├── presentation-maker/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   ├── references/
-    │   │   ├── design-system.md
-    │   │   └── product-designer.md
-    │   ├── scripts/
-    │   │   ├── build_html.py
-    │   │   ├── build_pptx.py
-    │   │   └── verify_slides.py
-    │   ├── templates/
-    │   │   ├── slides.html
-    │   │   ├── themes/*.json
-    │   │   └── icons/*.svg
-    └── docs-system/
-        ├── SKILL.md
-        ├── skill.json
-        ├── ROADMAP.md
-        ├── references/
-        │   ├── product-docs.md
-        │   ├── project-docs.md
-        │   ├── order.md
-        │   ├── completeness.md
-        │   └── levels.md
-        ├── templates/
-        │   ├── product/   (VISION.tmpl, PRD.tmpl, ROADMAP.tmpl)
-        │   └── project/   (14 *.tmpl)
-        └── examples/example-monorepo/README.md
-    ├── commit-message-writer/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/suggest.py
-    ├── code-review/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   ├── scripts/
-    │   │   ├── review.py
-    │   │   └── checklists.py
-    │   ├── templates/review-template.md
-    │   └── examples/example-pr.md
-    ├── diagram-maker/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   ├── scripts/mermaid_to_markdown.py
-    │   ├── templates/ (flowchart.mmd, sequence.mmd, architecture.mmd, er.mmd)
-    │   └── examples/ (example-cart-flow.mmd, example-billing-seq.mmd)
-    ├── mermaid-to-image/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/mermaid_to_image.py
-    ├── pdf-report-builder/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/pdf_report_builder.py
-    ├── skill-suggester/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/skill_suggest.py
-    ├── video-script-writer/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/video_script_writer.py
-    ├── api-doc-generator/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/api_doc.py
-    ├── changelog-generator/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/changelog_gen.py
-    ├── plan-skill/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   ├── scripts/plan_validator.py
-    │   ├── templates/implementation-plan.md
-    │   └── examples/implementation-plan-example.md
-    ├── systematic-debugger/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/debug_log.py
-    ├── test-generator/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/test_gen.py
-    ├── sql-helper/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/sql_helper.py
-    ├── csv-pro/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/csv_pro.py
-    ├── data-analysis/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/data_analyze.py
-    ├── web-scraper/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   └── scripts/scrape.py
-    ├── seo-toolkit/
-    │   ├── SKILL.md
-    │   ├── skill.json
-    │   ├── references/canonical-patterns.md
-    │   ├── scripts/seo_toolkit.py
-    │   └── commands/ (13 × seo-*.md)
-    └── frontend-perfection/
-        ├── SKILL.md
-        ├── skill.json
-        ├── references/canonical-patterns.md
-        ├── scripts/audit.js
-        └── scripts/meta_audit.py
+│   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
+│   └── workflows/validate-skills.yml   # CI: manifest validation
+└── skills/                    # 43 skills, one folder each
+    └── <skill-name>/
+        ├── SKILL.md           # Agent instruction (required)
+        ├── skill.json         # Manifest: name, version, triggers, files (required)
+        ├── scripts/           # Executable helpers (Python/JS)
+        ├── templates/         # Reusable templates
+        └── references/        # Deep-dive materials
 ```
 
+**Skill folder anatomy** (example — `code-review`):
+
+```
+skills/code-review/
+├── SKILL.md              # Agent instruction: intro → steps → examples → constraints
+├── skill.json            # Manifest: name, version, category, triggers, files
+├── scripts/              # review.py, checklists.py
+├── templates/            # review-template.md
+└── examples/             # example-pr.md
+```
+
+> Only `SKILL.md` and `skill.json` are required — everything else is optional and depends on the skill.
+
 ---
+
+<a id="sec-discovery"></a>
 
 ## 🔍 Skill Discovery
 
@@ -286,6 +240,8 @@ matches = [s for s in data['skills'] if 'presentation' in ' '.join(s['triggers']
 ```
 
 ---
+
+<a id="sec-adding"></a>
 
 ## 🛠 Adding a New Skill
 
@@ -350,11 +306,15 @@ ls skills/<name>/SKILL.md skills/<name>/skill.json
 
 ---
 
+<a id="sec-license"></a>
+
 ## 📄 License
 
 MIT License — see [LICENSE](LICENSE).
 
 ---
+
+<a id="sec-contributing"></a>
 
 ## 🤝 Contributing
 
@@ -362,11 +322,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
+<a id="sec-security"></a>
+
 ## 🔒 Security
 
 See [SECURITY.md](SECURITY.md).
 
 ---
+
+<a id="sec-coc"></a>
 
 ## 📜 Code of Conduct
 
