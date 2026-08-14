@@ -4,7 +4,7 @@ description: "README.md (EN) + localized mirror + local animated SVG header/foot
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "Requires python3 (stdlib only) for generation/validation"
 ---
 

@@ -1,7 +1,7 @@
 {
  "name": "agent-skills",
  "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
- "version": "1.7.2",
+ "version": "1.8.0",
  "author": "best",
  "license": "MIT",
  "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -110,8 +110,8 @@
    ]
   },
   {
-   "name": "commit-message-writer",
-   "version": "1.0.0",
+"name": "commit-message-writer",
+    "version": "1.1.0",
    "category": "code",
    "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
    "path": "skills/commit-message-writer",
@@ -240,8 +240,8 @@
    ]
   },
   {
-   "name": "diagram-maker",
-   "version": "1.0.0",
+"name": "diagram-maker",
+    "version": "1.1.0",
    "category": "data",
    "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
    "path": "skills/diagram-maker",
@@ -382,10 +382,27 @@
     "github repo docs",
     "оформить репозиторий",
     "репозиторий готов к публикации"
-   ]
-  },
-  {
-   "name": "mermaid-to-image",
+    ]
+   },
+   {
+    "name": "long-running-agent-workflow",
+    "version": "1.0.0",
+    "category": "code",
+    "description": "Structured protocol for AI agents across many context windows: a .lra/ atomic feature list (id/priority/acceptance criteria/status) plus a progress log, a session protocol (read context → pick one feature → implement → test → checkpoint) and recovery from broken states. Triggers: 'lra', 'checkpoint', 'feature list', 'long running', 'продолжи работу', 'долгая сессия', 'план фич', 'статус проекта'.",
+    "path": "skills/long-running-agent-workflow",
+    "triggers": [
+     "lra",
+     "checkpoint",
+     "feature list",
+     "long running",
+     "продолжи работу",
+     "долгая сессия",
+     "план фич",
+     "статус проекта"
+    ]
+   },
+   {
+    "name": "mermaid-to-image",
    "version": "1.0.0",
    "category": "data",
    "description": "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скрипт mermaid_to_image.py читает .mmd (файл или stdin) и отдаёт изображение: приоритет локальному mmdc (mermaid-cli), fallback на публичный API mermaid.ink. Поддерживает выбор формата (svg/png), фоновый цвет, масштаб PNG, движок рендера (auto/mmdc/ink), вывод в файл или stdout. Триггеры: 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'mermaid to image', 'render diagram', 'диаграмма в svg', 'схема в картинку'.",

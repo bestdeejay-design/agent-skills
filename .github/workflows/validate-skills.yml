@@ -8,44 +8,15 @@ on:
 
 jobs:
   validate:
-    name: Validate skill manifests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Validate index.json syntax
-        run: |
-          python3 -m json.tool index.json >/dev/null
-          echo "✅ index.json is valid JSON"
-
-      - name: Validate manifests, cross-check, SKILL.md presence
-        run: |
-          python3 .github/workflows/validate_skills.py
-
-      - name: Validate presentation-maker scripts syntax
-        if: always()
-        run: |
-          if [ -d "skills/presentation-maker/scripts" ]; then
-            for f in skills/presentation-maker/scripts/*.py; do
-              python3 -m py_compile "$f"
-              echo "✅ $f syntax OK"
-            done
-          fi
-
-      - name: Summary
-        if: always()
-        run: |
-          echo "## Validation Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- index.json: ✅" >> $GITHUB_STEP_SUMMARY
-          for skill in skills/*/skill.json; do
-            name=$(basename $(dirname $skill))
-            echo "- $name: ✅" >> $GITHUB_STEP_SUMMARY
-          done
-          echo "- SKILL.md files: ✅" >> $GITHUB_STEP_SUMMARY
-          echo "- Python scripts: ✅" >> $GITHUB_STEP_SUMMARY
+      - name: Validate skills
+        run: python3 scripts/validate_skills.py --all

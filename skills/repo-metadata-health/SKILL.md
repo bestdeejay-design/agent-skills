@@ -4,7 +4,7 @@ description: "Audit and update GitHub repository metadata and community health: 
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "Requires gh CLI and network access to api.github.com for metadata checks; python3 (stdlib) for validate_repo.py"
 ---
 

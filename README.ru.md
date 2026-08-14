@@ -12,19 +12,19 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 43](https://img.shields.io/badge/Skills-43-blue.svg)](index.json)
+[![Skills: 44](https://img.shields.io/badge/Skills-44-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--12-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
-[![code: 13](https://img.shields.io/badge/code-13-2F81F7.svg)](README.md#cat-code) [![data: 6](https://img.shields.io/badge/data-6-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
+[![code: 14](https://img.shields.io/badge/code-14-2F81F7.svg)](README.md#cat-code) [![data: 6](https://img.shields.io/badge/data-6-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
 <details>
 <summary><b>📑 Оглавление</b></summary>
 
-- [📦 Каталог скиллов](#sec-catalog) — 43 скилла · 5 категорий
+- [📦 Каталог скиллов](#sec-catalog) — 44 скилла · 5 категорий
 - [🎬 Showcase](#sec-showcase) — примеры на реальных проектах
 - [🚀 Установка](#sec-installation)
 - [📁 Структура репозитория](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Карта экосистемы: см. [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — каталог экосистемы AI agent skills (официальные вендоры, форматы, стандарты, ~4.85M файлов SKILL.md, пробелы и рекомендации).
 
-**43 скилла · 5 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
+**44 скилла · 5 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
 
 | Категория | Скиллов | Что входит |
 |-----------|:-------:|------------|
@@ -202,7 +202,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: валидация манифестов
-└── skills/                    # 43 скилла, по папке на каждый
+└── skills/                    # 44 скилла, по папке на каждый
     └── <skill-name>/
         ├── SKILL.md           # Инструкция для агента (обязательно)
         ├── skill.json         # Манифест: name, version, triggers, files (обязательно)

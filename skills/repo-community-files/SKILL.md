@@ -4,7 +4,7 @@ description: "Create and maintain repository community/legal files: LICENSE, COD
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts; gh CLI optional for org-level defaults"
 ---
 

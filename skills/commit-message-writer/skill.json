@@ -1,6 +1,6 @@
 {
   "name": "commit-message-writer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
   "author": "best",
   "license": "MIT",

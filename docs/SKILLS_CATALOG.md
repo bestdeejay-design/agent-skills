@@ -278,3 +278,30 @@
 - https://skills.sh/schemas/skills.sh.schema.json — схема skills.sh.json
 - https://developers.openai.com/codex/skills — формат Codex skills (plugin.json)
 - https://registry.modelcontextprotocol.io — MCP Registry
+
+---
+
+## 9. Каталог скиллов библиотеки `agent-skills`
+
+Структурированный обзор скиллов самой библиотеки, сгруппированный по категориям (полный список и триггеры — в `index.json`). Категория `code` охватывает инженерные скиллы: линтинг/коммиты, ревью, тесты, безопасность, планирование и долгосрочные рабочие процессы агента.
+
+### 9.1 `code` — инженерные скиллы
+
+| Скилл | Версия | Назначение |
+|---|---|---|
+| `api-contract-testing` | 1.0.0 | Валидация API-контракта против OpenAPI 3.x + манифест эндпоинтов |
+| `code-review` | 1.1.0 | Структурированный code review по чек-листу (без правок) |
+| `commit-lint` | 1.0.0 | Проверка commit-сообщений по Conventional Commits |
+| `commit-message-writer` | 1.0.0 | Оформление staged-изменений в Conventional Commit |
+| `coverage-analyzer` | 1.0.0 | Разбор coverage.xml в читаемый отчёт с порогом |
+| `frontend-perfection` | 1.3.1 | Аудит и полировка фронтенда до Lighthouse/доступности |
+| `long-running-agent-workflow` | 1.0.0 | LRA-протокол для многосессионных проектов: `.lra/` feature-list + прогресс-лог, чекпоинты и восстановление |
+| `plan-skill` | 1.0.0 | Планирование реализации (superpowers v2) с валидацией плана |
+| `secret-scanner` | 1.0.0 | Статический поиск утёк секретов/токенов (gitleaks + энтропия) |
+| `security-review` | 1.0.0 | Оркестрация security-ревью зависимостей и исходников |
+| `skill-suggester` | 1.1.0 | Подбор скилла из библиотеки по триггерам/описанию |
+| `systematic-debugger` | 1.0.0 | Систематическая отладка по Iron Law (4 фазы) |
+| `test-generator` | 1.0.0 | Генерация pytest-скелетов из Python-модуля по AST |
+| `version-bumper` | 1.0.0 | Предложение следующей semver-версии из git-истории |
+
+> Полный перечень скиллов всех категорий (`code`, `data`, `media`, `repository`, `social`) — в `index.json`; описание каждого скилла — в его `SKILL.md`.

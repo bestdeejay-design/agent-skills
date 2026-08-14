@@ -1,0 +1,46 @@
+{
+  "name": "long-running-agent-workflow",
+  "version": "1.0.0",
+  "description": "Structured protocol for AI agents working across many context windows: a .lra/ directory with an atomic feature list (id/priority/acceptance criteria/status) and a session progress log, plus a session protocol (read context → pick ONE feature → implement → test → checkpoint) and recovery from broken states. Based on Anthropic research on long-running agents. Triggers: 'lra', 'checkpoint', 'feature list', 'long running', 'продолжи работу', 'долгая сессия', 'план фич', 'статус проекта'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "lra",
+    "long-running",
+    "checkpoint",
+    "feature-list",
+    "agent workflow",
+    "сессии",
+    "план фич",
+    "долгий проект"
+  ],
+  "triggers": [
+    "lra",
+    "checkpoint",
+    "feature list",
+    "long running",
+    "продолжи работу",
+    "долгая сессия",
+    "план фич",
+    "статус проекта"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/lra_cli.py",
+    "references/lra-workflow.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/lra_cli.py",
+    "permissions": [
+      "file:read",
+      "file:write"
+    ]
+  },
+  "updated": "2026-08-14"
+}

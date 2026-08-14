@@ -4,7 +4,7 @@ description: "Generate a custom GitHub social preview (og:image) PNG 1280x640 fo
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "Requires pip install pillow for generate_social_preview.py; python3"
 ---
 

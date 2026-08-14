@@ -4,7 +4,7 @@ description: "Give a website a distinctive, deliberate visual direction that doe
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts; design judgment. Optionally a browser for visual verification"
 ---
 
