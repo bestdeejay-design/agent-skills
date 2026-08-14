@@ -80,6 +80,22 @@ def find_previous_tag(repo: str) -> str:
     return tags[0] if tags else ""
 
 
+def repo_slug(repo: str) -> str:
+    """Derive 'owner/repo' from the origin remote (fallback: project dir name)."""
+    try:
+        url = run_git(repo, ["remote", "get-url", "origin"]).strip()
+    except SystemExit:
+        return Path(repo).resolve().name
+    url = url.rstrip("/")
+    for prefix in ("git@github.com:", "https://github.com/", "ssh://git@github.com/"):
+        if url.startswith(prefix):
+            slug = url[len(prefix):]
+            if slug.endswith(".git"):
+                slug = slug[:-4]
+            return slug
+    return Path(url).name or Path(repo).resolve().name
+
+
 def parse_commits(repo: str, since: str) -> list[Commit]:
     RS, FS = "\x1e", "\x00"
     git_fmt = "%H%x00%an%x00%aI%x00%s%x00%b%x1e"
@@ -103,7 +119,7 @@ def parse_commits(repo: str, since: str) -> list[Commit]:
     return commits
 
 
-def render_changelog(commits: list[Commit], version: str, date: str, all_types: bool) -> str:
+def render_changelog(commits: list[Commit], version: str, date: str, all_types: bool, repo: str) -> str:
     sections: dict[str, list[str]] = {s: [] for s in ["Added", "Changed", "Fixed", "Breaking", "Reverts"]}
     hidden: set[str] = HIDE_TYPES
     for c in commits:
@@ -113,7 +129,7 @@ def render_changelog(commits: list[Commit], version: str, date: str, all_types: 
             line = f"- {c.description}"
             if c.scope:
                 line += f" ({c.scope})"
-            line += f" ([{c.short_hash}](https://github.com/bestdeejay-design/agent-skills/commit/{c.hash}))"
+            line += f" ([{c.short_hash}](https://github.com/{repo}/commit/{c.hash}))"
             sections["Breaking"].append(line)
             continue
         target = TYPE_SECTIONS.get(c.type, "Changed")
@@ -122,7 +138,7 @@ def render_changelog(commits: list[Commit], version: str, date: str, all_types: 
                 sections[target] = []
             else:
                 continue
-        line = f"- {c.description} ([{c.short_hash}](https://github.com/bestdeejay-design/agent-skills/commit/{c.hash}))"
+        line = f"- {c.description} ([{c.short_hash}](https://github.com/{repo}/commit/{c.hash}))"
         sections[target].append(line)
 
     out = [f"## {version} — {date}", ""]
@@ -154,7 +170,7 @@ def main() -> None:
         sys.exit("❌ No tag found. Pass --from-tag explicitly.")
     commits = parse_commits(args.repo, since)
     date = args.date or os.popen("date +%Y-%m-%d").read().strip()
-    text = render_changelog(commits, args.version, date, args.all)
+    text = render_changelog(commits, args.version, date, args.all, repo_slug(args.repo))
 
     if args.out:
         with open(args.out, "w", encoding="utf-8") as f:

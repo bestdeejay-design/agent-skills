@@ -360,30 +360,72 @@ def _picsum_generate(session, category, prompt, timeout=60):
     return data  # { success, id, url, detail, category, prompt, width, height }
 
 
-def _picsum_download_resize(session, url, outpath, size=512):
+def _picsum_download_resize(session, url, outpath, width=None, height=None, size=None, img_id=None):
+    """Скачать сгенерированное фото и привести к нужному размеру.
+
+    Приоритеты:
+    1. width/height + img_id: серверный ресайз https://picsum.dev/i/{id}/{w}/{h};
+    2. локальный cover-кроп + ресайз из оригинала (fallback, без искажений);
+    3. size: квадрат size×size;
+    4. ничего: оригинал как есть (1024×1024).
+    Формат файла — по расширению outpath (.jpg/.jpeg/.webp/.png), иначе WEBP.
+    """
     from PIL import Image
     from io import BytesIO
+    ext = os.path.splitext(outpath)[1].lower().lstrip(".") or "webp"
+    fmt = {"jpg": "JPEG", "jpeg": "JPEG", "webp": "WEBP", "png": "PNG"}.get(ext, "WEBP")
+
+    if width and height and img_id:
+        try:
+            r = session.get(f"https://picsum.dev/i/{img_id}/{width}/{height}", timeout=30)
+            r.raise_for_status()
+            img = Image.open(BytesIO(r.content)).convert("RGB")
+            if (img.width, img.height) == (width, height):
+                img.save(outpath, fmt, quality=85)
+                return outpath
+        except Exception:
+            pass  # не серверный ресайз — локальный fallback ниже
+
     r = session.get(url, timeout=30)
     r.raise_for_status()
-    img = Image.open(BytesIO(r.content))
-    img_resized = img.resize((size, size), Image.LANCZOS)
-    img_resized.save(outpath, "WEBP", quality=85)
+    img = Image.open(BytesIO(r.content)).convert("RGB")
+
+    if width and height:
+        target = width / height
+        cur = img.width / img.height
+        if cur > target:  # шире цели -> обрезать по ширине
+            nw = int(img.height * target)
+            x0 = (img.width - nw) // 2
+            img = img.crop((x0, 0, x0 + nw, img.height))
+        else:             # выше цели -> обрезать по высоте
+            nh = int(img.width / target)
+            y0 = (img.height - nh) // 2
+            img = img.crop((0, y0, img.width, y0 + nh))
+        img = img.resize((width, height), Image.LANCZOS)
+    elif size:
+        img = img.resize((size, size), Image.LANCZOS)
+
+    img.save(outpath, fmt, quality=85)
     return outpath
 
 
 def cmd_themed(args):
-    """test-graphics.py themed <category> <prompt> [output]
+    """test-graphics.py themed <category> <prompt> [output] [width] [height]
 
-    Генерация AI-изображения через picsum.dev.
+    AI-генерация изображения по промту через picsum.dev.
     Категории: nature, animals, food, architecture, technology, business,
                travel, abstract, people, fashion, sports, space, art
 
-    Изображение: 512x512, webp.
+    Генератор отдаёт оригинал 1024x1024. При указании width/height запрашивается
+    серверный ресайз picsum.dev/i/{id}/{w}/{h}; если он недоступен — локальный
+    cover-кроп + ресайз (без искажений).
     Лимит: 10 запросов/мин, генерация 5-20 сек.
     """
     category = args[0] if args else "food"
     prompt = args[1] if len(args) > 1 else category
-    out = args[2] if len(args) > 2 else _outpath(prompt, "webp", 512, 512)
+    ow = int(args[3]) if len(args) > 3 else None
+    oh = int(args[4]) if len(args) > 4 else None
+    out = args[2] if len(args) > 2 else _outpath(prompt, "webp", ow or 1024, oh or 1024)
     _ensure_dir(os.path.dirname(out)) if os.path.dirname(out) else None
 
     if category not in PICSUM_CATEGORIES:
@@ -396,56 +438,64 @@ def cmd_themed(args):
     try:
         data = _picsum_generate(session, category, prompt)
         print(f"  ✓ Generated: {data['url']}")
-        _picsum_download_resize(session, data["url"], out, size=512)
+        print(f"  ✓ Gallery: {data.get('detail')}")
+        _picsum_download_resize(session, data["url"], out, width=ow, height=oh, img_id=data.get("id"))
         size = os.path.getsize(out)
-        print(f"  ✓ Saved {out}  (512x512, {size} bytes)")
+        dims = f"{ow}x{oh}" if ow and oh else "1024x1024"
+        print(f"  ✓ Saved {out}  ({dims}, {size} bytes)")
         return out
     except Exception as e:
         print(f"  ✗ Generation failed: {e}")
         # Fallback: placehold.co
         try:
             c = COLORS[hash(category) % len(COLORS)].lstrip("#")
-            url = f"https://placehold.co/512x512/{c}/FFFFFF/webp?text={prompt[:30]}"
+            pw, ph = (ow or 512), (oh or 512)
+            url = f"https://placehold.co/{pw}x{ph}/{c}/FFFFFF/webp?text={prompt[:30]}"
             return _download(url, out, stream=True)
         except Exception:
             pass
         # Fallback: Pillow gradient
         from PIL import Image, ImageDraw
         c1, c2 = COLORS[hash(category) % len(COLORS)], COLORS[(hash(category) + 1) % len(COLORS)]
-        img = Image.new("RGB", (512, 512))
-        for y in range(512):
-            t = y / 512
+        pw, ph = (ow or 1024), (oh or 1024)
+        img = Image.new("RGB", (pw, ph))
+        for y in range(ph):
+            t = y / ph
             color = (
                 int(_r(c1, c2, t, 0)),
                 int(_r(c1, c2, t, 1)),
                 int(_r(c1, c2, t, 2)),
             )
-            ImageDraw.Draw(img).line([(0, y), (512, y)], fill=color)
+            ImageDraw.Draw(img).line([(0, y), (pw, y)], fill=color)
         img.save(out, "WEBP", quality=70)
-        print(f"  ✓ Generated fallback {out}  (512x512)")
+        print(f"  ✓ Generated fallback {out}  ({pw}x{ph})")
         return out
 
 
 # ─────────────────────── BATCH THEMED ───────────────────────
 
 def cmd_batch_themed(args):
-    """test-graphics.py batch-themed <category> <prompt> <count> [output_dir]
+    """test-graphics.py batch-themed <category> <prompt> <count> [output_dir] [width] [height]
 
     Пачка AI-изображений через picsum.dev.
-    Каждое изображение получает тот же промпт, но генерятся разные варианты.
+    Каждое изображение получает тот же промпт, но генерируется свой вариант.
+    При указании width/height все изображения приводятся к этому размеру.
     """
     category = args[0] if args else "food"
     prompt = args[1] if len(args) > 1 else category
     count = int(args[2]) if len(args) > 2 else 5
     outdir = args[3] if len(args) > 3 else "."
+    ow = int(args[4]) if len(args) > 4 else None
+    oh = int(args[5]) if len(args) > 5 else None
     _ensure_dir(outdir + "/")
 
     results = []
     for i in range(count):
-        fname = f"{_slug(prompt)}-{i+1}-512x512.webp"
+        dims = f"{ow}x{oh}" if ow and oh else "1024x1024"
+        fname = f"{_slug(prompt)}-{i+1}-{dims}.webp"
         out = os.path.join(outdir, fname)
         try:
-            cmd_themed([category, prompt, out])
+            cmd_themed([category, prompt, out] + ([ow, oh] if ow and oh else []))
             results.append(out)
         except Exception as e:
             print(f"  ✗ Failed {i+1}: {e}")

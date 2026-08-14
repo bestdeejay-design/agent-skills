@@ -4,7 +4,7 @@ description: "Генерируй тестовые картинки, фото-з�
 license: MIT
 metadata:
   author: best
-  version: "1.0.0"
+  version: "1.2.0"
 compatibility: "Requires Python 3 and Pillow"
 ---
 
@@ -158,6 +158,33 @@ scripts/test-graphics.py lucide <name> [output_dir]
 ```
 
 Пример: `scripts/test-graphics.py lucide arrow-right ./icons/`
+
+### AI-фото по промту (themed / batch-themed)
+
+Генерация тематического изображения по текстовому промту через picsum.dev (AI, без ключа).
+
+```bash
+scripts/test-graphics.py themed <category> <prompt> [output] [width] [height]
+scripts/test-graphics.py batch-themed <category> <prompt> <count> [output_dir] [width] [height]
+```
+
+Категории: `nature, animals, food, architecture, technology, business, travel, abstract, people, fashion, sports, space, art`.
+
+Генератор всегда отдаёт оригинал 1024×1024. Если указаны `width` и `height` — скилл запрашивает серверный ресайз `picsum.dev/i/{id}/{w}/{h}` (нативный размер, без локальной обработки); если серверный ресайз недоступен — локальный cover-кроп + ресайз под аспект (без искажений). Формат файла определяется расширением `output` (`.jpg`/`.webp`/`.png`). Без размеров — оригинал 1024×1024. Готовые изображения галереи доступны напрямую: `picsum.dev/i/{id}/{w}/{h}` (например `i/500/800/600`).
+
+Лимит: ~10 запросов/мин, генерация 5–20 сек. При сбое — fallback (placehold.co, затем градиент).
+
+Примеры:
+```bash
+# Офисная сцена 800×600 для лендинга (категория business)
+scripts/test-graphics.py themed business "modern accounting office interior, desks with computers" ./assets/img/office-1.jpg 800 600
+
+# Оригинал 1024×1024 без размеров
+scripts/test-graphics.py themed food "pizza with basil on wooden table"
+
+# Пачка из 6 вариантов 1920×1080
+scripts/test-graphics.py batch-themed technology "server room with glowing racks" 6 ./assets/img/ 1920 1080
+```
 
 ## Когда применять
 
