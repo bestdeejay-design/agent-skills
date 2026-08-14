@@ -46,7 +46,7 @@
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
-| 💻 [Development & Code](#cat-code) | 13 | commits, review, debugging, tests, coverage, security, planning, frontend |
+| 💻 [Development & Code](#cat-code) | 14 | commits, review, debugging, tests, coverage, security, planning, frontend |
 | 📊 [Data & Diagrams](#cat-data) | 6 | profiling, SQL, diagrams, scraping |
 | 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
 | 🏗️ [Repository & Docs](#cat-repository) | 10 | README, community files, metadata, documentation, API docs |
@@ -54,7 +54,7 @@
 
 <a id="cat-code"></a>
 
-### 💻 Development & Code · `code` · 13
+### 💻 Development & Code · `code` · 14
 
 | Skill | Purpose |
 |-------|---------|
@@ -73,6 +73,7 @@
 | [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Frontend audit & polish to verifiable perfection: real-Chrome Lighthouse ≥13 (mobile+desktop), offline meta/SEO/WCAG/token audit, OG-image generation. |
 
 <a id="cat-data"></a>
+| [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Protocol for AI agents working across many context windows: a `.lra/` directory with an atomic feature list (id/priority/acceptance criteria/status) and session progress checkpoints. |
 
 ### 📊 Data & Diagrams · `data` · 6
 
