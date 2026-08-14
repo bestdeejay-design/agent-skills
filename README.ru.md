@@ -12,7 +12,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 44](https://img.shields.io/badge/Skills-44-blue.svg)](index.json)
+[![Skills: 41](https://img.shields.io/badge/Skills-41-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Оглавление</b></summary>
 
-- [📦 Каталог скиллов](#sec-catalog) — 44 скилла · 5 категорий
+- [📦 Каталог скиллов](#sec-catalog) — 41 скилл · 5 категорий
 - [🎬 Showcase](#sec-showcase) — примеры на реальных проектах
 - [🚀 Установка](#sec-installation)
 - [📁 Структура репозитория](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Карта экосистемы: см. [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — каталог экосистемы AI agent skills (официальные вендоры, форматы, стандарты, ~4.85M файлов SKILL.md, пробелы и рекомендации).
 
-**44 скилла · 5 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
+**41 скилл · 5 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
 
 | Категория | Скиллов | Что входит |
 |-----------|:-------:|------------|
@@ -88,13 +88,10 @@
 
 <a id="cat-media"></a>
 
-### 🎬 Контент и медиа · `media` · 13
+### 🎬 Контент и медиа · `media` · 12
 
 | Скилл | Назначение |
 |-------|------------|
-| [**deck-outline**](skills/deck-outline/SKILL.md) | Структура слайдов из темы → `outline.md` + JSON-спека (параметры, правила контента, раскладки) для deck-html/deck-pptx. |
-| [**deck-html**](skills/deck-html/SKILL.md) | Автономные HTML-слайды 16:9 по JSON-спеке: тема + палитра, скрипт сборки, обязательная проверка Playwright. |
-| [**deck-pptx**](skills/deck-pptx/SKILL.md) | Настоящий PowerPoint `.pptx` по JSON-спеке через python-pptx: текстовые блоки, диаграммы, фоны по палитре. |
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | Сценарий видео: Hook → Body (5 сцен с таймслотами) → CTA; таймкоды, ru/en, полный сценарий или план. |
 | [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown → PDF-отчёт: HTML через pandoc/встроенный конвертер, PDF через Chrome headless / weasyprint / pandoc; таблицы, код, цитаты. |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | Тестовые картинки, заглушки, иконки, аватары для моков/staging/e2e: Python + бесплатные API (loremflickr, placehold.co, picsum, Lucide). |
@@ -104,7 +101,8 @@
 | [**seo-content**](skills/seo-content/SKILL.md) | Контент страниц: тонкие/дубли, читаемость, E-E-A-T, ключевые слова (плотность, каннибализация, LSI, long-tail), иерархия заголовков, SEO картинок. |
 | [**seo-crawl**](skills/seo-crawl/SKILL.md) | Индексация: robots.txt, noindex, canonical, редиректы, sitemap, перелинковка, глубина кликов, сироты, сравнение с конкурентами. |
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Устарел (роутер)** → используй [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
-| [**presentation-maker**](skills/presentation-maker/SKILL.md) | ⚠️ **Устарел (роутер)** → используй [deck-outline](skills/deck-outline/SKILL.md) / [deck-html](skills/deck-html/SKILL.md) / [deck-pptx](skills/deck-pptx/SKILL.md). |
+| [**presentation-maker**](skills/presentation-maker/SKILL.md) | Презентации «под ключ» из темы: план → JSON-спека → HTML-слайды 16:9 (с обязательной проверкой Playwright) и настоящий `.pptx`; пресеты-стратегии, экспорт в PDF, аудит качества. Одна команда на этап. |
+| [**presentation-craft**](skills/presentation-craft/SKILL.md) | Роутер качественных дек: оркестрирует docs-product → frontend-design-taste → presentation-maker → frontend-perfection по этапам (смысл, визуальное направление, сборка, аудит). |
 
 <a id="cat-repository"></a>
 
@@ -203,7 +201,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: валидация манифестов
-└── skills/                    # 44 скилла, по папке на каждый
+└── skills/                    # 41 скилл, по папке на каждый
     └── <skill-name>/
         ├── SKILL.md           # Инструкция для агента (обязательно)
         ├── skill.json         # Манифест: name, version, triggers, files (обязательно)

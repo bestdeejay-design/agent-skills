@@ -1,0 +1,27 @@
+{
+  "name": "neo-consulting",
+  "description": "Спокойная профессиональная палитра: глубокий петроль + тёплый янтарь на прохладной бумаге. Не cream/terracotta, не near-black/acid, не broadsheet.",
+  "mood": "editorial",
+  "primary": "#0E4D5C",
+  "accent": "#D98E04",
+  "background": "#F2F4F3",
+  "card": "#FFFFFF",
+  "stroke": "#D7DEDC",
+  "background_text": "#FFFFFF",
+  "primary_text": "#0E4D5C",
+  "muted": "#5C6B70",
+  "accent_soft": "#DCEAE9",
+  "font": "Inter",
+  "font_display": "Space Grotesk",
+  "font_url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap",
+  "graphs": [
+    "#0E4D5C",
+    "#3E7C8A",
+    "#2C7A85",
+    "#B5780A",
+    "#7A5E22"
+  ],
+  "radius": 14,
+  "radius_sm": 8,
+  "eyebrow_track": true
+}

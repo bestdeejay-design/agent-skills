@@ -12,7 +12,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 44](https://img.shields.io/badge/Skills-44-blue.svg)](index.json)
+[![Skills: 41](https://img.shields.io/badge/Skills-41-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 44 skills · 5 categories
+- [📦 Skill Catalog](#sec-catalog) — 42 skills · 5 categories
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
 
-**44 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**42 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
@@ -88,13 +88,10 @@
 
 <a id="cat-media"></a>
 
-### 🎬 Content & Media · `media` · 13
+### 🎬 Content & Media · `media` · 12
 
 | Skill | Purpose |
 |-------|---------|
-| [**deck-outline**](skills/deck-outline/SKILL.md) | Slide structure from a topic → `outline.md` + JSON spec (params, content rules, layouts) consumed by deck-html/deck-pptx. |
-| [**deck-html**](skills/deck-html/SKILL.md) | Autonomous 16:9 HTML slides from the JSON spec: theme + palette, build script, mandatory Playwright verification gate. |
-| [**deck-pptx**](skills/deck-pptx/SKILL.md) | Real PowerPoint `.pptx` from the JSON spec via python-pptx: textboxes, charts, palette backgrounds. |
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | Structured video script: Hook → Body (5 timed scenes) → CTA; timecodes, ru/en, full script or outline. |
 | [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown → PDF report: HTML via pandoc/built-in converter, PDF via Chrome headless / weasyprint / pandoc; tables, code, quotes. |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | Test images, placeholders, icons, avatars for mocks/staging/e2e: Python + free APIs (loremflickr, placehold.co, picsum, Lucide). |
@@ -104,7 +101,8 @@
 | [**seo-content**](skills/seo-content/SKILL.md) | On-page content: thin/duplicates, readability, E-E-A-T, keywords (density, cannibalization, LSI, long-tail), heading hierarchy, image SEO. |
 | [**seo-crawl**](skills/seo-crawl/SKILL.md) | Crawlability: robots.txt, noindex, canonical, redirects, sitemap, internal linking, click depth, orphan pages, competitor comparison. |
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Deprecated router** → use [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
-| [**presentation-maker**](skills/presentation-maker/SKILL.md) | ⚠️ **Deprecated router** → use [deck-outline](skills/deck-outline/SKILL.md) / [deck-html](skills/deck-html/SKILL.md) / [deck-pptx](skills/deck-pptx/SKILL.md). |
+| [**presentation-maker**](skills/presentation-maker/SKILL.md) | End-to-end decks from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright check) and real `.pptx`; strategy presets, PDF export, deck-quality audit. One command per stage. |
+| [**presentation-craft**](skills/presentation-craft/SKILL.md) | Router for high-quality decks: orchestrates docs-product → frontend-design-taste → presentation-maker → frontend-perfection per stage (narrative, visual direction, build, audit). |
 
 <a id="cat-repository"></a>
 
@@ -203,7 +201,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: manifest validation
-└── skills/                    # 44 skills, one folder each
+└── skills/                    # 42 skills, one folder each
     └── <skill-name>/
         ├── SKILL.md           # Agent instruction (required)
         ├── skill.json         # Manifest: name, version, triggers, files (required)

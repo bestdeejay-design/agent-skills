@@ -7,6 +7,7 @@
 <!--FONT_LINK-->
 <style>
 :root {
+    --danger: #FF3B30;
     --primary: #007AFF;
     --background: #FFFFFF;
     --card: #F5F5F7;
@@ -136,7 +137,7 @@ h3 { font-size: clamp(19px, 2.4vw, 26px); font-weight: 700; }
     padding: 10px 0; font-size: clamp(14px, 1.7vw, 17px); line-height: 1.45; }
 .col-card li::before { content: "✕"; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
-    background: rgba(255,59,48,.12); color: #FF3B30; margin-top: 2px; }
+    background: rgba(255,59,48,.12); color: var(--danger); margin-top: 2px; }
 .col-card:nth-child(2) li::before { content: "✓"; background: rgba(52,199,89,.14); color: var(--graph-3); }
 .col-card:nth-child(2) h3::before { content: "→ "; color: var(--primary); opacity: 1; }
 
