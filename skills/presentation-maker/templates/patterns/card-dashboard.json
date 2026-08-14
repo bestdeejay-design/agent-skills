@@ -1,0 +1,19 @@
+{
+  "id": "card-dashboard",
+  "family": "glass",
+  "fits": ["metrics", "table", "process", "timeline", "feature", "bullets"],
+  "density": ["standard", "text-heavy"],
+  "css": {
+    "head_align": "left",
+    "bento": true,
+    "accent": "hero-tile",
+    "font_display": "sans",
+    "decor": "glass-blur"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "bento"},
+    "accent": {"type": "hero-tile"},
+    "decor": {"type": "glass"}
+  }
+}

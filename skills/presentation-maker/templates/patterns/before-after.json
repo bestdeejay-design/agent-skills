@@ -1,0 +1,19 @@
+{
+  "id": "before-after",
+  "family": "swiss",
+  "fits": ["comparison", "feature", "divider"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "center",
+    "split": "horizontal-50",
+    "accent": "contrast-halves",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 84, "h": 8, "align": "center", "size": 30},
+    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "2col"},
+    "accent": {"type": "left-muted-right-accent"},
+    "decor": {"type": "none"}
+  }
+}

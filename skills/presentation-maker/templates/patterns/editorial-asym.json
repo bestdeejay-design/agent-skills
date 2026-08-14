@@ -1,0 +1,19 @@
+{
+  "id": "editorial-asym",
+  "family": "editorial",
+  "fits": ["title", "divider", "closing", "quote"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "title_pos": "bottom-left",
+    "accent": "bg-number",
+    "font_display": "serif",
+    "decor": "giant-number"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 62, "w": 55, "h": 20, "align": "left", "size": 44},
+    "content": {"x": 8, "y": 48, "w": 55, "h": 12},
+    "accent": {"type": "bg-number", "pos": "top-right"},
+    "decor": {"type": "ghost-num"}
+  }
+}

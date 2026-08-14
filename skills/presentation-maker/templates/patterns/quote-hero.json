@@ -1,0 +1,19 @@
+{
+  "id": "quote-hero",
+  "family": "editorial",
+  "fits": ["quote", "title", "divider"],
+  "density": ["concise"],
+  "css": {
+    "head_align": "center",
+    "quote_size": 60,
+    "accent": "word-emphasis",
+    "font_display": "serif",
+    "decor": "giant-quote-mark"
+  },
+  "pptx": {
+    "title": {"x": 5, "y": 20, "w": 90, "h": 45, "align": "center", "size": 44},
+    "content": {"x": 15, "y": 70, "w": 70, "h": 15, "align": "center"},
+    "accent": {"type": "giant-quote-mark"},
+    "decor": {"type": "giant-quote"}
+  }
+}

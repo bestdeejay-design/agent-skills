@@ -60,6 +60,8 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.ns import qn
 from pptx.util import Emu, Pt
 
+from patterns import pick_pattern, LEFT_TITLE_PATTERNS  # generative layout layer
+
 
 def _hex_to_rgb(hex_str: str, fallback=(0x1C, 0x1C, 0x1E)):
     """#RRGGBB -> (r,g,b) ints; tolerant of missing #."""
@@ -90,6 +92,7 @@ def _px_to_pt(px_val: float) -> float:
 MARGIN_X = 96
 TITLE_Y = 56
 TITLE_H = 96          # title autofits to max 2 lines inside this band
+PATTERN_LEFT_TITLE_W = 620   # ~40% canvas width for left-column title patterns
 CONTENT_Y = 180       # all content blocks start below the title band
 BOTTOM_STOP = 80      # nothing may end lower than this
 
@@ -101,6 +104,7 @@ class Palette:
         self.card = _hex_to_rgb(palette.get("card", "#F5F5F7"), (0xF5, 0xF5, 0xF7))
         self.stroke = _hex_to_rgb(palette.get("stroke", "#E5E5EA"))
         self.accent_soft = _hex_to_rgb(palette.get("accent_soft", "#EAF0FF"))
+        self.accent = _hex_to_rgb(palette.get("accent", palette.get("primary", "#007AFF")))
         self.background_text = _hex_to_rgb(palette.get("background_text", "#FFFFFF"), (0xFF, 0xFF, 0xFF))
         self.primary_text = _hex_to_rgb(palette.get("primary_text", "#1C1C1E"), (0x1C, 0x1C, 0x1E))
         self.muted = _hex_to_rgb(palette.get("muted", "#8B93A7"), (0x8B, 0x93, 0xA7))
@@ -385,9 +389,22 @@ def _content_title(slide, spec, text_color, accent):
     if eb:
         _add_text(slide, MARGIN_X, 26, 1600 - 2 * MARGIN_X - 320, 24, str(eb), size=11,
                   bold=True, color=accent, align="left", fit=False, tracking=3.2)
-    _add_text(slide, MARGIN_X, TITLE_Y, 1600 - 2 * MARGIN_X, TITLE_H,
-              spec.get("title", ""), size=34, bold=True, color=text_color,
-              min_size=18)
+    pattern = spec.get("_pattern", "")
+    if pattern in LEFT_TITLE_PATTERNS:
+        _add_text(slide, MARGIN_X, TITLE_Y, PATTERN_LEFT_TITLE_W, TITLE_H,
+                  spec.get("title", ""), size=34, bold=True, color=text_color,
+                  min_size=18)
+        rule = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, _px(MARGIN_X),
+                                      _px(CONTENT_Y - 20), _px(72), _px(5))
+        rule.fill.solid()
+        rule.fill.fore_color.rgb = RGBColor(*accent)
+        rule.line.fill.background()
+        rule.shadow.inherit = False
+        rule.name = "accent-rule"
+    else:
+        _add_text(slide, MARGIN_X, TITLE_Y, 1600 - 2 * MARGIN_X, TITLE_H,
+                  spec.get("title", ""), size=34, bold=True, color=text_color,
+                  min_size=18)
 
 
 def _set_notes(slide, slide_spec):
@@ -491,7 +508,10 @@ def _render_metrics(slide, spec, p: Palette, W, H, dark_bg: bool):
                                  p.card, p.stroke)
         _add_shadow(card, blur_pt=10, dist_pt=3, alpha_pct=9)
         card.name = "metric-card"
-        accent = p.graphs[idx % 8]
+        if m.get("accent"):
+            accent = p.accent
+        else:
+            accent = p.graphs[idx % 8]
         _add_text(slide, x, CONTENT_Y + 44, card_w, 150, str(m.get("value", "")),
                   size=64, bold=True, color=accent, align="center",
                   valign="middle", min_size=30)
@@ -898,9 +918,16 @@ def build(spec: dict, out_path: Path) -> Path:
 
     slides_spec = spec.get("slides", [])
     total = len(slides_spec)
+    style = spec.get("style") or {}
+    family = style.get("family", "")
+    density = style.get("density") or spec.get("density") or "standard"
+    used_patterns = []
     for idx, slide_spec in enumerate(slides_spec):
         slide = prs.slides.add_slide(blank)
         stype = slide_spec.get("type", "bullets")
+        pattern = pick_pattern(stype, used_patterns, family=family, density=density)
+        used_patterns.append(pattern)
+        slide_spec["_pattern"] = pattern
         dark_slide = stype in ("title", "closing", "divider") or dark_bg
         _add_ghost_num(slide, idx + 1,
                        palette.background_text if dark_slide else palette.primary,

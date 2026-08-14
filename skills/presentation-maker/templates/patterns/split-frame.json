@@ -1,0 +1,19 @@
+{
+  "id": "split-frame",
+  "family": "editorial",
+  "fits": ["title", "divider", "feature", "closing", "image_showcase"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "split": "vertical-50",
+    "accent": "duotone-photo",
+    "font_display": "serif",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 10, "w": 42, "h": 40, "align": "left", "size": 42},
+    "content": {"x": 8, "y": 55, "w": 42, "h": 35},
+    "accent": {"type": "media-right", "w": 50},
+    "decor": {"type": "none"}
+  }
+}

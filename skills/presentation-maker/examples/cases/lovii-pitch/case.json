@@ -1,0 +1,23 @@
+{
+  "name": "lovii-pitch",
+  "saved": "2026-08-14",
+  "title": "LOVII — цифровая инфраструктура локальной экономики",
+  "style": {
+    "family": "fintech",
+    "reference": "https://github.com/bestdeejay-design/lovii_presentation"
+  },
+  "theme": "lovii",
+  "patterns": {
+    "1": "split-diagonal",
+    "2": "card-dashboard",
+    "3": "hero-left",
+    "4": "swiss-grid",
+    "5": "split-diagonal",
+    "6": "vertical-rail",
+    "7": "z-pattern",
+    "8": "card-dashboard",
+    "9": "swiss-grid",
+    "10": "hero-left"
+  },
+  "slides": 10
+}

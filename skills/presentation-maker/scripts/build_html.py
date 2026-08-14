@@ -16,6 +16,52 @@ import json
 import sys
 from pathlib import Path
 
+from patterns import PATTERNS, FALLBACK_PATTERN, pick_pattern  # generative layout layer
+
+
+def _wrap_title_word(html: str) -> str:
+    """Wrap the first word of every h1/h2 title in <span class="accent-word">.
+
+    The accent color marks a whole word (never a lone letter floating away
+    from its word), so the title keeps its rhythm and the accent stays
+    readable. Used only for slides with the accent-word mode.
+    """
+    import re
+
+    def repl(m):
+        tag, content = m.group(1), m.group(2)
+        words = content.split(" ", 1)
+        if not words:
+            return m.group(0)
+        first = esc(words[0])
+        rest = esc(words[1]) if len(words) > 1 else ""
+        inner = f'<span class="accent-word">{first}</span>' + (f" {rest}" if rest else "")
+        return f"<{tag}>{inner}</{tag}>"
+
+    return re.sub(r"<(h[12])>([^<]*)</\1>", repl, html)
+
+
+def pick_accent_mode(layout: str, used: list) -> str:
+    """Spread the second brand color (var(--accent)) across the deck.
+
+    Three ways to embed the accent without mixing it with primary:
+    word (first title word in accent), underline (hairline under title),
+    icons (metric icons + values). Rotates modes, never repeats the
+    mode used on the previous slide, and skips accent-icons unless
+    the slide actually renders metric cards.
+    """
+    if not used:
+        return "accent-word"
+    prev = used[-1] if used else None
+    if layout == "metrics" or layout == "big_number":
+        pool = ("accent-icons", "accent-word")
+    else:
+        pool = ("accent-word", "accent-underline")
+    for m in pool:
+        if m != prev:
+            return m
+    return pool[0]
+
 SKILL_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE = SKILL_DIR / "templates" / "slides.html"
 
@@ -82,9 +128,10 @@ def render_metrics(s) -> str:
     for m in metrics:
         svg = _icon(m.get("icon"))
         icon = f'<span class="metric-icon">{svg}</span>' if svg else ""
+        accent_cls = " metric-color-accent" if m.get("accent") else ""
         cards.append(
             f'<div class="metric-card">{icon}'
-            f'<span class="metric-value{val_cls}">{esc(str(m.get("value", "")))}</span>'
+            f'<span class="metric-value{val_cls}{accent_cls}">{esc(str(m.get("value", "")))}</span>'
             f'<span class="metric-label">{esc(str(m.get("label", "")))}</span></div>'
         )
     return (
@@ -442,6 +489,7 @@ def build(spec: dict, out_path: Path) -> Path:
         "--text": palette.get("primary_text", "#1C1C1E"),
         "--muted": palette.get("muted", "#6E6E73"),
         "--accent-soft": palette.get("accent_soft", "#E8F0FE"),
+        "--accent": palette.get("accent", palette.get("primary", "#007AFF")),
         "--graph-0": palette.get("graph_0", "#007AFF"),
         "--graph-1": palette.get("graph_1", "#30B0C7"),
         "--graph-2": palette.get("graph_2", "#5E5CE6"),
@@ -465,13 +513,28 @@ def build(spec: dict, out_path: Path) -> Path:
 
     slides = []
     used_types = []
+    used_patterns = []
+    accent_modes = []
+    style = spec.get("style") or {}
+    family = style.get("family", "")
+    density = style.get("density") or spec.get("density") or "standard"
     for i, s in enumerate(spec.get("slides", []), start=1):
         s = dict(s)
         s["_n"] = i
         layout = pick_layout(s, used_types)
         used_types.append(layout)
+        pattern = pick_pattern(layout, used_patterns, family=family, density=density)
+        used_patterns.append(pattern)
+        s["_pattern"] = pattern
+        accent = pick_accent_mode(layout, accent_modes)
+        accent_modes.append(accent)
+        s["_accent"] = accent
         renderer = RENDERERS.get(layout, render_bullets)
-        slides.append(renderer(s))
+        html = renderer(s)
+        if accent == "accent-word":
+            html = _wrap_title_word(html)
+        html = html.replace('<section class="slide', f'<section class="slide pat-{pattern} {accent}"', 1)
+        slides.append(html)
 
     slides_html = "\n\n  " + "\n\n  ".join(slides)
     template = _replace_deck(template, slides_html)
@@ -483,7 +546,7 @@ def build(spec: dict, out_path: Path) -> Path:
     template = template.replace("<title>Презентация</title>",
                                 f"<title>{esc(spec.get('title', 'Презентация'))}</title>")
     out_path.write_text(template, encoding="utf-8")
-    return out_path
+    return out_path, dict(enumerate(used_patterns, start=1))
 
 
 def palette_vars_ordered(pal_vars: dict):
@@ -536,13 +599,19 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Build slides.html from presentation spec")
     ap.add_argument("spec", nargs="?", help="JSON spec file")
     ap.add_argument("out", nargs="?", help="output slides.html path")
+    ap.add_argument("--save-case", default="", help="имя case для памяти скилла (examples/cases/<name>/)")
     args = ap.parse_args()
     if not args.spec or not args.out:
         ap.print_help()
         return 2
     spec = json.loads(Path(args.spec).read_text(encoding="utf-8"))
-    out = build(spec, Path(args.out))
+    out, pattern_map = build(spec, Path(args.out))
     print(f"Slides written: {out} ({len(spec.get('slides', []))} slides)")
+    print(f"Паттерны: {', '.join(f'{i}:{p}' for i, p in sorted(pattern_map.items()))}")
+    if args.save_case:
+        from cases import save_case
+        case_dir = save_case(args.save_case, spec, pattern_map, Path(args.out))
+        print(f"Case сохранён: {case_dir}")
     return 0
 
 

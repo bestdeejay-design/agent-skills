@@ -1,0 +1,19 @@
+{
+  "id": "vertical-stepper",
+  "family": "editorial",
+  "fits": ["process", "timeline"],
+  "density": ["standard", "text-heavy"],
+  "css": {
+    "head_align": "left",
+    "track": "vertical",
+    "accent": "track-line",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 18, "y": 18, "w": 74, "h": 74, "track": "left"},
+    "accent": {"type": "track-dots"},
+    "decor": {"type": "none"}
+  }
+}

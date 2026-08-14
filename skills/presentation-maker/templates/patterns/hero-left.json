@@ -1,0 +1,21 @@
+{
+  "id": "hero-left",
+  "family": "editorial",
+  "fits": ["title", "bullets", "feature", "quote"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "title_width": 40,
+    "content_cols": 1,
+    "accent": "hairline",
+    "font_display": "serif",
+    "content_pos": "right",
+    "decor": "ghost-num"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 12, "w": 40, "h": 40, "align": "left", "size": 40},
+    "content": {"x": 50, "y": 10, "w": 44, "h": 80},
+    "accent": {"type": "rule", "pos": "below-title"},
+    "decor": {"type": "ghost-num"}
+  }
+}

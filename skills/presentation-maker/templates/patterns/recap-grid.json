@@ -1,0 +1,19 @@
+{
+  "id": "recap-grid",
+  "family": "minimal",
+  "fits": ["closing", "metrics", "bullets"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "grid": "2x2",
+    "accent": "key-cell",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 8, "y": 18, "w": 84, "h": 60, "grid": "2x2"},
+    "accent": {"type": "one-accent-cell"},
+    "decor": {"type": "none"}
+  }
+}

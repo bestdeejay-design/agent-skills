@@ -1,0 +1,19 @@
+{
+  "id": "sparkline-metric",
+  "family": "minimal",
+  "fits": ["metrics", "big_number", "kpi_row"],
+  "density": ["concise"],
+  "css": {
+    "head_align": "left",
+    "hero_size": 70,
+    "accent": "sparkline",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 8, "y": 20, "w": 84, "h": 72},
+    "accent": {"type": "sparkline-under-value"},
+    "decor": {"type": "none"}
+  }
+}

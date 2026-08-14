@@ -62,3 +62,32 @@ python3 skills/presentation-maker/scripts/deck_audit.py deck.json --html slides.
 - `pip install python-pptx` — для `build_pptx.py`.
 - `pip install playwright && playwright install chromium` — для `verify_slides.py`
   и `build_pdf.py`.
+
+## Генеративный слой (паттерны, v3.4+)
+
+Каждая дека собирается из **библиотеки композиционных паттернов**
+(`templates/patterns/*.json`, 15 схем), а не из одного шаблона. Селектор
+(`scripts/patterns.py`) в момент сборки назначает каждому слайду свой паттерн:
+контент → разнообразие (не повторять соседние 3) → `style.family` → плотность.
+Один и тот же контент на разных деках отрисовывается по-разному.
+
+Стилевое направление задаётся во frontmatter outline.md:
+
+```yaml
+style:
+  family: fintech   # editorial | swiss | fintech | minimal | glass
+  reference: https://…  # опционально: case / галерея
+```
+
+**Два акцента** (например teal + розовый) — по ролям, без смешения: `primary`
+= структура, `accent` = акцентные точки (первое слово заголовка, линия под
+заголовком, иконки метрик). На акцентном фоне текст всегда `on-primary`.
+
+**Память скилла**: `build_html.py ... --save-case my-deck` сохраняет
+`examples/cases/my-deck/` — каждая удачная дека становится референсом для
+следующих.
+
+```bash
+# список сохранённых case
+python3 skills/presentation-maker/scripts/cases.py
+```

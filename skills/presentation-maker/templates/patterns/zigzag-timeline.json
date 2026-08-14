@@ -1,0 +1,19 @@
+{
+  "id": "zigzag-timeline",
+  "family": "editorial",
+  "fits": ["timeline", "process"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "path": "zigzag",
+    "accent": "milestones",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 8, "y": 18, "w": 84, "h": 74},
+    "accent": {"type": "zigzag-years"},
+    "decor": {"type": "none"}
+  }
+}

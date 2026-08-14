@@ -403,7 +403,7 @@
     },
     {
       "name": "presentation-maker",
-      "version": "3.2.0",
+      "version": "3.5.0",
       "category": "media",
       "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with geometric QA + optional extern intern linter), plus strategy presets, PDF export, and a deck-quality audit. One command per stage.",
       "path": "skills/presentation-maker",

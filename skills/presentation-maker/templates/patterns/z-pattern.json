@@ -1,0 +1,19 @@
+{
+  "id": "z-pattern",
+  "family": "swiss",
+  "fits": ["bullets", "metrics", "comparison", "table"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "quads": 4,
+    "accent": "diagonal-blocks",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "2x2"},
+    "accent": {"type": "diagonal-blocks", "blocks": [1, 4]},
+    "decor": {"type": "none"}
+  }
+}

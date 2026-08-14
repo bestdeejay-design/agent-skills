@@ -1,0 +1,19 @@
+{
+  "id": "big-type",
+  "family": "minimal",
+  "fits": ["metrics", "big_number", "quote", "title", "closing"],
+  "density": ["concise"],
+  "css": {
+    "head_align": "center",
+    "hero_size": 80,
+    "accent": "scale",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 5, "y": 30, "w": 90, "h": 35, "align": "center", "size": 64},
+    "content": {"x": 20, "y": 70, "w": 60, "h": 15, "align": "center"},
+    "accent": {"type": "scale"},
+    "decor": {"type": "none"}
+  }
+}

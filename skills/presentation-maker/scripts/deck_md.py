@@ -76,7 +76,7 @@ _THEMES_DIR = (
 # Ключи палитры, принимаемые build_html.py (функция _theme / pal_vars).
 _PALETTE_KEYS = (
     "primary", "background", "card", "stroke", "background_text", "primary_text",
-    "muted", "accent_soft", "font", "font_display", "font_url", "mood",
+    "muted", "accent_soft", "accent", "font", "font_display", "font_url", "mood",
     "radius", "radius_sm", "eyebrow_track",
 )
 
@@ -109,7 +109,7 @@ def parse_frontmatter(text: str) -> dict:
             nested: dict = {}
             j = i + 1
             while j < len(lines) and (lines[j].startswith("  ") or lines[j].startswith("\t")):
-                nm = re.match(r"^\s+([A-Za-z_][\w-]*):\s*(.*)$", lines[j].strip())
+                nm = re.match(r"^([A-Za-z_][\w-]*):\s*(.*)$", lines[j].strip())
                 if nm:
                     nested[nm.group(1)] = nm.group(2).strip()
                 j += 1
@@ -244,7 +244,10 @@ def _parse_metrics(title: str, body: list[str]) -> dict:
             value, label = parts[0].strip(), " — ".join(parts[1:]).strip()
         else:
             value, label = item, ""
-        metrics.append({"value": value, "label": label})
+        accent = value.endswith("*")
+        if accent:
+            value = value[:-1].strip()
+        metrics.append({"value": value, "label": label, **({"accent": True} if accent else {})})
     return {"type": "metrics", "title": title, "metrics": metrics}
 
 
@@ -540,6 +543,8 @@ def build_spec(md_text: str, overrides: dict | None = None) -> tuple[dict, list[
         spec["language"] = fm["language"]
     if fm.get("tone"):
         spec["tone"] = fm["tone"]
+    if fm.get("style"):
+        spec["style"] = fm["style"]
 
     return spec, warnings
 

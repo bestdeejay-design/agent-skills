@@ -1,0 +1,19 @@
+{
+  "id": "vertical-rail",
+  "family": "minimal",
+  "fits": ["bullets", "feature", "quote", "table"],
+  "density": ["concise", "standard"],
+  "css": {
+    "head_align": "left",
+    "rail": true,
+    "accent": "color-rail",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {"x": 14, "y": 8, "w": 78, "h": 8, "align": "left", "size": 30},
+    "content": {"x": 14, "y": 20, "w": 78, "h": 72},
+    "accent": {"type": "vertical-rail", "pos": "left", "w": 6},
+    "decor": {"type": "none"}
+  }
+}

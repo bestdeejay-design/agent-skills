@@ -3,24 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Презентация</title>
-<!--FONT_LINK-->
+<title>LOVII — цифровая инфраструктура локальной экономики</title>
+
 <style>
 :root {
+
     --danger: #FF3B30;
-    --primary: #007AFF;
-    --background: #FFFFFF;
-    --card: #F5F5F7;
-    --stroke: #E5E5EA;
+    --primary: #067E7B;
+    --background: #0E1116;
+    --card: #1A2029;
+    --stroke: #2A3442;
     --on-primary: #FFFFFF;
-    --text: #1C1C1E;
-    --muted: #6E6E73;
-    --accent-soft: #E8F0FE;
-    --graph-0: #007AFF;
-    --graph-1: #30B0C7;
-    --graph-2: #5E5CE6;
-    --graph-3: #34C759;
-    --graph-4: #FF9500;
+    --text: #F2F5F9;
+    --muted: #8B96A6;
+    --accent-soft: #123A38;
+    --graph-0: #067E7B;
+    --graph-1: #FFB84D;
+    --graph-2: #4D9DFF;
+    --graph-3: #8B96A6;
+    --graph-4: #9FB3C8;
     --radius: 20px;
     --radius-sm: 12px;
     --radius-lg: 28px;
@@ -28,8 +29,8 @@
     --shadow: 0 8px 32px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
     --shadow-hover: 0 16px 48px rgba(0,0,0,.1), 0 4px 16px rgba(0,0,0,.06);
     --shadow-soft: 0 1px 2px rgba(0,0,0,.04), 0 2px 10px rgba(0,0,0,.05);
-    --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
-    --font-display: var(--font);
+    --font: "Arial", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
+    --font-display: "Arial", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
     /* Design-system: spacing scale (4px base) */
@@ -63,6 +64,8 @@
     --metric-color: var(--primary);
     --metric-align: center;
     --content-align: center;
+
+    --mood: dark;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: hidden; background: var(--background); color: var(--text);
@@ -85,14 +88,14 @@ html, body { height: 100%; overflow: hidden; background: var(--background); colo
 .slide-head .page-ind { font-weight: 700; font-size: 13px; color: var(--muted); opacity: .7;
     letter-spacing: .08em; }
 
-h1, h2, h3 { font-weight: 800; letter-spacing: -.03em; line-height: 1.05; color: var(--text); }
-h1 { font-size: clamp(48px, 6.5vw, 82px); margin-bottom: 18px; }
-h2 { font-size: clamp(32px, 4.2vw, 52px); margin-bottom: 14px; text-align: center; }
-h3 { font-size: clamp(20px, 2.5vw, 27px); font-weight: 700; }
-.subtitle { font-size: clamp(18px, 2.2vw, 24px); color: var(--muted); font-weight: 500;
-    line-height: 1.38; margin-top: 10px; max-width: 920px; }
-.meta-line { font-size: clamp(15px, 1.7vw, 19px); color: var(--muted); font-weight: 500;
-    margin-top: 30px; opacity: .85; letter-spacing: .03em; }
+h1, h2, h3 { font-weight: 800; letter-spacing: -.025em; line-height: 1.08; color: var(--text); }
+h1 { font-size: clamp(44px, 6vw, 76px); margin-bottom: 16px; }
+h2 { font-size: clamp(30px, 4vw, 50px); margin-bottom: 12px; text-align: center; }
+h3 { font-size: clamp(19px, 2.4vw, 26px); font-weight: 700; }
+.subtitle { font-size: clamp(17px, 2.1vw, 23px); color: var(--muted); font-weight: 500;
+    line-height: 1.32; margin-top: 8px; max-width: 900px; }
+.meta-line { font-size: clamp(14px, 1.6vw, 18px); color: var(--muted); font-weight: 500;
+    margin-top: 28px; opacity: .8; letter-spacing: .02em; }
 .accent { color: var(--primary); }
 .slide.title, .slide.closing, .slide.centered-header { text-align: center; }
 
@@ -289,129 +292,15 @@ h3 { font-size: clamp(20px, 2.5vw, 27px); font-weight: 700; }
     text-align: left; align-self: flex-start; margin: 0 0 3vh; font-family: var(--font-display);
 }
 
-/* ============================================================
-   Accent embedding (second brand color, var(--accent))
-   Three ways to weave the accent into a slide without mixing:
-   .accent-word     — first word of the title entirely in accent
-   .accent-underline — hairline underline under the title in accent
-   .accent-icons     — metric icons tinted with the accent color
-   Applied by build_html.py/patterns.py selector (spread across deck).
-   Rule: an accent never sits on top of another accent.
-   ============================================================ */
-.accent-word > h1 .accent-word, .accent-word > h2 .accent-word {
-    color: var(--accent, var(--primary));
-}
-.accent-underline > h1, .accent-underline > h2 {
-    position: relative;
-    padding-bottom: .35em;
-}
-.accent-underline > h1::after, .accent-underline > h2::after {
-    content: ""; position: absolute; left: 0; bottom: 0;
-    width: 64px; height: 4px; border-radius: 2px;
-    background: var(--accent, var(--primary));
-}
-.accent-icons .metric-icon {
-    background: var(--accent-soft);
-    color: var(--accent, var(--primary));
-}
-.accent-icons .metric-icon svg { fill: currentColor; }
-.accent-icons .metric-card .metric-value { color: var(--accent, var(--primary)); }
-.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-value,
-.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-icon {
-    color: var(--on-primary);
-    background: transparent;
-}
-.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-icon svg {
-    fill: var(--on-primary);
-}
-
-
-/* -- pat-split-frame: photo/media half right, content left (editorial) */
-.slide.pat-split-frame { justify-content: center; align-items: center; flex-direction: row; gap: 4%; }
-.slide.pat-split-frame > h1, .slide.pat-split-frame > h2 {
-    width: 44%; flex-shrink: 0; text-align: left; align-self: center; margin: 0;
-    font-family: var(--font-display);
-}
-.slide.pat-split-frame > .bullet-list, .slide.pat-split-frame > .metrics-grid,
-.slide.pat-split-frame > .col-card, .slide.pat-split-frame > .quote-wrap {
-    width: 48%; flex-shrink: 0; margin: 0; max-width: none;
-}
-.slide.pat-split-frame::after {
-    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 46%;
-    background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
-    opacity: .5; pointer-events: none; border-left: 1px solid var(--stroke);
-}
-
-/* -- pat-sparkline-metric: giant number + inline trend */
-.slide.pat-sparkline-metric > .metrics-grid { grid-template-columns: 1fr; gap: 24px; max-width: 1000px; }
-.slide.pat-sparkline-metric .metric-card { flex-direction: row; justify-content: flex-start;
-    align-items: baseline; gap: 28px; text-align: left; padding: 30px 40px; }
-.slide.pat-sparkline-metric .metric-value { font-size: clamp(52px, 7vw, 96px); text-align: left; }
-.slide.pat-sparkline-metric .metric-label { text-align: left; font-size: clamp(17px, 2vw, 21px); }
-
-/* -- pat-before-after: muted vs accent halves */
-.slide.pat-before-after > .col-card { border: none; box-shadow: none; }
-.slide.pat-before-after > .col-card:nth-child(1) { background: transparent; }
-.slide.pat-before-after > .col-card:nth-child(2) { background: var(--accent-soft); }
-
-/* -- pat-vertical-stepper: rail with dots on the left */
-.slide.pat-vertical-stepper { padding-left: clamp(96px, 10vw, 140px); position: relative; }
-.slide.pat-vertical-stepper::before {
-    content: ""; position: absolute; left: clamp(40px, 5vw, 72px); top: 12%; bottom: 12%;
-    width: 3px; border-radius: 2px; background: var(--stroke);
-}
-.slide.pat-vertical-stepper > .steps-wrap { margin-left: 0; }
-.slide.pat-vertical-stepper .step-card { position: relative; }
-.slide.pat-vertical-stepper .step-card::before {
-    content: attr(data-step); position: absolute; left: clamp(-72px, -7vw, -52px); top: 50%;
-    transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%;
-    background: var(--card); border: 3px solid var(--primary);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15px; font-weight: 800; color: var(--primary);
-}
-
-/* -- pat-zigzag-timeline: alternating rows */
-.slide.pat-zigzag-timeline > .tl-wrap { width: 100%; max-width: 1200px; }
-.slide.pat-zigzag-timeline .tl-item { display: flex; align-items: center; gap: 24px; }
-.slide.pat-zigzag-timeline .tl-item:nth-child(even) { flex-direction: row-reverse; text-align: right; }
-
-/* -- pat-quote-hero: giant quote mark */
-.slide.pat-quote-hero { position: relative; }
-.slide.pat-quote-hero::before {
-    content: "\201C"; position: absolute; top: 4vh; left: 6vw;
-    font-size: clamp(200px, 30vw, 420px); line-height: 1; color: var(--primary);
-    opacity: .1; font-family: var(--font-display); pointer-events: none;
-}
-.slide.pat-quote-hero > h1, .slide.pat-quote-hero > h2 {
-    font-size: clamp(40px, 5.5vw, 68px); text-align: center; position: relative;
-    font-family: var(--font-display); max-width: 85%;
-}
-
-/* -- pat-recap-grid: 2x2 summary grid with one accent cell */
-.slide.pat-recap-grid > .bullet-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
-    width: 100%; max-width: 1200px; }
-.slide.pat-recap-grid > .bullet-list li:nth-child(1) {
-    background: var(--primary); color: var(--on-primary); border-color: var(--primary);
-}
-.slide.pat-recap-grid > .bullet-list li:nth-child(1)::before {
-    background: var(--on-primary); box-shadow: none;
-}
-
 /* bullets */
-
 .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 14px;
     width: 100%; max-width: 920px; margin-top: 26px; text-align: left; }
-.bullet-list li { display: flex; align-items: flex-start; gap: 18px; padding: 20px 26px;
+.bullet-list li { display: flex; align-items: center; gap: 16px; padding: 18px 24px;
     background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius-sm);
-    font-size: clamp(16px, 1.9vw, 20px); line-height: 1.6; color: var(--text); letter-spacing: .005em;
-    transition: border-color .2s, box-shadow .2s, transform .2s; position: relative; }
-.bullet-list li::before { content: ""; flex-shrink: 0; width: 14px; height: 14px; border-radius: 4px;
-    margin-top: 7px; background: linear-gradient(135deg, var(--primary), var(--graph-1));
-    box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 45%, transparent);
-    transition: transform .2s; }
-.bullet-list li:hover { border-color: var(--primary); box-shadow: var(--shadow);
-    transform: translateX(4px); }
-.bullet-list li:hover::before { transform: rotate(90deg); }
+    font-size: clamp(15px, 1.8vw, 19px); line-height: 1.5; transition: border-color .2s, box-shadow .2s; }
+.bullet-list li:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+.bullet-list li::before { content: ""; flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--primary); box-shadow: 0 0 0 5px var(--accent-soft); }
 
 /* metrics */
 .metrics-grid { display: grid; gap: 20px; width: 100%; max-width: 1100px; margin-top: 30px; }
@@ -419,21 +308,18 @@ h3 { font-size: clamp(20px, 2.5vw, 27px); font-weight: 700; }
 .metrics-3 { grid-template-columns: repeat(3, 1fr); }
 .metrics-4 { grid-template-columns: repeat(4, 1fr); }
 .metric-card { display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 8px; padding: clamp(28px, 3.4vw, 40px); background: var(--card); border: 1px solid var(--stroke);
-    border-radius: var(--radius); position: relative; overflow: hidden;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-.metric-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--graph-1)); opacity: .85; }
+    gap: 6px; padding: clamp(24px, 3vw, 36px); background: var(--card); border: 1px solid var(--stroke);
+    border-radius: var(--radius); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     min-width: 0; }
-.metric-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+.metric-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
 .metric-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center;
     justify-content: center; margin-bottom: 6px; color: var(--primary); background: var(--card);
     border: 1px solid var(--stroke); }
 .metric-icon svg { width: 24px; height: 24px; display: block; }
-.metric-value { font-size: clamp(30px, 3.8vw, 48px); font-weight: 800; letter-spacing: -.02em;
+.metric-value { font-size: clamp(26px, 3.4vw, 44px); font-weight: 800; letter-spacing: -.02em;
     color: var(--primary); line-height: 1.1; text-align: center; overflow-wrap: anywhere; max-width: 100%; }
 .metric-value-sm { font-size: clamp(19px, 2.2vw, 27px); letter-spacing: -.01em; }
-.metric-label { font-size: clamp(17px, 1.9vw, 20px); color: var(--muted); font-weight: 500;
+.metric-label { font-size: clamp(13px, 1.5vw, 16px); color: var(--muted); font-weight: 500;
     text-align: center; line-height: 1.3; }
 @media (max-width: 900px) {
     .metrics-3, .metrics-4 { grid-template-columns: repeat(2, 1fr); }
@@ -445,16 +331,11 @@ h3 { font-size: clamp(20px, 2.5vw, 27px); font-weight: 700; }
 .col-card { display: flex; flex-direction: column; background: var(--card);
     border: 1px solid var(--stroke); border-radius: var(--radius); padding: 28px 28px 22px;
     transition: border-color .2s, box-shadow .2s; }
-.col-card:hover { border-color: var(--primary); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-.col-card h3 { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px solid var(--stroke);
-    letter-spacing: -.01em; position: relative; }
-.col-card h3::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 44px; height: 2px;
-    background: var(--primary); }
-.col-card h3::before { content: ""; }
-.col-card:nth-child(1) h3::after { background: var(--primary); }
-.col-card:nth-child(2) h3::after { background: var(--accent, var(--graph-3)); }
+.col-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+.col-card h3 { margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--stroke); }
+.col-card h3::before { content: "— "; color: var(--muted); font-weight: 600; opacity: .6; }
 .col-card li { list-style: none; display: flex; align-items: flex-start; gap: 12px;
-    padding: 10px 0; font-size: clamp(17px, 2vw, 20px); line-height: 1.5; }
+    padding: 10px 0; font-size: clamp(14px, 1.7vw, 17px); line-height: 1.45; }
 .col-card li::before { content: "✕"; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
     background: rgba(255,59,48,.12); color: var(--danger); margin-top: 2px; }
@@ -502,7 +383,7 @@ tr:hover td.hl { border-color: var(--primary); }
     align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--on-primary);
     background: linear-gradient(135deg, var(--primary), var(--graph-1));
     box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent); }
-.step-text { font-size: clamp(17px, 2vw, 20px); line-height: 1.45; font-weight: 500; text-align: left; }
+.step-text { font-size: clamp(15px, 1.8vw, 18px); line-height: 1.45; font-weight: 500; text-align: left; }
 .step-arrow { position: absolute; right: 22px; color: var(--muted); opacity: .5; font-size: 20px; }
 
 /* timeline */
@@ -519,8 +400,8 @@ tr:hover td.hl { border-color: var(--primary); }
 .tl-card { width: 100%; background: var(--card); border: 1px solid var(--stroke);
     border-radius: var(--radius); padding: 18px 16px; transition: border-color .2s, box-shadow .2s; }
 .tl-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
-.tl-card strong { display: block; font-size: clamp(17px, 1.9vw, 20px); margin-bottom: 4px; }
-.tl-card span { font-size: clamp(15px, 1.7vw, 17px); color: var(--muted); line-height: 1.4; display: block; }
+.tl-card strong { display: block; font-size: clamp(14px, 1.6vw, 17px); margin-bottom: 4px; }
+.tl-card span { font-size: clamp(12px, 1.4vw, 14px); color: var(--muted); line-height: 1.4; display: block; }
 
 /* image showcase */
 .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 40px);
@@ -593,7 +474,7 @@ tr:hover td.hl { border-color: var(--primary); }
     justify-content: center; color: var(--primary); background: var(--accent-soft); }
 .feature-icon svg { width: 22px; height: 22px; display: block; }
 .feature-card h3 { font-size: clamp(17px, 2vw, 22px); font-weight: 700; }
-.feature-card p { font-size: clamp(16px, 1.8vw, 18px); color: var(--muted); line-height: 1.5; }
+.feature-card p { font-size: clamp(14px, 1.6vw, 16px); color: var(--muted); line-height: 1.5; }
 
 /* ===== logos — сетка партнёров/брендов ===== */
 .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(14px, 2vw, 24px);
@@ -736,26 +617,28 @@ tr:hover td.hl { border-color: var(--primary); }
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<div class="deck" id="deck">
+<div class="deck" id="deck" data-mood="dark">
 
-  <section class="slide title active">
-    <div class="slide-head"><span class="logo">◆</span><span class="page-ind">01</span></div>
-    <h1>Презентация</h1>
-    <p class="subtitle">Подзаголовок</p>
-    <p class="meta-line">Автор · Год</p>
-  </section>
 
-  <section class="slide">
-    <div class="slide-head"><span class="logo">◆</span><span class="page-ind">02</span></div>
-    <h2>Демо-слайд</h2>
-    <ul class="bullet-list">
-      <li>Пункт первый</li>
-      <li>Пункт второй</li>
-    </ul>
-  </section>
+  <section class="slide pat-split-diagonal" title"><h1>LOVII — цифровая инфраструктура для микробизнеса</h1><p class="subtitle">Программа лояльности, платежи, маркетплейс локальных предложений и SaaS для малого бизнеса</p><p class="meta-line">ООО «Аксиома» · Август 2026</p></section>
 
-</div>
+  <section class="slide pat-card-dashboard""><div class="slide-head"><span class="logo">●</span><span class="page-ind">02</span></div><h2>Локальный микробизнес теряет клиентов: нет цифровых инструментов</h2><ul class="bullet-list"><li>Точки работают без программы лояльности: клиент уходит, если рядом дешевле</li><li>Приём платежей тянет 3,5% банку и кассовые издержки</li><li>Реклама у агрегаторов дорога и не возвращает покупателя</li><li>Владелец не видит своих клиентов: нет данных, нет удержания</li><li>Доход зависит от случайных прохожих — повторных продаж нет</li></ul></section>
 
+  <section class="slide pat-hero-left""><div class="slide-head"><span class="logo">●</span><span class="page-ind">03</span></div><h2>LOVII возвращает владельцу точку: лояльность, платежи и данные в одной системе</h2><ul class="bullet-list"><li>Программа лояльности: 1 балл = 1 ₽, клиент возвращается сам</li><li>Приём платежей через платформу — без кассовой рутины</li><li>Маркетплейс локальных предложений: точка видна своему району</li><li>SaaS-инструменты: аналитика, акции, удержание клиентов</li><li>Владелец контролирует свои данные и отношения с клиентом</li></ul></section>
+
+  <section class="slide pat-swiss-grid""><div class="slide-head"><span class="logo">●</span><span class="page-ind">04</span></div><h2>Юнит-экономика точки: 144 000 ₽ оборота, 7 460 ₽ дохода платформы в месяц</h2><div class="metrics-grid metrics-3"><div class="metric-card"><span class="metric-value metric-value-sm">144 000 ₽</span><span class="metric-label">оборот точки в месяц (4 чека × 1 200 ₽ × 30 дней)</span></div><div class="metric-card"><span class="metric-value metric-value-sm">10%</span><span class="metric-label">нагрузка на точку (6,5% LOVII + 3,5% банк-эквайер)</span></div><div class="metric-card"><span class="metric-value metric-value-sm">7 460 ₽</span><span class="metric-label">доход LOVII-группы с точки в месяц</span></div><div class="metric-card"><span class="metric-value metric-value-sm">6,5%</span><span class="metric-label">тариф А: плати только когда продаёшь (60% точек)</span></div><div class="metric-card"><span class="metric-value metric-value-sm">2 990 ₽</span><span class="metric-label">абонплата PRO в месяц (40% точек)</span></div></div></section>
+
+  <section class="slide pat-split-diagonal""><div class="slide-head"><span class="logo">●</span><span class="page-ind">05</span></div><h2>Два тарифа покрывают разные потребности точек</h2><div class="columns columns"><div class="col-card"><h3>Тариф А — базовый</h3><ul><li>6,5% комиссия, без абонплаты</li><li>Платит только когда продаёт</li><li>Подходит 60% точек</li></ul></div><div class="col-card"><h3>Тариф PRO — стабильный</h3><ul><li>4,0% комиссия + 2 990 ₽/мес вперёд</li><li>Предсказуемый поток для платформы</li><li>3000 точек на PRO = 3,6 млн ₽/мес абонплаты</li></ul></div></div></section>
+
+  <section class="slide pat-vertical-rail""><div class="slide-head"><span class="logo">●</span><span class="page-ind">06</span></div><h2>Доход платформы делится поровну между компанией и сетью: 40 / 40 / 20</h2><ul class="bullet-list"></ul></section>
+
+  <section class="slide pat-z-pattern""><div class="slide-head"><span class="logo">●</span><span class="page-ind">07</span></div><h2>Рост сети масштабирует оценку: от 107 млн ₽ до 1,5 млрд ₽</h2><div class="metrics-grid metrics-4"><div class="metric-card"><span class="metric-value metric-value-sm">107 млн ₽</span><span class="metric-label">оценка при 500 точках (P/E 10×)</span></div><div class="metric-card"><span class="metric-value metric-value-sm">251 млн ₽</span><span class="metric-label">оценка при 1000 точках</span></div><div class="metric-card"><span class="metric-value metric-value-sm">859 млн ₽</span><span class="metric-label">оценка при 3000 точках</span></div><div class="metric-card"><span class="metric-value metric-value-sm">1,52 млрд ₽</span><span class="metric-label">оценка при 5000 точках</span></div></div></section>
+
+  <section class="slide pat-card-dashboard""><div class="slide-head"><span class="logo">●</span><span class="page-ind">08</span></div><h2>Фундамент построен: Аксиома с 20-летним опытом уже развивает продукт</h2><ul class="bullet-list"><li>ООО «Аксиома» — 20 лет на рынке IT, выручка 166 млн ₽</li><li>Канон, финмодель и параметры утверждены владельцем (июль 2026)</li><li>Переход с ЦФА на equity-модель привлечения завершён</li><li>Лендинг, whitepaper и база знаний опубликованы</li><li>Идеолог и генеральный директор — Кузюков Сергей Сергеевич</li></ul></section>
+
+  <section class="slide pat-swiss-grid""><div class="slide-head"><span class="logo">●</span><span class="page-ind">09</span></div><h2>Масштаб идёт от пилота к федерации: 30 точек → 5 000+</h2><div class="steps"><div class="step-card"><div class="step-num">01</div><div class="step-text">MVP: пилот в одном районе, 30–50 точек, платежи и лояльность</div><span class="step-arrow">→</span></div><div class="step-card"><div class="step-num">02</div><div class="step-text">Город: 500 точек, отработка тарифов и сети представителей</div><span class="step-arrow">→</span></div><div class="step-card"><div class="step-num">03</div><div class="step-text">Регионы: 3000 точек, маркетплейс и SaaS-инструменты</div><span class="step-arrow">→</span></div><div class="step-card"><div class="step-num">04</div><div class="step-text">Федерация: 5000+ точек, полная экосистема локальной экономики</div></div></div></section>
+
+  <section class="slide pat-hero-left""><div class="slide-head"><span class="logo">●</span><span class="page-ind">10</span></div><h2>Приглашаем инвестора в блок «компания + инвестор» — 40% дохода с каждой точки</h2><ul class="bullet-list"><li>Доля в бизнесе (equity) — обсуждается индивидуально под этап роста</li><li>Прозрачная финмодель: канон, параметры, оценка — всё опубликовано</li><li>ООО «Аксиома» за спиной: 20 лет опыта, действующая IT-компания</li><li>Готовы строить цифровую инфраструктуру локальной экономики вместе</li></ul></section>
 <div class="nav-hint">← → для навигации · клик по краям · свайп</div>
 
 <script>

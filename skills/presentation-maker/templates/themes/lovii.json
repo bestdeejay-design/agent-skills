@@ -1,0 +1,22 @@
+{
+    "name": "lovii",
+    "description": "LOVII brand roles: primary teal #0D9488 = structure (headings, lines, markers, gradients); accent rose #F64A8A = accent points only (key metrics, eyebrow, badges); graphs = teal family (no mixing)",
+    "mood": "flat",
+    "primary": "#0D9488",
+    "background": "#F8FAFC",
+    "card": "#FFFFFF",
+    "stroke": "#E2E8F0",
+    "background_text": "#FFFFFF",
+    "primary_text": "#0F172A",
+    "muted": "#64748B",
+    "accent_soft": "#FCE7F3",
+    "accent": "#F64A8A",
+    "font": "Arial",
+    "graphs": [
+        "#0D9488",
+        "#0F766E",
+        "#115E59",
+        "#7E90C2",
+        "#0F172A"
+    ]
+}

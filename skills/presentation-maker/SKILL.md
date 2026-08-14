@@ -3,7 +3,7 @@ name: presentation-maker
 description: End-to-end presentations from a topic — outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system), plus strategy presets, PDF export, and deck-quality audits. One command per stage.
 license: MIT
 metadata:
-  version: 3.2.0
+  version: 3.5.0
 ---
 
 # presentation-maker
@@ -251,6 +251,70 @@ When `type` is `auto`/missing, `pick_layout()` infers the best fit from content
 keys (quote → `quote`, columns → `comparison`, steps → `process`, metrics →
 `metrics`, numeric table → `chart`, text table → `table`, features → `feature`,
 logos → `logos`, etc.), avoiding repeating the previous slide's type when plausible.
+
+## Generative pattern layer (v3.3.0)
+
+Beyond the fixed `RENDERERS`, each slide gets a **layout pattern** — a
+compositional scheme chosen at build time so decks do not look like one template:
+
+- **Patterns** live in `templates/patterns/*.json`. Compositional schemes
+  (15): `hero-left`, `editorial-asym`, `swiss-grid`, `z-pattern`, `split-diagonal`,
+  `big-type`, `card-dashboard`, `vertical-rail`, `split-frame` (photo/media half),
+  `sparkline-metric` (giant number + trend), `before-after` (muted vs accent halves),
+  `vertical-stepper` (track + step dots), `zigzag-timeline` (alternating rows),
+  `quote-hero` (giant quote mark), `recap-grid` (2×2 summary, one accent cell).
+  Each declares `family` (editorial/swiss/fintech/minimal/glass), which content
+  types it `fits`, CSS tokens for HTML, and coordinate rules for PPTX.
+- **Selector** (`scripts/patterns.py`, shared by both builders): content type →
+  matching patterns (`fits`) → variety (never repeat a pattern used on the last 3
+  slides) → deck `style.family` narrows candidates → density filter → least-used
+  tie-break. Result is a unique mix per deck: the same content can be rendered by
+  different patterns on different decks.
+- **Style direction** — set in the outline frontmatter to steer the whole deck:
+
+  ```yaml
+  style:
+    family: fintech        # editorial | swiss | fintech | minimal | glass
+    reference: https://…   # optional: case/gallery reference
+  ```
+
+  Without `style.family` the selector still varies patterns (variety rule alone),
+  so decks differ even with the same theme.
+- **Skill memory** — after building, save a deck as a reusable case:
+
+  ```bash
+  python3 scripts/build_html.py deck.json slides.html --save-case my-deck
+  ```
+
+  This writes `examples/cases/my-deck/{case.json, deck.json, slides.html}`.
+  `scripts/cases.py` lists saved cases; future users can reuse a case as a
+  reference or extend the pattern library from it — every deck can become a
+  template for the next one. `verify_slides.py`, `deck_audit.py`, `qa_pptx.py`
+  and `qa_intern.py` gates run unchanged.
+
+## Accent embedding (two brand colors, no mixing)
+
+Decks may carry **two brand accents** (e.g. teal primary + rose accent). They are
+never blended in one element, and text on an accent-colored block is always
+`on-primary` (white). The accent is woven into individual slides via modes
+(`build_html.py` → `pick_accent_mode()`, spread across the deck, never repeated
+on adjacent slides):
+
+- **`accent-word`** — first word of the title entirely in the accent color
+  (never a lone letter floating away from its word);
+- **`accent-underline`** — accent hairline under the title;
+- **`accent-icons`** — metric icons + values in the accent color (light cards only).
+
+Set the two accents in the theme: `primary` (structure: headings, lines,
+markers, gradients, duotones) and `accent` (accent points only). Graphs stay in
+the primary family so gradients/duotones never mix the two brands.
+
+## Typography floor (card text)
+
+Body text inside cards must stay readable at 16:9 projection — floor 17px,
+labels ≥ 17px, metric values 30–48px, timeline descriptions ≥ 15px. Headings
+scale via `--t-*` tokens. `verify_slides.py` re-checks overflow after any
+font-size change.
 
 ## Anti-template design rules
 
