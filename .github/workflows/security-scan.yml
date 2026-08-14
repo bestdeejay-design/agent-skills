@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   security-scan:
-    name: MCP-Scan Security Check
+    name: Skill Security Check
     runs-on: ubuntu-latest
 
     steps:
@@ -25,17 +25,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v4
-
-      - name: Run MCP-Scan (changed skills only on PRs)
+      - name: Run Security Check (changed skills only on PRs)
         if: github.event_name == 'pull_request'
         run: |
-          echo "Running MCP-Scan on changed skills..."
+          echo "Running security check on changed skills..."
           python3 scripts/mcp_scan_checker.py --changed --base origin/${{ github.base_ref }} -v
 
-      - name: Run MCP-Scan (all skills on push)
+      - name: Run Security Check (all skills on push)
         if: github.event_name == 'push'
         run: |
-          echo "Running MCP-Scan security check on all skills..."
+          echo "Running security check on all skills..."
           python3 scripts/mcp_scan_checker.py --all -v

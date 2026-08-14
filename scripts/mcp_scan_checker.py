@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-MCP-Scan security checker for AI-skill directories.
+Local security checker for AI-skill directories.
 
-Wraps Invariant Labs' snyk-agent-scan (MCP-Scan) to scan each
-skills/<name>/ directory individually for prompt injection (W011),
-malware (W012), hard-coded secrets, and other issues.
+Performs static, offline security analysis of each skills/<name>/
+directory: hard-coded secrets (private keys, API tokens), prompt
+injection patterns, and dangerous shell-command constructs. External
+URLs are checked against a per-component domain allowlist
+(mcp-scan-allowlist.json). No network access, no external scanner,
+no third-party dependencies -- pure Python 3 stdlib.
 
-This is a compact adaptation of the developer-kit reference checker
-(MIT licensed). It is pure Python 3 stdlib, single file, CI-friendly
-(plain ASCII output, no color codes).
+Designed as a drop-in local replacement for the snyk-agent-scan
+(MCP-Scan) based checker: same CLI, same exit codes, same allowlist
+file, so existing CI invocations keep working without SNYK_TOKEN.
 
 Usage:
     # Scan every skills/<name>/ directory
@@ -23,18 +26,17 @@ Usage:
 Exit codes:
     0 = clean, or only allowlisted findings
     1 = new (non-allowlisted) findings detected
-    2 = system error (scanner unavailable / execution failure)
+    2 = system error (analysis failure)
 """
 
 import argparse
 import json
 import re
-import shutil
 import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 from urllib.parse import urlparse
 
 # Allowlist file lives in the repo ROOT (not in scripts/).
@@ -46,12 +48,166 @@ URL_RE = re.compile(r"https?://[^\s\"'<>)\]},\`]+")
 # Domains that are always treated as placeholders and excluded from validation.
 PLACEHOLDER_DOMAINS = frozenset({"localhost"})
 
-# Warning codes that are informational (not real security issues).
-# W004 = "The MCP server is not in our registry" — expected for custom skills.
-INFORMATIONAL_CODES = frozenset({"W004"})
+# Issue codes that are informational (not real security issues).
+INFORMATIONAL_CODES = frozenset()
 
-# Scanner invocation timeout per skill (seconds).
-SCAN_TIMEOUT = 120
+# ---------------------------------------------------------------------------
+# Secret patterns. Each entry: (compiled regex, code, label).
+# Matcher extraction is line-based; placeholder-guard (_is_placeholder)
+# filters out documentation examples (…, ..., EXAMPLE, XXX, <...>, ${...}).
+# ---------------------------------------------------------------------------
+
+# Full PEM private keys (RSA/EC/OPENSSH/DSA/PGP/ENCRYPTED). A real key block
+# is long and free of ellipses / placeholder markers.
+_PRIVATE_KEY_HEADER = re.compile(
+    r"-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP |ENCRYPTED |)PRIVATE KEY-----"
+)
+
+# Well-known high-entropy token formats.
+_TOKEN_PATTERNS = [
+    (re.compile(r"\bghp_[A-Za-z0-9]{36}\b"), "SECRET", "GitHub personal access token"),
+    (re.compile(r"\bgho_[A-Za-z0-9]{36}\b"), "SECRET", "GitHub OAuth token"),
+    (re.compile(r"\bgithub_pat_[A-Za-z0-9_]{22,}\b"), "SECRET", "GitHub fine-grained token"),
+    (re.compile(r"\bglpat-[A-Za-z0-9_\-]{20,}\b"), "SECRET", "GitLab personal access token"),
+    (re.compile(r"\bxox[baprs]-[A-Za-z0-9\-]{10,}\b"), "SECRET", "Slack token"),
+    (re.compile(r"\bAKIA[0-9A-Z]{16}\b"), "SECRET", "AWS access key ID"),
+    (re.compile(r"\bASIA[0-9A-Z]{16}\b"), "SECRET", "AWS temporary access key ID"),
+    (re.compile(r"\bAIza[0-9A-Za-z_\-]{30,}\b"), "SECRET", "Google API key"),
+    (
+        re.compile(r"\beyJ[A-Za-z0-9_\-]+\.[A-Za-z0-9_\-]+\.[A-Za-z0-9_\-]+"),
+        "SECRET",
+        "JWT token",
+    ),
+    (re.compile(r"\bsk-[A-Za-z0-9_\-]{20,}\b"), "SECRET", "API key (sk- prefix)"),
+]
+
+# Sensitive key-value assignments, e.g. `api_key = "..."`, `TOKEN: "..."`.
+# The value must be a quoted literal of sufficient length and must not look
+# like a documentation placeholder.
+_ASSIGN_PATTERN = re.compile(
+    r"\b(?:api[_-]?key|apikey|password|passwd|secret|token|"
+    r"access[_-]?key|auth[_-]?token|private[_-]?key)\b"
+    r"\s*[=:]\s*[\"']([^\"'\s]{12,})[\"']",
+    re.IGNORECASE,
+)
+
+# ---------------------------------------------------------------------------
+# Prompt injection patterns.
+# ---------------------------------------------------------------------------
+_INJECTION_PATTERNS = [
+    (
+        re.compile(
+            r"\bignore (?:all |any |every )?(?:previous|prior|above|earlier) "
+            r"(?:instructions|directives|prompts?|messages|commands)\b",
+            re.IGNORECASE,
+        ),
+        "INJECT",
+        "prompt injection: instruction to ignore earlier instructions",
+    ),
+    (
+        re.compile(
+            r"\bignore (?:the )?(?:system|developer|original) (?:prompt|instructions)\b",
+            re.IGNORECASE,
+        ),
+        "INJECT",
+        "prompt injection: instruction to ignore the system prompt",
+    ),
+    (
+        re.compile(
+            r"\b(?:disregard|forget) (?:all )?(?:previous|prior) (?:instructions|directives)\b",
+            re.IGNORECASE,
+        ),
+        "INJECT",
+        "prompt injection: instruction to disregard earlier directives",
+    ),
+    (
+        re.compile(
+            r"\breveal (?:your |the )(?:system |internal |full |original )?prompt\b",
+            re.IGNORECASE,
+        ),
+        "INJECT",
+        "prompt injection: request to leak the system prompt",
+    ),
+    (
+        re.compile(
+            r"\b(?:override|bypass) (?:the |your |any )?(?:system|safety|security|original) "
+            r"(?:prompt|policy|rules|instructions)\b",
+            re.IGNORECASE,
+        ),
+        "INJECT",
+        "prompt injection: attempt to override safety policy",
+    ),
+]
+
+# ---------------------------------------------------------------------------
+# Dangerous command constructs (remote code / shell piping / decoding).
+# ---------------------------------------------------------------------------
+_DANGEROUS_COMMANDS = [
+    (
+        re.compile(r"\bcurl\s+[^;\n|]*\|\s*(?:sudo\s+)?(?:ba|z)sh\b", re.IGNORECASE),
+        "EXEC",
+        "download-and-execute: curl piped to shell",
+    ),
+    (
+        re.compile(r"\bwget\s+[^;\n|]*\|\s*(?:sudo\s+)?(?:ba|z)sh\b", re.IGNORECASE),
+        "EXEC",
+        "download-and-execute: wget piped to shell",
+    ),
+    (
+        re.compile(r"\b(?:ba|z)sh\s*<\s*<\(\s*(?:curl|wget)\b", re.IGNORECASE),
+        "EXEC",
+        "download-and-execute: process substitution of remote fetch",
+    ),
+    (
+        re.compile(r"\bcurl\s+[^;\n|]*\|\s*(?:sudo\s+)?sh\b", re.IGNORECASE),
+        "EXEC",
+        "download-and-execute: curl piped to sh",
+    ),
+    (
+        re.compile(r"\bIEX\s*\(\s*(?:New-Object|Invoke-WebRequest|curl|wget)", re.IGNORECASE),
+        "EXEC",
+        "PowerShell download-and-execute",
+    ),
+    (
+        re.compile(r"\b(?:eval|exec)\s*\(\s*(?:\"[^\"]*\"|'[^']*')\s*\)", re.IGNORECASE),
+        "EXEC",
+        "dynamic code evaluation with a literal payload",
+    ),
+]
+
+# Placeholder markers that indicate a documentation example, not a real secret.
+_PLACEHOLDER_MARKERS = (
+    "…",
+    "...",
+    "EXAMPLE",
+    "XXXX",
+    "xxxx",
+    "xxx",
+    "YOUR_",
+    "your_",
+    "Your_",
+    "changeme",
+    "CHANGE_ME",
+    "placeholder",
+    "<api",
+    "<your",
+    "<token",
+    "$",
+    "{",
+    "}",
+)
+
+
+def _is_placeholder(text: str) -> bool:
+    """Return True if the matched token looks like a documentation placeholder."""
+    return any(marker in text for marker in _PLACEHOLDER_MARKERS)
+
+
+def _plain_code_content(text: str) -> bool:
+    """Heuristic: text is likely code, not prose/documentation."""
+    return text.count("\n") > 0 and (
+        "=" in text or ";" in text or "def " in text or "import " in text or "#" in text
+    )
 
 
 @dataclass
@@ -164,15 +320,6 @@ def extract_domains_from_files(skill_path: Path) -> frozenset:
     return frozenset(found)
 
 
-def check_scanner_available() -> Tuple[bool, str]:
-    """Check if snyk-agent-scan can run via uvx or pipx."""
-    if shutil.which("uvx"):
-        return True, "uvx"
-    if shutil.which("pipx"):
-        return True, "pipx"
-    return False, ""
-
-
 def find_skill_directories(repo_root: Path) -> List[Path]:
     """Find every skills/<name>/ directory (contains SKILL.md)."""
     skills_dir = repo_root / "skills"
@@ -221,86 +368,137 @@ def find_changed_skill_directories(repo_root: Path, base_ref: Optional[str]) -> 
     return sorted(skill_dirs)
 
 
-def _parse_json_output(stdout: str, stderr: str) -> Optional[dict]:
-    """Try to parse JSON from stdout, then stderr; return None if unparseable."""
-    candidates = [stdout.strip(), stderr.strip()]
-    for blob in candidates:
-        if not blob:
+# File extensions treated as code when deciding whether a token assignment is
+# a real secret vs. a documentation example.
+_CODE_SUFFIXES = frozenset({".py", ".sh", ".js", ".ts", ".rb", ".go", ".rs", ".java", ".pl", ".php", ".ps1"})
+
+
+def _scan_text(text: str, rel_path: str) -> List[dict]:
+    """Run all local heuristics over file content; return issue dicts."""
+    issues: List[dict] = []
+    is_code = Path(rel_path).suffix in _CODE_SUFFIXES or _plain_code_content(text[:2000])
+
+    for line_no, line in enumerate(text.splitlines(), 1):
+        stripped = line.strip()
+
+        # Full private key blocks (any language). Placeholder guard: a real key
+        # block's second line is a long base64 run; skip doc examples containing
+        # ellipses/placeholder markers.
+        if _PRIVATE_KEY_HEADER.search(stripped):
+            # Look ahead in the next few lines for a long base64 payload; if the
+            # block is documented with ellipses, it is not a real key.
+            window = stripped + "\n" + "\n".join(
+                l for l in text.splitlines()[line_no : line_no + 4]
+            )
+            if _is_placeholder(window) or len(re.sub(r"[^A-Za-z0-9+/=]", "", window)) < 128:
+                continue
+            issues.append({
+                "code": "SECRET",
+                "file": rel_path,
+                "line": line_no,
+                "message": "private key material found",
+            })
             continue
-        try:
-            return json.loads(blob)
-        except json.JSONDecodeError:
-            # Try to locate a JSON object embedded in surrounding text.
-            start = blob.find("{")
-            end = blob.rfind("}")
-            if start != -1 and end > start:
-                try:
-                    return json.loads(blob[start : end + 1])
-                except json.JSONDecodeError:
+
+        for regex, code, label in _TOKEN_PATTERNS:
+            for m in regex.finditer(stripped):
+                token = m.group(0)
+                if _is_placeholder(token):
                     continue
-    return None
+                issues.append({
+                    "code": code,
+                    "file": rel_path,
+                    "line": line_no,
+                    "message": f"{label} found",
+                })
+                break  # one secret issue per line
+
+        for m in _ASSIGN_PATTERN.finditer(stripped):
+            value = m.group(1)
+            if _is_placeholder(value):
+                continue
+            # In prose, `password = "..."` is usually documentation; in code it
+            # is a hard-coded secret.
+            if not is_code:
+                continue
+            if re.fullmatch(r"[A-Za-z0-9+/=_.\-]{12,}", value) is None:
+                continue
+            issues.append({
+                "code": "SECRET",
+                "file": rel_path,
+                "line": line_no,
+                "message": f"hard-coded {m.group(0).split(':')[0].split('=')[0].strip().lower()} value",
+            })
+
+    # Prompt injection and dangerous commands over the whole text.
+    for regex, code, label in _INJECTION_PATTERNS:
+        for m in regex.finditer(text):
+            line_no = text[: m.start()].count("\n") + 1
+            issues.append({
+                "code": code,
+                "file": rel_path,
+                "line": line_no,
+                "message": label,
+            })
+
+    for regex, code, label in _DANGEROUS_COMMANDS:
+        for m in regex.finditer(text):
+            # Flag only executable code or shell snippets, not prose that merely
+            # *mentions* the pattern (e.g. a security checklist).
+            snippet = text[m.start() : m.end()]
+            if not is_code and not any(tok in snippet for tok in (">", "|", "$(")):
+                continue
+            line_no = text[: m.start()].count("\n") + 1
+            issues.append({
+                "code": code,
+                "file": rel_path,
+                "line": line_no,
+                "message": label,
+            })
+
+    return issues
 
 
-def scan_single_component(scan_path: Path, runner: str, verbose: bool = False) -> ScanResult:
-    """Run snyk-agent-scan on a single skill directory."""
-    result = ScanResult(scan_path=str(scan_path), component_name=scan_path.name)
+# VCS metadata / build artifacts that must never be scanned.
+_IGNORE_DIRS = frozenset({".git", "__pycache__", "node_modules", ".venv", "venv", "dist", "build"})
+_IGNORE_FILES = frozenset({"*.pyc", ".DS_Store"})
 
-    if runner == "uvx":
-        cmd = ["uvx", "snyk-agent-scan@latest", "scan", "--json", "--skills", str(scan_path)]
-    elif runner == "pipx":
-        cmd = ["pipx", "run", "snyk-agent-scan@latest", "scan", "--json", "--skills", str(scan_path)]
-    else:
-        result.error = {"message": f"Unsupported runner: {runner}"}
+
+def scan_skill_directory(skill_dir: Path) -> ScanResult:
+    """Run the local static analysis over every file in the skill directory."""
+    result = ScanResult(scan_path=str(skill_dir), component_name=skill_dir.name)
+
+    files = [f for f in skill_dir.rglob("*") if f.is_file()]
+    if not files:
+        result.error = {
+            "message": "No files found in skill directory",
+            "category": "file_not_found",
+        }
         return result
 
-    if verbose:
-        print(f"  $ {' '.join(cmd)}")
-
-    try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=SCAN_TIMEOUT)
-        parsed = _parse_json_output(proc.stdout, proc.stderr)
-
-        if parsed is None:
-            raw = (proc.stdout or proc.stderr).strip()
-            if raw:
-                result.issues.append({
-                    "code": "UNPARSED",
-                    "message": "Scanner output could not be parsed as JSON",
-                    "raw": raw[:500],
-                })
-            elif proc.returncode != 0:
-                result.error = {"message": f"Scanner exited with code {proc.returncode}"}
-            return result
-
-        # snyk-agent-scan returns: { "<config_path>": { issues, labels, error, servers } }
-        for _key, config_data in parsed.items():
-            if not isinstance(config_data, dict):
-                continue
-            issues = config_data.get("issues", [])
-            if issues:
-                result.issues.extend(issues)
-            error = config_data.get("error")
-            if isinstance(error, dict) and error.get("message"):
-                result.error = error
-            servers = config_data.get("servers", [])
-            result.servers_found += len(servers)
-            for srv in servers:
-                srv_error = srv.get("error")
-                if isinstance(srv_error, dict) and srv_error.get("message"):
-                    result.error = srv_error
-
-    except FileNotFoundError:
-        result.error = {"message": f"{runner} command not found"}
-    except subprocess.TimeoutExpired:
-        result.error = {"message": f"Scan timed out after {SCAN_TIMEOUT} seconds"}
-    except Exception as e:  # noqa: BLE001 - surface any unexpected failure
-        result.error = {"message": str(e)}
+    for f in sorted(files):
+        if any(part in _IGNORE_DIRS for part in f.parts):
+            continue
+        if any(f.match(pattern) for pattern in _IGNORE_FILES):
+            continue
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        if not text.strip():
+            continue
+        try:
+            rel_path = str(f.relative_to(skill_dir))
+        except ValueError:
+            rel_path = f.name
+        result.issues.extend(_scan_text(text, rel_path))
 
     return result
 
 
-def print_scan_result(result: ScanResult, verbose: bool = False) -> None:
+def print_scan_result(result: ScanResult, verbose: bool = False, file=None) -> None:
     """Print the result for a single skill scan (plain ASCII)."""
+    out = file or sys.stdout
     security_issues = result.security_issues
     info_issues = result.info_issues
 
@@ -308,32 +506,35 @@ def print_scan_result(result: ScanResult, verbose: bool = False) -> None:
         err_msg = result.error.get("message", "Unknown error")
         category = result.error.get("category", "")
         if category == "file_not_found":
-            print(f"  SKIP  - {err_msg}")
+            print(f"  SKIP  - {err_msg}", file=out)
         else:
-            print(f"  ERROR - {err_msg}")
+            print(f"  ERROR - {err_msg}", file=out)
     elif security_issues:
         for issue in security_issues:
             code = issue.get("code", "???")
             msg = issue.get("message", "No description")
-            print(f"  FAIL  [{code}] {msg}")
+            loc = issue.get("file", "")
+            line = issue.get("line")
+            location = f" {loc}:{line}" if loc and line else (f" {loc}" if loc else "")
+            print(f"  FAIL  [{code}] {msg}{location}", file=out)
         if result.uncensored_domains:
             domains_str = ", ".join(sorted(result.uncensored_domains))
-            print(f"         Uncensored domain(s): {domains_str}")
-            print(f"         Add to {ALLOWLIST_FILENAME} to suppress")
+            print(f"         Uncensored domain(s): {domains_str}", file=out)
+            print(f"         Add to {ALLOWLIST_FILENAME} to suppress", file=out)
     elif info_issues and verbose:
         for issue in info_issues:
             code = issue.get("code", "???")
             msg = issue.get("message", "No description")
             suffix = " (allowed)" if code in result.allowed_codes else ""
-            print(f"  INFO  [{code}] {msg}{suffix}")
+            print(f"  INFO  [{code}] {msg}{suffix}", file=out)
     else:
-        print("  PASS")
+        print("  PASS", file=out)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="mcp-scan-checker",
-        description="Security scan skills/<name>/ directories using snyk-agent-scan (Invariant Labs)",
+        description="Local offline security scan of skills/<name>/ directories (no external scanner)",
     )
     parser.add_argument("--all", action="store_true", help="Scan every skills/<name>/ directory")
     parser.add_argument(
@@ -353,32 +554,22 @@ def main() -> int:
         parser.print_help()
         return 0
 
-    print("MCP-Scan Security Checker for AI-skill directories")
-    print("=" * 60)
+    # Human-readable progress goes to stderr in --json mode so that stdout
+    # carries ONLY the machine-readable report.
+    log = sys.stderr if args.json else sys.stdout
 
-    available, runner = check_scanner_available()
-    if not available:
-        msg = (
-            "Error: Neither 'uvx' nor 'pipx' is available, so snyk-agent-scan "
-            "cannot run. Install uv (https://astral.sh/uv) or pipx "
-            "(pip install pipx) and ensure it is on PATH."
-        )
-        print(msg)
-        if args.json:
-            print(json.dumps({"exit_code": 2, "error": "scanner_unavailable", "results": []}))
-        return 2
-
-    print(f"Using runner: {runner}")
+    print("Local Skill Security Checker (offline, no external scanner)", file=log)
+    print("=" * 60, file=log)
 
     repo_root = find_repo_root()
-    print(f"Repository: {repo_root}")
+    print(f"Repository: {repo_root}", file=log)
 
     code_allowlist, domain_allowlist, placeholder_domains = load_allowlist(repo_root)
 
     if args.changed:
         skill_dirs = find_changed_skill_directories(repo_root, args.base)
         if not skill_dirs:
-            print("No skill changes detected - nothing to scan.")
+            print("No skill changes detected - nothing to scan.", file=log)
             if args.json:
                 print(json.dumps({"exit_code": 0, "results": []}))
             return 0
@@ -386,12 +577,12 @@ def main() -> int:
         skill_dirs = find_skill_directories(repo_root)
 
     if not skill_dirs:
-        print("No skills/ directories found to scan.")
+        print("No skills/ directories found to scan.", file=log)
         if args.json:
             print(json.dumps({"exit_code": 0, "results": []}))
         return 0
 
-    print(f"Found {len(skill_dirs)} skill(s) to scan\n")
+    print(f"Found {len(skill_dirs)} skill(s) to scan\n", file=log)
 
     results: List[ScanResult] = []
     passed = failed = errors = skipped = 0
@@ -399,9 +590,9 @@ def main() -> int:
     for i, skill_dir in enumerate(skill_dirs, 1):
         rel_path = skill_dir.relative_to(repo_root) if skill_dir.is_relative_to(repo_root) else skill_dir
         rel_str = str(rel_path).replace("\\", "/").rstrip("/")
-        print(f"[{i}/{len(skill_dirs)}] {skill_dir.name} ({rel_path})")
+        print(f"[{i}/{len(skill_dirs)}] {skill_dir.name} ({rel_path})", file=log)
 
-        scan_result = scan_single_component(skill_dir, runner, args.verbose)
+        scan_result = scan_skill_directory(skill_dir)
 
         # Apply per-component allowlist with domain census.
         if rel_str in code_allowlist:
@@ -419,7 +610,7 @@ def main() -> int:
             scan_result.uncensored_domains = real_domains - scan_result.allowed_domains
 
         results.append(scan_result)
-        print_scan_result(scan_result, args.verbose)
+        print_scan_result(scan_result, args.verbose, file=log)
 
         if scan_result.error:
             if scan_result.error.get("category") == "file_not_found":
@@ -431,7 +622,7 @@ def main() -> int:
         else:
             passed += 1
 
-    print("\n" + "-" * 60)
+    print("\n" + "-" * 60, file=log)
     parts = []
     if passed:
         parts.append(f"{passed} passed")
@@ -441,7 +632,7 @@ def main() -> int:
         parts.append(f"{errors} error(s)")
     if skipped:
         parts.append(f"{skipped} skipped")
-    print(f"Results: {', '.join(parts)} ({len(results)} total)")
+    print(f"Results: {', '.join(parts)} ({len(results)} total)", file=log)
 
     if args.json:
         report = {
@@ -463,10 +654,10 @@ def main() -> int:
         print(json.dumps(report, indent=2))
 
     if failed:
-        print(f"\nSecurity scan FAILED: {failed} skill(s) with security issues.")
+        print(f"\nSecurity scan FAILED: {failed} skill(s) with security issues.", file=log)
         return 1
 
-    print("\nSecurity scan passed: all scanned skills are clean (or allowlisted).")
+    print("\nSecurity scan passed: all scanned skills are clean (or allowlisted).", file=log)
     return 0
 
 
