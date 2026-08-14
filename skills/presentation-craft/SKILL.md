@@ -4,7 +4,7 @@ description: "Router for high-quality presentations. Orchestrates specialist sub
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # presentation-craft
@@ -29,7 +29,7 @@ Router, не генератор. Он не рисует слайды сам — 
 
 ## Когда НЕ использовать
 - Быстрый одностраничный набросок — бери сразу `presentation-maker`.
-- Только верстка HTML-страницы — `frontend-perfection` / `web-artifacts-builder`.
+- Только верстка HTML-страницы — `frontend-perfection`.
 
 ## Канонический пайплайн (6 этапов)
 Порядок и гейты — консенсус из anthropics/skills (pptx, frontend-design, theme-factory),
@@ -81,11 +81,16 @@ guizang-ppt-skill, armory/marp-slides, majiayu000 trio, wanshuiyin/slides-polish
 - `verify_slides.py slides.html --spec deck.json` (обязательный Playwright-гейт:
   переполнения, наложения, навигация) — должен быть PASS.
 - `build_pdf.py slides.html deck.pdf` (PDF 1:1 с HTML, тот же рендер).
-- `build_pptx.py deck.json deck.pptx` — **ИЗВЕСТНЫЙ ГЭП**: pptx слабый (текстбоксы/таблицы
-  без дизайн-системы). Отдай, но пометь «требует доработки»; не считай финальным.
+- `build_pptx.py deck.json deck.pptx` — полная дизайн-система (14 типов слайдов,
+  1600×900, токены из Этапа 2 в `theme`). Геометрия проверяется гейтами:
+  - `qa_pptx.py deck.pptx --render` — geometric gate (bounds/overlap/tables) + JPEG-рендеры
+    для визуального просмотра; дизайн-элементы `ghost*`/`decor*`/`chrome-*` исключены.
+  - `qa_intern.py deck.pptx --skip-token-rules` — extern-линтер `intern` (alignment,
+    DOUBLE_SPACE, margins); фильтрует ложные срабатывания дизайн-системы по имени фигуры.
 - Визуальный финал: открыть slides.html, пролистать, сверить с чек-листом дефектов
-  (overflow, overlaps, <0.3″ gaps, low-contrast icons).
-**Гейт**: verify_slides PASS; PDF собран; pptx помечен draft.
+  (overflow, overlaps, <0.3″ gaps, low-contrast icons). По JPEG из `qa_pptx.py --render`
+  сверить ghost/decor-элементы, выходящие за холст (их геометрия не проверяется).
+**Гейт**: verify_slides PASS; qa_pptx PASS; qa_intern 0 ошибок; PDF собран; pptx — финальный.
 
 ## Контракт качества (acceptance criteria)
 Итоговая дека проходит, если:
@@ -95,7 +100,7 @@ guizang-ppt-skill, armory/marp-slides, majiayu000 trio, wanshuiyin/slides-polish
 - [ ] Контраст: WCAG ≥4.5:1 (текст), ≥3:1 (иконки/границы) — вычисляемый luminance.
 - [ ] Ритм: ≥6 разных layout-ов на 8–12 слайдов; нет 3 одинаковых подряд; hero/divider-чередование.
 - [ ] UI/UX: a11y (alt, focus, reduced-motion), нет переполнений/наложений (verify_slides PASS).
-- [ ] Экспорт: HTML + PDF 1:1; pptx — отдельно, помечен draft.
+- [ ] Экспорт: HTML + PDF 1:1; pptx — дизайн-система с геометрией (qa_pptx PASS, qa_intern 0).
 
 ## Команды (быстрая сводка)
 Относительно репо-рута, скрипты `presentation-maker`:
@@ -111,6 +116,7 @@ python3 skills/frontend-perfection/scripts/meta_audit.py --html slides.html --cs
 ```
 
 ## Закрытые гэпы и следующие шаги
-- pptx (Этап 5) — пока слабый; доработка `build_pptx.py` под те же токены/стиль — отдельная задача.
+- pptx (Этап 5) — полная дизайн-система: 14 типов слайдов, геометрический гейт
+  (`qa_pptx.py`) и extern-линтер `intern` (`qa_intern.py`), PDF/PPTX из единого deck.json.
 - Скоринг-движок (как SlideGauge) и XSD-валидация pptx (как anthropics validate.py) —
-  кандидаты на отдельный суб-скилл аудита, когда будем поднимать pptx.
+  кандидаты на отдельный суб-скилл аудита для ещё более жёстких гейтов.

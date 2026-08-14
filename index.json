@@ -834,7 +834,7 @@
     },
     {
       "name": "presentation-craft",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "media",
       "description": "Router for high-quality presentations: orchestrates docs-product (narrative) + frontend-design-taste (visual direction) + presentation-maker (build/export) + frontend-perfection (UI/UX audit) per stage, with a research-backed quality contract (assertion headlines, design tokens, WCAG contrast, uniqueness gate).",
       "path": "skills/presentation-craft",
