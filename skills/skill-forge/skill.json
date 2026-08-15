@@ -1,0 +1,45 @@
+{
+  "name": "skill-forge",
+  "version": "1.0.0",
+  "description": "Meta-skill and design compass for creating new skills and upgrading existing ones with a deliberate push toward being maximally technological, creative, and aesthetically disciplined. Use when the user wants to create a skill from scratch, reshape an existing skill, make a skill more reliable/technological, more creative/varied, or more visually polished — or when a skill feels templated, generic, or mechanically weak.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "meta-skill",
+    "skill-creator",
+    "design",
+    "aesthetic",
+    "creative",
+    "technological",
+    "compass"
+  ],
+  "triggers": [
+    "создай скил",
+    "новый скил",
+    "улучши скил",
+    "сделай скил креативнее",
+    "эстетичный скил",
+    "технологичный скил",
+    "скилл выглядит шаблонно",
+    "перепиши SKILL.md",
+    "мета-скилл",
+    "проверь скилл перед релизом",
+    "skill forge",
+    "create a skill",
+    "improve a skill"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": null
+  },
+  "updated": "2026-08-15"
+}

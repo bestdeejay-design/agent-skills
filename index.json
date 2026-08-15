@@ -403,7 +403,7 @@
     },
     {
       "name": "presentation-maker",
-      "version": "3.5.0",
+      "version": "4.1.0",
       "category": "media",
       "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with geometric QA + optional extern intern linter), plus strategy presets, PDF export, and a deck-quality audit. One command per stage.",
       "path": "skills/presentation-maker",
@@ -849,6 +849,44 @@
       ],
       "files": null,
       "updated": "2026-08-14"
+    },
+    {
+      "name": "skill-forge",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Meta-skill and design compass for creating new skills and upgrading existing ones with a deliberate push toward being maximally technological, creative, and aesthetically disciplined. Use when the user wants to create a skill from scratch, reshape an existing skill, make a skill more reliable/technological, more creative/varied, or more visually polished — or when a skill feels templated, generic, or mechanically weak.",
+      "path": "skills/skill-forge",
+      "triggers": [
+        "создай скил",
+        "новый скил",
+        "улучши скил",
+        "сделай скил креативнее",
+        "эстетичный скил",
+        "технологичный скил",
+        "скилл выглядит шаблонно",
+        "перепиши SKILL.md",
+        "мета-скилл",
+        "проверь скилл перед релизом",
+        "skill forge",
+        "create a skill",
+        "improve a skill"
+      ]
+    },
+    {
+      "name": "presentation-engineering",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн.",
+      "path": "skills/presentation-engineering",
+      "triggers": [
+        "инженерия презентаций",
+        "presentation engineering",
+        "создай историю",
+        "мироизменяющая презентация",
+        "story engine",
+        "нарративная презентация",
+        "презентация как акт"
+      ]
     }
   ]
 }

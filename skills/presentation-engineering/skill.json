@@ -1,0 +1,36 @@
+{
+  "name": "presentation-engineering",
+  "version": "1.0.0",
+  "description": "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": [
+    "presentation",
+    "story",
+    "narrative",
+    "presentation-engineering",
+    "презентация",
+    "история",
+    "story engine"
+  ],
+  "triggers": [
+    "инженерия презентаций",
+    "presentation engineering",
+    "создай историю",
+    "мироизменяющая презентация",
+    "story engine",
+    "нарративная презентация",
+    "презентация как акт"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json"
+  ],
+  "requirements": {
+    "tools": [],
+    "script": null
+  },
+  "updated": "2026-08-15"
+}
