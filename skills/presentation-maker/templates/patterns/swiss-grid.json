@@ -1,8 +1,19 @@
 {
   "id": "swiss-grid",
   "family": "swiss",
-  "fits": ["bullets", "metrics", "comparison", "table", "process", "timeline", "feature"],
-  "density": ["standard", "text-heavy"],
+  "fits": [
+    "bullets",
+    "metrics",
+    "comparison",
+    "table",
+    "process",
+    "timeline",
+    "feature"
+  ],
+  "density": [
+    "standard",
+    "text-heavy"
+  ],
   "css": {
     "head_align": "left",
     "grid": 12,
@@ -11,9 +22,37 @@
     "decor": "grid-lines"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 8, "y": 18, "w": 84, "h": 74},
-    "accent": {"type": "badge", "pos": "top-right"},
-    "decor": {"type": "grid-lines"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 74
+    },
+    "accent": {
+      "type": "badge",
+      "pos": "top-right"
+    },
+    "decor": {
+      "type": "grid-lines"
+    }
+  },
+  "name_ru": "Швейцарская сетка",
+  "desc": "Строгая 12-колоночная сетка с hairline-линиями, бейдж-номер справа-сверху, минимум декора.",
+  "when": "Много контента (таблицы, списки, сравнения) — нужна чёткая структура и порядок.",
+  "keywords": [
+    "сетка",
+    "швейцарский",
+    "структура",
+    "строго",
+    "таблица",
+    "порядок"
+  ]
 }

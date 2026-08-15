@@ -1,0 +1,13 @@
+/* -- pat-editorial-asym: giant ghost number top-right, title bottom-left */
+.slide.pat-editorial-asym { justify-content: flex-end; align-items: flex-start; }
+.slide.pat-editorial-asym > h1, .slide.pat-editorial-asym > h2 {
+    position: relative; text-align: left; width: 60%; font-family: var(--font-display);
+    margin: 0 0 8vh; font-size: clamp(40px, 5.5vw, 68px);
+}
+.slide.pat-editorial-asym::before {
+    content: counter(slide, decimal-leading-zero);
+    position: absolute; top: 4vh; right: 4vw; font-size: clamp(160px, 24vw, 340px);
+    font-weight: 900; line-height: 1; color: var(--primary); opacity: .09;
+    font-family: var(--font-display); pointer-events: none;
+}
+.slide.pat-editorial-asym > *:not(h1):not(h2):not(.slide-head) { align-self: flex-start; margin-left: 0; }

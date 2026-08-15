@@ -1,8 +1,14 @@
 {
   "id": "vertical-stepper",
   "family": "editorial",
-  "fits": ["process", "timeline"],
-  "density": ["standard", "text-heavy"],
+  "fits": [
+    "process",
+    "timeline"
+  ],
+  "density": [
+    "standard",
+    "text-heavy"
+  ],
   "css": {
     "head_align": "left",
     "track": "vertical",
@@ -11,9 +17,36 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 18, "y": 18, "w": 74, "h": 74, "track": "left"},
-    "accent": {"type": "track-dots"},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 18,
+      "y": 18,
+      "w": 74,
+      "h": 74,
+      "track": "left"
+    },
+    "accent": {
+      "type": "track-dots"
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Вертикальный степпер",
+  "desc": "Трек-линия слева с точками-шагами, контент справа.",
+  "when": "Пошаговый процесс, онбординг, дорожная карта — последовательность шагов.",
+  "keywords": [
+    "шаги",
+    "степпер",
+    "процесс",
+    "онбординг",
+    "трек"
+  ]
 }

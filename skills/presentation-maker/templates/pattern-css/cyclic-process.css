@@ -1,0 +1,11 @@
+/* -- pat-cyclic-process: steps around a center core (process as a loop) */
+.slide.pat-cyclic-process { position: relative; }
+.slide.pat-cyclic-process > h2 { text-align: center; font-family: var(--font-display); }
+.slide.pat-cyclic-process .steps-wrap { display: grid; grid-template-columns: 1fr 1fr;
+    gap: 22px; width: 100%; max-width: 1100px; position: relative; z-index: 1; }
+.slide.pat-cyclic-process .steps-wrap::before {
+    content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 130px; height: 130px; border-radius: 50%;
+    background: var(--primary); opacity: .12; z-index: 0;
+}
+.slide.pat-cyclic-process .step-card { background: var(--card); }

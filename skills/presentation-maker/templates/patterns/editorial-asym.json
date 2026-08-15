@@ -1,8 +1,16 @@
 {
   "id": "editorial-asym",
   "family": "editorial",
-  "fits": ["title", "divider", "closing", "quote"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "title",
+    "divider",
+    "closing",
+    "quote"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "title_pos": "bottom-left",
@@ -11,9 +19,37 @@
     "decor": "giant-number"
   },
   "pptx": {
-    "title": {"x": 8, "y": 62, "w": 55, "h": 20, "align": "left", "size": 44},
-    "content": {"x": 8, "y": 48, "w": 55, "h": 12},
-    "accent": {"type": "bg-number", "pos": "top-right"},
-    "decor": {"type": "ghost-num"}
-  }
+    "title": {
+      "x": 8,
+      "y": 62,
+      "w": 55,
+      "h": 20,
+      "align": "left",
+      "size": 44
+    },
+    "content": {
+      "x": 8,
+      "y": 48,
+      "w": 55,
+      "h": 12
+    },
+    "accent": {
+      "type": "bg-number",
+      "pos": "top-right"
+    },
+    "decor": {
+      "type": "ghost-num"
+    }
+  },
+  "name_ru": "Гигантский фоновый номер",
+  "desc": "Полупрозрачный номер на 60-70% высоты справа-сверху как фон, заголовок снизу-слева.",
+  "when": "Титул, разделитель или финал — нужно сразу задать тон деки и 'номер главы'.",
+  "keywords": [
+    "номер",
+    "глава",
+    "фон",
+    "редакционный",
+    "титул",
+    "разделитель"
+  ]
 }

@@ -1,0 +1,53 @@
+{
+  "id": "data-story",
+  "family": "fintech",
+  "fits": [
+    "chart",
+    "metrics",
+    "kpi_row",
+    "table"
+  ],
+  "density": [
+    "standard",
+    "text-heavy"
+  ],
+  "css": {
+    "head_align": "left",
+    "accent": "annotation",
+    "font_display": "sans",
+    "decor": "axis-grid"
+  },
+  "pptx": {
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 70,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 74
+    },
+    "accent": {
+      "type": "annotation-callout"
+    },
+    "decor": {
+      "type": "axis-grid"
+    }
+  },
+  "name_ru": "История данных",
+  "desc": "Заголовок-вывод + annotation-бейдж '↑ insight' на графике, акцент-граница у метрик.",
+  "when": "Графики/метрики, где важно показать вывод, а не просто данные.",
+  "keywords": [
+    "данные",
+    "график",
+    "инсайт",
+    "вывод",
+    "аннотация",
+    "дашборд"
+  ]
+}

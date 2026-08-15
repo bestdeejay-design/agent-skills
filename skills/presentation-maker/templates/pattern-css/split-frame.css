@@ -1,0 +1,15 @@
+/* -- pat-split-frame: photo/media half right, content left (editorial) */
+.slide.pat-split-frame { justify-content: center; align-items: center; flex-direction: row; gap: 4%; }
+.slide.pat-split-frame > h1, .slide.pat-split-frame > h2 {
+    width: 44%; flex-shrink: 0; text-align: left; align-self: center; margin: 0;
+    font-family: var(--font-display);
+}
+.slide.pat-split-frame > .bullet-list, .slide.pat-split-frame > .metrics-grid,
+.slide.pat-split-frame > .col-card, .slide.pat-split-frame > .quote-wrap {
+    width: 48%; flex-shrink: 0; margin: 0; max-width: none;
+}
+.slide.pat-split-frame::after {
+    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 46%;
+    background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
+    opacity: .5; pointer-events: none; border-left: 1px solid var(--stroke);
+}

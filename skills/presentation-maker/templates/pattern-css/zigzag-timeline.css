@@ -1,0 +1,4 @@
+/* -- pat-zigzag-timeline: alternating rows */
+.slide.pat-zigzag-timeline > .tl-wrap { width: 100%; max-width: 1200px; }
+.slide.pat-zigzag-timeline .tl-item { display: flex; align-items: center; gap: 24px; }
+.slide.pat-zigzag-timeline .tl-item:nth-child(even) { flex-direction: row-reverse; text-align: right; }

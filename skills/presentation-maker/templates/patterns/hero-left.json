@@ -1,8 +1,16 @@
 {
   "id": "hero-left",
   "family": "editorial",
-  "fits": ["title", "bullets", "feature", "quote"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "title",
+    "bullets",
+    "feature",
+    "quote"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "title_width": 40,
@@ -13,9 +21,36 @@
     "decor": "ghost-num"
   },
   "pptx": {
-    "title": {"x": 8, "y": 12, "w": 40, "h": 40, "align": "left", "size": 40},
-    "content": {"x": 50, "y": 10, "w": 44, "h": 80},
-    "accent": {"type": "rule", "pos": "below-title"},
-    "decor": {"type": "ghost-num"}
-  }
+    "title": {
+      "x": 8,
+      "y": 12,
+      "w": 40,
+      "h": 40,
+      "align": "left",
+      "size": 40
+    },
+    "content": {
+      "x": 50,
+      "y": 10,
+      "w": 44,
+      "h": 80
+    },
+    "accent": {
+      "type": "rule",
+      "pos": "below-title"
+    },
+    "decor": {
+      "type": "ghost-num"
+    }
+  },
+  "name_ru": "Колонка-заголовок",
+  "desc": "Заголовок в левой колонке (40%), контент в правой (55%), hairline-линия под заголовком.",
+  "when": "Заголовок длинный или содержит ключевой тезис; нужна строгая асимметрия и воздух.",
+  "keywords": [
+    "слева",
+    "колонка",
+    "асимметрия",
+    "журнальный",
+    "редакционный"
+  ]
 }

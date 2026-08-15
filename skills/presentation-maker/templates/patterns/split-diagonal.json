@@ -1,8 +1,16 @@
 {
   "id": "split-diagonal",
   "family": "fintech",
-  "fits": ["title", "divider", "comparison", "closing"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "title",
+    "divider",
+    "comparison",
+    "closing"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "split": "diagonal",
@@ -11,9 +19,37 @@
     "decor": "glow"
   },
   "pptx": {
-    "title": {"x": 8, "y": 10, "w": 55, "h": 12, "align": "left", "size": 38},
-    "content": {"x": 10, "y": 30, "w": 80, "h": 60},
-    "accent": {"type": "diagonal-fill", "pos": "left-half"},
-    "decor": {"type": "glow-oval"}
-  }
+    "title": {
+      "x": 8,
+      "y": 10,
+      "w": 55,
+      "h": 12,
+      "align": "left",
+      "size": 38
+    },
+    "content": {
+      "x": 10,
+      "y": 30,
+      "w": 80,
+      "h": 60
+    },
+    "accent": {
+      "type": "diagonal-fill",
+      "pos": "left-half"
+    },
+    "decor": {
+      "type": "glow-oval"
+    }
+  },
+  "name_ru": "Дуотон-диагональ",
+  "desc": "Слайд делится диагональю: тёмная/акцентная половина и светлая, заголовок пересекает границу.",
+  "when": "Контраст 'было/стало', тарифы, сравнение двух сущностей — визуальная дуэль.",
+  "keywords": [
+    "диагональ",
+    "дуотон",
+    "контраст",
+    "финтех",
+    "сравнение",
+    "дуэль"
+  ]
 }

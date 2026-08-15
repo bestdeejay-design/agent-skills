@@ -1,8 +1,16 @@
 {
   "id": "z-pattern",
   "family": "swiss",
-  "fits": ["bullets", "metrics", "comparison", "table"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "bullets",
+    "metrics",
+    "comparison",
+    "table"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "quads": 4,
@@ -11,9 +19,41 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "2x2"},
-    "accent": {"type": "diagonal-blocks", "blocks": [1, 4]},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 74,
+      "grid": "2x2"
+    },
+    "accent": {
+      "type": "diagonal-blocks",
+      "blocks": [
+        1,
+        4
+      ]
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Z-паттерн",
+  "desc": "4 блока по углам/квадрантам, 1-й и 4-й акцентные (подложка) — взгляд идёт по Z.",
+  "when": "Ровно 4 пункта (метод/план/итог) — направленный сценарий чтения.",
+  "keywords": [
+    "z",
+    "квадрант",
+    "4 пункта",
+    "план",
+    "метод",
+    "сценарий"
+  ]
 }

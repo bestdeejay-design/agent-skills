@@ -1,0 +1,6 @@
+/* -- pat-sparkline-metric: giant number + inline trend */
+.slide.pat-sparkline-metric > .metrics-grid { grid-template-columns: 1fr; gap: 24px; max-width: 1000px; }
+.slide.pat-sparkline-metric .metric-card { flex-direction: row; justify-content: flex-start;
+    align-items: baseline; gap: 28px; text-align: left; padding: 30px 40px; }
+.slide.pat-sparkline-metric .metric-value { font-size: clamp(52px, 7vw, 96px); text-align: left; }
+.slide.pat-sparkline-metric .metric-label { text-align: left; font-size: clamp(17px, 2vw, 21px); }

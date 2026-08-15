@@ -3,7 +3,7 @@ name: presentation-maker
 description: End-to-end presentations from a topic — outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system), plus strategy presets, PDF export, and deck-quality audits. One command per stage.
 license: MIT
 metadata:
-  version: 3.5.0
+  version: 4.1.0
 ---
 
 # presentation-maker
@@ -22,7 +22,14 @@ so each step is inspectable, debuggable, and composable.
 topic / outline.md
       │  strategy.py            (pick narrative arc + mood + density + layouts)
       ▼
-   deck.md  ──(deck_md.py)──▶  deck.json   (normalized spec)
+   deck.md  ──(deck_md.py)──▶  deck.json
+      │                          ├──(content_profile.py)──▶ content_profile.json  [Слой 1: роли/вес/геометрия]
+      │                          ├──(creative_brief.py)───▶ creative_brief.json   [Слой 2: ритм/сигнатура деки]
+      │                          ├──(composer.py, ограничен profile+brief)
+      │                          │        └──(fit_solver.py)──▶ fit_report  PASS/FAIL  [Слой 3: геометрия до рендера]
+      │                          ├──(build_html.py)──▶ slides.html
+      │                          │                        ├──(verify_slides.py)──▶ PASS/FAIL  [геометрия]
+      │                          │                        └──(vision_qa.py)───────▶ PASS/FAIL  [Слой 4: визуальная приёмка]   (normalized spec)
       │                          │
       │                          ├──(build_html.py)──▶ slides.html
       │                          │                        └──(verify_slides.py)──▶ PASS/FAIL  [mandatory Playwright gate]
@@ -76,9 +83,12 @@ starting with `# Headline`.
 python3 skills/presentation-maker/scripts/build_html.py deck.json slides.html
 ```
 
-Takes `templates/slides.html`, injects the palette into `:root` CSS variables, and
-replaces the demo `<section class="slide">` blocks with real ones built from the
-spec. Output is a self-contained 16:9 deck.
+Builds from the **modular base** (`templates/base.html` — tokens, typography,
+components, navigation) and injects CSS **only for the layout patterns actually
+used in this deck** (`templates/pattern-css/<id>.css`). There is no single
+`slides.html` template any more — each deck is assembled from base + used
+patterns, so no two decks share a pre-built shell. Output is a self-contained
+16:9 deck.
 
 ### 4. Verification gate (MANDATORY)
 
@@ -89,7 +99,9 @@ python3 skills/presentation-maker/scripts/verify_slides.py slides.html --spec de
 Runs in real Chromium (Playwright) and checks, per slide: a heading + non-empty
 content, no horizontal overflow, cards/rows hold their content (no clipping or
 spill), text containers do not clip, and keyboard navigation switches slides.
-**Exit 0 = pass; exit 1 = fail.** Do not ship `slides.html` without a PASS.
+**Exit 0 = pass; exit 1 = fail.** Ни одна презентация не считается готовой, пока
+не прошли ВСЕ четыре gate: fit_solver PASS (Слой 3), verify_slides PASS, vision_qa PASS
+(Слой 4, по каждому слайду и по деке целиком), qa_pptx PASS (для pptx-варианта).
 
 ### 5. PowerPoint
 
@@ -252,45 +264,22 @@ keys (quote → `quote`, columns → `comparison`, steps → `process`, metrics 
 `metrics`, numeric table → `chart`, text table → `table`, features → `feature`,
 logos → `logos`, etc.), avoiding repeating the previous slide's type when plausible.
 
-## Generative pattern layer (v3.3.0)
+## Generative composition layer (v4.0)
 
-Beyond the fixed `RENDERERS`, each slide gets a **layout pattern** — a
-compositional scheme chosen at build time so decks do not look like one template:
+Every slide's composition is **synthesized from scratch** — not picked from a
+template list. `scripts/composer.py` derives a deterministic parameter set from
+a deck **seed** (title + date + slide index):
 
-- **Patterns** live in `templates/patterns/*.json`. Compositional schemes
-  (15): `hero-left`, `editorial-asym`, `swiss-grid`, `z-pattern`, `split-diagonal`,
-  `big-type`, `card-dashboard`, `vertical-rail`, `split-frame` (photo/media half),
-  `sparkline-metric` (giant number + trend), `before-after` (muted vs accent halves),
-  `vertical-stepper` (track + step dots), `zigzag-timeline` (alternating rows),
-  `quote-hero` (giant quote mark), `recap-grid` (2×2 summary, one accent cell).
-  Each declares `family` (editorial/swiss/fintech/minimal/glass), which content
-  types it `fits`, CSS tokens for HTML, and coordinate rules for PPTX.
-- **Selector** (`scripts/patterns.py`, shared by both builders): content type →
-  matching patterns (`fits`) → variety (never repeat a pattern used on the last 3
-  slides) → deck `style.family` narrows candidates → density filter → least-used
-  tie-break. Result is a unique mix per deck: the same content can be rendered by
-  different patterns on different decks.
-- **Style direction** — set in the outline frontmatter to steer the whole deck:
+- title position (left / center / vertical / bottom-left) and scale;
+- content grid (1-3 columns), layout (cards / columns / plain / split);
+- one accent mode per slide (word / underline / icons) + intensity level;
+- decor motif (none / ovals / dots / grid / beams), card radius and shadow.
 
-  ```yaml
-  style:
-    family: fintech        # editorial | swiss | fintech | minimal | glass
-    reference: https://…   # optional: case/gallery reference
-  ```
-
-  Without `style.family` the selector still varies patterns (variety rule alone),
-  so decks differ even with the same theme.
-- **Skill memory** — after building, save a deck as a reusable case:
-
-  ```bash
-  python3 scripts/build_html.py deck.json slides.html --save-case my-deck
-  ```
-
-  This writes `examples/cases/my-deck/{case.json, deck.json, slides.html}`.
-  `scripts/cases.py` lists saved cases; future users can reuse a case as a
-  reference or extend the pattern library from it — every deck can become a
-  template for the next one. `verify_slides.py`, `deck_audit.py`, `qa_pptx.py`
-  and `qa_intern.py` gates run unchanged.
+So the same deck rebuilt on another day gets a **different composition mix**
+(deterministic and reproducible via the seed). The pattern files in
+`templates/patterns/*.json` remain as reference recipes (ideas for the
+parameter space), not as a fixed menu. `verify_slides.py`, `deck_audit.py`,
+`qa_pptx.py`, `qa_intern.py` gates run unchanged.
 
 ## Accent embedding (two brand colors, no mixing)
 

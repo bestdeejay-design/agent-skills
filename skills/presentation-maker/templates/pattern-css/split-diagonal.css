@@ -1,0 +1,12 @@
+/* -- pat-split-diagonal: duotone diagonal split */
+.slide.pat-split-diagonal { overflow: hidden; }
+.slide.pat-split-diagonal::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, var(--primary) 0%, var(--primary) 38%, transparent 38.5%);
+    opacity: .14; pointer-events: none;
+}
+.slide.pat-split-diagonal::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, var(--graph-1) 0%, var(--graph-1) 38%, transparent 38.5%);
+    opacity: .12; pointer-events: none;
+}

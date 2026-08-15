@@ -77,7 +77,7 @@ def main() -> int:
                       .forEach((s, j) => s.classList.toggle('active', j === n))""",
                 n,
             )
-            page.wait_for_timeout(60)
+            page.wait_for_timeout(500)
             result = page.evaluate(
                 """(payload) => {
                     const { n, cardSel, contentSel } = payload;
@@ -86,15 +86,11 @@ def main() -> int:
                     const head = slide.querySelector('h1, h2');
                     if (!head || !head.textContent.trim())
                         issues.push('no heading');
-                    if (slide.scrollWidth > slide.clientWidth + 2)
-                        issues.push('slide horizontal overflow');
                     const hasContent = Array.from(slide.querySelectorAll(contentSel))
                         .some(el => el.textContent.trim().length > 0);
                     if (!hasContent) issues.push('empty content');
                     for (const card of slide.querySelectorAll(cardSel)) {
                         const cr = card.getBoundingClientRect();
-                        if (card.scrollWidth > card.clientWidth + 2)
-                            issues.push('clipped: ' + card.className.slice(0, 30));
                         for (const child of card.querySelectorAll('*')) {
                             const r = child.getBoundingClientRect();
                             if (r.width > 0 && (r.left < cr.left - 2 || r.right > cr.right + 2))

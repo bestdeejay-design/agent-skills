@@ -1,0 +1,13 @@
+/* -- pat-z-pattern: 4 quadrants, diagonal 1&4 accented */
+.slide.pat-z-pattern { justify-content: center; }
+.slide.pat-z-pattern > h1, .slide.pat-z-pattern > h2 {
+    text-align: left; align-self: flex-start; margin: 0 0 3vh; font-family: var(--font-display);
+}
+.slide.pat-z-pattern > .bullet-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    width: 100%; max-width: 1200px; }
+.slide.pat-z-pattern > .bullet-list li:nth-child(1),
+.slide.pat-z-pattern > .bullet-list li:nth-child(4) {
+    background: var(--primary); color: var(--on-primary); border-color: var(--primary);
+}
+.slide.pat-z-pattern > .bullet-list li:nth-child(1)::before,
+.slide.pat-z-pattern > .bullet-list li:nth-child(4)::before { background: var(--on-primary); }

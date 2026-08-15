@@ -1,8 +1,15 @@
 {
   "id": "before-after",
   "family": "swiss",
-  "fits": ["comparison", "feature", "divider"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "comparison",
+    "feature",
+    "divider"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "center",
     "split": "horizontal-50",
@@ -11,9 +18,36 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 84, "h": 8, "align": "center", "size": 30},
-    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "2col"},
-    "accent": {"type": "left-muted-right-accent"},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 84,
+      "h": 8,
+      "align": "center",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 74,
+      "grid": "2col"
+    },
+    "accent": {
+      "type": "left-muted-right-accent"
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "До/После",
+  "desc": "Верх/низ или лево/право: одна половина muted, вторая — акцентная.",
+  "when": "Трансформация, результат внедрения, редизайн — 'что было и стало'.",
+  "keywords": [
+    "до",
+    "после",
+    "трансформация",
+    "результат",
+    "было стало"
+  ]
 }

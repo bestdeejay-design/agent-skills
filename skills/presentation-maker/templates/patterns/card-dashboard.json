@@ -1,8 +1,18 @@
 {
   "id": "card-dashboard",
   "family": "glass",
-  "fits": ["metrics", "table", "process", "timeline", "feature", "bullets"],
-  "density": ["standard", "text-heavy"],
+  "fits": [
+    "metrics",
+    "table",
+    "process",
+    "timeline",
+    "feature",
+    "bullets"
+  ],
+  "density": [
+    "standard",
+    "text-heavy"
+  ],
   "css": {
     "head_align": "left",
     "bento": true,
@@ -11,9 +21,37 @@
     "decor": "glass-blur"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 8, "y": 18, "w": 84, "h": 74, "grid": "bento"},
-    "accent": {"type": "hero-tile"},
-    "decor": {"type": "glass"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 74,
+      "grid": "bento"
+    },
+    "accent": {
+      "type": "hero-tile"
+    },
+    "decor": {
+      "type": "glass"
+    }
+  },
+  "name_ru": "Bento-плитки",
+  "desc": "Плитки разного размера (bento): 1 hero-плитка + сателлиты, стеклянные (glass).",
+  "when": "Много метрик/данных — дашборд, отчёты, investor updates.",
+  "keywords": [
+    "бенто",
+    "плитка",
+    "дашборд",
+    "метрики",
+    "стекло",
+    "glass"
+  ]
 }

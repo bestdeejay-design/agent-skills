@@ -1,0 +1,11 @@
+/* -- pat-quote-hero: giant quote mark */
+.slide.pat-quote-hero { position: relative; }
+.slide.pat-quote-hero::before {
+    content: "\201C"; position: absolute; top: 4vh; left: 6vw;
+    font-size: clamp(200px, 30vw, 420px); line-height: 1; color: var(--primary);
+    opacity: .1; font-family: var(--font-display); pointer-events: none;
+}
+.slide.pat-quote-hero > h1, .slide.pat-quote-hero > h2 {
+    font-size: clamp(40px, 5.5vw, 68px); text-align: center; position: relative;
+    font-family: var(--font-display); max-width: 85%;
+}

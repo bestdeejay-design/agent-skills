@@ -1,0 +1,21 @@
+/* -- pat-swiss-grid: 12-col grid + hairline rules + badge number */
+.slide.pat-swiss-grid { justify-content: flex-start; align-items: stretch; }
+.slide.pat-swiss-grid::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--stroke) 1px, transparent 1px),
+        linear-gradient(90deg, var(--stroke) 1px, transparent 1px);
+    background-size: 8.3333% 100%; opacity: .18; pointer-events: none;
+}
+.slide.pat-swiss-grid > h1, .slide.pat-swiss-grid > h2 {
+    text-align: left; width: 70%; align-self: flex-start; margin: 0 0 3vh;
+    font-family: var(--font-display); letter-spacing: -.01em;
+}
+.slide.pat-swiss-grid > .bullet-list, .slide.pat-swiss-grid > .metrics-grid,
+.slide.pat-swiss-grid > .col-card, .slide.pat-swiss-grid > .table-wrap,
+.slide.pat-swiss-grid > .steps-wrap, .slide.pat-swiss-grid > .tl-wrap {
+    width: 100%; max-width: none; margin: 0;
+}
+.slide.pat-swiss-grid .slide-head .page-ind {
+    background: var(--primary); color: var(--on-primary);
+    padding: 4px 10px; border-radius: 4px; opacity: 1;
+}

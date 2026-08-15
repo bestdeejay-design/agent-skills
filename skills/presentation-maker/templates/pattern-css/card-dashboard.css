@@ -1,0 +1,6 @@
+/* -- pat-card-dashboard: bento hero-tile + satellites */
+.slide.pat-card-dashboard > .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "hero hero a" "hero hero b" "c d e"; gap: 16px; width: 100%; max-width: 1250px; }
+.slide.pat-card-dashboard > .metrics-grid .metric-card:nth-child(1) { grid-area: hero;
+    background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.slide.pat-card-dashboard > .metrics-grid .metric-card:nth-child(1) .metric-label { color: var(--on-primary); }

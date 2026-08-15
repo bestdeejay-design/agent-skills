@@ -1,0 +1,45 @@
+/* -- pat-vertical-rail: accent rail on the left edge */
+.slide.pat-vertical-rail { padding-left: clamp(72px, 8vw, 120px); }
+.slide.pat-vertical-rail::before {
+    content: ""; position: absolute; left: clamp(24px, 4vw, 56px); top: 10%; bottom: 10%;
+    width: 5px; border-radius: 3px; background: var(--primary);
+}
+.slide.pat-vertical-rail > h1, .slide.pat-vertical-rail > h2 {
+    text-align: left; align-self: flex-start; margin: 0 0 3vh; font-family: var(--font-display);
+}
+
+/* ============================================================
+   Accent embedding (second brand color, var(--accent))
+   Three ways to weave the accent into a slide without mixing:
+   .accent-word     — first word of the title entirely in accent
+   .accent-underline — hairline underline under the title in accent
+   .accent-icons     — metric icons tinted with the accent color
+   Applied by build_html.py/patterns.py selector (spread across deck).
+   Rule: an accent never sits on top of another accent.
+   ============================================================ */
+.accent-word > h1 .accent-word, .accent-word > h2 .accent-word {
+    color: var(--accent, var(--primary));
+}
+.accent-underline > h1, .accent-underline > h2 {
+    position: relative;
+    padding-bottom: .35em;
+}
+.accent-underline > h1::after, .accent-underline > h2::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 64px; height: 4px; border-radius: 2px;
+    background: var(--accent, var(--primary));
+}
+.accent-icons .metric-icon {
+    background: var(--accent-soft);
+    color: var(--accent, var(--primary));
+}
+.accent-icons .metric-icon svg { fill: currentColor; }
+.accent-icons .metric-card .metric-value { color: var(--accent, var(--primary)); }
+.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-value,
+.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-icon {
+    color: var(--on-primary);
+    background: transparent;
+}
+.slide.pat-card-dashboard.accent-icons > .metrics-grid .metric-card:nth-child(1) .metric-icon svg {
+    fill: var(--on-primary);
+}

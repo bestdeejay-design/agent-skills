@@ -1,0 +1,12 @@
+/* -- pat-hero-left: title column left (40%), content right (55%) */
+.slide.pat-hero-left { justify-content: center; align-items: center; flex-direction: row; gap: 5%; }
+.slide.pat-hero-left > h1, .slide.pat-hero-left > h2 {
+    width: 40%; flex-shrink: 0; text-align: left; font-family: var(--font-display);
+    align-self: center; margin: 0;
+}
+.slide.pat-hero-left > .bullet-list, .slide.pat-hero-left > .metrics-grid,
+.slide.pat-hero-left > .col-card, .slide.pat-hero-left > .tl-wrap,
+.slide.pat-hero-left > .steps-wrap, .slide.pat-hero-left > .table-wrap,
+.slide.pat-hero-left > .feature-grid, .slide.pat-hero-left > .quote-wrap {
+    width: 55%; flex-shrink: 0; margin: 0; max-width: none;
+}

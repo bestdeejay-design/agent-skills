@@ -1,0 +1,9 @@
+/* -- pat-data-story: headline-as-conclusion + annotation callout (trend 2026 #8) */
+.slide.pat-data-story > h2 { text-align: left; font-family: var(--font-display); }
+.slide.pat-data-story .chart-wrap, .slide.pat-data-story .metrics-grid { position: relative; }
+.slide.pat-data-story .chart-wrap::after {
+    content: "\2191  insight"; position: absolute; right: 4%; top: 6%;
+    background: var(--accent-soft); color: var(--accent, var(--primary));
+    padding: 6px 14px; border-radius: 999px; font-size: 15px; font-weight: 700;
+}
+.slide.pat-data-story .metric-card { border-left: 4px solid var(--primary); }

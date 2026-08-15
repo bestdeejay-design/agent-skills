@@ -1,0 +1,4 @@
+/* -- pat-before-after: muted vs accent halves */
+.slide.pat-before-after > .col-card { border: none; box-shadow: none; }
+.slide.pat-before-after > .col-card:nth-child(1) { background: transparent; }
+.slide.pat-before-after > .col-card:nth-child(2) { background: var(--accent-soft); }

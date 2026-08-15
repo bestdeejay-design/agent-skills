@@ -1,8 +1,14 @@
 {
   "id": "sparkline-metric",
   "family": "minimal",
-  "fits": ["metrics", "big_number", "kpi_row"],
-  "density": ["concise"],
+  "fits": [
+    "metrics",
+    "big_number",
+    "kpi_row"
+  ],
+  "density": [
+    "concise"
+  ],
   "css": {
     "head_align": "left",
     "hero_size": 70,
@@ -11,9 +17,35 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 8, "y": 20, "w": 84, "h": 72},
-    "accent": {"type": "sparkline-under-value"},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 20,
+      "w": 84,
+      "h": 72
+    },
+    "accent": {
+      "type": "sparkline-under-value"
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Цифра + тренд",
+  "desc": "Гигантская цифра с тренд-линией (спарклайн) под ней — динамика во времени.",
+  "when": "Показать рост/тренд одной метрики — KPI, динамика.",
+  "keywords": [
+    "тренд",
+    "спарклайн",
+    "рост",
+    "динамика",
+    "kpi"
+  ]
 }

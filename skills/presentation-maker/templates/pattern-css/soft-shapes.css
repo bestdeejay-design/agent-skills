@@ -1,0 +1,19 @@
+/* -- pat-soft-shapes: sculptural blurred ovals behind centered title (trend 2026 #2) */
+.slide.pat-soft-shapes { justify-content: center; overflow: hidden; }
+.slide.pat-soft-shapes::before {
+    content: ""; position: absolute; left: 8%; top: 10%;
+    width: 44%; height: 70%; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, var(--accent-soft), transparent 72%);
+    filter: blur(6px); opacity: .85; pointer-events: none;
+}
+.slide.pat-soft-shapes::after {
+    content: ""; position: absolute; right: 6%; bottom: 4%;
+    width: 38%; height: 60%; border-radius: 60% 40% 55% 45%;
+    background: radial-gradient(circle at 60% 60%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 72%);
+    filter: blur(4px); opacity: .7; pointer-events: none;
+}
+.slide.pat-soft-shapes > h1, .slide.pat-soft-shapes > h2 {
+    position: relative; text-align: center; font-family: var(--font-display);
+    max-width: 78%; z-index: 1;
+}
+.slide.pat-soft-shapes .subtitle, .slide.pat-soft-shapes .meta-line { position: relative; z-index: 1; }

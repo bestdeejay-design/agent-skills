@@ -1,10 +1,23 @@
 {
   "name": "presentation-maker",
-  "version": "3.5.0",
+  "version": "4.1.0",
   "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with generative layout patterns, geometric QA + optional extern intern linter), plus strategy presets, PDF export, deck-quality audit and skill memory (cases). One command per stage.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["presentation", "deck", "slides", "html", "pptx", "pdf", "outline", "16:9", "strategy", "audit", "слайды", "презентация"],
+  "keywords": [
+    "presentation",
+    "deck",
+    "slides",
+    "html",
+    "pptx",
+    "pdf",
+    "outline",
+    "16:9",
+    "strategy",
+    "audit",
+    "слайды",
+    "презентация"
+  ],
   "triggers": [
     "сделай презентацию",
     "presentation",
@@ -43,7 +56,6 @@
     "scripts/cases.py",
     "examples/demo_deck.json",
     "examples/cases/lovii-pitch/case.json",
-    "templates/slides.html",
     "templates/patterns/",
     "templates/themes/",
     "templates/icons/",
@@ -51,8 +63,17 @@
     "references/product-designer.md",
     "references/strategy.md",
     "references/pdf.md",
-    "references/audit.md"
+    "references/audit.md",
+    "templates/base.html",
+    "templates/pattern-css/",
+    "scripts/composer.py"
   ],
-  "requirements": {"tools": ["python3", "pip"], "script": "scripts/deck_md.py"},
+  "requirements": {
+    "tools": [
+      "python3",
+      "pip"
+    ],
+    "script": "scripts/deck_md.py"
+  },
   "updated": "2026-08-14"
 }

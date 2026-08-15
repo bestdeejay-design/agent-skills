@@ -1,8 +1,16 @@
 {
   "id": "vertical-rail",
   "family": "minimal",
-  "fits": ["bullets", "feature", "quote", "table"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "bullets",
+    "feature",
+    "quote",
+    "table"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "rail": true,
@@ -11,9 +19,36 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 14, "y": 8, "w": 78, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 14, "y": 20, "w": 78, "h": 72},
-    "accent": {"type": "vertical-rail", "pos": "left", "w": 6},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 14,
+      "y": 8,
+      "w": 78,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 14,
+      "y": 20,
+      "w": 78,
+      "h": 72
+    },
+    "accent": {
+      "type": "vertical-rail",
+      "pos": "left",
+      "w": 6
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Вертикальная полоса",
+  "desc": "Тонкая цветная полоса слева (8%), заголовок справа от неё, контент в правых 80%.",
+  "when": "Минималистичный акцент, строгий ритм — заголовок и список.",
+  "keywords": [
+    "полоса",
+    "вертикально",
+    "минимализм",
+    "акцент"
+  ]
 }

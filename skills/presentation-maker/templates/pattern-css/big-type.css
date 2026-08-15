@@ -1,0 +1,7 @@
+/* -- pat-big-type: one giant statement, maximum air */
+.slide.pat-big-type { justify-content: center; }
+.slide.pat-big-type > h1, .slide.pat-big-type > h2 {
+    font-size: clamp(64px, 10vw, 140px); text-align: center; letter-spacing: -.03em;
+    line-height: 1; max-width: 90%; font-family: var(--font-display);
+}
+.slide.pat-big-type .metric-value { font-size: clamp(80px, 14vw, 200px); }

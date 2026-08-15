@@ -1,0 +1,52 @@
+{
+  "id": "cyclic-process",
+  "family": "editorial",
+  "fits": [
+    "process",
+    "timeline"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
+  "css": {
+    "head_align": "center",
+    "ring": true,
+    "accent": "center-core",
+    "font_display": "sans",
+    "decor": "none"
+  },
+  "pptx": {
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 84,
+      "h": 8,
+      "align": "center",
+      "size": 30
+    },
+    "content": {
+      "x": 15,
+      "y": 20,
+      "w": 70,
+      "h": 70,
+      "ring": true
+    },
+    "accent": {
+      "type": "center-core"
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Циклический процесс",
+  "desc": "Шаги по кругу вокруг центрального ядра-сути.",
+  "when": "Цикл, итерация, непрерывный процесс (до 6 шагов).",
+  "keywords": [
+    "цикл",
+    "круг",
+    "итерация",
+    "процесс",
+    "повтор"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "soft-shapes",
+  "family": "minimal",
+  "fits": [
+    "title",
+    "divider",
+    "closing",
+    "image_showcase"
+  ],
+  "density": [
+    "concise"
+  ],
+  "css": {
+    "head_align": "center",
+    "mood": "soft",
+    "accent": "sculptural-form",
+    "font_display": "sans",
+    "decor": "soft-ovals"
+  },
+  "pptx": {
+    "title": {
+      "x": 10,
+      "y": 25,
+      "w": 80,
+      "h": 20,
+      "align": "center",
+      "size": 44
+    },
+    "content": {
+      "x": 20,
+      "y": 60,
+      "w": 60,
+      "h": 25,
+      "align": "center"
+    },
+    "accent": {
+      "type": "sculptural-oval",
+      "pos": "behind-title"
+    },
+    "decor": {
+      "type": "soft-ovals"
+    }
+  },
+  "name_ru": "Мягкие формы",
+  "desc": "Размытые скульптурные овалы/градиенты за центрированным заголовком.",
+  "when": "Титул, разделитель, атмосферные слайды — мягкость и глубина.",
+  "keywords": [
+    "мягкий",
+    "формы",
+    "овалы",
+    "атмосфера",
+    "глубина",
+    "градиент"
+  ]
+}

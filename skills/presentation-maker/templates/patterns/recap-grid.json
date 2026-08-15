@@ -1,8 +1,15 @@
 {
   "id": "recap-grid",
   "family": "minimal",
-  "fits": ["closing", "metrics", "bullets"],
-  "density": ["concise", "standard"],
+  "fits": [
+    "closing",
+    "metrics",
+    "bullets"
+  ],
+  "density": [
+    "concise",
+    "standard"
+  ],
   "css": {
     "head_align": "left",
     "grid": "2x2",
@@ -11,9 +18,36 @@
     "decor": "none"
   },
   "pptx": {
-    "title": {"x": 8, "y": 6, "w": 60, "h": 8, "align": "left", "size": 30},
-    "content": {"x": 8, "y": 18, "w": 84, "h": 60, "grid": "2x2"},
-    "accent": {"type": "one-accent-cell"},
-    "decor": {"type": "none"}
-  }
+    "title": {
+      "x": 8,
+      "y": 6,
+      "w": 60,
+      "h": 8,
+      "align": "left",
+      "size": 30
+    },
+    "content": {
+      "x": 8,
+      "y": 18,
+      "w": 84,
+      "h": 60,
+      "grid": "2x2"
+    },
+    "accent": {
+      "type": "one-accent-cell"
+    },
+    "decor": {
+      "type": "none"
+    }
+  },
+  "name_ru": "Итог 2×2",
+  "desc": "Сетка 2×2 из ключевых цифр/тезисов, одна ячейка акцентная.",
+  "when": "Финал, резюме, рекап ключевых пунктов перед CTA.",
+  "keywords": [
+    "итог",
+    "рекап",
+    "резюме",
+    "2x2",
+    "финал"
+  ]
 }

@@ -1,0 +1,9 @@
+/* -- pat-recap-grid: 2x2 summary grid with one accent cell */
+.slide.pat-recap-grid > .bullet-list { display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    width: 100%; max-width: 1200px; }
+.slide.pat-recap-grid > .bullet-list li:nth-child(1) {
+    background: var(--primary); color: var(--on-primary); border-color: var(--primary);
+}
+.slide.pat-recap-grid > .bullet-list li:nth-child(1)::before {
+    background: var(--on-primary); box-shadow: none;
+}

@@ -35,12 +35,21 @@ def get_pattern(pid: str) -> dict:
     return {}
 
 
-def pick_pattern(layout: str, used: list, family: str = "", density: str = "standard") -> str:
+def pick_pattern(layout: str, used: list, family: str = "", density: str = "standard",
+                 content_text: str = "") -> str:
     if not PATTERNS:
         return FALLBACK_PATTERN
     cands = [p for p in PATTERNS if layout in p.get("fits", [])]
     if not cands:
         return FALLBACK_PATTERN
+    # Semantic boost: content keywords matching a pattern's keywords prefer it.
+    semantic = {}
+    if content_text:
+        text = content_text.lower()
+        for p in cands:
+            hits = sum(1 for kw in p.get("keywords", []) if kw.lower() in text)
+            if hits:
+                semantic[p["id"]] = hits
     # Variety first: never repeat a pattern used on any of the last 3 slides.
     recent = set(used[-3:])
     fresh = [p for p in cands if p["id"] not in recent]
@@ -60,11 +69,16 @@ def pick_pattern(layout: str, used: list, family: str = "", density: str = "stan
             if others:
                 pool = others + fam
     counts = {p["id"]: used.count(p["id"]) for p in pool}
+    if semantic:
+        boosted = [p for p in pool if semantic.get(p["id"])]
+        if boosted:
+            pool = boosted
     return min(pool, key=lambda p: counts[p["id"]])["id"]
 
 
 # Паттерны с заголовком слева (для PPTX: меняем позицию заголовка)
 LEFT_TITLE_PATTERNS = {"hero-left", "editorial-asym", "swiss-grid", "vertical-rail", "z-pattern",
-                       "split-frame", "sparkline-metric", "vertical-stepper", "zigzag-timeline", "recap-grid"}
+                       "split-frame", "sparkline-metric", "vertical-stepper", "zigzag-timeline",
+                       "recap-grid", "data-story"}
 # Паттерны, где заголовок по центру / внизу
 CENTER_TITLE_PATTERNS = {"big-type", "split-diagonal", "card-dashboard"}

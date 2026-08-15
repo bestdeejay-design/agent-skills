@@ -13,10 +13,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 from patterns import PATTERNS, FALLBACK_PATTERN, pick_pattern  # generative layout layer
+from composer import compose_slide, deck_seed
 
 
 def _wrap_title_word(html: str) -> str:
@@ -63,7 +65,8 @@ def pick_accent_mode(layout: str, used: list) -> str:
     return pool[0]
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE = SKILL_DIR / "templates" / "slides.html"
+TEMPLATE = SKILL_DIR / "templates" / "base.html"
+PATTERN_CSS_DIR = SKILL_DIR / "templates" / "pattern-css"
 
 
 def esc(t: str) -> str:
@@ -97,12 +100,55 @@ def render_divider(s) -> str:
 
 
 def render_bullets(s) -> str:
-    lis = "".join(f"<li>{esc(b)}</li>" for b in s.get("bullets", []))
-    return (
-        '<section class="slide">' + _head(s, s.get("_n", 0))
-        + f'<h2>{esc(s.get("title", ""))}</h2>'
-        + f'<ul class="bullet-list">{lis}</ul></section>'
-    )
+    bullets = s.get("bullets", [])
+    structure = s.get("_comp", {}).get("structure", "list")
+    title = f'<h2>{esc(s.get("title", ""))}</h2>'
+    head = _head(s, s.get("_n", 0))
+
+    if structure == "columns":
+        # двухколоночный разворот: номера + крупные тезисы с разделителями
+        half = (len(bullets) + 1) // 2
+        col = lambda items: "".join(
+            f'<div class="col-item" data-num="{i:02d}"><span class="col-num">{i:02d}</span>'
+            f'<span class="col-text">{esc(b)}</span></div>'
+            for i, b in enumerate(items, 1)
+        )
+        body = (f'<div class="spread-grid"><div class="spread-col">{col(bullets[:half])}</div>'
+                f'<div class="spread-col">{col(bullets[half:])}</div></div>')
+    elif structure == "bars":
+        # горизонтальные полосы с заполнением
+        bars = "".join(
+            f'<div class="bar-row" style="--fill:{max(15, 92 - idx * 14)}%">'
+            f'<span class="bar-label">{esc(b)}</span>'
+            f'<span class="bar-track"><span class="bar-fill"></span></span></div>'
+            for idx, b in enumerate(bullets)
+        )
+        body = f'<div class="bars-block">{bars}</div>'
+    elif structure == "grid":
+        # сетка карточек 2×2
+        cards = "".join(
+            f'<div class="fact-card" data-num="{i:02d}"><span class="fact-num">{i:02d}</span>'
+            f'<span class="fact-text">{esc(b)}</span></div>'
+            for i, b in enumerate(bullets, 1)
+        )
+        body = f'<div class="fact-grid">{cards}</div>'
+    else:
+        # list — классический список
+        lis = "".join(
+            f'<li data-num="{idx + 1:02d}"><span class="bullet-text">{esc(b)}</span>'
+            f'<span class="bullet-arrow">→</span></li>'
+            for idx, b in enumerate(bullets)
+        )
+        body = f'<ul class="bullet-list">{lis}</ul>'
+
+    return f'<section class="slide">{head}{title}{body}</section>'
+
+
+def _metric_num(value) -> float:
+    """Числовое значение метрики для сортировки (лестница роста)."""
+    s = str(value).replace(" ", "").replace(",", ".")
+    m = re.search(r"-?\d+(\.\d+)?", s)
+    return float(m.group(0)) if m else 0.0
 
 
 def _icon(name) -> str:
@@ -119,34 +165,64 @@ def _icon(name) -> str:
 
 def render_metrics(s) -> str:
     metrics = s.get("metrics", [])
+    structure = s.get("_comp", {}).get("structure", "grid")
     n = len(metrics)
     cols = {2: 2, 3: 3, 4: 4, 6: 3, 8: 4, 9: 3}.get(n, 3)
-    grid_cls = f" metrics-{cols}"
-    compact = any(len(str(m.get("value", ""))) > 7 for m in metrics)
-    val_cls = " metric-value-sm" if compact else ""
-    cards = []
-    for m in metrics:
-        svg = _icon(m.get("icon"))
-        icon = f'<span class="metric-icon">{svg}</span>' if svg else ""
-        accent_cls = " metric-color-accent" if m.get("accent") else ""
-        cards.append(
-            f'<div class="metric-card">{icon}'
-            f'<span class="metric-value{val_cls}{accent_cls}">{esc(str(m.get("value", "")))}</span>'
-            f'<span class="metric-label">{esc(str(m.get("label", "")))}</span></div>'
+    title = f'<h2>{esc(s.get("title", ""))}</h2>'
+    head = _head(s, s.get("_n", 0))
+
+    if structure == "menu":
+        # «меню»: горизонтальные строки — крупная цифра слева, описание справа
+        rows = "".join(
+            f'<div class="menu-row"><span class="menu-value">{esc(str(m.get("value", "")))}</span>'
+            f'<span class="menu-dash"></span>'
+            f'<span class="menu-label">{esc(str(m.get("label", "")))}</span></div>'
+            for m in metrics
         )
-    return (
-        '<section class="slide">' + _head(s, s.get("_n", 0))
-        + f'<h2>{esc(s.get("title", ""))}</h2>'
-        + f'<div class="metrics-grid{grid_cls}">{"".join(cards)}</div></section>'
-    )
+        body = f'<div class="menu-block">{rows}</div>'
+    elif structure == "ladder":
+        # «лестница роста»: по возрастанию значения, визуальные ступени
+        items = sorted(metrics, key=lambda m: _metric_num(m.get("value", "")))
+        steps = "".join(
+            f'<div class="ladder-step" style="--step:{max(12, 90 - idx * 18)}%">'
+            f'<span class="ladder-value">{esc(str(m.get("value", "")))}</span>'
+            f'<span class="ladder-label">{esc(str(m.get("label", "")))}</span></div>'
+            for idx, m in enumerate(items)
+        )
+        body = f'<div class="ladder-block">{steps}</div>'
+    elif structure == "stats":
+        # инлайн-статистика: значения в строку с разделителями
+        stats = "".join(
+            f'<div class="stat-item"><span class="stat-value">{esc(str(m.get("value", "")))}</span>'
+            f'<span class="stat-label">{esc(str(m.get("label", "")))}</span></div>'
+            for m in metrics
+        )
+        body = f'<div class="stats-block">{stats}</div>'
+    else:
+        # grid — классическая сетка плиток
+        compact = any(len(str(m.get("value", ""))) > 7 for m in metrics)
+        val_cls = " metric-value-sm" if compact else ""
+        cards = []
+        for m in metrics:
+            svg = _icon(m.get("icon"))
+            icon = f'<span class="metric-icon">{svg}</span>' if svg else ""
+            accent_cls = " metric-color-accent" if m.get("accent") else ""
+            cards.append(
+                f'<div class="metric-card">{icon}'
+                f'<span class="metric-value{val_cls}{accent_cls}">{esc(str(m.get("value", "")))}</span>'
+                f'<span class="metric-label">{esc(str(m.get("label", "")))}</span></div>'
+            )
+        body = f'<div class="metrics-grid metrics-{cols}">{"".join(cards)}</div>'
+
+    return f'<section class="slide">{head}{title}{body}</section>'
 
 
 def render_comparison(s) -> str:
     cols = "".join(
-        f'<div class="col-card"><h3>{esc(c.get("heading", ""))}</h3><ul>'
+        f'<div class="col-card" data-num="0{idx + 1}"><h3>{esc(c.get("heading", ""))}</h3><ul>'
         + "".join(f"<li>{esc(p)}</li>" for p in c.get("points", []))
         + "</ul></div>"
-        for c in s.get("columns", [])
+        for idx, c in enumerate(s.get("columns", []))
     )
     n = len(s.get("columns", []))
     cls = " columns" + (f" cols-{n}" if n > 2 else "")
@@ -474,8 +550,34 @@ def pick_layout(s: dict, used: list) -> str:
     return "closing" if s.get("presenter") and not s.get("title") else "bullets"
 
 
+def _slide_geometry(s: dict) -> dict:
+    """Посчитать геометрию текста слайда на лету (fallback для Слоя 3)."""
+    title = str(s.get("title", ""))
+    bullets = s.get("bullets", []) or []
+    metrics = s.get("metrics", []) or []
+    steps = s.get("steps", []) or s.get("items", []) or []
+    return {
+        "title_word_count": len(title.split()),
+        "title_char_count": len(title),
+        "bullet_count": len(bullets),
+        "max_bullet_len": max((len(str(b)) for b in bullets), default=0),
+        "metric_count": len(metrics),
+        "max_label_len": max((len(str(m.get("label", ""))) for m in metrics), default=0),
+        "step_count": len(steps),
+        "max_step_len": max(((len(str(x.get("title", x))) if isinstance(x, dict) else len(str(x)))
+                             for x in steps), default=0),
+    }
+
+
 def build(spec: dict, out_path: Path) -> Path:
     template = TEMPLATE.read_text(encoding="utf-8")
+    profile = {}
+    profile_path = Path(str(out_path)).with_suffix(".profile.json")
+    if profile_path.exists():
+        try:
+            profile = json.loads(profile_path.read_text(encoding="utf-8"))
+        except Exception:
+            profile = {}
     theme = _theme(spec)
     palette = theme.get("palette", {})
     font_family = palette.get("font") or theme.get("font") or "Inter"
@@ -513,27 +615,45 @@ def build(spec: dict, out_path: Path) -> Path:
 
     slides = []
     used_types = []
-    used_patterns = []
-    accent_modes = []
     style = spec.get("style") or {}
-    family = style.get("family", "")
     density = style.get("density") or spec.get("density") or "standard"
+    title_slide = next((s for s in spec.get("slides", []) if s.get("type") == "title"), {})
+    seed = deck_seed(spec.get("title", "deck"),
+                     spec.get("date", "") or title_slide.get("date", "")
+                     or spec.get("theme", {}).get("name", ""))
     for i, s in enumerate(spec.get("slides", []), start=1):
         s = dict(s)
         s["_n"] = i
         layout = pick_layout(s, used_types)
         used_types.append(layout)
-        pattern = pick_pattern(layout, used_patterns, family=family, density=density)
-        used_patterns.append(pattern)
-        s["_pattern"] = pattern
-        accent = pick_accent_mode(layout, accent_modes)
-        accent_modes.append(accent)
+        dark_slide = layout in ("title", "closing", "divider")
+        # геометрия текста (Слой 1/3): из sidecar content_profile.json или на лету
+        geometry = profile.get(str(i), {}).get("geometry", {})
+        if not geometry:
+            geometry = _slide_geometry(s)
+        comp = compose_slide(seed, layout, i, density=density,
+                             content_len=len(s.get("bullets", s.get("metrics", []))),
+                             is_dark=dark_slide, geometry=geometry)
+        s["_comp"] = comp
+        accent = comp["accent_mode"]
         s["_accent"] = accent
         renderer = RENDERERS.get(layout, render_bullets)
         html = renderer(s)
-        if accent == "accent-word":
+        if accent == "word":
             html = _wrap_title_word(html)
-        html = html.replace('<section class="slide', f'<section class="slide pat-{pattern} {accent}"', 1)
+        css_vars = (
+            f"--comp-title-pos:{comp['title_pos']};"
+            f"--comp-title-scale:{comp['title_scale']}px;"
+            f"--comp-cols:{comp['cols']};"
+            f"--comp-content:{comp['content_layout']};"
+            f"--comp-accent-level:{comp['accent_level']};"
+            f"--comp-radius:{comp['radius']}px;"
+            f"--comp-shadow:{comp['shadow']};"
+        )
+        html = html.replace('<section class="slide',
+                            f'<section class="slide pat-{comp["recipe"]} accent-{accent} decor-{comp["decor"]} '
+                            f'title-{comp["title_variant"]} marker-{comp["marker_variant"]} '
+                            f'card-{comp["card_variant"]} metric-{comp["metric_variant"]}" style="{css_vars}"', 1)
         slides.append(html)
 
     slides_html = "\n\n  " + "\n\n  ".join(slides)
@@ -545,8 +665,102 @@ def build(spec: dict, out_path: Path) -> Path:
     # fresh title
     template = template.replace("<title>Презентация</title>",
                                 f"<title>{esc(spec.get('title', 'Презентация'))}</title>")
+    # generate CSS for the composition variables used by every slide
+    comp_css = _composition_css()
+    template = template.replace("<!--PATTERN_CSS-->", comp_css)
     out_path.write_text(template, encoding="utf-8")
-    return out_path, dict(enumerate(used_patterns, start=1))
+    return out_path
+
+
+def _composition_css() -> str:
+    """CSS, реализующий параметры композиции (переменные --comp-*).
+
+    Каждая композиция реально перестраивает layout слайда (а не только
+    позицию заголовка): row-раскладка «заголовок слева + контент справа»,
+    вертикальный заголовок, число колонок контента (grid), plain-контент
+    без карточек, скругление и тень. Значения приходят из composer.py
+    (детерминированный синтез из seed) — каждая дека уникальна.
+    """
+    return """
+/* ============ Позиция заголовка: полная перестройка layout ============ */
+/* Заголовок слева → row: заголовок 38% слева, контент 55% справа */
+.slide[style*="--comp-title-pos:left"] { flex-direction: row; justify-content: center; align-items: center; gap: 5%; }
+.slide[style*="--comp-title-pos:left"] > h1,
+.slide[style*="--comp-title-pos:left"] > h2 {
+    width: 34%; flex-shrink: 0; text-align: left; align-self: center; margin: 0;
+    font-family: var(--font-display);
+}
+.slide[style*="--comp-title-pos:left"] > .bullet-list,
+.slide[style*="--comp-title-pos:left"] > .metrics-grid,
+.slide[style*="--comp-title-pos:left"] > .col-card,
+.slide[style*="--comp-title-pos:left"] > .steps-wrap,
+.slide[style*="--comp-title-pos:left"] > .tl-wrap,
+.slide[style*="--comp-title-pos:left"] > .table-wrap {
+    width: 55%; flex-shrink: 0; margin: 0; max-width: none;
+}
+/* Заголовок по центру → column (базовый), но с явным центрированием */
+.slide[style*="--comp-title-pos:center"] > h1,
+.slide[style*="--comp-title-pos:center"] > h2 { text-align: center; }
+/* Вертикальный заголовок → слева-вертикально, контент справа */
+.slide[style*="--comp-title-pos:vertical"] { flex-direction: row; align-items: stretch; gap: 4%; }
+.slide[style*="--comp-title-pos:vertical"] > h1,
+.slide[style*="--comp-title-pos:vertical"] > h2 {
+    writing-mode: vertical-rl; text-align: left; margin: 0;
+    width: auto; max-height: 70vh; font-family: var(--font-display);
+    align-self: flex-start; padding: 0 8px;
+    border-left: 5px solid var(--primary);
+}
+.slide[style*="--comp-title-pos:vertical"] > .bullet-list,
+.slide[style*="--comp-title-pos:vertical"] > .metrics-grid,
+.slide[style*="--comp-title-pos:vertical"] > .col-card,
+.slide[style*="--comp-title-pos:vertical"] > .steps-wrap,
+.slide[style*="--comp-title-pos:vertical"] > .tl-wrap,
+.slide[style*="--comp-title-pos:vertical"] > .table-wrap {
+    flex: 1; margin: 0; max-width: none;
+}
+/* Заголовок снизу-слева → журнальный финал */
+.slide[style*="--comp-title-pos:bottom-left"] { justify-content: flex-end; align-items: flex-start; }
+.slide[style*="--comp-title-pos:bottom-left"] > h1,
+.slide[style*="--comp-title-pos:bottom-left"] > h2 {
+    text-align: left; margin: 0 0 5vh; max-width: 70%; font-family: var(--font-display);
+}
+.slide[style*="--comp-title-pos:bottom-left"] > .bullet-list,
+.slide[style*="--comp-title-pos:bottom-left"] > .metrics-grid { align-self: flex-start; }
+
+/* ============ Масштаб заголовка ============ */
+.slide[style*="--comp-title-scale"] > h1,
+.slide[style*="--comp-title-scale"] > h2 { font-size: var(--comp-title-scale); }
+
+/* ============ Число колонок контента (grid) ============ */
+.slide[style*="--comp-cols:2"] > .bullet-list,
+.slide[style*="--comp-cols:2"] > .metrics-grid,
+.slide[style*="--comp-cols:2"] > .steps-wrap { display: grid; grid-template-columns: repeat(2, 1fr); }
+.slide[style*="--comp-cols:3"] > .bullet-list,
+.slide[style*="--comp-cols:3"] > .metrics-grid,
+.slide[style*="--comp-cols:3"] > .steps-wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+.slide[style*="--comp-cols:2"] > .bullet-list, .slide[style*="--comp-cols:3"] > .bullet-list { gap: 16px; }
+
+/* ============ Layout контента ============ */
+/* plain: без карточек — чистый список с разделителями */
+.slide[style*="--comp-content:plain"] > .bullet-list li,
+.slide[style*="--comp-content:plain"] > .metric-card {
+    background: transparent; border: none; box-shadow: none; padding: 12px 4px;
+    border-bottom: 1px solid var(--stroke); border-radius: 0;
+}
+/* split: два широких блока (только для 4-5 элементов) */
+.slide[style*="--comp-content:split"] > .bullet-list { max-width: 1250px; }
+
+/* ============ Скругление и тень ============ */
+.slide[style*="--comp-radius"] > .bullet-list li,
+.slide[style*="--comp-radius"] > .metric-card,
+.slide[style*="--comp-radius"] > .col-card,
+.slide[style*="--comp-radius"] > .step-card,
+.slide[style*="--comp-radius"] > .tl-card { border-radius: var(--comp-radius); }
+.slide[style*="--comp-shadow:soft"] > .bullet-list li,
+.slide[style*="--comp-shadow:soft"] > .metric-card { box-shadow: var(--shadow-soft); }
+.slide[style*="--comp-shadow:strong"] > .bullet-list li,
+.slide[style*="--comp-shadow:strong"] > .metric-card { box-shadow: var(--shadow-hover); }
+"""
 
 
 def palette_vars_ordered(pal_vars: dict):
@@ -605,12 +819,11 @@ def main() -> int:
         ap.print_help()
         return 2
     spec = json.loads(Path(args.spec).read_text(encoding="utf-8"))
-    out, pattern_map = build(spec, Path(args.out))
+    out = build(spec, Path(args.out))
     print(f"Slides written: {out} ({len(spec.get('slides', []))} slides)")
-    print(f"Паттерны: {', '.join(f'{i}:{p}' for i, p in sorted(pattern_map.items()))}")
     if args.save_case:
         from cases import save_case
-        case_dir = save_case(args.save_case, spec, pattern_map, Path(args.out))
+        case_dir = save_case(args.save_case, spec, {}, Path(args.out))
         print(f"Case сохранён: {case_dir}")
     return 0
 
