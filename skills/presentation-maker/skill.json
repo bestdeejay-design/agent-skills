@@ -1,6 +1,6 @@
 {
   "name": "presentation-maker",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with generative layout patterns, geometric QA + optional extern intern linter), plus strategy presets, PDF export, deck-quality audit and skill memory (cases). One command per stage.",
   "author": "bestdeejay-design",
   "license": "MIT",

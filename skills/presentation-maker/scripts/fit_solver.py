@@ -18,13 +18,28 @@ MAX_FILL = 0.85   # и > 85% (тесно)
 MAX_ATTEMPTS = 5
 
 
-def _render_and_measure(fragments: list[str], viewport=(1600, 900)) -> list[dict]:
-    """Отрендерить фрагменты в headless-Chromium и вернуть bbox ключевых блоков."""
+def _render_and_measure(fragments: list[str], viewport=(1600, 900), base_css: str = "") -> list[dict]:
+    """Отрендерить фрагменты в headless-Chromium и вернуть bbox ключевых блоков.
+
+    base_css — реальный CSS деки (base.html + composition CSS + активный
+    паттерн), передаётся вызывающей стороной (build_html.py). Без него
+    измерение бессмысленно: карточки/сетки полагаются на .metrics-grid,
+    .col-card и т.д., которые задаёт именно этот CSS, а не заглушка —
+    на голых тегах все карточки схлопываются в одну точку и дают ложные
+    "overlaps"/fill-провалы на КАЖДОМ слайде."""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         print("fit_solver: playwright недоступен — проверка пропущена", file=sys.stderr)
         return []
+    fallback_css = (
+        ".slide{position:relative;width:1600px;height:900px;overflow:visible;"
+        "display:flex;flex-direction:column;justify-content:center;align-items:center;}"
+        "h1,h2{font-size:44px;}h2{font-size:44px;}"
+        ".bullet-list li{font-size:18px;line-height:1.5;}"
+        ".metric-card{font-size:20px;padding:20px;}"
+    )
+    style_block = base_css or fallback_css
     results = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -32,13 +47,7 @@ def _render_and_measure(fragments: list[str], viewport=(1600, 900)) -> list[dict
         for frag in fragments:
             page.set_content(
                 f'<div id="deck">{frag}</div>'
-                "<style>"
-                ".slide{position:relative;width:1600px;height:900px;overflow:visible;"
-                "display:flex;flex-direction:column;justify-content:center;align-items:center;}"
-                "h1,h2{font-size:44px;}h2{font-size:44px;}"
-                ".bullet-list li{font-size:18px;line-height:1.5;}"
-                ".metric-card{font-size:20px;padding:20px;}"
-                "</style>"
+                f"<style>{style_block}</style>"
             )
             page.wait_for_timeout(100)
             data = page.evaluate("""() => {
@@ -55,8 +64,17 @@ def _render_and_measure(fragments: list[str], viewport=(1600, 900)) -> list[dict
                 };
                 push(title, 'title');
                 push(content, 'content');
-                const cards = slide.querySelectorAll('.metric-card, .col-card, .step-card, .tl-card, li');
-                cards.forEach((c, i) => push(c, 'card' + i));
+                // "карточки" — только повторяющиеся визуальные единицы верхнего
+                // уровня (metric-card/col-card/...); голый <li> учитывается,
+                // ТОЛЬКО если он не вложен внутрь уже выбранной карточки —
+                // иначе li внутри .col-card «перекрывает» свой же контейнер
+                // и даёт ложные overlaps на каждом comparison-слайде.
+                const cardSel = '.metric-card, .col-card, .step-card, .tl-card';
+                const cardEls = Array.from(slide.querySelectorAll(cardSel));
+                cardEls.forEach((c, i) => push(c, 'card' + i));
+                if (cardEls.length === 0) {
+                    slide.querySelectorAll('li').forEach((c, i) => push(c, 'card' + i));
+                }
                 return boxes;
             }""")
             results.append(data)
@@ -100,12 +118,21 @@ def _fails(measure: dict, geometry: dict, is_dominant: bool) -> list[str]:
     return issues
 
 
-def check_slide(html_fragment: str, geometry: dict, is_dominant: bool = False) -> tuple[bool, list[str]]:
-    """Проверить fit одного слайда. True = помещается."""
-    measured = _render_and_measure([html_fragment])
+def check_slide(html_fragment: str, geometry: dict, is_dominant: bool = False,
+                base_css: str = "") -> tuple[bool, list[str]]:
+    """Проверить fit одного слайда. True = помещается.
+
+    base_css — реальный CSS деки (см. _render_and_measure); без него
+    результаты недостоверны."""
+    # слайд без контента вовсе (bridge/statement — только заголовок) — не
+    # применяем MIN_FILL, пустота тут осознанная (см. content_profile: role=bridge)
+    is_empty_by_design = not any(geometry.get(k, 0) for k in
+                                 ("bullet_count", "metric_count", "column_count", "step_count"))
+    measured = _render_and_measure([html_fragment], base_css=base_css)
     if not measured:
         return True, []  # нет playwright — пропускаем (не блокируем)
-    return (not _fails(measured[0], geometry, is_dominant), _fails(measured[0], geometry, is_dominant))
+    fails = _fails(measured[0], geometry, is_dominant or is_empty_by_design)
+    return (not fails, fails)
 
 
 if __name__ == "__main__":

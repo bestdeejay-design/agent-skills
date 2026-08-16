@@ -1,18 +1,33 @@
 #!/usr/bin/env python3
 """vision_qa — визуальная приёмка презентации (Слой 4).
 
-Скриншотит каждый слайд (через .active-переключение, с ожиданием transition),
-прогоняет через vision-модель с фиксированной рубрикой из 7 пунктов, при FAIL
-возвращает рекомендацию для точечной перегенерации слайда. Если vision-
-провайдер недоступен — структурный fallback (bbox-пересечения, fill),
-который ловит геометрические дефекты.
+Важно: этот скрипт САМ не умеет "смотреть" на слайды — vision-модель есть
+только у агента, который выполняет скил (Claude Code и т.п.), не у
+изолированного Python-процесса. Поэтому vision_qa устроен в три шага:
 
-Рубрика зафиксирована в RUBRIC — не переписывается между прогонами.
+  1. `vision_qa.py shoot slides.html` — скриншотит каждый слайд через
+     .active-переключение (дожидаясь конца CSS-transition) и печатает
+     ФИКСИРОВАННУЮ рубрику + список путей к картинкам. Дальше АГЕНТ обязан
+     реально посмотреть на каждый файл (инструментом чтения изображений) и
+     оценить по рубрике — это не опциональный шаг, а часть gate.
+
+  2. `vision_qa.py record slides.html --slide 4 --verdict FAIL
+       --check иерархия=PASS --check читаемость=FAIL
+       --recommendation "..."` — агент записывает вердикт по каждому
+     слайду сюда, по одному вызову на слайд, после реального просмотра.
+
+  3. `vision_qa.py finalize slides.html` — считает итог: PASS только если
+     ЗАПИСАН вердикт по каждому слайду и все они PASS. Если по какому-то
+     слайду вердикта нет вообще — это FAIL с явным указанием "не
+     проверено", а не тихий PASS. Раньше здесь была структурная заглушка,
+     которая помечала PASS всё подряд, не глядя на скриншоты — это
+     удалено, потому что не ловит вообще ничего.
 
 Использование:
-    python3 vision_qa.py slides.html [--profile content_profile.json]
-                                      [--brief creative_brief.json]
-                                      [--out vision_qa_report.json]
+    python3 vision_qa.py shoot slides.html [--out-dir vision_shots]
+    python3 vision_qa.py record slides.html --slide N --verdict PASS|FAIL
+        [--check "пункт=PASS|FAIL" ...] [--recommendation "..."]
+    python3 vision_qa.py finalize slides.html
 """
 import argparse
 import json
@@ -31,85 +46,134 @@ RUBRIC = """Оцени слайд презентации по каждому п�
 6. СООТВЕТСТВИЕ БРИФУ: соответствует ли ритму/доминирующему приёму из брифа?
 7. ЭМОЦИОНАЛЬНЫЙ ВЕС: если это climax/hook — ощущается ли смена темпа?
    Если bridge/quiet — не перетягивает ли внимание больше, чем должен?
-Верни JSON: {"checks": {"иерархия": "PASS|FAIL", ...}, "verdict": "PASS|FAIL",
-"recommendation": "конкретная правка, не 'сделать лучше'"}"""
+Слайд получает PASS, только если ВСЕ 7 пунктов — PASS."""
+
+REPORT_SUFFIX = ".vision_qa.json"
 
 
-def screenshot_slides(html_path: str, out_dir: Path, viewport=(1600, 900)) -> list[Path]:
-    """Скриншот каждого слайда через .active-класс (ожидание transition)."""
+def _report_path(html_path: str) -> Path:
+    return Path(html_path).with_suffix(REPORT_SUFFIX)
+
+
+def _load_report(html_path: str) -> dict:
+    p = _report_path(html_path)
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {"rubric": RUBRIC, "slides": {}}
+
+
+def _save_report(html_path: str, report: dict) -> None:
+    _report_path(html_path).write_text(
+        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def cmd_shoot(args) -> int:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print("vision_qa: playwright недоступен", file=sys.stderr)
-        return []
+        print("vision_qa: playwright недоступен — скриншоты не созданы", file=sys.stderr)
+        return 1
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(exist_ok=True, parents=True)
     shots = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        page = browser.new_page(viewport={"width": viewport[0], "height": viewport[1]})
-        page.goto(Path(html_path).resolve().as_uri())
+        page = browser.new_page(viewport={"width": 1600, "height": 900})
+        page.goto(Path(args.html).resolve().as_uri())
         page.wait_for_timeout(600)
         n = page.evaluate("document.querySelectorAll('.slide').length")
         for i in range(n):
             page.evaluate(
                 "(i) => document.querySelectorAll('.slide').forEach((s, j) => "
                 "s.classList.toggle('active', j === i))", i)
-            page.wait_for_timeout(450)  # ждём окончание CSS-transition
+            page.wait_for_timeout(450)  # дождаться конца CSS-transition
             shot = out_dir / f"slide-{i + 1:02d}.jpg"
             page.screenshot(path=str(shot), type="jpeg", quality=90)
             shots.append(shot)
         browser.close()
-    return shots
+
+    report = _load_report(args.html)
+    report["total_slides"] = len(shots)
+    report["screenshots"] = [str(s) for s in shots]
+    _save_report(args.html, report)
+
+    print(RUBRIC)
+    print()
+    print(f"Скриншотов: {len(shots)}. Теперь ПОСМОТРИ на каждый файл ниже и оцени "
+          f"по рубрике выше, затем запиши вердикт командой "
+          f"`vision_qa.py record {args.html} --slide N --verdict ...`:")
+    for i, s in enumerate(shots, start=1):
+        print(f"  {i}: {s}")
+    return 0
 
 
-def structural_check(shots_dir: Path) -> list[dict]:
-    """Fallback: ловит геометрию через bbox (нет vision-модели)."""
-    # в fallback полагаемся на fit_solver/verify — здесь базовый pass
-    return [{"slide": f.name, "verdict": "PASS", "mode": "structural"} for f in shots_dir.glob("*.jpg")]
+def cmd_record(args) -> int:
+    report = _load_report(args.html)
+    checks = {}
+    for c in args.check or []:
+        if "=" not in c:
+            print(f"vision_qa: --check должен быть вида 'пункт=PASS|FAIL', получено: {c}", file=sys.stderr)
+            return 2
+        k, v = c.split("=", 1)
+        checks[k.strip()] = v.strip().upper()
+    report.setdefault("slides", {})[str(args.slide)] = {
+        "verdict": args.verdict.upper(),
+        "checks": checks,
+        "recommendation": args.recommendation or "",
+    }
+    _save_report(args.html, report)
+    print(f"vision_qa: слайд {args.slide} записан как {args.verdict.upper()}")
+    return 0
 
 
-def run_vision(shots: list[Path], brief: dict) -> list[dict]:
-    """Прогнать скриншоты через vision-модель (если провайдер задан в env)."""
-    import os
-    provider = os.environ.get("VISION_PROVIDER", "").strip()
-    if not provider:
-        return []
-    # здесь подключается vision-модель (пользовательский провайдер)
-    # при отсутствии — возвращаем пусто, main уходит в structural fallback
-    return []
+def cmd_finalize(args) -> int:
+    report = _load_report(args.html)
+    total = report.get("total_slides", 0)
+    slides = report.get("slides", {})
+    if not total:
+        print("vision_qa: нет данных о числе слайдов — сначала запусти `shoot`", file=sys.stderr)
+        return 2
+    missing = [i for i in range(1, total + 1) if str(i) not in slides]
+    failed = {k: v for k, v in slides.items() if v.get("verdict") != "PASS"}
+    report["verdict"] = "PASS" if not missing and not failed else "FAIL"
+    report["missing"] = missing
+    _save_report(args.html, report)
+    if missing:
+        print(f"vision_qa: FAIL — не оценено вручную: слайды {missing}. "
+              f"Это НЕ пропуск проверки — без реального просмотра слайд не может "
+              f"считаться принятым.", file=sys.stderr)
+    for k, v in failed.items():
+        print(f"vision_qa: слайд {k} — FAIL: {v.get('recommendation', '(без рекомендации)')}", file=sys.stderr)
+    print(f"vision_qa итог: {report['verdict']}")
+    return 0 if report["verdict"] == "PASS" else 1
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("html", help="собранный slides.html")
-    ap.add_argument("--profile", default="", help="content_profile.json")
-    ap.add_argument("--brief", default="", help="creative_brief.json")
-    ap.add_argument("--out", default="vision_qa_report.json")
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    sp = sub.add_parser("shoot", help="скриншотить каждый слайд + напечатать рубрику")
+    sp.add_argument("html")
+    sp.add_argument("--out-dir", default="vision_shots")
+    sp.set_defaults(func=cmd_shoot)
+
+    rp = sub.add_parser("record", help="записать вердикт агента по одному слайду")
+    rp.add_argument("html")
+    rp.add_argument("--slide", type=int, required=True)
+    rp.add_argument("--verdict", required=True, choices=["PASS", "FAIL", "pass", "fail"])
+    rp.add_argument("--check", action="append", help="пункт=PASS|FAIL, можно повторять")
+    rp.add_argument("--recommendation", default="")
+    rp.set_defaults(func=cmd_record)
+
+    fp = sub.add_parser("finalize", help="посчитать итоговый вердикт по деке")
+    fp.add_argument("html")
+    fp.set_defaults(func=cmd_finalize)
+
     args = ap.parse_args()
-
-    brief = {}
-    if args.brief and Path(args.brief).exists():
-        brief = json.loads(Path(args.brief).read_text(encoding="utf-8"))
-
-    out_dir = Path(args.out).parent if Path(args.out).parent != Path(".") else Path("vision_shots")
-    out_dir.mkdir(exist_ok=True)
-
-    shots = screenshot_slides(args.html, out_dir)
-    if not shots:
-        print("vision_qa: скриншоты не созданы — пропуск (нет playwright)")
-        return 0
-
-    results = run_vision(shots, brief)
-    if not results:
-        results = structural_check(out_dir)
-        print("vision_qa: vision-модель не подключена (VISION_PROVIDER пуст) — "
-              "использован структурный fallback")
-        for r in results:
-            print(f"  {r['slide']}: {r['verdict']}")
-
-    report = {"rubric": RUBRIC, "slides": results,
-              "verdict": "PASS" if all(r["verdict"] == "PASS" for r in results) else "FAIL"}
-    Path(args.out).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    return 0 if report["verdict"] == "PASS" else 1
+    return args.func(args)
 
 
 if __name__ == "__main__":

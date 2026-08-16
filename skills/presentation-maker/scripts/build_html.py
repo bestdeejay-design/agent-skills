@@ -19,6 +19,9 @@ from pathlib import Path
 
 from patterns import PATTERNS, FALLBACK_PATTERN, pick_pattern  # generative layout layer
 from composer import compose_slide, deck_seed
+import content_profile as _cp   # Слой 1: роли/вес/геометрия слайдов
+import creative_brief as _cb    # Слой 2: художественное направление деки
+import fit_solver as _fs        # Слой 3: геометрическая проверка до финализации
 
 
 def _wrap_title_word(html: str) -> str:
@@ -106,15 +109,17 @@ def render_bullets(s) -> str:
     head = _head(s, s.get("_n", 0))
 
     if structure == "columns":
-        # двухколоночный разворот: номера + крупные тезисы с разделителями
+        # двухколоночный разворот: номера продолжаются сквозным счётом через
+        # обе колонки (было: каждая колонка нумеровалась с 01 заново)
         half = (len(bullets) + 1) // 2
-        col = lambda items: "".join(
-            f'<div class="col-item" data-num="{i:02d}"><span class="col-num">{i:02d}</span>'
-            f'<span class="col-text">{esc(b)}</span></div>'
-            for i, b in enumerate(items, 1)
-        )
-        body = (f'<div class="spread-grid"><div class="spread-col">{col(bullets[:half])}</div>'
-                f'<div class="spread-col">{col(bullets[half:])}</div></div>')
+        def col(items, start):
+            return "".join(
+                f'<div class="col-item" data-num="{i:02d}"><span class="col-num">{i:02d}</span>'
+                f'<span class="col-text">{esc(b)}</span></div>'
+                for i, b in enumerate(items, start)
+            )
+        body = (f'<div class="spread-grid"><div class="spread-col">{col(bullets[:half], 1)}</div>'
+                f'<div class="spread-col">{col(bullets[half:], half + 1)}</div></div>')
     elif structure == "bars":
         # горизонтальные полосы с заполнением
         bars = "".join(
@@ -168,8 +173,31 @@ def render_metrics(s) -> str:
     structure = s.get("_comp", {}).get("structure", "grid")
     n = len(metrics)
     cols = {2: 2, 3: 3, 4: 4, 6: 3, 8: 4, 9: 3}.get(n, 3)
-    title = f'<h2>{esc(s.get("title", ""))}</h2>'
     head = _head(s, s.get("_n", 0))
+
+    climax_mode = s.get("_climax_mode", "")
+    if climax_mode and metrics:
+        # Слой 2 (creative_brief): climax-слайд — акцентная метрика (или первая,
+        # если ни одна не помечена accent) занимает почти весь холст, заголовок
+        # уходит в скромный eyebrow, остальные метрики не показываются вовсе —
+        # это физическая смена темпа, а не просто "крупный шрифт".
+        hero = next((m for m in metrics if m.get("accent")), metrics[0])
+        eyebrow = f'<h2 class="climax-eyebrow">{esc(s.get("title", ""))}</h2>'
+        if climax_mode == "hero-number-rail":
+            body = (f'<div class="climax-rail">'
+                    f'<span class="climax-value">{esc(str(hero.get("value", "")))}</span>'
+                    f'<span class="climax-label">{esc(str(hero.get("label", "")))}</span></div>')
+        elif climax_mode == "hero-number-isolated":
+            body = (f'<div class="climax-isolated"><div class="climax-card">'
+                    f'<span class="climax-value">{esc(str(hero.get("value", "")))}</span>'
+                    f'<span class="climax-label">{esc(str(hero.get("label", "")))}</span></div></div>')
+        else:  # hero-number-only
+            body = (f'<div class="climax-hero">'
+                    f'<span class="climax-value">{esc(str(hero.get("value", "")))}</span>'
+                    f'<span class="climax-label">{esc(str(hero.get("label", "")))}</span></div>')
+        return f'<section class="slide climax-slide">{head}{eyebrow}{body}</section>'
+
+    title = f'<h2>{esc(s.get("title", ""))}</h2>'
 
     if structure == "menu":
         # «меню»: горизонтальные строки — крупная цифра слева, описание справа
@@ -569,15 +597,27 @@ def _slide_geometry(s: dict) -> dict:
     }
 
 
-def build(spec: dict, out_path: Path) -> Path:
+def build(spec: dict, out_path: Path, fit_check: bool = True) -> Path:
     template = TEMPLATE.read_text(encoding="utf-8")
-    profile = {}
-    profile_path = Path(str(out_path)).with_suffix(".profile.json")
-    if profile_path.exists():
-        try:
-            profile = json.loads(profile_path.read_text(encoding="utf-8"))
-        except Exception:
-            profile = {}
+    # Слой 1 (content_profile) и Слой 2 (creative_brief) считаются здесь же,
+    # не как отдельные ручные шаги — иначе они остаются мёртвым кодом, который
+    # никто не вызывает (это и было причиной, что дека не отличалась от
+    # предыдущей: бриф генерировался, но не влиял на рендер).
+    profile = _cp.build_profile(spec)
+    brief = _cb.build_brief(spec, profile)
+    sig = brief.get("signature_move", {})
+    climax_indices = set(sig.get("applies_to", []))
+    climax_render_rule = sig.get("render_rule", {}).get("climax", "")
+    # сохраняем рядом с деком — не для рендера (он уже применён), а для
+    # прозрачности/отладки и для vision_qa.py (сверка "соответствует брифу?")
+    try:
+        Path(str(out_path)).with_suffix(".profile.json").write_text(
+            json.dumps(profile, ensure_ascii=False, indent=2), encoding="utf-8")
+        Path(str(out_path)).with_suffix(".brief.json").write_text(
+            json.dumps(brief, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    fit_report = {}
     theme = _theme(spec)
     palette = theme.get("palette", {})
     font_family = palette.get("font") or theme.get("font") or "Inter"
@@ -605,6 +645,12 @@ def build(spec: dict, out_path: Path) -> Path:
             if tkey in src:
                 pal_vars[cvar] = str(src[tkey])
     template = _merge_root(template, pal_vars)
+    comp_css = _composition_css()
+    # реальный CSS деки для Слоя 3 (fit_solver) — без него измерения геометрии
+    # бессмысленны: карточки/сетки зависят от .metrics-grid/.col-card и т.п.,
+    # которые задаёт именно этот CSS, не голые теги.
+    _style_m = re.search(r"<style>(.*?)</style>", template, flags=re.S)
+    fit_css = (_style_m.group(1) if _style_m else "") + comp_css
 
     font_url = palette.get("font_url") or theme.get("font_url")
     if font_url:
@@ -627,34 +673,55 @@ def build(spec: dict, out_path: Path) -> Path:
         layout = pick_layout(s, used_types)
         used_types.append(layout)
         dark_slide = layout in ("title", "closing", "divider")
-        # геометрия текста (Слой 1/3): из sidecar content_profile.json или на лету
+        # геометрия текста (Слой 1): из content_profile, посчитанного выше
         geometry = profile.get(str(i), {}).get("geometry", {})
         if not geometry:
             geometry = _slide_geometry(s)
-        comp = compose_slide(seed, layout, i, density=density,
-                             content_len=len(s.get("bullets", s.get("metrics", []))),
-                             is_dark=dark_slide, geometry=geometry)
-        s["_comp"] = comp
-        accent = comp["accent_mode"]
-        s["_accent"] = accent
-        renderer = RENDERERS.get(layout, render_bullets)
-        html = renderer(s)
-        if accent == "word":
-            html = _wrap_title_word(html)
-        css_vars = (
-            f"--comp-title-pos:{comp['title_pos']};"
-            f"--comp-title-scale:{comp['title_scale']}px;"
-            f"--comp-cols:{comp['cols']};"
-            f"--comp-content:{comp['content_layout']};"
-            f"--comp-accent-level:{comp['accent_level']};"
-            f"--comp-radius:{comp['radius']}px;"
-            f"--comp-shadow:{comp['shadow']};"
-        )
-        html = html.replace('<section class="slide',
-                            f'<section class="slide pat-{comp["recipe"]} accent-{accent} decor-{comp["decor"]} '
-                            f'title-{comp["title_variant"]} marker-{comp["marker_variant"]} '
-                            f'card-{comp["card_variant"]} metric-{comp["metric_variant"]}" style="{css_vars}"', 1)
-        slides.append(html)
+        is_climax = i in climax_indices
+        if is_climax and climax_render_rule:
+            s["_climax_mode"] = climax_render_rule
+
+        # Слой 3: рендерим с retry — если геометрическая проверка не проходит,
+        # пробуем следующую допустимую комбинацию (до 3 попыток), а не тихо
+        # публикуем сломанный слайд.
+        best_html, best_comp, best_issues = None, None, None
+        for attempt in range(3):
+            comp = compose_slide(seed, layout, i, density=density,
+                                 content_len=len(s.get("bullets", s.get("metrics", []))),
+                                 is_dark=dark_slide, geometry=geometry, attempt=attempt)
+            if is_climax:
+                # бриф требует пустоты вокруг climax-слайда — без декора
+                comp["decor"] = "none"
+            s["_comp"] = comp
+            accent = comp["accent_mode"]
+            s["_accent"] = accent
+            renderer = RENDERERS.get(layout, render_bullets)
+            html = renderer(s)
+            if accent == "word":
+                html = _wrap_title_word(html)
+            css_vars = (
+                f"--comp-title-pos:{comp['title_pos']};"
+                f"--comp-title-scale:{comp['title_scale']}px;"
+                f"--comp-cols:{comp['cols']};"
+                f"--comp-content:{comp['content_layout']};"
+                f"--comp-accent-level:{comp['accent_level']};"
+                f"--comp-radius:{comp['radius']}px;"
+                f"--comp-shadow:{comp['shadow']};"
+            )
+            html = html.replace('<section class="slide',
+                                f'<section class="slide pat-{comp["recipe"]} accent-{accent} decor-{comp["decor"]} '
+                                f'title-{comp["title_variant"]} marker-{comp["marker_variant"]} '
+                                f'card-{comp["card_variant"]} metric-{comp["metric_variant"]}" style="{css_vars}"', 1)
+            if not fit_check:
+                best_html, best_comp, best_issues = html, comp, []
+                break
+            ok, issues = _fs.check_slide(html, geometry, is_dominant=is_climax, base_css=fit_css)
+            if ok or best_html is None:
+                best_html, best_comp, best_issues = html, comp, issues
+            if ok:
+                break
+        fit_report[str(i)] = {"pass": not best_issues, "attempts": attempt + 1, "issues": best_issues}
+        slides.append(best_html)
 
     slides_html = "\n\n  " + "\n\n  ".join(slides)
     template = _replace_deck(template, slides_html)
@@ -666,9 +733,20 @@ def build(spec: dict, out_path: Path) -> Path:
     template = template.replace("<title>Презентация</title>",
                                 f"<title>{esc(spec.get('title', 'Презентация'))}</title>")
     # generate CSS for the composition variables used by every slide
-    comp_css = _composition_css()
     template = template.replace("<!--PATTERN_CSS-->", comp_css)
     out_path.write_text(template, encoding="utf-8")
+    try:
+        Path(str(out_path)).with_suffix(".fit_report.json").write_text(
+            json.dumps(fit_report, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    failed = {k: v for k, v in fit_report.items() if not v["pass"]}
+    if failed:
+        print(f"fit_solver: {len(failed)} слайд(ов) не прошли геометрическую проверку "
+              f"даже после retry — см. {Path(str(out_path)).with_suffix('.fit_report.json')}",
+              file=sys.stderr)
+        for k, v in failed.items():
+            print(f"  слайд {k}: {v['issues']}", file=sys.stderr)
     return out_path
 
 
@@ -760,6 +838,33 @@ def _composition_css() -> str:
 .slide[style*="--comp-shadow:soft"] > .metric-card { box-shadow: var(--shadow-soft); }
 .slide[style*="--comp-shadow:strong"] > .bullet-list li,
 .slide[style*="--comp-shadow:strong"] > .metric-card { box-shadow: var(--shadow-hover); }
+
+/* ============ Climax-режим (Слой 2: creative_brief signature_move) ============ */
+/* Единственный акцентный элемент занимает почти весь холст — физическая
+   смена темпа на слайде-кульминации, а не просто увеличенный шрифт. */
+.slide.climax-slide { justify-content: center; align-items: center; }
+.climax-eyebrow {
+    position: absolute; top: 64px; left: 50%; transform: translateX(-50%);
+    font: 700 13px/1 var(--font); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); max-width: 70%; text-align: center;
+}
+.climax-hero, .climax-isolated { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.climax-value {
+    font: 800 clamp(96px, 13vw, 180px)/1 var(--font-display); color: var(--primary);
+    letter-spacing: -0.02em;
+}
+.climax-label { font: 500 22px/1.4 var(--font); color: var(--muted); max-width: 640px; text-align: center; }
+.climax-rail {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+    position: absolute; left: 96px; top: 50%; transform: translateY(-50%);
+}
+.climax-rail .climax-value { font-size: clamp(80px, 11vw, 150px); }
+.climax-rail .climax-label { text-align: left; }
+.climax-isolated .climax-card {
+    background: var(--card); border: 1px solid var(--stroke); border-radius: 28px;
+    padding: 64px 96px; box-shadow: var(--shadow-hover);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
 """
 
 

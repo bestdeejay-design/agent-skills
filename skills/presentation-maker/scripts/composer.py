@@ -111,13 +111,19 @@ def _geometry(spec_slide: dict) -> dict:
     }
 
 
-def allowed_title_variants(geometry: dict) -> tuple:
-    """Убрать варианты заголовка, физически несовместимые с длиной текста."""
+def allowed_title_variants(geometry: dict, title_pos: str = "") -> tuple:
+    """Убрать варианты заголовка, физически несовместимые с длиной текста
+    и с шириной колонки, которую даёт title_pos (узкая left-колонка ~34%
+    переносит CAPS-текст намного раньше, чем полноширинный center)."""
     variants = list(TITLE_VARIANTS)
     wc = geometry.get("title_word_count", 0)
     if wc > 6:
         variants = [v for v in variants if v not in ("vertical", "bgword")]
     if wc > 10:
+        variants = [v for v in variants if v not in ("caps",)]
+    # caps в узкой колонке (title_pos=left/vertical) переносится намного
+    # раньше — порог здесь должен быть заметно строже, чем для полной ширины
+    if title_pos in ("left", "vertical") and wc > 4:
         variants = [v for v in variants if v not in ("caps",)]
     return tuple(variants) or ("line",)
 
@@ -149,16 +155,19 @@ def allowed_title_pos(geometry: dict, layout: str) -> tuple:
 
 def compose_slide(seed: str, layout: str, index: int, density: str = "standard",
                   content_len: int = 3, is_dark: bool = False,
-                  geometry: dict | None = None) -> dict:
+                  geometry: dict | None = None, attempt: int = 0) -> dict:
     """Синтезировать композицию для одного слайда.
 
     seed   — строка деки (название+дата); layout — тип слайда (bullets/metrics/...);
     index  — номер слайда (для разнообразия); density — concise|standard|text-heavy;
     content_len — число элементов контента; is_dark — тёмный фон;
-    geometry — реальные метрики текста (Слой 1), ограничивают выбор параметров.
+    geometry — реальные метрики текста (Слой 1), ограничивают выбор параметров;
+    attempt — номер повторной попытки (Слой 3, fit_solver retry): при >0 меняет
+    соль детерминированно, чтобы получить другую комбинацию из допустимого
+    множества, если первая не прошла геометрическую проверку.
     Возвращает словарь параметров композиции.
     """
-    salt = f"{layout}:{index}:{density}:{content_len}"
+    salt = f"{layout}:{index}:{density}:{content_len}" + (f":retry{attempt}" if attempt else "")
     geo = geometry or {}
     # сетка: text-heavy → меньше колонок
     max_cols = 1 if density == "text-heavy" else 3
@@ -190,7 +199,7 @@ def compose_slide(seed: str, layout: str, index: int, density: str = "standard",
     # структура: какой HTML-шаблон собрать (список/меню/лестница/полосы/разворот/дашборд)
     structure = _pick_structure(seed, salt, layout)
     # варианты компонентов — независимые атомы, комбинация даёт разнообразие
-    title_variant = _pick(seed, salt + ":tv", allowed_title_variants(geo))
+    title_variant = _pick(seed, salt + ":tv", allowed_title_variants(geo, title_pos))
     marker_variant = _pick(seed, salt + ":mv", MARKER_VARIANTS)
     card_variant = _pick(seed, salt + ":cv", CARD_VARIANTS)
     metric_variant = _pick(seed, salt + ":mv2", METRIC_VARIANTS)

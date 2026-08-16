@@ -650,7 +650,7 @@ tr:hover td.hl { border-color: var(--primary); }
     background: linear-gradient(90deg, var(--primary), var(--graph-1)); }
 /* number — номер-эпиграф слева */
 .title-number > h1, .title-number > h2 { position: relative; padding-left: 1.4em; }
-.title-number > h1::before, .title-number > h2::before { content: "0" counter(slide);
+.title-number > h1::before, .title-number > h2::before { content: counter(slide, decimal-leading-zero);
     position: absolute; left: 0; top: 0; font-size: .55em; font-weight: 900;
     color: var(--primary); opacity: .4; }
 /* caps — капс-плашка */

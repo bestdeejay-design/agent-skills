@@ -31,7 +31,8 @@ CONTENT_SELECTORS = (
     ".metric-value, .metric-label, .step-text, .step-title, .step-desc, "
     ".col-card h3, .col-card li, .tl-card, .kpi-value, .kpi-label, .badge, "
     ".quote-text, .quote-attrib, .hero-value, .hero-label, .feature-card p, "
-    ".logo-tile, .toc-title, .toc-desc"
+    ".logo-tile, .toc-title, .toc-desc, "
+    ".climax-value, .climax-label, .climax-eyebrow"
 )
 
 

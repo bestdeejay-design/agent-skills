@@ -3,7 +3,7 @@ name: presentation-maker
 description: End-to-end presentations from a topic — outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system), plus strategy presets, PDF export, and deck-quality audits. One command per stage.
 license: MIT
 metadata:
-  version: 4.1.0
+  version: 4.2.0
 ---
 
 # presentation-maker
@@ -23,26 +23,42 @@ topic / outline.md
       │  strategy.py            (pick narrative arc + mood + density + layouts)
       ▼
    deck.md  ──(deck_md.py)──▶  deck.json
-      │                          ├──(content_profile.py)──▶ content_profile.json  [Слой 1: роли/вес/геометрия]
-      │                          ├──(creative_brief.py)───▶ creative_brief.json   [Слой 2: ритм/сигнатура деки]
-      │                          ├──(composer.py, ограничен profile+brief)
-      │                          │        └──(fit_solver.py)──▶ fit_report  PASS/FAIL  [Слой 3: геометрия до рендера]
-      │                          ├──(build_html.py)──▶ slides.html
-      │                          │                        ├──(verify_slides.py)──▶ PASS/FAIL  [геометрия]
-      │                          │                        └──(vision_qa.py)───────▶ PASS/FAIL  [Слой 4: визуальная приёмка]   (normalized spec)
-      │                          │
-      │                          ├──(build_html.py)──▶ slides.html
-      │                          │                        └──(verify_slides.py)──▶ PASS/FAIL  [mandatory Playwright gate]
-      │                          ├──(build_pptx.py)──▶ deck.pptx
-      │                          │                        └──(qa_pptx.py)──▶ PASS/FAIL  [geometric PPTX gate]
-      │                          ├──(build_pdf.py)──▶  deck.pdf   (from slides.html, Playwright)
-      │                          └──(deck_audit.py)──▶  quality report (JSON)
+      │
+      ├──(build_html.py)──▶  slides.html
+      │      внутри build_html.py уже вызываются (не отдельные ручные шаги):
+      │        • content_profile.py  [Слой 1: роль/вес/геометрия каждого слайда]
+      │        • creative_brief.py   [Слой 2: ритм + сигнатурный приём деки, seed = title+topic+audience]
+      │        • composer.py         (выбор параметров ограничен profile+brief, не голый хэш)
+      │        • fit_solver.py       [Слой 3: геометрия в реальном CSS деки, retry до 3 попыток]
+      │      побочные файлы рядом с slides.html: .profile.json, .brief.json, .fit_report.json
+      │
+      ├──(verify_slides.py slides.html --spec deck.json)──▶ PASS/FAIL   [геометрия, MANDATORY]
+      │
+      ├──(vision_qa.py shoot slides.html)──▶ скриншоты + рубрика
+      │      АГЕНТ смотрит на каждый скриншот (инструментом чтения изображений,
+      │      не текстом!) и оценивает по 7-пунктовой рубрике, затем:
+      │  (vision_qa.py record slides.html --slide N --verdict PASS|FAIL ...)  ×N
+      │  (vision_qa.py finalize slides.html)──▶ PASS/FAIL   [Слой 4, MANDATORY]
+      │      без реального просмотра слайд считается непроверенным = FAIL,
+      │      автоматического "PASS по умолчанию" нет
+      │
+      ├──(build_pptx.py deck.json deck.pptx)──▶ qa_pptx.py ──▶ PASS/FAIL  [геометрия PPTX]
+      ├──(build_pdf.py)──▶ deck.pdf   (из slides.html, Playwright)
+      └──(deck_audit.py)──▶ quality report (JSON)
 ```
+
+Дека НЕ считается готовой, пока не пройдены все четыре gate: `verify_slides.py`
+PASS, `fit_solver` PASS внутри build_html.py (смотри `.fit_report.json`),
+`vision_qa.py finalize` PASS (реально просмотрено, не имитация), и `qa_pptx.py`
+PASS для pptx-варианта. `content_profile.py` и `creative_brief.py` также можно
+запускать отдельно (для отладки/просмотра решений) — `build_html.py` их не
+требует как отдельный шаг, но выведет те же .profile.json/.brief.json сам.
 
 Every stage reads/writes the same `deck.json` contract, so you can regenerate any
 artifact after editing the spec.
 
 ## Stage commands
+
 
 All commands run from the repo root. Scripts live in `scripts/`.
 
@@ -84,11 +100,14 @@ python3 skills/presentation-maker/scripts/build_html.py deck.json slides.html
 ```
 
 Builds from the **modular base** (`templates/base.html` — tokens, typography,
-components, navigation) and injects CSS **only for the layout patterns actually
-used in this deck** (`templates/pattern-css/<id>.css`). There is no single
-`slides.html` template any more — each deck is assembled from base + used
-patterns, so no two decks share a pre-built shell. Output is a self-contained
-16:9 deck.
+components, navigation, all pattern/composition CSS included). Internally runs
+`content_profile` → `creative_brief` → `composer` (constrained by both) →
+`fit_solver` (geometry retry, up to 3 attempts per slide) before writing the
+final HTML — see the Pipeline diagram above. Writes `slides.profile.json`,
+`slides.brief.json`, `slides.fit_report.json` next to the output for
+inspection. If any slide still fails fit after retries, the build succeeds
+but prints the failing slide + reason to stderr — check `.fit_report.json`
+before treating the deck as done. Output is a self-contained 16:9 deck.
 
 ### 4. Verification gate (MANDATORY)
 
@@ -99,14 +118,40 @@ python3 skills/presentation-maker/scripts/verify_slides.py slides.html --spec de
 Runs in real Chromium (Playwright) and checks, per slide: a heading + non-empty
 content, no horizontal overflow, cards/rows hold their content (no clipping or
 spill), text containers do not clip, and keyboard navigation switches slides.
-**Exit 0 = pass; exit 1 = fail.** Ни одна презентация не считается готовой, пока
-не прошли ВСЕ четыре gate: fit_solver PASS (Слой 3), verify_slides PASS, vision_qa PASS
-(Слой 4, по каждому слайду и по деке целиком), qa_pptx PASS (для pptx-варианта).
+**Exit 0 = pass; exit 1 = fail.**
+
+### 4b. Visual QA gate (MANDATORY) — `vision_qa.py`
+
+```bash
+python3 skills/presentation-maker/scripts/vision_qa.py shoot slides.html --out-dir vision_shots
+```
+
+Screenshots every slide (via `.active` toggling, waiting out the CSS
+transition) and prints the fixed 7-point rubric + the list of image paths.
+**This script cannot judge the images itself** — only the agent running the
+skill has vision. The agent MUST view each screenshot (image-reading tool,
+not by re-reading the JSON) and score it against the printed rubric, then
+record every verdict:
+
+```bash
+python3 skills/presentation-maker/scripts/vision_qa.py record slides.html \
+    --slide 4 --verdict PASS --recommendation "..."   # one call per slide
+python3 skills/presentation-maker/scripts/vision_qa.py finalize slides.html
+```
+
+`finalize` exits 0 only if every slide has a recorded verdict AND all are
+PASS. A slide with no recorded verdict is FAIL ("не проверено"), never a
+silent pass — there is no structural auto-pass fallback. Ни одна презентация
+не считается готовой, пока не пройдены все четыре gate: `fit_solver` PASS
+(Слой 3, внутри build_html.py — см. `.fit_report.json`), `verify_slides.py`
+PASS, `vision_qa.py finalize` PASS (Слой 4, реально просмотрено агентом),
+`qa_pptx.py` PASS (для pptx-варианта).
 
 ### 5. PowerPoint
 
 ```bash
 python3 skills/presentation-maker/scripts/build_pptx.py deck.json deck.pptx
+
 ```
 
 Draws a real `.pptx` via `python-pptx` on a 1600×900 design canvas (13.333×7.5",
