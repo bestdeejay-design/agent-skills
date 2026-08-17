@@ -355,9 +355,16 @@ def build_adjacency(edges):
     return adj
 
 
+def _edge_key(a, b):
+    """Canonical, deterministic key for an undirected edge (no frozenset/lambda)."""
+    if (a[1], a[0]) <= (b[1], b[0]):
+        return (a, b)
+    return (b, a)
+
+
 def choose_next(cur, prev, adj, used):
     cands = [v for v in adj[cur]
-             if v != prev and frozenset((cur, v)) not in used]
+             if v != prev and _edge_key(cur, v) not in used]
     if not cands:
         return None
     if len(cands) == 1:
@@ -383,10 +390,24 @@ def trace_mask_cycles(mask, w, h):
     adj = build_adjacency(edges)
     used = set()
     cycles = []
-    # deterministic start: smallest vertex (y, then x) among remaining edges
-    while edges:
-        start = min((a for e in edges for a in e),
-                    key=lambda p: (p[1], p[0]))
+    # Deterministic start: smallest vertex (y, then x) among remaining edges.
+    # Edges are only ever removed, so the minimum never decreases: a single
+    # forward scan over the pre-sorted vertex list yields every start in
+    # O(V + E) total instead of O(cycles * E).
+    start_vertices = sorted({v for e in edges for v in e},
+                            key=lambda p: (p[1], p[0]))
+    idx = 0
+    n_verts = len(start_vertices)
+    while idx < n_verts:
+        start = None
+        while idx < n_verts:
+            v = start_vertices[idx]
+            if any(_edge_key(v, u) not in used for u in adj[v]):
+                start = v
+                break
+            idx += 1
+        if start is None:
+            break
         cycle = [start]
         prev = None
         cur = start
@@ -394,9 +415,9 @@ def trace_mask_cycles(mask, w, h):
             nxt = choose_next(cur, prev, adj, used)
             if nxt is None:
                 break
-            edge = frozenset((cur, nxt))
+            edge = _edge_key(cur, nxt)
             used.add(edge)
-            edges.discard(tuple(sorted(edge, key=lambda p: (p[1], p[0]))))
+            edges.discard(edge)
             cycle.append(nxt)
             if nxt == start:
                 break
