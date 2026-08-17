@@ -1,0 +1,52 @@
+{
+  "name": "raster-to-svg",
+  "version": "1.0.0",
+  "description": "Конвертация PNG-изображений в векторный SVG. Скрипт raster_to_svg.py читает PNG (файл или stdin) и отдаёт SVG (файл или stdout): движок vtracer-cli (высокое качество цветной трассировки, используется автоматически при наличии) или встроенный stdlib-трассер (контурная трассировка с кривыми Безье / мозаика из примитивов). Поддерживает квантование цветов, прозрачность, дырки, детерминированный вывод, JSON-отчёт, валидацию SVG перед записью. Локальный веб-сервер (raster_to_svg_server.py) с UI (web/index.html): drag & drop PNG, превью, код, скачивание, копирование — конвертация без отправки данных наружу. Pure Python 3 stdlib (собственный PNG-декодер на zlib), без pip-зависимостей. Триггеры: 'png в svg', 'картинка в svg', 'растровое в векторное', 'векторизация', 'trace image', 'convert png to svg', 'vectorize', 'изображение в вектор', 'трассировка изображения', 'конвертнуть в svg'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "svg",
+    "png",
+    "vector",
+    "vectorize",
+    "trace",
+    "raster",
+    "image",
+    "конвертация",
+    "векторизация",
+    "трассировка",
+    "bezier",
+    "mosaic"
+  ],
+  "triggers": [
+    "png в svg",
+    "картинка в svg",
+    "растровое в векторное",
+    "векторизация",
+    "trace image",
+    "convert png to svg",
+    "vectorize",
+    "изображение в вектор",
+    "трассировка изображения",
+    "конвертнуть в svg",
+    "png to svg"
+  ],
+  "category": "data",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/raster_to_svg.py",
+    "scripts/raster_to_svg_server.py",
+    "web/index.html"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/raster_to_svg.py",
+    "optional": [
+      "vtracer-cli (cargo install vtracer-cli)"
+    ]
+  },
+  "updated": "2026-08-16"
+}

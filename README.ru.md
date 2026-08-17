@@ -12,7 +12,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 41](https://img.shields.io/badge/Skills-41-blue.svg)](index.json)
+[![Skills: 45](https://img.shields.io/badge/Skills-45-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
@@ -75,7 +75,7 @@
 <a id="cat-data"></a>
 | [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Протокол для AI-агентов в длинных сессиях: каталог `.lra/` со списком фич (id/приоритет/критерии приёмки/статус) и контрольные точки прогресса. |
 
-### 📊 Данные и диаграммы · `data` · 6
+### 📊 Данные и диаграммы · `data` · 7
 
 | Скилл | Назначение |
 |-------|------------|
@@ -83,7 +83,8 @@
 | [**data-analysis**](skills/data-analysis/SKILL.md) | Профилирование датасета (CSV/JSON): статистика полей, моды, гистограммы, топ-3 корреляции Пирсона, аномалии и рекомендации. |
 | [**sql-helper**](skills/sql-helper/SKILL.md) | Генерация SQL по текстовому вопросу и DDL: схема в памяти sqlite, шаблоны интентов, каждый запрос проверяется через EXPLAIN. |
 | [**diagram-maker**](skills/diagram-maker/SKILL.md) | Диаграммы из текстового описания в синтаксисе Mermaid: flowchart, sequence, architecture, ER + рекомендация по рендеру. |
-| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Рендер `.mmd` в PNG/SVG: локальный mermaid-cli, fallback на mermaid.ink; форматы, масштаб, фон. |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md)
+| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → векторный SVG: vtracer-cli при наличии, иначе встроенный stdlib-трассировщик (контурные Bezier / мозаика из примитивов); детерминированный, XML-валидируемый. | | Рендер `.mmd` в PNG/SVG: локальный mermaid-cli, fallback на mermaid.ink; форматы, масштаб, фон. |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | Вежливый скраппинг HTML в Markdown/JSON: CSS-селекторы, текст/ссылки/таблицы; легальные ограничители — robots.txt, честный UA, задержки. |
 
 <a id="cat-media"></a>

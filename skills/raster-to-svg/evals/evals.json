@@ -1,0 +1,93 @@
+{
+  "skill": "raster-to-svg",
+  "version": "1.0.0",
+  "fixtures": {
+    "generator": "evals/gen_fixtures.py",
+    "files": [
+      "evals/fixtures/shapes.png",
+      "evals/fixtures/gradient.png",
+      "evals/fixtures/alpha.png",
+      "evals/fixtures/pixelart.png",
+      "evals/fixtures/ring.png"
+    ]
+  },
+  "tests": [
+    {
+      "id": "t1-contour-shapes",
+      "desc": "Native contour tracing of colored shapes with a hole",
+      "cmd": "python3 scripts/raster_to_svg.py -i evals/fixtures/shapes.png -o /tmp/t1.svg --bg white",
+      "assert": [
+        "exit code 0",
+        "engine == native-contour",
+        "paths >= 5",
+        "SVG XML round-trip valid"
+      ]
+    },
+    {
+      "id": "t2-mosaic-gradient",
+      "desc": "Mosaic mode preserves gradient direction",
+      "cmd": "python3 scripts/raster_to_svg.py -i evals/fixtures/gradient.png -o /tmp/t2.svg -m mosaic --cell 6",
+      "assert": [
+        "exit code 0",
+        "engine == native-mosaic",
+        "elements >= 100",
+        "left cells blue-ish, right cells yellow-ish (pixel gate)"
+      ]
+    },
+    {
+      "id": "t3-alpha-transparency",
+      "desc": "Transparent background stays transparent",
+      "cmd": "python3 scripts/raster_to_svg.py -i evals/fixtures/alpha.png -o /tmp/t3.svg",
+      "assert": [
+        "exit code 0",
+        "no background rect element",
+        "shapes present at control points (pixel gate)"
+      ]
+    },
+    {
+      "id": "t4-ring-hole",
+      "desc": "Hole inside a single-color shape survives evenodd tracing",
+      "cmd": "python3 scripts/raster_to_svg.py -i evals/fixtures/ring.png -o /tmp/t4.svg --colors 2",
+      "assert": [
+        "exit code 0",
+        "hole coverage >= 0.9 (pixel gate)"
+      ]
+    },
+    {
+      "id": "t5-determinism",
+      "desc": "Same input yields byte-identical SVG",
+      "cmd": "python3 scripts/raster_to_svg.py -i evals/fixtures/shapes.png -o /tmp/t5a.svg && python3 scripts/raster_to_svg.py -i evals/fixtures/shapes.png -o /tmp/t5b.svg && cmp /tmp/t5a.svg /tmp/t5b.svg",
+      "assert": [
+        "exit code 0",
+        "sha256(t5a) == sha256(t5b)"
+      ]
+    },
+    {
+      "id": "t6-stdin-stdout",
+      "desc": "Pipeline mode: stdin -> stdout",
+      "cmd": "cat evals/fixtures/ring.png | python3 scripts/raster_to_svg.py -i - -o - --colors 2",
+      "assert": [
+        "exit code 0",
+        "stdout starts with <svg"
+      ]
+    },
+    {
+      "id": "t7-error-codes",
+      "desc": "Error taxonomy: 1 = input, 2 = engine",
+      "cmd": "python3 scripts/raster_to_svg.py -i /tmp/definitely-missing.png -o /tmp/x.svg",
+      "assert": [
+        "exit code 1",
+        "message on stderr, no traceback"
+      ]
+    },
+    {
+      "id": "t8-pixel-gate",
+      "desc": "Browser-rendered SVGs pass pixel checks (manual: place qa_*.png screenshots)",
+      "cmd": "python3 evals/qa_pixels.py",
+      "assert": [
+        "exit code 0",
+        "all 21 checks PASS"
+      ]
+    }
+  ]
+}

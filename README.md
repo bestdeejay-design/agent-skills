@@ -12,7 +12,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 41](https://img.shields.io/badge/Skills-41-blue.svg)](index.json)
+[![Skills: 45](https://img.shields.io/badge/Skills-45-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 42 skills · 5 categories
+- [📦 Skill Catalog](#sec-catalog) — 45 skills · 5 categories
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,12 +42,12 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
 
-**42 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**45 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
 | 💻 [Development & Code](#cat-code) | 14 | commits, review, debugging, tests, coverage, security, planning, frontend |
-| 📊 [Data & Diagrams](#cat-data) | 6 | profiling, SQL, diagrams, scraping |
+| 📊 [Data & Diagrams](#cat-data) | 7 | profiling, SQL, diagrams, scraping |
 | 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
 | 🏗️ [Repository & Docs](#cat-repository) | 10 | README, community files, metadata, documentation, API docs |
 | 💬 [Social](#cat-social) | 1 | Reddit |
@@ -75,7 +75,7 @@
 <a id="cat-data"></a>
 | [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Protocol for AI agents working across many context windows: a `.lra/` directory with an atomic feature list (id/priority/acceptance criteria/status) and session progress checkpoints. |
 
-### 📊 Data & Diagrams · `data` · 6
+### 📊 Data & Diagrams · `data` · 7
 
 | Skill | Purpose |
 |-------|---------|
@@ -83,7 +83,8 @@
 | [**data-analysis**](skills/data-analysis/SKILL.md) | Dataset profiling (CSV/JSON): field stats, modes, histograms, top Pearson correlations, anomalies + recommendations. |
 | [**sql-helper**](skills/sql-helper/SKILL.md) | SQL from a text question + DDL: in-memory sqlite schema, intent templates, every candidate verified via EXPLAIN. |
 | [**diagram-maker**](skills/diagram-maker/SKILL.md) | Diagrams from a text description in Mermaid syntax: flowchart, sequence, architecture, ER + rendering advice. |
-| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md)
+| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → vector SVG: vtracer-cli when installed, built-in stdlib tracer otherwise (contour with Bezier curves / mosaic of primitives); deterministic, XML-validated. | | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | Polite HTML scraping to Markdown/JSON: CSS selectors, text/links/tables; legal guardrails — robots.txt, honest UA, rate limit. |
 
 <a id="cat-media"></a>
