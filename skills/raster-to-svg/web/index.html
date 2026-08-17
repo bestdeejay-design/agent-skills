@@ -173,6 +173,11 @@
 
   .report{display:flex;flex-wrap:wrap;gap:8px 18px;border-top:1px solid var(--border);padding-top:12px;font-size:13px;color:var(--text-dim)}
   .report b{color:var(--text);font-weight:600;margin-right:4px}
+  .stats-bar{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 18px;margin-top:14px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.04)}
+  .stat-count{display:flex;align-items:baseline;gap:8px}
+  .stat-count b{font-size:30px;line-height:1;color:var(--accent);font-weight:700}
+  .stat-count span{font-size:13px;color:var(--text-dim)}
+  .stat-px{font-size:13px;color:var(--text-dim)}
   .stale{margin:0 0 10px;font-size:13px;color:var(--accent);border-left:2px solid var(--accent);padding-left:10px}
   .mode-desc{color:var(--text-dim);font-size:12px;margin:0 0 12px}
 </style>
@@ -334,6 +339,10 @@
           <button id="copyBtn" type="button">Копировать код</button>
         </div>
         <div class="report" id="report"></div>
+        <div class="stats-bar" id="statsBar" hidden>
+          <div class="stat-count"><b id="statCount">0</b><span id="statLabel">элементов</span></div>
+          <div class="stat-px" id="statPx"></div>
+        </div>
       </section>
     </section>
   </div>
@@ -656,6 +665,18 @@
     parts.push('<span><b>Время</b>'+r.duration_ms+' мс</span>');
     if(r.mean_color_error!=null) parts.push('<span><b>Ошибка цвета</b>'+esc(r.mean_color_error)+'</span>');
     $('report').innerHTML = parts.join('');
+    const nEl = $('statCount'), lbl = $('statLabel'), pxEl = $('statPx');
+    const els = r.elements || 0, paths = r.paths || 0;
+    if(els > 0){
+      nEl.textContent = els.toLocaleString('ru-RU');
+      lbl.textContent = 'элементов';
+    }else{
+      nEl.textContent = paths.toLocaleString('ru-RU');
+      lbl.textContent = 'путей';
+    }
+    const total = (r.width || 0) * (r.height || 0);
+    pxEl.textContent = (r.width||'—') + ' × ' + (r.height||'—') + ' px · ' + total.toLocaleString('ru-RU') + ' пикселей';
+    $('statsBar').hidden = false;
   }
 
   function markDirty(){
