@@ -420,6 +420,13 @@ def convert(data, params, progress_cb=None):
         report["output_bytes"] = len(svg_text.encode("utf-8"))
         report["width"], report["height"] = r2s.svg_stats(svg_text)[:2]
         report["paths"], report["colors"] = r2s.svg_stats(svg_text)[2:]
+        bg = params.get("bg", _dflt("bg"))
+        if bg and bg.lower() != "none":
+            w, h = report["width"], report["height"]
+            svg_open = svg_text.find("<svg")
+            tag_end = svg_text.find(">", svg_open) + 1
+            svg_text = svg_text[:tag_end] + (
+                f'<rect width="{w}" height="{h}" fill="{bg}"/>') + svg_text[tag_end:]
     else:
         w, h, rgba = r2s.decode_png(data)
         report["width"], report["height"] = w, h

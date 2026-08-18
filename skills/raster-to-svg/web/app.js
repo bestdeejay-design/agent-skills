@@ -1,8 +1,8 @@
   (function(){
   "use strict";
   const $ = (id)=>document.getElementById(id);
-  const DEFAULTS = {mode:'contour',engine:'auto',colors:8,bg:'none',smooth:0.5,corner:60,seam:0.5,cell:0,shape:'auto',gap:0.15,seed:1,upscale:1,vtracer_preset:'poster',vtracer_mode:'spline',vtracer_color_precision:8,vtracer_filter_speckle:0};
-  const state = {file:null,svg:'',busy:false,objUrl:null,thumbUrl:null,dims:null,engineInfo:null,progressTimer:null,schema:null,history:[],idx:0,compareOn:false,controller:null};
+  const DEFAULTS = {mode:'contour',engine:'auto',colors:8,bg:'none',smooth:0.5,corner:60,seam:0.5,cell:0,shape:'auto',gap:0.15,seed:1,upscale:1,vtracer_preset:'poster',vtracer_mode:'spline',vtracer_color_precision:8,vtracer_filter_speckle:0,preBlur:0,posterize:0};
+  const state = {file:null,svg:'',busy:false,objUrl:null,thumbUrl:null,dims:null,engineInfo:null,progressTimer:null,schema:null,history:[],idx:0,compareOn:false,controller:null,activePreset:null};
   const ZOOM = 4;
   const zoomEl = $('zoom');
   const zoomLabel = $('zoomLabel');
@@ -10,19 +10,38 @@
   function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
   function fmtBytes(n){if(n==null)return '—';if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(2)+' MB';}
 
-  function upscaleFile(file, scale){
+  // Предобработка на клиенте перед трассировкой: увеличение (scale),
+  // сглаживание (blur) и ступени цвета (posterize) — одним проходом по canvas.
+  function preprocessFile(file, opts){
+    // opts: {scale, blur, posterize} — все шаги в один проход по canvas.
     return new Promise((resolve, reject)=>{
       const url = URL.createObjectURL(file);
       const img = new Image();
       img.onload = ()=>{
+        const scale = opts.scale || 1;
         const canvas = document.createElement('canvas');
         canvas.width = img.naturalWidth * scale;
         canvas.height = img.naturalHeight * scale;
         const ctx = canvas.getContext('2d');
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
+        if(opts.blur > 0){
+          try{ ctx.filter = `blur(${opts.blur}px)`; }catch(_){ /* Canvas Filters не поддержаны — пропускаем блюр */ }
+        }
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.filter = 'none';
         URL.revokeObjectURL(url);
+        if(opts.posterize > 0 && opts.posterize < 16){
+          const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const d = id.data;
+          const step = 255 / (opts.posterize - 1);
+          for(let i=0; i<d.length; i+=4){
+            d[i]   = Math.round(Math.round(d[i]   / step) * step);
+            d[i+1] = Math.round(Math.round(d[i+1] / step) * step);
+            d[i+2] = Math.round(Math.round(d[i+2] / step) * step);
+          }
+          ctx.putImageData(id, 0, 0);
+        }
         canvas.toBlob((blob)=>{
           if(!blob){ reject(new Error('toBlob')); return; }
           if(blob.size > 20*1024*1024){ reject(new Error('limit')); return; }
@@ -32,6 +51,29 @@
       img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('decode')); };
       img.src = url;
     });
+  }
+
+  let prepPreviewTimer = null;
+  function schedulePrepPreview(){
+    clearTimeout(prepPreviewTimer);
+    prepPreviewTimer = setTimeout(updatePrepPreview, 200);
+  }
+  async function updatePrepPreview(){
+    if(!state.file) return;
+    const blur = parseFloat($('preBlur').value) || 0;
+    const posterize = parseInt($('posterize').value, 10) || 0;
+    const prepThumb = $('prepThumb');
+    if(blur === 0 && posterize === 0){
+      prepThumb.src = $('thumb').src;
+      return;
+    }
+    try{
+      const file = await preprocessFile(state.file, {scale: 1, blur, posterize});
+      const url = URL.createObjectURL(file);
+      if(prepThumb.dataset.blobUrl) URL.revokeObjectURL(prepThumb.dataset.blobUrl);
+      prepThumb.dataset.blobUrl = url;
+      prepThumb.src = url;
+    }catch(_){ /* превью подготовки — best effort, не критично при сбое */ }
   }
 
   async function checkHealth(){
@@ -103,10 +145,11 @@
     const vtOk = state.engineInfo && state.engineInfo.vtracer;
     // Зеркалит выбор движка на сервере (raster_to_svg_server.py: convert()):
     // vtracer используется только для mode=contour; мозаика — всегда native.
-    const usesVtracer = eng === 'vtracer' || (eng === 'auto' && vtOk && mode === 'contour');
-    $('vtracerOpts').classList.toggle('opt-disabled', !usesVtracer);
-    $('nativeOpts').classList.toggle('opt-disabled', usesVtracer || mode !== 'contour');
-    $('mosaicOnly').classList.toggle('opt-disabled', usesVtracer || mode !== 'mosaic');
+    const usesVtracer = mode === 'contour' && (eng === 'vtracer' || (eng === 'auto' && vtOk));
+    const usesNative = mode === 'contour' && !usesVtracer;
+    $('vtracerOpts').classList.toggle('opt-hidden', !usesVtracer);
+    $('nativeOpts').classList.toggle('opt-hidden', !usesNative);
+    $('mosaicOnly').classList.toggle('opt-hidden', mode !== 'mosaic');
   }
 
   function showError(msg){
@@ -155,6 +198,9 @@
       if(state.thumbUrl) URL.revokeObjectURL(state.thumbUrl);
       state.thumbUrl = URL.createObjectURL(file);
       $('thumb').src = state.thumbUrl;
+      const prepThumb = $('prepThumb');
+      if(prepThumb.dataset.blobUrl){ URL.revokeObjectURL(prepThumb.dataset.blobUrl); prepThumb.dataset.blobUrl = ''; }
+      prepThumb.src = state.thumbUrl;
       $('fileName').textContent = file.name;
       const img = new Image();
       img.onload = ()=>{ $('fileDims').textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px'; state.dims = {w: img.naturalWidth, h: img.naturalHeight}; };
@@ -199,6 +245,9 @@
     if(state.thumbUrl){ URL.revokeObjectURL(state.thumbUrl); state.thumbUrl = null; }
     if(state.objUrl){ URL.revokeObjectURL(state.objUrl); state.objUrl = null; }
     $('thumb').src = '';
+    const prepThumb = $('prepThumb');
+    if(prepThumb.dataset.blobUrl){ URL.revokeObjectURL(prepThumb.dataset.blobUrl); prepThumb.dataset.blobUrl = ''; }
+    prepThumb.src = '';
     $('dzEmpty').hidden = false;
     $('dzPreview').hidden = true;
     hideZoom();
@@ -360,12 +409,14 @@
     startProgress(useStream);
     try{
       const upscale = parseInt($('upscale').value,10) || 1;
+      const preBlur = parseFloat($('preBlur').value) || 0;
+      const posterize = parseInt($('posterize').value, 10) || 0;
       let body = state.file;
-      if(upscale > 1){
+      if(upscale > 1 || preBlur > 0 || posterize > 0){
         try{
-          body = await upscaleFile(state.file, upscale);
+          body = await preprocessFile(state.file, {scale: upscale, blur: preBlur, posterize});
         }catch(err){
-          showError(err.message === 'limit' ? 'После увеличения файл превышает 20 МБ (лимит сервера). Уменьшите масштаб.' : 'Не удалось увеличить изображение.');
+          showError(err.message === 'limit' ? 'После обработки файл превышает 20 МБ (лимит сервера). Уменьшите масштаб или сглаживание.' : 'Не удалось подготовить изображение.');
           return;
         }
       }
@@ -469,6 +520,11 @@
   }
 
   function markDirty(){
+    if(!state.applying && state.activePreset){
+      state.activePreset = null;
+      document.querySelectorAll('#presetRow .preset[data-preset]').forEach(b=>b.classList.remove('active'));
+      $('presetCustom').hidden = false;
+    }
     if(state.svg){
       $('staleNote').hidden = false;
     }else{
@@ -498,11 +554,27 @@
   }
 
   const PRESETS = {
+    flat:{mode:'contour',engine:'auto',colors:5,smooth:1.2,corner:40,seam:1.0,
+          vtracer_preset:'poster',vtracer_color_precision:3,vtracer_filter_speckle:8,
+          preBlur:1.5,posterize:4,bg:'none'},
     logo:{mode:'contour',engine:'native',colors:4,smooth:0.2,corner:60,seam:0.3,bg:'none'},
     photo_flat:{mode:'contour',engine:'auto',colors:12,smooth:1.2,corner:40,seam:1.0,
                vtracer_preset:'poster',vtracer_color_precision:4,vtracer_filter_speckle:8,bg:'none'},
     mosaic:{mode:'mosaic',cell:16,shape:'rect',gap:0.2,colors:8},
-    bw:{mode:'contour',engine:'native',colors:2,smooth:0.3,corner:60,seam:0.5,bg:'none'}
+    bw:{mode:'contour',engine:'native',colors:2,smooth:0.3,corner:60,seam:0.5,bg:'none'},
+    minimal:{mode:'contour',engine:'native',colors:2,smooth:1.5,corner:100,seam:1.5,bg:'none'},
+    line_art:{mode:'contour',engine:'native',colors:1,smooth:0.5,corner:140,seam:0.5,
+              preBlur:0.5,posterize:0,bg:'none'},
+    icon:{mode:'contour',engine:'native',colors:4,smooth:1,corner:140,seam:1,
+          upscale:4,bg:'none'},
+    photo:{mode:'contour',engine:'auto',colors:32,vtracer_preset:'photo',
+           vtracer_color_precision:8,vtracer_filter_speckle:2,bg:'none'},
+    mosaic_circles:{mode:'mosaic',cell:12,shape:'circle',gap:0.2,seed:1,colors:8},
+    duotone:{mode:'contour',engine:'auto',colors:2,vtracer_color_precision:3,
+             vtracer_filter_speckle:4,preBlur:0.5,posterize:2,bg:'none'},
+    vintage:{mode:'contour',engine:'auto',colors:4,vtracer_preset:'poster',
+             vtracer_color_precision:4,vtracer_filter_speckle:6,
+             preBlur:1.5,posterize:4,bg:'#ffffff'}
   };
 
   function loadCustomPresets(){
@@ -515,11 +587,13 @@
   function applyPreset(name, params){
     if(!params) params = PRESETS[name];
     if(!params) return;
+    state.activePreset = name || null;
     pushHistory();
     applySettings(params);
     persistSettings(snapshotSettings());
     document.querySelectorAll('#presetRow .preset[data-preset]').forEach(b=>
       b.classList.toggle('active', b.dataset.preset === name));
+    $('presetCustom').hidden = true;
   }
 
   function renderCustomPresets(){
@@ -558,10 +632,25 @@
   function setUiMode(mode){
     const simple = mode === 'simple';
     $('vtracerOpts').classList.toggle('ui-hidden', simple);
-    $('advDetails').classList.toggle('ui-hidden', simple);
+    $('nativeOpts').classList.toggle('ui-hidden', simple);
+    $('mosaicOnly').classList.toggle('ui-hidden', simple);
     document.querySelectorAll('#uiSeg button').forEach(b=>
       b.classList.toggle('active', b.dataset.ui === mode));
     try{ localStorage.setItem('r2s.ui.mode', mode); }catch(e){}
+  }
+
+  const BG_PRESETS = {none:'none', white:'#ffffff', black:'#000000'};
+
+  function updateBgUI(){
+    const bg = ($('bg').value || '').trim().toLowerCase();
+    let mode = 'none';
+    if(bg === '#ffffff' || bg === 'white') mode = 'white';
+    else if(bg === '#000000' || bg === 'black') mode = 'black';
+    else if(bg && bg !== 'none' && bg !== 'transparent') mode = 'custom';
+    document.querySelectorAll('#bgSeg button').forEach(b=>
+      b.classList.toggle('active', b.dataset.bg === mode));
+    $('bgColor').hidden = mode !== 'custom';
+    if(mode === 'custom' && /^#[0-9a-f]{6}$/i.test(bg)) $('bgColor').value = bg;
   }
 
   function snapshotSettings(){
@@ -610,9 +699,11 @@
         el.value = v;
         const badgeId = k === 'vtracer_color_precision' ? 'vtracerColorPrecisionBadge' : k === 'vtracer_filter_speckle' ? 'vtracerSpeckleBadge' : k + 'Badge';
         const badge = $(badgeId);
-        if(badge) badge.textContent = el.value;
+        if(badge) badge.textContent = k === 'posterize' && (parseInt(v,10) || 0) === 0 ? 'выкл' : el.value;
       }
       syncEngineOpts();
+      updateBgUI();
+      if(state.file) schedulePrepPreview();
       markDirty();
     }finally{ state.applying = false; }
   }
@@ -798,8 +889,10 @@
       try{
         let body = it.file;
         const upscale = parseInt($('upscale').value, 10) || 1;
-        if(upscale > 1){
-          body = await upscaleFile(it.file, upscale);
+        const preBlur = parseFloat($('preBlur').value) || 0;
+        const posterize = parseInt($('posterize').value, 10) || 0;
+        if(upscale > 1 || preBlur > 0 || posterize > 0){
+          body = await preprocessFile(it.file, {scale: upscale, blur: preBlur, posterize});
         }
         const qs = buildParams();
         const resp = await fetch('/convert' + (qs.toString() ? '?'+qs.toString() : ''), {
@@ -979,6 +1072,13 @@
   $('vtracer_mode').addEventListener('change',markDirty);
   $('vtracer_color_precision').addEventListener('input',()=>{ $('vtracerColorPrecisionBadge').textContent=$('vtracer_color_precision').value; markDirty(); });
   $('vtracer_filter_speckle').addEventListener('input',()=>{ $('vtracerSpeckleBadge').textContent=$('vtracer_filter_speckle').value; markDirty(); });
+  $('preBlur').addEventListener('input',()=>{ $('preBlurBadge').textContent=$('preBlur').value; markDirty(); schedulePrepPreview(); });
+  $('posterize').addEventListener('input',()=>{
+    const v = parseInt($('posterize').value,10);
+    $('posterizeBadge').textContent = v===0 ? 'выкл' : String(v);
+    markDirty();
+    schedulePrepPreview();
+  });
   $('convertBtn').addEventListener('click',convert);
 
   document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
@@ -1021,9 +1121,29 @@
     else if(mod && e.key.toLowerCase() === 'y'){ e.preventDefault(); redo(); }
   });
 
+  $('bgSeg').addEventListener('click',(e)=>{
+    const b = e.target.closest('button');
+    if(!b || !b.dataset.bg) return;
+    const mode = b.dataset.bg;
+    if(mode === 'custom'){
+      $('bg').value = $('bgColor').value;
+      document.querySelectorAll('#bgSeg button').forEach(x=>x.classList.toggle('active', x===b));
+      $('bgColor').hidden = false;
+    }else{
+      $('bg').value = BG_PRESETS[mode];
+      updateBgUI();
+    }
+    $('bg').dispatchEvent(new Event('input', {bubbles:true}));
+  });
+  $('bgColor').addEventListener('input',()=>{
+    $('bg').value = $('bgColor').value;
+    $('bg').dispatchEvent(new Event('input', {bubbles:true}));
+  });
+
   syncEngineOpts(); // сразу, не дожидаясь /health — без вспышки неверного состояния
   checkHealth();
   loadDefaults();
   renderCustomPresets();
   setUiMode(localStorage.getItem('r2s.ui.mode') === 'simple' ? 'simple' : 'advanced');
+  updateBgUI();
 })();

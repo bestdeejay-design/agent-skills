@@ -10,22 +10,37 @@
 <header>
   <h1>PNG <span>→</span> SVG</h1>
   <p class="subtitle">Локальная трассировка растровых изображений в вектор без отправки данных наружу.</p>
-  <p class="status" id="status">Проверка движка…</p>
+  <div class="head-row">
+    <p class="status" id="status">Проверка движка…</p>
+    <a class="imgforge-link" href="https://bestdeejay-design.github.io/imgforge/" target="_blank" rel="noopener" title="Обрезать и оптимизировать изображение прямо в браузере — всё локально, без загрузки на сервер">✂️ ImgForge — обрезать элемент</a>
+  </div>
 </header>
 
 <main>
   <div class="layout">
     <section class="controls">
       <div class="preset-row" id="presetRow">
+        <span class="preset-family">Графика</span>
+        <button type="button" class="preset" data-preset="flat">🧹 Плоский стиль</button>
+        <button type="button" class="preset" data-preset="minimal">Минимал</button>
+        <button type="button" class="preset" data-preset="line_art">Лайн-арт</button>
+        <button type="button" class="preset" data-preset="icon">Иконка</button>
         <button type="button" class="preset" data-preset="logo">Логотип</button>
+        <span class="preset-family">Фото</span>
         <button type="button" class="preset" data-preset="photo_flat">Фото-плоский</button>
-        <button type="button" class="preset" data-preset="mosaic">Мозаика-постер</button>
+        <button type="button" class="preset" data-preset="photo">Фото</button>
+        <button type="button" class="preset" data-preset="duotone">Дуотон</button>
+        <button type="button" class="preset" data-preset="vintage">Винтаж</button>
+        <span class="preset-family">Моно</span>
         <button type="button" class="preset" data-preset="bw">ЧБ</button>
+        <span class="preset-family">Мозаика</span>
+        <button type="button" class="preset" data-preset="mosaic">Постер</button>
+        <button type="button" class="preset" data-preset="mosaic_circles">Круги</button>
         <span id="customPresets"></span>
         <button type="button" class="preset save" id="savePresetBtn">💾 Свой</button>
         <button type="button" class="preset reset" id="resetBtn">↺ Сброс</button>
       </div>
-      <div class="preset-hint">Пресеты задают набор настроек под задачу. «💾 Свой» сохраняет текущие настройки; Ctrl+Z / Ctrl+Shift+Z — отмена/возврат.</div>
+      <div class="preset-hint">Пресеты задают набор настроек под задачу. «💾 Свой» сохраняет текущие настройки; Ctrl+Z / Ctrl+Shift+Z — отмена/возврат. <span class="custom-badge" id="presetCustom" hidden>✎ ручные настройки</span></div>
 
       <div class="seg" id="uiSeg">
         <button type="button" data-ui="simple">Просто</button>
@@ -78,60 +93,82 @@
       </label>
       </div>
 
-      <label>Фон
-        <input type="text" id="bg" value="none" placeholder="#ffffff">
-        <span class="hint">none = прозрачный фон. Цвет (например #ffffff) — залить подложку, если картинка с прозрачностью.</span>
+      <div class="opt-group" id="nativeOpts">
+      <label>Сглаживание <span class="badge" id="smoothBadge">0.5</span>
+        <input type="range" id="smooth" min="0" max="2" step="0.1" value="0.5">
+        <span class="hint">Только для native: Сглаживание контуров: больше = глаже и легче SVG, но теряются мелкие детали. 0 = точь-в-точь по пикселям.</span>
       </label>
-
-      <label>Увеличение
-        <select id="upscale">
-          <option value="1">1× (выкл)</option>
-          <option value="2">2×</option>
-          <option value="4">4×</option>
-        </select>
-        <span class="hint">Увеличивает разрешение перед трассировкой: точнее контуры мелких деталей, но дольше и тяжелее файл. Для мелких исходников — 2×–4×.</span>
+      <label>Угол (град.) <span class="badge" id="cornerBadge">60</span>
+        <input type="range" id="corner" min="0" max="180" step="5" value="60">
+        <span class="hint">Только для native: Порог остроты углов: меньше = сохранять острые углы, больше = сглаживать их в кривые.</span>
       </label>
+      <label>Шов <span class="badge" id="seamBadge">0.5</span>
+        <input type="range" id="seam" min="0" max="2" step="0.1" value="0.5">
+        <span class="hint">Только для native: Склейка разрывов контуров: больше = меньше разрывов, но разные области могут слиться.</span>
+      </label>
+      </div>
+      <div class="opt-group" id="mosaicOnly" style="display:none">
+        <label>Ячейка (0 = auto)
+          <input type="number" id="cell" min="0" max="64" value="0">
+          <span class="hint">Размер ячейки мозаики в пикселях, 0 = авто. Меньше = мельче и детальнее, больше = грубее и легче.</span>
+        </label>
+        <label>Фигура
+          <select id="shape">
+            <option value="auto">auto</option>
+            <option value="rect">rect</option>
+            <option value="circle">circle</option>
+            <option value="triangle">triangle</option>
+          </select>
+          <span class="hint">Форма ячейки: rect — строгая сетка, circle/triangle — декоративная мозаика.</span>
+        </label>
+        <label>Зазор <span class="badge" id="gapBadge">0.15</span>
+          <input type="range" id="gap" min="0" max="0.45" step="0.05" value="0.15">
+          <span class="hint">Зазор между ячейками: больше = воздушнее, просвечивает фон; 0 = плотно.</span>
+        </label>
+        <label>Сид
+          <input type="number" id="seed" min="0" value="1">
+          <span class="hint">Зерно узора: тот же сид = тот же узор. Поменяй, если раскладка не нравится.</span>
+        </label>
+      </div>
 
-      <details class="adv" id="advDetails">
-        <summary>Дополнительно</summary>
-        <div class="opt-group" id="nativeOpts">
-        <label>Сглаживание <span class="badge" id="smoothBadge">0.5</span>
-          <input type="range" id="smooth" min="0" max="2" step="0.1" value="0.5">
-          <span class="hint">Только для native: Сглаживание контуров: больше = глаже и легче SVG, но теряются мелкие детали. 0 = точь-в-точь по пикселям.</span>
-        </label>
-        <label>Угол (град.) <span class="badge" id="cornerBadge">60</span>
-          <input type="range" id="corner" min="0" max="180" step="5" value="60">
-          <span class="hint">Только для native: Порог остроты углов: меньше = сохранять острые углы, больше = сглаживать их в кривые.</span>
-        </label>
-        <label>Шов <span class="badge" id="seamBadge">0.5</span>
-          <input type="range" id="seam" min="0" max="2" step="0.1" value="0.5">
-          <span class="hint">Только для native: Склейка разрывов контуров: больше = меньше разрывов, но разные области могут слиться.</span>
-        </label>
+      <div class="prep-group">
+        <p class="prep-title">Подготовка фото</p>
+        <p class="prep-sub">Обрабатывает пиксели прямо в браузере ещё до трассировки — так фото становится «плоским» на уровне исходных данных, а не только за счёт огрубления самого трассировщика.</p>
+        <div class="prep-preview">
+          <img id="prepThumb" alt="предпросмотр обработки">
+          <span class="prep-cap">так фото увидит трассировщик</span>
         </div>
-        <div class="opt-group" id="mosaicOnly" style="display:none">
-          <label>Ячейка (0 = auto)
-            <input type="number" id="cell" min="0" max="64" value="0">
-            <span class="hint">Размер ячейки мозаики в пикселях, 0 = авто. Меньше = мельче и детальнее, больше = грубее и легче.</span>
-          </label>
-          <label>Фигура
-            <select id="shape">
-              <option value="auto">auto</option>
-              <option value="rect">rect</option>
-              <option value="circle">circle</option>
-              <option value="triangle">triangle</option>
-            </select>
-            <span class="hint">Форма ячейки: rect — строгая сетка, circle/triangle — декоративная мозаика.</span>
-          </label>
-          <label>Зазор <span class="badge" id="gapBadge">0.15</span>
-            <input type="range" id="gap" min="0" max="0.45" step="0.05" value="0.15">
-            <span class="hint">Зазор между ячейками: больше = воздушнее, просвечивает фон; 0 = плотно.</span>
-          </label>
-          <label>Сид
-            <input type="number" id="seed" min="0" value="1">
-            <span class="hint">Зерно узора: тот же сид = тот же узор. Поменяй, если раскладка не нравится.</span>
-          </label>
-        </div>
-      </details>
+        <label>Сглаживание фото <span class="badge" id="preBlurBadge">0</span>
+          <input type="range" id="preBlur" min="0" max="5" step="0.5" value="0">
+          <span class="hint">Размывает шум, текстуру кожи/ткани и JPEG-артефакты до трассировки — без него трассировщик честно обводит каждую пылинку шума отдельным контуром. 0 = выкл, для обычного фото 1.5–3, для очень шумного/сжатого — 4+.</span>
+        </label>
+        <label>Ступени цвета <span class="badge" id="posterizeBadge">выкл</span>
+          <input type="range" id="posterize" min="0" max="8" step="1" value="0">
+          <span class="hint">Режет плавные градиенты (небо, кожа, тени) на чёткие ступени цвета до трассировки — именно это даёт настоящий «плакатный» плоский вид, а не просто уменьшение числа цветов на выходе. 0 = выкл, 3–4 = выраженный постер.</span>
+        </label>
+        <label>Увеличение
+          <select id="upscale">
+            <option value="1">1× (выкл)</option>
+            <option value="2">2×</option>
+            <option value="4">4×</option>
+          </select>
+          <span class="hint">Увеличивает разрешение перед трассировкой: точнее контуры мелких деталей, но дольше и тяжелее файл. Для мелких исходников — 2×–4×.</span>
+        </label>
+      </div>
+
+      <div class="bg-group">
+        <label>Фон
+          <div class="seg" id="bgSeg">
+            <button type="button" data-bg="none" class="active">Прозрачный</button>
+            <button type="button" data-bg="white">Белый</button>
+            <button type="button" data-bg="black">Чёрный</button>
+            <button type="button" data-bg="custom">Цвет…</button>
+          </div>
+          <input type="color" id="bgColor" value="#ffffff" hidden>
+          <input type="text" id="bg" value="none" hidden>
+          <span class="hint">Подложка под контуры. Видна только если в картинке есть прозрачность: «Прозрачный» — без подложки; «Белый»/«Чёрный» — однотонная; «Цвет…» — свой цвет.</span>
+        </label>
+      </div>
 
       <button id="convertBtn" class="primary" type="button" disabled>Конвертировать</button>
       <button id="batchToggleBtn" type="button" class="batch-toggle">Пакетная обработка</button>
