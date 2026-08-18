@@ -31,6 +31,7 @@ import json
 import os
 import sys
 import tempfile
+import threading
 import time
 import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -154,6 +155,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/export":
             self._handle_export()
+            return
+        if parsed.path == "/shutdown":
+            self._handle_shutdown()
             return
         if parsed.path != "/convert":
             self._send_error(404, f"not found: {parsed.path}")
@@ -281,6 +285,11 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def _handle_shutdown(self):
+        """Stop the server after replying (client can close the tab)."""
+        self._send_json(200, {"ok": True, "shutting_down": True})
+        threading.Timer(0.2, self.server.shutdown).start()
 
     def _handle_export(self):
         """POST /export — JSON {"svg":"...","fmt":"dxf"|"eps"} -> converted text.

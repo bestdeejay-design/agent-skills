@@ -31,7 +31,8 @@
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         ctx.filter = 'none';
         URL.revokeObjectURL(url);
-        if(opts.posterize > 0 && opts.posterize < 16){
+        // posterize=1 даёт step=Infinity → NaN в пикселях → чёрный canvas; трактуем как выкл
+        if(opts.posterize > 1 && opts.posterize < 16){
           const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
           const d = id.data;
           const step = 255 / (opts.posterize - 1);
@@ -1075,11 +1076,23 @@
   $('preBlur').addEventListener('input',()=>{ $('preBlurBadge').textContent=$('preBlur').value; markDirty(); schedulePrepPreview(); });
   $('posterize').addEventListener('input',()=>{
     const v = parseInt($('posterize').value,10);
-    $('posterizeBadge').textContent = v===0 ? 'выкл' : String(v);
+    $('posterizeBadge').textContent = v<=1 ? 'выкл' : String(v);
     markDirty();
     schedulePrepPreview();
   });
   $('convertBtn').addEventListener('click',convert);
+
+  $('stopBtn').addEventListener('click', async ()=>{
+    if(!confirm('Остановить локальный сервер? Вкладка закроется, конвертация будет недоступна до следующего запуска (иконка PNG → SVG на рабочем столе).')) return;
+    const btn = $('stopBtn');
+    btn.disabled = true;
+    btn.textContent = '⏻ Останавливаю…';
+    try{
+      await fetch('/shutdown', {method:'POST'});
+    }catch(_){ /* сервер может упасть раньше ответа — это норма */ }
+    setTimeout(()=>{ window.close(); }, 300);
+    setTimeout(()=>{ document.body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-dim)">Сервер остановлен — вкладку можно закрыть.</div>'; }, 2500);
+  });
 
   document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
     document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));

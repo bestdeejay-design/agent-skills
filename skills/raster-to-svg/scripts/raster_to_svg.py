@@ -815,7 +815,20 @@ def find_vtracer():
     The crates.io package `vtracer-cli` installs an executable named
     `vtracer`; older builds used `vtracer-cli`. Accept both.
     """
-    return shutil.which("vtracer") or shutil.which("vtracer-cli")
+    found = shutil.which("vtracer") or shutil.which("vtracer-cli")
+    if found is not None:
+        return found
+    # LaunchServices / .app launch gives a minimal PATH that misses
+    # ~/.cargo/bin and ~/.local/bin even though the user installed vtracer
+    # there. Check the usual user-local locations explicitly.
+    home = os.path.expanduser("~")
+    for candidate in (os.path.join(home, ".cargo", "bin", "vtracer"),
+                      os.path.join(home, ".cargo", "bin", "vtracer-cli"),
+                      os.path.join(home, ".local", "bin", "vtracer"),
+                      os.path.join(home, ".local", "bin", "vtracer-cli")):
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return None
 
 
 def vtracer_available():
