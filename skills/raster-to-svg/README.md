@@ -26,20 +26,33 @@ Two tracing engines in one tool: a built-in pure-Python tracer (Bezier contours 
 
 ## Quick start
 
-### Web UI (recommended)
+You need **Python 3 only** — the tracer is pure stdlib, no `pip install` required. `vtracer` is optional (see [Engine notes](#engine-notes)).
+
+### macOS — one-click desktop app
+
+1. Download **`R2S.app.zip`** from the [latest release](releases/latest)
+2. Unzip it (double-click), drag `R2S.app` to your Desktop or Applications
+3. Double-click `R2S.app` — it starts the local server in the background and opens the browser
+
+The bundle is self-contained: `scripts/` + `web/` live inside the app, so it works from any location. To stop the server use the **⏻ Остановить сервер** button in the web UI header.
+
+### macOS / Linux — from source
 
 ```bash
+git clone https://github.com/bestdeejay-design/raster-to-svg.git
+cd raster-to-svg
 python3 scripts/raster_to_svg_server.py --port 8642
-# open http://127.0.0.1:8642/
+# open http://127.0.0.1:8642/  (the browser opens automatically)
 ```
 
-**macOS one-click:** build the `R2S.app` launcher once — double-click starts the server in the background and opens the browser:
+Press `Ctrl+C` in the terminal to stop the server.
 
-```bash
-# the app bundle lives on your Desktop; the launcher script is self-contained:
-mkdir -p ~/Desktop/R2S.app/Contents/{MacOS,Resources}
-# ... or simply run the server via the alias below
-```
+### Windows — from source
+
+1. Install Python 3 from [python.org](https://www.python.org/downloads/) — **tick “Add python.exe to PATH”** during setup
+2. Download the repo: green **Code → Download ZIP** (or `git clone` if you have Git)
+3. Double-click **`scripts\start_server.bat`** — it starts the server and opens the browser
+   (or run `python scripts\raster_to_svg_server.py` in a terminal; `Ctrl+C` stops it)
 
 ### CLI
 
