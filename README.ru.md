@@ -83,8 +83,8 @@
 | [**data-analysis**](skills/data-analysis/SKILL.md) | Профилирование датасета (CSV/JSON): статистика полей, моды, гистограммы, топ-3 корреляции Пирсона, аномалии и рекомендации. |
 | [**sql-helper**](skills/sql-helper/SKILL.md) | Генерация SQL по текстовому вопросу и DDL: схема в памяти sqlite, шаблоны интентов, каждый запрос проверяется через EXPLAIN. |
 | [**diagram-maker**](skills/diagram-maker/SKILL.md) | Диаграммы из текстового описания в синтаксисе Mermaid: flowchart, sequence, architecture, ER + рекомендация по рендеру. |
-| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md)
-| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → векторный SVG: vtracer-cli при наличии, иначе встроенный stdlib-трассировщик (контурные Bezier / мозаика из примитивов); детерминированный, XML-валидируемый. | | Рендер `.mmd` в PNG/SVG: локальный mermaid-cli, fallback на mermaid.ink; форматы, масштаб, фон. |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Рендер `.mmd` в PNG/SVG: локальный mermaid-cli, fallback на mermaid.ink; форматы, масштаб, фон. |
+| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → векторный SVG: vtracer-cli при наличии, иначе встроенный stdlib-трассировщик (контурные Bezier / мозаика из примитивов); детерминированный, XML-валидируемый; веб-UI с редактором палитры (перекраска/слияние), экспорт DXF R12 (слои по цвету)/EPS/PNG, пакет → .zip, опциональный MCP-сервер. |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | Вежливый скраппинг HTML в Markdown/JSON: CSS-селекторы, текст/ссылки/таблицы; легальные ограничители — robots.txt, честный UA, задержки. |
 
 <a id="cat-media"></a>

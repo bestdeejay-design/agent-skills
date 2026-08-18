@@ -83,8 +83,8 @@
 | [**data-analysis**](skills/data-analysis/SKILL.md) | Dataset profiling (CSV/JSON): field stats, modes, histograms, top Pearson correlations, anomalies + recommendations. |
 | [**sql-helper**](skills/sql-helper/SKILL.md) | SQL from a text question + DDL: in-memory sqlite schema, intent templates, every candidate verified via EXPLAIN. |
 | [**diagram-maker**](skills/diagram-maker/SKILL.md) | Diagrams from a text description in Mermaid syntax: flowchart, sequence, architecture, ER + rendering advice. |
-| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md)
-| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → vector SVG: vtracer-cli when installed, built-in stdlib tracer otherwise (contour with Bezier curves / mosaic of primitives); deterministic, XML-validated. | | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
+| [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
+| [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → vector SVG: vtracer-cli when installed, built-in stdlib tracer otherwise (contour with Bezier curves / mosaic of primitives); deterministic, XML-validated; web UI with color palette editor (recolor/merge), export DXF R12 (layers by color)/EPS/PNG, batch → .zip, optional MCP server. |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | Polite HTML scraping to Markdown/JSON: CSS selectors, text/links/tables; legal guardrails — robots.txt, honest UA, rate limit. |
 
 <a id="cat-media"></a>

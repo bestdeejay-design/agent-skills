@@ -30,6 +30,88 @@ PROG = "raster_to_svg"
 VERSION = "1.0.0"
 
 PNG_SIG = b"\x89PNG\r\n\x1a\n"
+
+# ---------------------------------------------------------------------------
+# Single source of truth for every tracing parameter.
+#
+# Consumed by: CLI (build_parser), server (validation, defaults, GET /defaults)
+# and the web UI (fetches GET /defaults). Keep defaults/ranges/choices here.
+#
+# Field meanings:
+#   type      int | float | str | choice
+#   default   CLI/server default (None = not passed -> engine default)
+#   min/max   hard validation limits (int/float)
+#   choices   allowed values (choice)
+#   group     common | native | mosaic | vtracer  (which engine/UI group owns it)
+#   ui        optional UI overrides: {default, min, max, step}
+#   cli       argparse flags; if absent the param has no CLI flag
+#   metavar   CLI metavar
+#   help      CLI help text
+# ---------------------------------------------------------------------------
+PARAMS = {
+    "mode": {"type": "choice", "choices": ("contour", "mosaic"),
+             "default": "contour", "group": "common", "cli": ("-m", "--mode"),
+             "help": "vectorization strategy (default: contour)"},
+    "engine": {"type": "choice", "choices": ("auto", "vtracer", "native"),
+               "default": "auto", "group": "common", "cli": ("--engine",),
+               "help": "engine: auto prefers vtracer-cli if installed (default: auto)"},
+    "colors": {"type": "int", "min": 1, "max": 256, "default": 8,
+               "group": "native", "cli": ("--colors",), "metavar": "N",
+               "ui": {"max": 32},
+               "help": "max colors for native contour tracing (default: 8)"},
+    "bg": {"type": "str", "default": "none", "group": "common", "cli": ("--bg",),
+           "metavar": "COLOR",
+           "help": "background rect color, e.g. #ffffff or white (default: none, transparent)"},
+    "smooth": {"type": "float", "min": 0.0, "max": 100.0, "default": 0.5,
+               "group": "native", "cli": ("--smooth",), "metavar": "PX",
+               "ui": {"max": 2, "step": 0.1},
+               "help": "native contour: Douglas-Peucker epsilon in px (default: 0.5)"},
+    "corner": {"type": "float", "min": 0.0, "max": 180.0, "default": 60.0,
+               "group": "native", "cli": ("--corner",), "metavar": "DEG",
+               "ui": {"step": 5},
+               "help": "native contour: corner detection threshold in degrees (default: 60)"},
+    "seam": {"type": "float", "min": 0.0, "max": 20.0, "default": 0.5,
+             "group": "native", "cli": ("--seam",), "metavar": "PX",
+             "ui": {"max": 2, "step": 0.1},
+             "help": "native contour: stroke width to close seams, 0 disables (default: 0.5)"},
+    "cell": {"type": "int", "min": 0, "max": 100000, "default": 0,
+             "group": "mosaic", "cli": ("--cell",), "metavar": "N",
+             "ui": {"max": 64},
+             "help": "mosaic: cell size in px (default: auto)"},
+    "shape": {"type": "choice", "choices": ("auto", "rect", "circle", "triangle"),
+              "default": "auto", "group": "mosaic", "cli": ("--shape",),
+              "help": "mosaic: primitive shape, auto mixes deterministically (default: auto)"},
+    "gap": {"type": "float", "min": 0.0, "max": 0.45, "default": 0.15,
+            "group": "mosaic", "cli": ("--gap",), "metavar": "F",
+            "ui": {"step": 0.05},
+            "help": "mosaic: gap as a fraction of the cell (default: 0.15)"},
+    "seed": {"type": "int", "min": -10**9, "max": 10**9, "default": 1,
+             "group": "mosaic", "cli": ("--seed",),
+             "ui": {"min": 0},
+             "help": "mosaic: deterministic mix seed (default: 1)"},
+    "vtracer_preset": {"type": "choice", "choices": ("bw", "poster", "photo", "none"),
+                       "default": "poster", "group": "vtracer", "cli": ("--vtracer-preset",),
+                       "help": "vtracer preset (default: poster)"},
+    "vtracer_mode": {"type": "choice", "choices": ("spline", "polygon", "none"),
+                     "default": "spline", "group": "vtracer", "cli": ("--vtracer-mode",),
+                     "help": "vtracer curve mode (default: spline)"},
+    "vtracer_color_precision": {"type": "int", "min": 1, "max": 8, "default": None,
+                                "group": "vtracer", "cli": ("--vtracer-color-precision",),
+                                "metavar": "N", "ui": {"default": 8},
+                                "help": "vtracer bits per RGB channel (1-8)"},
+    "vtracer_filter_speckle": {"type": "int", "min": 0, "max": 1000, "default": None,
+                               "group": "vtracer", "cli": ("--vtracer-filter-speckle",),
+                               "metavar": "N", "ui": {"default": 0, "max": 64},
+                               "help": "vtracer speckle filter radius (px)"},
+}
+
+
+def params_schema():
+    """Serializable schema for GET /defaults (drops CLI-only fields)."""
+    out = {}
+    for name, spec in PARAMS.items():
+        out[name] = {k: v for k, v in spec.items() if k != "cli"}
+    return out
 ALPHA_MIN = 128  # pixels with alpha below this are treated as transparent
 
 # Adam7 interlace passes: (x_start, y_start, x_step, y_step)
@@ -555,16 +637,29 @@ def polygon_area(points):
     return abs(area) / 2.0
 
 
-def trace_native_contour(rgba, w, h, n_colors, smooth, corner, seam):
-    """Full native color tracing pipeline: quantize -> masks -> cycles -> paths."""
+def trace_native_contour(rgba, w, h, n_colors, smooth, corner, seam, progress_cb=None):
+    """Full native color tracing pipeline: quantize -> masks -> cycles -> paths.
+
+    progress_cb(stage, pct) is called with a stage name and a 0..100 percent;
+    raising from it aborts the pipeline (used by the server on client abort).
+    """
     t0 = time.time()
+    if progress_cb:
+        progress_cb("quantize", 2)
     hist = build_histogram(rgba, w, h)
     if not hist:
         raise PNGError("image is fully transparent")
+    if progress_cb:
+        progress_cb("quantize", 8)
     palette = median_cut(hist, n_colors)
     labels = assign_colors(rgba, w, h, palette)
+    if progress_cb:
+        progress_cb("quantize", 22)
     layers = []  # (hex, d, area)
+    n_pal = len(palette)
     for cidx, color in enumerate(palette):
+        if progress_cb:
+            progress_cb("contour", 22 + int(66 * (cidx + 1) / n_pal))
         mask = bytearray(w * h)
         for i, v in enumerate(labels):
             if v == cidx:
@@ -583,7 +678,11 @@ def trace_native_contour(rgba, w, h, n_colors, smooth, corner, seam):
             continue
         layers.append(("#%02x%02x%02x" % color, " ".join(d_parts), area))
     layers.sort(key=lambda l: -l[2])  # big areas first (background below)
+    if progress_cb:
+        progress_cb("metrics", 94)
     mce = mean_color_error(rgba, w, h, labels, palette)
+    if progress_cb:
+        progress_cb("done", 100)
     return layers, mce, time.time() - t0
 
 
@@ -643,6 +742,38 @@ def trace_native_mosaic(rgba, w, h, cell, shape, gap, seed):
 # ---------------------------------------------------------------------------
 # SVG emission + validation
 # ---------------------------------------------------------------------------
+
+CSS_COLORS = frozenset("""aliceblue antiquewhite aqua aquamarine azure beige bisque black
+blanchedalmond blue blueviolet brown burlywood cadetblue chartreuse chocolate coral
+cornflowerblue cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray darkgreen
+darkgrey darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon
+darkseagreen darkslateblue darkslategray darkslategrey darkturquoise darkviolet deeppink
+deepskyblue dimgray dimgrey dodgerblue firebrick floralwhite forestgreen fuchsia gainsboro
+ghostwhite gold goldenrod gray green greenyellow grey honeydew hotpink indianred indigo
+ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan
+lightgoldenrodyellow lightgray lightgreen lightgrey lightpink lightsalmon lightseagreen
+lightskyblue lightslategray lightslategrey lightsteelblue lightyellow lime limegreen linen
+magenta maroon mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen
+mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream
+mistyrose moccasin navajowhite navy oldlace olive olivedrab orange orangered orchid
+palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum
+powderblue purple rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown
+seagreen seashell sienna silver skyblue slateblue slategray slategrey snow springgreen
+steelblue tan teal thistle tomato turquoise violet wheat white whitesmoke yellow
+yellowgreen""".split())
+
+
+def valid_bg(val):
+    """True when bg is 'none'/'transparent', a #hex color, or a CSS color name."""
+    if val is None:
+        return True
+    s = val.strip().lower()
+    if s in ("none", "transparent"):
+        return True
+    if re.fullmatch(r"#[0-9a-f]{3,8}", s):
+        return True
+    return s in CSS_COLORS
+
 
 def emit_svg(w, h, layers, bg, seam=0.0):
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
@@ -746,48 +877,44 @@ def build_parser():
     p.add_argument("-o", "--output",
                    help="output SVG path, or '-' for stdout "
                         "(default: input path with .svg)")
-    p.add_argument("-m", "--mode", choices=("contour", "mosaic"),
-                   default="contour", help="vectorization strategy (default: contour)")
-    p.add_argument("--engine", choices=("auto", "vtracer", "native"),
-                   default="auto",
-                   help="engine: auto prefers vtracer-cli if installed "
-                        "(default: auto)")
-    p.add_argument("--colors", type=int, default=8, metavar="N",
-                   help="max colors for native contour tracing (default: 8)")
-    p.add_argument("--bg", default="none", metavar="COLOR",
-                   help="background rect color, e.g. #ffffff or white "
-                        "(default: none, transparent)")
-    p.add_argument("--smooth", type=float, default=0.5, metavar="PX",
-                   help="native contour: Douglas-Peucker epsilon in px (default: 0.5)")
-    p.add_argument("--corner", type=float, default=60.0, metavar="DEG",
-                   help="native contour: corner detection threshold in degrees (default: 60)")
-    p.add_argument("--seam", type=float, default=0.5, metavar="PX",
-                   help="native contour: stroke width to close seams, 0 disables (default: 0.5)")
-    p.add_argument("--cell", type=int, default=0, metavar="N",
-                   help="mosaic: cell size in px (default: auto)")
-    p.add_argument("--shape", choices=("rect", "circle", "triangle", "auto"),
-                   default="auto",
-                   help="mosaic: primitive shape, auto mixes deterministically (default: auto)")
-    p.add_argument("--gap", type=float, default=0.15, metavar="F",
-                   help="mosaic: gap as a fraction of the cell (default: 0.15)")
-    p.add_argument("--seed", type=int, default=1,
-                   help="mosaic: deterministic mix seed (default: 1)")
-    p.add_argument("--vtracer-preset", choices=("bw", "poster", "photo", "none"),
-                   default="poster",
-                   help="vtracer preset (default: poster)")
-    p.add_argument("--vtracer-mode", choices=("spline", "polygon", "none"),
-                   default="spline",
-                   help="vtracer curve mode (default: spline)")
-    p.add_argument("--vtracer-color-precision", type=int, metavar="N",
-                   help="vtracer bits per RGB channel (1-8)")
-    p.add_argument("--vtracer-filter-speckle", type=int, metavar="N",
-                   help="vtracer speckle filter radius (px)")
+    for name, spec in PARAMS.items():
+        cli = spec.get("cli")
+        if not cli:
+            continue
+        kw = {"help": spec["help"]}
+        if spec["type"] == "choice":
+            kw["choices"] = spec["choices"]
+        elif spec["type"] == "int":
+            kw["type"] = int
+        elif spec["type"] == "float":
+            kw["type"] = float
+        if spec.get("metavar"):
+            kw["metavar"] = spec["metavar"]
+        if spec.get("default") is not None:
+            kw["default"] = spec["default"]
+        p.add_argument(*cli, **kw)
     p.add_argument("--json", action="store_true",
                    help="emit a machine-readable JSON report")
     p.add_argument("--quiet", action="store_true",
                    help="suppress the text report")
     p.add_argument("--version", action="version", version=f"{PROG} {VERSION}")
     return p
+
+
+def validate_cli_args(args):
+    """Range/color checks argparse cannot express; returns an error or None."""
+    for name, spec in PARAMS.items():
+        val = getattr(args, name, None)
+        if val is None or spec["type"] not in ("int", "float"):
+            continue
+        lo, hi = spec.get("min"), spec.get("max")
+        if (lo is not None and val < lo) or (hi is not None and val > hi):
+            flag = spec.get("cli", ("",))[-1] or f"--{name}"
+            return f"{flag} must be in {lo}..{hi} (got {val})"
+    if not valid_bg(args.bg):
+        return ("--bg must be a color: 'none', 'transparent', '#hex' "
+                f"or a CSS color name (got {args.bg!r})")
+    return None
 
 
 def read_input(path):
@@ -812,8 +939,9 @@ def main(argv=None):
         "warnings": [],
     }
 
-    if args.colors < 1 or args.colors > 256:
-        print(f"{PROG}: --colors must be in 1..256", file=sys.stderr)
+    err = validate_cli_args(args)
+    if err:
+        print(f"{PROG}: {err}", file=sys.stderr)
         return 1
 
     try:
