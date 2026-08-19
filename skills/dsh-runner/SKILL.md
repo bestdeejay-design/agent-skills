@@ -1,11 +1,11 @@
 ---
 name: dsh-runner
-description: "Запуск автономных агентных задач через DeepSeek Harness (dsh) — изолированные workspace, JSONL-логи сессий, параллельные прогоны. Скрипт dsh_task.py генерирует конфиг и запускает агента через Python SDK (jsonrpc-agent): задача → workspace → harness.run(prompt) → отчёт с final_response и логом. Режимы: headless-задача одной командой, Web UI (npx @deepseek-ai/dsh web), сравнение моделей. Требует DEEPSEEK_API_KEY (или OpenAI-совместимый endpoint через DEEPSEEK_BASE_URL). Триггеры: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'агент-исполнитель', 'harness run', 'agent harness', 'запустить dsh', 'автономная задача агентом', 'параллельные агенты', 'сравнить модели на задаче', 'jsonrpc-agent'."
+description: "Запуск автономных агентных задач через DeepSeek Harness (dsh) — изолированные workspace, JSONL-логи сессий, параллельные прогоны. Скрипт dsh_task.py генерирует конфиг и запускает агента через Python SDK (jsonrpc-agent): задача → workspace → harness.run(prompt) → отчёт с final_response и логом. Режимы: headless-задача одной командой, Web UI (npx @deepseek-ai/dsh web), сравнение моделей. Ключ: DEEPSEEK_API_KEY (env) или автоматически из auth.json opencode (провайдер deepseek), либо OpenAI-совместимый endpoint через DEEPSEEK_BASE_URL. Триггеры: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'агент-исполнитель', 'harness run', 'agent harness', 'запустить dsh', 'автономная задача агентом', 'параллельные агенты', 'сравнить модели на задаче', 'jsonrpc-agent'."
 license: MIT
 metadata:
   author: best
   version: 1.0.0
-compatibility: "Requires Python 3.10+; deepseek-harness-sdk; DEEPSEEK_API_KEY или DEEPSEEK_BASE_URL; macOS 14+ arm64 / Linux x64,arm64"
+compatibility: "Requires Python 3.10+; deepseek-harness-sdk; DEEPSEEK_API_KEY (env или auth.json opencode) или DEEPSEEK_BASE_URL; macOS 14+ arm64 / Linux x64,arm64"
 ---
 
 # dsh-runner
@@ -49,8 +49,12 @@ Do NOT use when:
 # Python 3.10+; SDK:
 pip install deepseek-harness-sdk
 
-# API-ключ (обязательно):
+# API-ключ: DEEPSEEK_API_KEY в env…
 export DEEPSEEK_API_KEY=sk-...
+
+# …ИЛИ ключ DeepSeek из auth.json opencode (провайдер `deepseek`) —
+# dsh_task.py подхватит его автоматически:
+# ~/.local/share/opencode/auth.json → ~/.config/opencode/auth.json
 
 # ИЛИ свой OpenAI-совместимый endpoint (vLLM и т.п.):
 # export DEEPSEEK_BASE_URL=http://127.0.0.1:8000/v1

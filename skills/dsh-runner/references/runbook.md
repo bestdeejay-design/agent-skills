@@ -8,7 +8,10 @@
 ## Перед запуском (чек-лист)
 
 - [ ] `pip show deepseek-harness-sdk` — SDK установлен (Python 3.10+)
-- [ ] `DEEPSEEK_API_KEY` задан (или `DEEPSEEK_BASE_URL` для OpenAI-совместимого endpoint)
+- [ ] `DEEPSEEK_API_KEY` задан — **или** ключ DeepSeek доступен в auth.json
+      opencode (`~/.local/share/opencode/auth.json` / `~/.config/opencode/auth.json`,
+      провайдер `deepseek`) — `dsh_task.py` подхватит его автоматически;
+      **или** задан `DEEPSEEK_BASE_URL` (OpenAI-совместимый endpoint)
 - [ ] workspace — **одноразовая папка** (клон/чек-аут), НЕ рабочее дерево
       с незакоммиченными изменениями
 - [ ] `--session-id` уникален для каждой задачи (иначе лог перезапишется)
@@ -27,7 +30,7 @@
 | Ошибка | Причина | Решение |
 |---|---|---|
 | `pip install` падает на платформе | SDK-раннер поставляется бинарником под macOS 14+ arm64 / Linux x64,arm64 | Проверь версию ОС/архитектуру; на других платформах собери из исходников |
-| `DEEPSEEK_API_KEY` not set | ключ не экспортирован | `export DEEPSEEK_API_KEY=sk-...` |
+| `DEEPSEEK_API_KEY` not set | ключ не экспортирован | `export DEEPSEEK_API_KEY=sk-...` — или просто используй ключ из auth.json opencode (см. чек-лист выше); если и там нет — `opencode auth login` |
 | Модель не найдена | неверный id модели | проверь доступные модели провайдера; по умолчанию `deepseek-v4-flash` |
 | Сломанный API после обновления | developer preview, breaking changes | `pip install -U deepseek-harness-sdk`, сверь с README |
 | Агент «вышел за пределы» workspace | композиция `danger-full-access` | Запускай в контейнере/изолированной VM; используй sandbox-профили (landlock/e2b) если доступны |

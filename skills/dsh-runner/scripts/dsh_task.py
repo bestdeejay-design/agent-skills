@@ -4,6 +4,11 @@
 Требует: deepseek-harness-sdk (pip install), DEEPSEEK_API_KEY или
 DEEPSEEK_BASE_URL (OpenAI-совместимый endpoint).
 
+Ключ ищется в таком порядке:
+  1. env DEEPSEEK_API_KEY
+  2. auth.json opencode (провайдер `deepseek`) — ~/.local/share/opencode/auth.json,
+     затем ~/.config/opencode/auth.json
+
 Пример:
   DEEPSEEK_API_KEY=sk-... python3 dsh_task.py \
     --workspace /tmp/ws/repo --session-root /tmp/sessions \
@@ -18,6 +23,36 @@ import json
 import os
 import sys
 from pathlib import Path
+
+
+OPENCODE_AUTH_CANDIDATES = (
+    Path.home() / ".local" / "share" / "opencode" / "auth.json",
+    Path.home() / ".config" / "opencode" / "auth.json",
+)
+
+
+def load_deepseek_key_from_opencode() -> str | None:
+    """Читает ключ DeepSeek из auth.json opencode (без вывода в логи)."""
+    for auth_path in OPENCODE_AUTH_CANDIDATES:
+        try:
+            data = json.loads(auth_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        provider = data.get("deepseek") or {}
+        key = provider.get("key")
+        if isinstance(key, str) and key.strip():
+            return key.strip()
+    return None
+
+
+def resolve_api_key() -> str | None:
+    """Возвращает ключ из env или auth.json opencode, либо None."""
+    env_key = os.environ.get("DEEPSEEK_API_KEY")
+    if env_key and env_key.strip():
+        return env_key.strip()
+    if os.environ.get("DEEPSEEK_BASE_URL"):
+        return None
+    return load_deepseek_key_from_opencode()
 
 
 def parse_args() -> argparse.Namespace:
@@ -42,9 +77,19 @@ def main() -> int:
     if not workspace.is_dir():
         print(f"[dsh_task] workspace does not exist: {workspace}", file=sys.stderr)
         return 2
-    if not os.environ.get("DEEPSEEK_API_KEY") and not os.environ.get("DEEPSEEK_BASE_URL"):
-        print("[dsh_task] set DEEPSEEK_API_KEY or DEEPSEEK_BASE_URL first", file=sys.stderr)
+
+    api_key = resolve_api_key()
+    if not api_key and not os.environ.get("DEEPSEEK_BASE_URL"):
+        print(
+            "[dsh_task] no DEEPSEEK_API_KEY found: set the env var, or run "
+            "`opencode auth login` / add the `deepseek` provider to opencode auth.json",
+            file=sys.stderr,
+        )
         return 2
+    if api_key:
+        source = "env" if os.environ.get("DEEPSEEK_API_KEY") else "opencode auth.json"
+        os.environ["DEEPSEEK_API_KEY"] = api_key
+        print(f"[dsh_task] DEEPSEEK_API_KEY from {source}")
 
     model = args.model or os.environ.get("DSH_MODEL", "deepseek-v4-flash")
     provider = args.provider or os.environ.get("DSH_PROVIDER", "deepseek-official")
