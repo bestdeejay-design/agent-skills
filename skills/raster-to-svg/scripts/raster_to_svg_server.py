@@ -41,7 +41,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import raster_to_svg as r2s  # reuse the CLI's whole pipeline
 
-VERSION = "1.0.0"
+VERSION = "1.1.2"
 DEFAULT_PORT = 8642
 MAX_MB = 20
 
