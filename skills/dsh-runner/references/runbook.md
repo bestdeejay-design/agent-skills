@@ -20,7 +20,10 @@
 ## После прогона (проверка результата)
 
 - [ ] exit code 0 + непустой `final_response`
-- [ ] `ls <session-root>/*.jsonl` — лог на месте
+- [ ] `find <session-root> -name "session.jsonl.zstd"` — лог на месте (zstd-сжатый
+      JSONL в `<session-root>/<sanitized-cwd>/<session-id>/`); размер — метрика токенов
+- [ ] Декод лога для аудита: `zstd -d -c <файл> | jq -s .` (типы записей:
+      `tool/call`, `tool/result`, `assistant/message`, `turn/end`)
 - [ ] Если в workspace есть тесты: прогони их, сравни «до/после»
 - [ ] Если это git-клон: `git diff` и просмотри патч глазами
 - [ ] Сравнение моделей: размер JSONL (≈токены), время, качество финального ответа
@@ -35,6 +38,7 @@
 | Сломанный API после обновления | developer preview, breaking changes | `pip install -U deepseek-harness-sdk`, сверь с README |
 | Агент «вышел за пределы» workspace | композиция `danger-full-access` | Запускай в контейнере/изолированной VM; используй sandbox-профили (landlock/e2b) если доступны |
 | Лог пустой/маленький | задача тривиальная или агент завершился сразу | Проверь `finish_reason`; увеличь `--max-tokens` |
+| `session.jsonl.zstd` вместо `*.jsonl` | SDK хранит лог сжатым, путь зависит от workspace | Ищи через `find <session-root> -name "session.jsonl.zstd"` |
 
 ## Сравнение с другими инструментами (не путать)
 

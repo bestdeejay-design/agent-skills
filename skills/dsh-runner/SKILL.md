@@ -76,8 +76,12 @@ python3 skills/dsh-runner/scripts/dsh_task.py \
 Агент клонирует/принимает workspace, решает задачу, возвращает:
 
 - `final_response` — текстовый ответ агента
-- `session_root` — путь к JSONL-логу (`*.jsonl`), где каждый шаг записан
-- `finish_reason` — чем завершился (например, `stop`)
+- `session_root` — корень, где SDK хранит лог
+- `finish_reason` — чем завершился (например, `completed`)
+
+Лог сессии: `<session_root>/<sanitized-cwd>/<session-id>/session.jsonl.zstd`
+(zstd-сжатый JSONL, где каждый запрос/вызов инструмента/ответ — отдельная
+запись; декодируется `zstd -d -c <файл> | jq -s .`).
 
 ### 2. Сравнение моделей на одной задаче
 
@@ -112,7 +116,8 @@ npx @deepseek-ai/dsh web   # → http://127.0.0.1:3080
 ## 🔬 Проверка результата
 
 - Скрипт завершился кодом 0 → `final_response` непустой, лог существует.
-- `ls <session-root>/*.jsonl` — лог на месте; `wc -c` — размер (метрика токенов).
+- Лог: `find <session-root> -name "session.jsonl.zstd"`; размер — метрика токенов;
+  декод: `zstd -d -c <файл> | jq -s .`.
 - Если в workspace были тесты — прогони их после агента и сравни с состоянием «до».
 - Если задача требует проверки «правильно ли починил» — собери diff
   (`git diff` в workspace, если это клон) и просмотри.
