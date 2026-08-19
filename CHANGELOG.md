@@ -137,6 +137,19 @@ not the internal version bumps of individual skills.
 ## [Unreleased]
 
 ### Added
+- **`frontend-perfection` v1.4.0** — Front-End Checklist-inspired static checks
+  in `meta_audit.py` (+25 checks, ~300 lines): document (`html:doctype/charset/
+  viewport/lang/dir-rtl/unique-id/semantic/favicons/web-app-manifest/sri/
+  defer-async/input-types`), images (`images:dimensions/lazy-loading/srcset/
+  modern-format`), JS (`js:no-inline/no-console`), CSS quality (`css:focus-
+  visible/print/dark-mode/font-display`), perf hints (`perf:resource-hints`),
+  security (`security:https/noopener`), privacy (`privacy:consent`). Fixed
+  false positives found while testing on lovii_demo: SVG-sprite `<title>` no
+  longer pollutes `meta:title`, SRI required only for CDN-hosted scripts,
+  lazy-loading threshold 3+ images. Aligned with the Front-End Checklist rule
+  corpus (frontendchecklist.io, 385 rules / 11 categories); the hosted MCP
+  server (`mcp.frontendchecklist.io`) is wired into opencode for deep
+  rule-level audits.
 - **`dsh-runner`** — autonomous agent runs via DeepSeek Harness
   (`scripts/dsh_task.py`): task → isolated one-off workspace → `harness.run()`
   → JSON report (`final_response`, `finish_reason`) + JSONL session log;

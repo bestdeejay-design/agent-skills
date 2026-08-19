@@ -15,6 +15,12 @@ Offline, dependency-free check of a static frontend (HTML + CSS):
    - Accessibility (axe-core rules, offline subset): img-alt (WCAG 1.1.1),
      button-name / link-name (WCAG 4.1.2, 2.4.4), form-label (WCAG 4.1.2,
      3.3.2), aria-valid (WAI-ARIA 1.2), landmark-unique (WCAG 1.3.1).
+   - Front-End Checklist-inspired checks: document (doctype/charset/viewport/
+     lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async),
+     images (dimensions/lazy/srcset/format), JS (inline/console),
+     CSS quality (focus styles/print/dark-mode/font-display), perf hints
+     (preload/preconnect/render-blocking), security (https/noopener),
+     privacy & i18n (consent mention/RTL dir).
 
 Usage:
   python3 meta_audit.py --html index.html --css css/main.css [--css css/*.css]
@@ -101,14 +107,38 @@ class MetaExtractor(html.parser.HTMLParser):
         self.ids = []
         self.first_top_id = None
         self.top_markers = []
+        # Front-End Checklist collectors
+        self.html_attrs = {}
+        self.link_attrs = []     # {rel, href, integrity, media, as}
+        self.scripts = []        # {src, defer, async, type, integrity}
+        self.img_details = []    # {src, width, height, loading, srcset}
+        self.inline_styles = 0
+        self.inline_handlers = 0
+        self.style_blocks = 0
+        self.http_urls = []
+        self.charset = ""
+        self.semantic_tags = []
+        self.inline_scripts = 0
+        self._svg_depth = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         self.stack.append([tag, attrs, []])
         if tag == "img":
             self.imgs.append("alt" in attrs)
+            self.img_details.append({
+                "src": attrs.get("src", ""),
+                "width": attrs.get("width", ""),
+                "height": attrs.get("height", ""),
+                "loading": attrs.get("loading", ""),
+                "srcset": attrs.get("srcset", ""),
+            })
+            if attrs.get("src", "").startswith("http://"):
+                self.http_urls.append(attrs["src"])
         elif tag == "label":
             self.labels_for.append(attrs.get("for", ""))
+        elif tag == "html":
+            self.html_attrs = attrs
         elif tag == "main":
             self.landmark_main += 1
         elif tag == "nav":
@@ -117,6 +147,7 @@ class MetaExtractor(html.parser.HTMLParser):
             self.inputs.append({
                 "tag": tag,
                 "id": attrs.get("id", ""),
+                "type": attrs.get("type", ""),
                 "aria_label": attrs.get("aria-label"),
                 "aria_labelledby": attrs.get("aria-labelledby"),
                 "wrapped": any(t == "label" for t, _, _ in self.stack[:-1]),
@@ -124,9 +155,17 @@ class MetaExtractor(html.parser.HTMLParser):
         for k in attrs:
             if k.startswith("aria-"):
                 self.aria_attrs.append(k)
+            elif k.startswith("on"):
+                self.inline_handlers += 1
+        if "style" in attrs:
+            self.inline_styles += 1
+        if tag == "style":
+            self.style_blocks += 1
         aid = attrs.get("id", "")
         if aid:
             self.ids.append(aid)
+        if tag in ("header", "section", "footer", "main", "article", "nav"):
+            self.semantic_tags.append(tag)
         if tag in ("section", "header", "main") and self.first_top_id is None and aid:
             self.first_top_id = aid
         if tag != "html":
@@ -136,13 +175,26 @@ class MetaExtractor(html.parser.HTMLParser):
                 self.top_markers.append(tag)
         if tag == "title":
             self._in_title = True
+        elif tag == "svg":
+            self._svg_depth += 1
         elif tag == "meta":
             key = attrs.get("name") or attrs.get("property") or attrs.get("http-equiv") or attrs.get("itemprop")
             if key:
                 self.meta[key.lower()] = attrs.get("content", "")
+            if attrs.get("charset"):
+                self.charset = attrs["charset"]
         elif tag == "link":
             rel = (attrs.get("rel") or "").lower()
             self.links.append((rel, attrs.get("href", "")))
+            self.link_attrs.append({
+                "rel": rel,
+                "href": attrs.get("href", ""),
+                "integrity": attrs.get("integrity", ""),
+                "media": attrs.get("media", ""),
+                "as": attrs.get("as", ""),
+            })
+            if attrs.get("href", "").startswith("http://"):
+                self.http_urls.append(attrs["href"])
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
             self.headings.append((tag, ""))
             self._cur_heading = tag
@@ -150,6 +202,17 @@ class MetaExtractor(html.parser.HTMLParser):
             t = (attrs.get("type") or "").lower()
             self._script_tag = (t, attrs.get("id", ""))
             self._in_script = True
+            self.scripts.append({
+                "src": attrs.get("src", ""),
+                "defer": "defer" in attrs,
+                "async": "async" in attrs,
+                "type": t,
+                "integrity": attrs.get("integrity", ""),
+            })
+            if not attrs.get("src") and t not in ("application/ld+json", "application/json"):
+                self.inline_scripts += 1
+            if attrs.get("src", "").startswith("http://"):
+                self.http_urls.append(attrs["src"])
         elif tag == "html":
             pass
 
@@ -163,9 +226,19 @@ class MetaExtractor(html.parser.HTMLParser):
             if ptag == "button":
                 self.buttons.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby")})
             elif ptag == "a":
-                self.anchors.append({"name": text, "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby") or pattrs.get("title"), "href": pattrs.get("href", "")})
+                self.anchors.append({
+                    "name": text,
+                    "aria": pattrs.get("aria-label") or pattrs.get("aria-labelledby") or pattrs.get("title"),
+                    "href": pattrs.get("href", ""),
+                    "target": pattrs.get("target", ""),
+                    "rel": pattrs.get("rel", ""),
+                })
+                if pattrs.get("href", "").startswith("http://"):
+                    self.http_urls.append(pattrs["href"])
         if tag == "title":
             self._in_title = False
+        elif tag == "svg":
+            self._svg_depth = max(0, self._svg_depth - 1)
         elif tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
             self._cur_heading = None
         elif tag == "script":
@@ -175,14 +248,14 @@ class MetaExtractor(html.parser.HTMLParser):
     def handle_data(self, data):
         if self.stack:
             self.stack[-1][2].append(data)
-        if self._in_title:
+        if self._in_title and self._svg_depth == 0:
             self.title.append(data)
         elif getattr(self, "_cur_heading", None):
             # accumulate heading text across nested tags
             for i, (t, txt) in enumerate(self.headings):
                 if t == self._cur_heading and i == len(self.headings) - 1:
                     self.headings[i] = (t, txt + " " + data.strip())
-        if self._in_script and self._script_tag and self._script_tag[0] in ("application/ld+json", ""):
+        if self._in_script and self._script_tag and self._script_tag[0] in ("application/ld+json",):
             self.has_jsonld = True
 
 
@@ -421,6 +494,175 @@ def audit_a11y(ext):
     return checks
 
 
+# ---------------------------------------------------------------- Front-End Checklist extensions
+RTL_LANGS = ("ar", "he", "fa", "ur", "yi")
+RASTER_EXT = (".jpg", ".jpeg", ".png")
+MODERN_EXT = (".webp", ".avif")
+
+
+def audit_document(ext, html_src):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "html:" + name, "ok": ok, "detail": detail})
+
+    has_doctype = re.search(r"^\s*<!doctype\s+html", html_src, re.IGNORECASE) is not None
+    add("doctype", has_doctype, "HTML5 doctype first line " + ("OK" if has_doctype else "MISSING"))
+
+    add("charset", bool(ext.charset.lower() == "utf-8"),
+        f"charset: {ext.charset or 'MISSING'} (expected utf-8)")
+
+    viewport = ext.meta.get("viewport", "")
+    add("viewport", bool(viewport), "viewport meta " + ("OK" if viewport else "MISSING (responsive design)"))
+
+    lang = ext.html_attrs.get("lang", "")
+    add("lang", bool(lang), f"<html lang>={lang or 'MISSING'} (BCP 47 needed for a11y/SEO)")
+
+    if lang[:2] in RTL_LANGS:
+        add("dir-rtl", ext.html_attrs.get("dir") == "rtl",
+            f"lang={lang} requires dir=\"rtl\" — " + ("OK" if ext.html_attrs.get("dir") == "rtl" else "MISSING"))
+    else:
+        add("dir-rtl", True, "no RTL language — dir attribute not required")
+
+    dup_ids = [i for i in set(ext.ids) if ext.ids.count(i) > 1]
+    add("unique-id", not dup_ids,
+        f"{len(ext.ids)} ids" + (f", duplicates: {dup_ids[:5]}" if dup_ids else " — all unique"))
+
+    sem = set(ext.semantic_tags)
+    missing_sem = [t for t in ("header", "main", "footer") if t not in sem]
+    add("semantic", not missing_sem,
+        f"semantic elements found: {', '.join(sorted(sem)) or 'NONE'}"
+        + (f" — missing: {', '.join(missing_sem)}" if missing_sem else ""))
+
+    fav = any("icon" in l["rel"] for l in ext.link_attrs)
+    add("favicons", fav, "favicon link " + ("OK" if fav else "MISSING"))
+
+    manifest = any("manifest" in l["rel"] for l in ext.link_attrs)
+    add("web-app-manifest", manifest, "manifest.json link " + ("found" if manifest else "not referenced (PWA)"))
+
+    ext_scripts = [s for s in ext.scripts if s["src"]]
+    cdn_scripts = [s for s in ext_scripts if s["src"].startswith(("http://", "https://"))]
+    no_sri = [s["src"] for s in cdn_scripts if not s["integrity"]]
+    add("sri", not no_sri,
+        f"{len(cdn_scripts)} CDN scripts"
+        + (f", {len(no_sri)} without SRI integrity (CDN tamper protection)" if no_sri else " — SRI present (local scripts exempt)"))
+
+    blocking = [s["src"] for s in ext_scripts if not (s["defer"] or s["async"] or s["type"] == "module")]
+    add("defer-async", not blocking,
+        f"{len(ext_scripts)} external scripts"
+        + (f", {len(blocking)} render-blocking without defer/async/module" if blocking else " — all async/defer/module"))
+
+    untyped = [i for i in ext.inputs if i["tag"] == "input" and not i["type"]]
+    add("input-types", not untyped,
+        f"{len(ext.inputs)} form fields"
+        + (f", {len(untyped)} inputs without type (defaults to text)" if untyped else " — types set"))
+
+    return checks
+
+
+def audit_images(ext):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "images:" + name, "ok": ok, "detail": detail})
+
+    imgs = [i for i in ext.img_details if i["src"]]
+    no_dim = [i["src"] for i in imgs if not (i["width"] and i["height"])]
+    add("dimensions", not no_dim,
+        f"{len(imgs)} img" + (f", {len(no_dim)} without width/height (CLS risk)" if no_dim else " — dimensions set"))
+
+    add("lazy-loading", any(i["loading"] == "lazy" for i in imgs) or len(imgs) < 3,
+        f"loading=lazy on {sum(1 for i in imgs if i['loading'] == 'lazy')}/{len(imgs)} img — 3+ images should lazy load offscreen content")
+
+    add("srcset", any(i["srcset"] for i in imgs) or len(imgs) < 2,
+        "responsive srcset " + ("found" if any(i["srcset"] for i in imgs) else "not used — fixed-size images on varying viewports"))
+
+    raster = [i["src"] for i in imgs if i["src"].lower().endswith(RASTER_EXT)]
+    modern = [i["src"] for i in imgs if i["src"].lower().endswith(MODERN_EXT)]
+    add("modern-format", not raster or modern,
+        f"{len(raster)} raster (jpg/png), {len(modern)} modern (webp/avif)"
+        + (" — convert raster to webp/avif" if raster and not modern else ""))
+
+    return checks
+
+
+def audit_js(ext, html_src):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "js:" + name, "ok": ok, "detail": detail})
+
+    add("no-inline", ext.inline_handlers == 0 and ext.inline_scripts == 0,
+        f"inline JS: {ext.inline_handlers} handler attrs (onclick=…), {ext.inline_scripts} inline <script> blocks — keep JS in external files")
+
+    console_hits = len(re.findall(r"console\.(?:log|debug|warn)\s*\(", html_src))
+    add("no-console", console_hits == 0,
+        f"{console_hits} console.{'log/debug/warn'} call(s) in HTML — remove before production")
+
+    return checks
+
+
+def audit_css_quality(css):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "css:" + name, "ok": ok, "detail": detail})
+
+    add("focus-visible", re.search(r":focus(-visible)?\s*\{", css) is not None,
+        "visible focus indicator rule " + ("found" if re.search(r":focus(-visible)?\s*\{", css) else "MISSING — keyboard users need :focus-visible styles"))
+
+    add("print", re.search(r"@media\s+print", css) is not None,
+        "print stylesheet (@media print) " + ("found" if re.search(r"@media\s+print", css) else "MISSING"))
+
+    add("dark-mode", re.search(r"prefers-color-scheme", css) is not None,
+        "dark mode (prefers-color-scheme) " + ("supported" if re.search(r"prefers-color-scheme", css) else "not implemented"))
+
+    add("font-display", re.search(r"font-display\s*:\s*swap", css) is not None,
+        "font-display: swap " + ("set" if re.search(r"font-display\s*:\s*swap", css) else "MISSING — text invisible while webfont loads (FOIT)"))
+
+    return checks
+
+
+def audit_perf_hints(ext):
+    checks = []
+    hints = {l["rel"]: l["href"] for l in ext.link_attrs if l["rel"] in ("preload", "preconnect", "dns-prefetch", "prefetch")}
+    checks.append({
+        "id": "perf:resource-hints",
+        "ok": bool(hints),
+        "detail": f"resource hints: {', '.join(hints) or 'NONE — add preload/preconnect for critical origins (LCP)'}",
+    })
+    return checks
+
+
+def audit_security(ext):
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"id": "security:" + name, "ok": ok, "detail": detail})
+
+    add("https", not ext.http_urls,
+        f"{len(ext.http_urls)} http:// URL(s) in src/href" + (" — use https" if ext.http_urls else " — all https"))
+
+    blank = [a["href"] for a in ext.anchors if a["target"] == "_blank" and "noopener" not in (a["rel"] or "")]
+    add("noopener", not blank,
+        f"{len(blank)} target=_blank link(s) without rel=noopener" + (" — add rel=\"noopener noreferrer\"" if blank else " — ok"))
+
+    return checks
+
+
+def audit_privacy_i18n(ext, html_src):
+    checks = []
+    low = html_src.lower()
+    consent = any(k in low for k in ("cookie", "consent", "gdpr", "152-фз", "согласие"))
+    checks.append({
+        "id": "privacy:consent",
+        "ok": consent,
+        "detail": ("cookie/consent mention found — banner or policy present" if consent
+                   else "no cookie/consent mention — check GDPR / 152-ФЗ compliance"),
+    })
+    return checks
+
+
 def audit_nav(ext):
     checks = []
     top_ids = {"top", "cover", "hero", "home", "main"}
@@ -477,6 +719,13 @@ def main():
 
 
     checks += audit_a11y(ext)
+    checks += audit_document(ext, html_src)
+    checks += audit_images(ext)
+    checks += audit_js(ext, html_src)
+    checks += audit_css_quality(css)
+    checks += audit_perf_hints(ext)
+    checks += audit_security(ext)
+    checks += audit_privacy_i18n(ext, html_src)
     checks += audit_nav(ext)
 
     violations = [c for c in checks if not c["ok"]]

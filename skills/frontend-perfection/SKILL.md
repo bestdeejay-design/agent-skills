@@ -1,10 +1,10 @@
 ---
 name: frontend-perfection
-description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
+description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Front-End Checklist-inspired checks: document (doctype/charset/viewport/lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async), images (dimensions/lazy/srcset/format), JS (inline/console), CSS quality (focus/print/dark-mode/font-display), perf hints (preload/preconnect), security (https/noopener), privacy & i18n (consent/RTL). Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
 license: MIT
 metadata:
   author: best
-  version: 1.3.1
+  version: 1.4.0
 ---
 
 # frontend-perfection
@@ -99,6 +99,32 @@ Checks and their ids:
 | `a11y:form-label` | inputs/selects/textareas have a label (`<label for>`, wrapper, aria-label) — WCAG 4.1.2 / axe `label` |
 | `a11y:aria-valid` | every `aria-*` attribute name is in the WAI-ARIA 1.2 set — axe `aria-valid-attr` |
 | `a11y:landmark-unique` | at most one `<main>`; multiple `<nav>` need distinct labels — WCAG 1.3.1 / axe `landmark-unique` |
+| `html:doctype` | HTML5 doctype on the first line |
+| `html:charset` | charset declared as utf-8 |
+| `html:viewport` | responsive viewport meta present |
+| `html:lang` | `<html lang>` with a BCP 47 code (a11y + SEO) |
+| `html:dir-rtl` | RTL languages (ar/he/fa/ur/yi) require `dir="rtl"` |
+| `html:unique-id` | no duplicate `id` attributes |
+| `html:semantic` | semantic elements used: header, main, footer |
+| `html:favicons` | favicon link present |
+| `html:web-app-manifest` | manifest.json referenced (PWA) |
+| `html:sri` | CDN-hosted scripts carry `integrity` (SRI); local scripts exempt |
+| `html:defer-async` | external scripts load with defer/async/type=module (no render-blocking) |
+| `html:input-types` | inputs declare a `type` (not defaulting to text) |
+| `images:dimensions` | img has width/height (CLS prevention) |
+| `images:lazy-loading` | 3+ images lazy-load offscreen content |
+| `images:srcset` | responsive srcset used for fixed-size images |
+| `images:modern-format` | raster jpg/png converted to webp/avif |
+| `js:no-inline` | no inline handlers (`onclick=…`) or inline `<script>` blocks |
+| `js:no-console` | no `console.log/debug/warn` in HTML |
+| `css:focus-visible` | visible `:focus-visible` indicator for keyboard users |
+| `css:print` | `@media print` stylesheet exists |
+| `css:dark-mode` | `prefers-color-scheme` dark mode supported |
+| `css:font-display` | webfonts use `font-display: swap` (no FOIT) |
+| `perf:resource-hints` | preload/preconnect/dns-prefetch hints for critical origins (LCP) |
+| `security:https` | no `http://` URLs in src/href |
+| `security:noopener` | `target="_blank"` links carry `rel="noopener"` |
+| `privacy:consent` | cookie/consent mention present (GDPR / 152-ФЗ) |
 | `nav:back-to-top` | long pages have a way back to top — logo links to top and/or a floating scroll-to-top button (bottom-right, aria-label, appears after scroll) — WCAG 2.4.1 / UX pattern |
 
 ## Design tokens — "colors as constants"
