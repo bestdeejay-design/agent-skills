@@ -15,16 +15,16 @@
 [![Skills: 45](https://img.shields.io/badge/Skills-45-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--14-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
-[![code: 14](https://img.shields.io/badge/code-14-2F81F7.svg)](README.md#cat-code) [![data: 6](https://img.shields.io/badge/data-6-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
+[![code: 15](https://img.shields.io/badge/code-15-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 12](https://img.shields.io/badge/media-12-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 45 skills · 5 categories
+- [📦 Skill Catalog](#sec-catalog) — 46 skills · 6 categories
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,19 +42,20 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
 
-**45 skills · 5 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**46 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
-| 💻 [Development & Code](#cat-code) | 14 | commits, review, debugging, tests, coverage, security, planning, frontend |
+| 💻 [Development & Code](#cat-code) | 15 | commits, review, debugging, tests, coverage, security, planning, frontend, skill authoring |
+| 🤖 [Agents](#cat-agents) | 1 | autonomous agent runs (DeepSeek Harness) |
 | 📊 [Data & Diagrams](#cat-data) | 7 | profiling, SQL, diagrams, scraping |
-| 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
+| 🎬 [Content & Media](#cat-media) | 12 | slides, video, PDF reports, SEO, test graphics |
 | 🏗️ [Repository & Docs](#cat-repository) | 10 | README, community files, metadata, documentation, API docs |
 | 💬 [Social](#cat-social) | 1 | Reddit |
 
 <a id="cat-code"></a>
 
-### 💻 Development & Code · `code` · 14
+### 💻 Development & Code · `code` · 15
 
 | Skill | Purpose |
 |-------|---------|
@@ -69,8 +70,17 @@
 | [**security-review**](skills/security-review/SKILL.md) | Security review orchestrator: lockfile inventory + exit-code classifier for 13 scanners (semgrep, bandit, gitleaks, osv-scanner, trivy, grype…) into one finding schema; OWASP-aligned. |
 | [**plan-skill**](skills/plan-skill/SKILL.md) | Implementation planning (superpowers v2): brainstorm → plan → execute → verify; HARD-GATE, bite-sized steps, no placeholders; validator script. |
 | [**skill-suggester**](skills/skill-suggester/SKILL.md) | Recommends the right skill from this library for a task: scores `index.json` triggers/descriptions, top-5 + combos of up to 3. |
+| [**skill-forge**](skills/skill-forge/SKILL.md) | Meta-skill and design compass for creating new skills and upgrading existing ones: maximally technological, creative, aesthetically disciplined; anti-templated gate. |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | Validates an API contract against OpenAPI 3.x (offline manifest check + live HTTP probes); JSON report, exit 0/1/2. |
 | [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Frontend audit & polish to verifiable perfection: real-Chrome Lighthouse ≥13 (mobile+desktop), offline meta/SEO/WCAG/token audit, OG-image generation. |
+
+<a id="cat-agents"></a>
+
+### 🤖 Agents · `agents` · 1
+
+| Skill | Purpose |
+|-------|---------|
+| [**dsh-runner**](skills/dsh-runner/SKILL.md) | Runs autonomous agent tasks via DeepSeek Harness (dsh): isolated one-off workspaces, JSONL session logs, headless `dsh_task.py` or Web UI, model comparison; requires DEEPSEEK_API_KEY / OpenAI-compatible endpoint. |
 
 <a id="cat-data"></a>
 | [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Protocol for AI agents working across many context windows: a `.lra/` directory with an atomic feature list (id/priority/acceptance criteria/status) and session progress checkpoints. |
@@ -202,7 +212,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: manifest validation
-└── skills/                    # 42 skills, one folder each
+└── skills/                    # 46 skills, one folder each
     └── <skill-name>/
         ├── SKILL.md           # Agent instruction (required)
         ├── skill.json         # Manifest: name, version, triggers, files (required)

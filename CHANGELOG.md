@@ -137,6 +137,15 @@ not the internal version bumps of individual skills.
 ## [Unreleased]
 
 ### Added
+- **`dsh-runner`** — autonomous agent runs via DeepSeek Harness
+  (`scripts/dsh_task.py`): task → isolated one-off workspace → `harness.run()`
+  → JSON report (`final_response`, `finish_reason`) + JSONL session log;
+  headless single-run mode or Web UI (`npx @deepseek-ai/dsh web`),
+  model-comparison mode; requires `DEEPSEEK_API_KEY` or an OpenAI-compatible
+  endpoint (`DEEPSEEK_BASE_URL`); developer-preview pitfalls and workspace
+  isolation rules in `references/runbook.md`. New `agents` category in the
+  catalog; Catalog (`index.json`) updated 45 → 46 entries; README/README.ru
+  skill tables, badges and repo trees updated.
 - **`seo-toolkit`** — 13 SEO-команд для AI-агентов (импорт из открытого каталога
   skills.sh, переименование без привязки к вендорскому имени: `claude-seo` →
   `seo-toolkit`): технический аудит, Core Web Vitals, crawlability, schema.org,

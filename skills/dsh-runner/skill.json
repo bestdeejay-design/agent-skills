@@ -1,0 +1,55 @@
+{
+  "name": "dsh-runner",
+  "version": "1.0.0",
+  "description": "Запуск автономных агентных задач через DeepSeek Harness (dsh) — изолированные workspace, JSONL-логи сессий, параллельные прогоны. Скрипт dsh_task.py генерирует конфиг и запускает агента через Python SDK (jsonrpc-agent): задача → workspace → harness.run(prompt) → отчёт с final_response и логом. Режимы: headless-задача одной командой, Web UI (npx @deepseek-ai/dsh web), сравнение моделей. Требует DEEPSEEK_API_KEY (или OpenAI-совместимый endpoint через DEEPSEEK_BASE_URL). Триггеры: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'агент-исполнитель', 'harness run', 'agent harness', 'запустить dsh', 'автономная задача агентом', 'параллельные агенты', 'сравнить модели на задаче', 'jsonrpc-agent'.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "agent",
+    "harness",
+    "sandbox",
+    "workspace",
+    "jsonrpc-agent",
+    "isolation",
+    "session-log",
+    "autonomous-task"
+  ],
+  "triggers": [
+    "dsh",
+    "deepseek harness",
+    "агент в песочнице",
+    "изолированный агент",
+    "запусти агента на репо",
+    "агентная задача",
+    "агент-исполнитель",
+    "harness run",
+    "agent harness",
+    "запустить dsh",
+    "автономная задача агентом",
+    "параллельные агенты",
+    "сравнить модели на задаче",
+    "jsonrpc-agent"
+  ],
+  "category": "agents",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "scripts/dsh_task.py",
+    "references/runbook.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3",
+      "pip"
+    ],
+    "env": [
+      "DEEPSEEK_API_KEY",
+      "DEEPSEEK_BASE_URL",
+      "DSH_MODEL"
+    ],
+    "script": "scripts/dsh_task.py"
+  },
+  "updated": "2026-08-19"
+}
