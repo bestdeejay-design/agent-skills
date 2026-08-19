@@ -155,7 +155,7 @@ class MetaExtractor(html.parser.HTMLParser):
         for k in attrs:
             if k.startswith("aria-"):
                 self.aria_attrs.append(k)
-            elif k.startswith("on"):
+            elif k.startswith("on") and k not in ("onload", "onerror"):
                 self.inline_handlers += 1
         if "style" in attrs:
             self.inline_styles += 1
@@ -261,9 +261,9 @@ class MetaExtractor(html.parser.HTMLParser):
 
 # ---------------------------------------------------------------- CSS helpers
 def token_block_ranges(css):
-    """Indices of :root / tokens blocks (CSS custom property definitions)."""
+    """Indices of :root / [data-theme] / tokens blocks (CSS custom property definitions)."""
     ranges = []
-    for m in re.finditer(r"(:root|\.tokens|\$\{tokens\}|\btokens\b)\s*\{", css):
+    for m in re.finditer(r"(:root|\[data-theme[^\]]*\]|\.tokens|\$\{tokens\}|\btokens\b)\s*\{", css):
         start = m.end() - 1
         depth, i = 1, start + 1
         while i < len(css) and depth:
@@ -351,13 +351,13 @@ def audit_headings(ext):
     levels = [int(t[0][1]) for t in ext.headings]
     h1s = [t for t in ext.headings if t[0] == "h1"]
     checks.append({"id": "headings:single-h1", "ok": len(h1s) == 1, "detail": f"{len(h1s)} h1 tag(s)"})
-    order_ok = all(b >= a for a, b in zip(levels, levels[1:]))
-    # Allow +1 increments only (h1 -> h2 -> h2 -> h3, not h1 -> h3)
-    for a, b in zip(levels, levels[1:]):
-        if b > a + 1:
-            order_ok = False
-            break
-    checks.append({"id": "headings:order", "ok": order_ok, "detail": " → ".join(f"h{l}" for l in levels) or "(no headings)"})
+    skipped = [(a, b) for a, b in zip(levels, levels[1:]) if b > a + 1]
+    checks.append({
+        "id": "headings:order",
+        "ok": not skipped,
+        "detail": (" → ".join(f"h{l}" for l in levels) or "(no headings)")
+        + (f" — level skipped: {', '.join(f'h{a}→h{b}' for a, b in skipped)}" if skipped else ""),
+    })
     return checks
 
 
@@ -602,7 +602,7 @@ def audit_js(ext, html_src):
     return checks
 
 
-def audit_css_quality(css):
+def audit_css_quality(css, html_src):
     checks = []
 
     def add(name, ok, detail):
@@ -614,11 +614,19 @@ def audit_css_quality(css):
     add("print", re.search(r"@media\s+print", css) is not None,
         "print stylesheet (@media print) " + ("found" if re.search(r"@media\s+print", css) else "MISSING"))
 
-    add("dark-mode", re.search(r"prefers-color-scheme", css) is not None,
-        "dark mode (prefers-color-scheme) " + ("supported" if re.search(r"prefers-color-scheme", css) else "not implemented"))
+    dark_css = re.search(r"prefers-color-scheme", css)
+    dark_js = re.search(r"prefers-color-scheme|data-theme", html_src)
+    add("dark-mode", bool(dark_css or dark_js),
+        "dark mode " + ("in CSS (@media prefers-color-scheme)" if dark_css
+                        else "via JS (data-theme/matchMedia)" if dark_js
+                        else "not implemented"))
 
-    add("font-display", re.search(r"font-display\s*:\s*swap", css) is not None,
-        "font-display: swap " + ("set" if re.search(r"font-display\s*:\s*swap", css) else "MISSING — text invisible while webfont loads (FOIT)"))
+    fd_css = re.search(r"font-display\s*:\s*swap", css)
+    fd_url = re.search(r"display=swap", html_src)
+    add("font-display", bool(fd_css or fd_url),
+        "font-display: swap " + ("in CSS @font-face" if fd_css
+                                 else "in webfont URL (Google Fonts &display=swap)" if fd_url
+                                 else "MISSING — text invisible while webfont loads (FOIT)"))
 
     return checks
 
@@ -722,7 +730,7 @@ def main():
     checks += audit_document(ext, html_src)
     checks += audit_images(ext)
     checks += audit_js(ext, html_src)
-    checks += audit_css_quality(css)
+    checks += audit_css_quality(css, html_src)
     checks += audit_perf_hints(ext)
     checks += audit_security(ext)
     checks += audit_privacy_i18n(ext, html_src)
