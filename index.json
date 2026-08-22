@@ -581,9 +581,9 @@
   },
   {
    "name": "repo-social-preview",
-   "version": "1.0.1",
+   "version": "2.0.0",
    "category": "repository",
-   "description": "Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
+   "description": "Build the repository social preview (og:image) as a hand-crafted hero-section HTML (1280x640, 40pt crop-safe padding, no self-made SVG), rendered to PNG via headless Chrome. Source of truth: the project website's hero section when one exists - re-typeset it clean, never screenshot it. Script: render_social_preview.py (requires headless Chrome/Chromium, no Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview', 'соц превью', 'og картинка', 'превью для соцсетей', 'картинка для шеринга', 'ог изображение'.",
    "path": "skills/repo-social-preview",
    "triggers": [
     "social preview",

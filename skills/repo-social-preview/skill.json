@@ -1,7 +1,7 @@
 {
   "name": "repo-social-preview",
-  "version": "1.0.1",
-  "description": "Generate a custom GitHub social preview (og:image) PNG 1280x640 for a repository: header composition + waves, solid background recommended, <1MB, PNG/JPG/GIF. Script: generate_social_preview.py (requires Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
+  "version": "2.0.0",
+  "description": "Build the repository social preview (og:image) as a hand-crafted hero-section HTML (1280x640, 40pt crop-safe padding, no self-made SVG, never screenshot the site - re-typeset its hero), rendered to PNG via headless Chrome. Script: render_social_preview.py. Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
   "author": "bestdeejay-design",
   "license": "MIT",
   "keywords": [
@@ -11,7 +11,9 @@
     "og:image",
     "preview",
     "png",
-    "pillow",
+    "hero-section",
+    "html",
+    "headless-chrome",
     "repository"
   ],
   "triggers": [
@@ -32,15 +34,14 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/generate_social_preview.py",
+    "scripts/render_social_preview.py",
     "references/social-preview.md"
   ],
   "requirements": {
     "tools": [
-      "python3",
-      "pip"
+      "python3"
     ],
-    "script": "scripts/generate_social_preview.py"
+    "script": "scripts/render_social_preview.py"
   },
-  "updated": "2026-08-13"
+  "updated": "2026-08-22"
 }
