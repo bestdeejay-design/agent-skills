@@ -312,11 +312,33 @@
     "дизайн-токены",
     "SEO-мета слой",
     "ог картинка",
-    "проверка доступности"
+     "проверка доступности"
+    ]
+   },
+  {
+   "name": "mobile-frontend",
+   "version": "1.0.0",
+   "category": "code",
+   "description": "Composite skill for quality mobile-first frontend: codified rules (spacing 4/8-grid, clamp type scale, anchors under fixed headers, safe-area insets, tap-targets >=44px, design tokens) through build to a multi-level verification with per-element debugging - including menu/hamburger and navigation (aria-expanded sync, focus trap, Esc, z-index). Routes aesthetics/contrast/Lighthouse/visual-QA to frontend-design-taste, frontend-perfection, /visual-qa. Triggers: 'mobile frontend', 'адаптив', 'мобильная вёрстка', 'mobile QA', 'меню не работает на телефоне', 'якоря упираются в шапку', 'mobile lighthouse'.",
+   "path": "skills/mobile-frontend",
+   "triggers": [
+    "mobile frontend",
+    "mobile-first",
+    "адаптив",
+    "адаптивная вёрстка",
+    "мобильная вёрстка",
+    "mobile QA",
+    "проверь мобилку",
+    "аудит мобильной вёрстки",
+    "меню не работает на телефоне",
+    "гамбургер баг",
+    "якоря упираются в шапку",
+    "mobile lighthouse",
+    "доведи мобильный фронт"
    ]
   },
   {
-   "name": "github-repo-hygiene",
+    "name": "github-repo-hygiene",
    "version": "2.0.0",
    "category": "repository",
    "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
