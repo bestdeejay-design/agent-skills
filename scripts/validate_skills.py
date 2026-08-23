@@ -27,7 +27,7 @@ import sys
 # Constants
 # --------------------------------------------------------------------------- #
 
-ALLOWED_CATEGORIES = {"code", "repository", "data", "media", "social"}
+ALLOWED_CATEGORIES = {"code", "repository", "data", "media", "social", "agents"}
 ALLOWED_SUBDIRS = {"references", "scripts", "assets", "templates", "examples", "commands"}
 ALLOWED_TOPLEVEL_FILES = {
     "SKILL.md",

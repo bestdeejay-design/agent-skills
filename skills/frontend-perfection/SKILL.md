@@ -4,7 +4,7 @@ description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to mea
 license: MIT
 metadata:
   author: best
-  version: 1.4.0
+  version: 1.4.1
 ---
 
 # frontend-perfection
