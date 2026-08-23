@@ -1,3 +1,11 @@
+---
+name: mobile-frontend
+description: Composite skill for quality mobile-first frontend — codified rules (spacing, type scale, anchors, safe-area, tap-targets), build, and multi-level verification with per-element menu/nav debugging.
+license: MIT
+metadata:
+  version: 1.0.0
+---
+
 # mobile-frontend
 
 Композитный скилл для качественной **мобильной вёрстки и фронтенда**: от правил
