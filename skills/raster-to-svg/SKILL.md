@@ -4,7 +4,7 @@ description: "Конвертер PNG в векторный SVG. Скрипт ras
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.1.0
   compatibility: "Requires Python 3 stdlib; optional: vtracer-cli (cargo install vtracer-cli) для качественной цветной трассировки"
 ---
 
