@@ -1,0 +1,54 @@
+{
+  "name": "mobile-frontend",
+  "version": "1.0.0",
+  "description": "Composite skill for quality mobile-first frontend: codified rules (spacing 4/8-grid, clamp type scale, anchors under fixed headers, safe-area insets, tap-targets >=44px, design tokens) through build to a multi-level verification with per-element debugging - including menu/hamburger and navigation (open/close, aria-expanded sync, focus trap, Esc, anchor scroll, z-index). Routes aesthetics/contrast/Lighthouse/visual-QA to frontend-design-taste, frontend-perfection, /visual-qa. Triggers: 'mobile frontend', 'mobile-first', 'адаптив', 'мобильная вёрстка', 'mobile QA', 'проверь мобилку', 'меню не работает на телефоне', 'якоря упираются в шапку', 'mobile lighthouse'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": [
+    "mobile",
+    "frontend",
+    "responsive",
+    "adaptive",
+    "mobile-first",
+    "menu",
+    "navigation",
+    "safe-area",
+    "tap-target",
+    "anchors",
+    "accessibility",
+    "visual-qa"
+  ],
+  "triggers": [
+    "mobile frontend",
+    "mobile-first",
+    "адаптив",
+    "адаптивная вёрстка",
+    "мобильная вёрстка",
+    "mobile QA",
+    "проверь мобилку",
+    "аудит мобильной вёрстки",
+    "меню не работает на телефоне",
+    "гамбургер баг",
+    "якоря упираются в шапку",
+    "mobile lighthouse",
+    "доведи мобильный фронт"
+  ],
+  "category": "frontend",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "references/tokens.md",
+    "references/mobile-checklist.md",
+    "references/debug-menu-nav.md"
+  ],
+  "requirements": {
+    "tools": [
+      "node",
+      "python3",
+      "chrome"
+    ],
+    "script": null
+  },
+  "updated": "2026-08-22"
+}
