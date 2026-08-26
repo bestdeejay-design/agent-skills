@@ -126,6 +126,10 @@ def review(lines, severity_filter, category_filter):
                 continue
             if category_filter and rule["category"] not in category_filter:
                 continue
+            # Suppress arithmetic false positives inside URL contexts (e.g. SVG
+            # data: URIs in CSS like http://www.w3.org/2000/svg).
+            if rule["id"] == "EDGE-004" and re.search(r"://|url\(|data:", text):
+                continue
             try:
                 if re.search(rule["pattern"], text):
                     findings.append(

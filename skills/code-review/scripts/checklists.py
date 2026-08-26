@@ -155,9 +155,9 @@ RULES = [
         "id": "SEC-007",
         "category": "security",
         "severity": "critical",
-        "pattern": r"(?i)\b(dangerouslySetInnerHTML|v-html|innerHTML)\s*=",
-        "message": "Вставка HTML из переменной — XSS-уязвимость.",
-        "suggestion": "Экранируйте вывод или используйте безопасные шаблоны.",
+        "pattern": r"(?i)\b(dangerouslySetInnerHTML|v-html|innerHTML)\s*=(?![^;\n]*\b(?:esc|escape|escapeHtml|htmlspecialchars|sanitize|sanitizeHtml|renderSafe)\s*\()",
+        "message": "Вставка HTML из переменной — потенциальный XSS. Проверьте, что недоверенные данные экранированы (esc()/escapeHtml()/sanitize); подавляется, если экранирование применено в той же строке.",
+        "suggestion": "Экранируйте вывод через esc()/escapeHtml() или используйте безопасные шаблоны; не вставляйте недоверенный HTML напрямую.",
     },
     {
         "id": "SEC-008",
