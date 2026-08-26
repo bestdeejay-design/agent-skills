@@ -1,63 +1,63 @@
-# Skill Quality Audit — Layer A / Layer B snapshot
+# Skill Quality Audit (Layer A/B)
 
-Generated: 2026-08-26 · methodology: `docs/SKILL_QUALITY_GATE.md`
+Generated: 48 skills
 
-**Layer A flags**: `when_to_use` presence, body>500 (soft guideline), desc+wtu>1536 (hard Claude listing cap).
-**Layer B class** is a *signal-based heuristic*: does the skill mention exit codes / verification / tests / CI gate?
-
-| # | skill | wtu | desc | desc+wtu | body | Layer B | Layer A flags |
+| skill | when_to_use | desc+wtu len | when_to_use len | body lines | Layer A issues | Layer B | Notes |
 |---|---|---|---|---|---|---|---|
-| 1 | api-contract-testing | Y | 769 | 1221 | 199 | Strong | ok |
-| 2 | api-doc-generator | Y | 567 | 814 | 64 | None | ok |
-| 3 | changelog-generator | Y | 565 | 795 | 62 | Partial | ok |
-| 4 | code-review | Y | 525 | 736 | 129 | Partial | ok |
-| 5 | commit-lint | Y | 612 | 865 | 171 | Strong | ok |
-| 6 | commit-message-writer | Y | 379 | 626 | 128 | Partial | ok |
-| 7 | coverage-analyzer | Y | 353 | 609 | 153 | Partial | ok |
-| 8 | csv-pro | Y | 610 | 827 | 60 | None | ok |
-| 9 | data-analysis | Y | 492 | 720 | 66 | None | ok |
-| 10 | diagram-maker | Y | 422 | 715 | 189 | Partial | ok |
-| 11 | docs-product | Y | 454 | 695 | 65 | Weak | ok |
-| 12 | docs-project | Y | 590 | 883 | 75 | Partial | ok |
-| 13 | docs-system | Y | 522 | 830 | 47 | Partial | ok |
-| 14 | dsh-runner | Y | 831 | 1145 | 121 | Weak | ok |
-| 15 | frontend-design-taste | Y | 635 | 989 | 121 | Partial | ok |
-| 16 | frontend-perfection | Y | 1158 | 1497 | 192 | Strong | ok |
-| 17 | github-repo-hygiene | Y | 506 | 793 | 27 | None | ok |
-| 18 | long-running-agent-workflow | Y | 489 | 779 | 156 | Strong | ok |
-| 19 | mermaid-to-image | Y | 469 | 765 | 62 | None | ok |
-| 20 | mobile-frontend | Y | 195 | 491 | 123 | Partial | ok |
-| 21 | pdf-report-builder | Y | 537 | 806 | 55 | Weak | ok |
-| 22 | plan-skill | Y | 692 | 988 | 88 | Weak | ok |
-| 23 | presentation-craft | Y | 475 | 806 | 116 | Partial | ok |
-| 24 | presentation-engineering | Y | 218 | 549 | 524 | Partial | body 524>500 |
-| 25 | presentation-maker | Y | 249 | 554 | 416 | Strong | ok |
-| 26 | raster-to-svg | Y | 801 | 1073 | 104 | None | ok |
-| 27 | reddit-karma | Y | 418 | 647 | 184 | None | ok |
-| 28 | repo-community-files | Y | 400 | 679 | 60 | None | ok |
-| 29 | repo-metadata-health | Y | 509 | 765 | 80 | Weak | ok |
-| 30 | repo-readme-assets | Y | 507 | 777 | 107 | Partial | ok |
-| 31 | repo-social-preview | Y | 424 | 681 | 70 | Partial | ok |
-| 32 | secret-scanner | Y | 338 | 586 | 132 | Strong | ok |
-| 33 | security-review | Y | 451 | 717 | 89 | Strong | ok |
-| 34 | seo-audit | Y | 533 | 791 | 31 | None | ok |
-| 35 | seo-content | Y | 527 | 794 | 37 | None | ok |
-| 36 | seo-crawl | Y | 444 | 711 | 30 | None | ok |
-| 37 | seo-schema | Y | 502 | 742 | 40 | None | ok |
-| 38 | seo-toolkit | Y | 391 | 615 | 28 | None | ok |
-| 39 | skill-forge | Y | 2 | 264 | 144 | Strong | ok |
-| 40 | skill-suggester | Y | 592 | 845 | 110 | Weak | ok |
-| 41 | sql-helper | Y | 484 | 743 | 61 | Weak | ok |
-| 42 | systematic-debugger | Y | 586 | 860 | 82 | Weak | ok |
-| 43 | test-generator | Y | 581 | 854 | 65 | Weak | ok |
-| 44 | test-graphics | Y | 401 | 688 | 231 | Weak | ok |
-| 45 | version-bumper | Y | 527 | 803 | 140 | Partial | ok |
-| 46 | video-script-writer | Y | 507 | 776 | 62 | None | ok |
-| 47 | web-scraper | Y | 536 | 810 | 81 | Weak | ok |
-
-**Totals**: 47 skills · with `when_to_use`: 47 · body>500: 1 · desc+wtu>1536: 0
+| api-contract-testing | Y | 1221 | 452 | 157 | refs=0 | references=0 | Partial |
+| api-doc-generator | Y | 812 | 247 | 47 | refs=0 | references=0 | Partial |
+| changelog-generator | Y | 793 | 230 | 45 | none | references=4 | Strong |
+| code-review | Y | 736 | 211 | 91 | none | references=7 | Strong |
+| commit-lint | Y | 865 | 253 | 136 | none | references=11 | Strong |
+| commit-message-writer | Y | 626 | 247 | 90 | none | references=9 | Strong |
+| coverage-analyzer | Y | 609 | 256 | 115 | refs=0 | references=0 | Partial |
+| csv-pro | Y | 827 | 217 | 41 | refs=0 | references=0 | Partial |
+| data-analysis | Y | 720 | 228 | 46 | refs=0 | references=0 | Partial |
+| diagram-maker | Y | 715 | 293 | 154 | refs=0 | references=0 | Partial |
+| docs-product | Y | 695 | 241 | 47 | none | no script | Weak |
+| docs-project | Y | 883 | 293 | 55 | none | no script | Weak |
+| docs-system | Y | 830 | 308 | 32 | none | no script | Weak |
+| dsh-runner | Y | 1145 | 314 | 88 | none | references=1 | Strong |
+| frontend-design-taste | Y | 989 | 354 | 95 | none | no script | Weak |
+| frontend-perfection | Y | 1497 | 339 | 164 | refs=0 | references=0 | Partial |
+| github-repo-hygiene | Y | 793 | 287 | 17 | none | no script | Weak |
+| long-running-agent-workflow | Y | 779 | 290 | 109 | refs=0 | references=0 | Partial |
+| mermaid-to-image | Y | 765 | 296 | 41 | none | references=4 | Strong |
+| mobile-frontend | Y | 296 | 296 | 95 | none | no script | Weak |
+| pdf-report-builder | Y | 806 | 269 | 37 | none | references=11 | Strong |
+| plan-skill | Y | 986 | 296 | 71 | refs=0 | references=0 | Partial |
+| presentation-craft | Y | 806 | 331 | 99 | none | no script | Weak |
+| presentation-engineering | Y | 549 | 331 | 375 | none | no script | Weak |
+| presentation-maker | Y | 305 | 305 | 334 | none | references=18 | Strong |
+| raster-to-svg | Y | 1073 | 272 | 71 | none | references=5 | Strong |
+| reddit-karma | Y | 647 | 229 | 137 | none | no script | Weak |
+| repo-community-files | Y | 679 | 279 | 42 | none | no script | Weak |
+| repo-metadata-health | Y | 765 | 256 | 56 | none | references=12 | Strong |
+| repo-readme-assets | Y | 777 | 270 | 79 | none | references=7 | Strong |
+| repo-social-preview | Y | 681 | 257 | 58 | none | references=5 | Strong |
+| secret-scanner | Y | 586 | 248 | 98 | none | references=3 | Strong |
+| security-review | Y | 717 | 266 | 65 | none | references=1 | Strong |
+| seo-audit | Y | 791 | 258 | 20 | none | no script | Weak |
+| seo-content | Y | 794 | 267 | 24 | refs=0 | references=0 | Partial |
+| seo-crawl | Y | 711 | 267 | 19 | none | no script | Weak |
+| seo-schema | Y | 742 | 240 | 27 | refs=0 | references=0 | Partial |
+| seo-toolkit | Y | 615 | 224 | 18 | refs=0 | references=0 | Partial |
+| skill-feedback | Y | 797 | 366 | 62 | refs=0 | references=0 | Partial |
+| skill-forge | Y | 262 | 262 | 121 | none | no script | Weak |
+| skill-suggester | Y | 845 | 253 | 78 | refs=0 | references=0 | Partial |
+| sql-helper | Y | 743 | 259 | 42 | refs=0 | references=0 | Partial |
+| systematic-debugger | Y | 858 | 274 | 61 | refs=0 | references=0 | Partial |
+| test-generator | Y | 852 | 273 | 49 | none | references=1 | Strong |
+| test-graphics | Y | 688 | 287 | 159 | refs=0 | references=0 | Partial |
+| version-bumper | Y | 803 | 276 | 108 | none | references=11 | Strong |
+| video-script-writer | Y | 776 | 269 | 43 | refs=0 | references=0 | Partial |
+| web-scraper | Y | 810 | 274 | 57 | refs=0 | references=0 | Partial |
 
 ## Reading the result
-- **Layer A `when_to_use`**: ✅ all 47/47 skills now carry `when_to_use` (backfilled 2026-08-26).
-- **Layer B Strong** (verification built in): api-contract-testing, commit-lint, frontend-perfection, long-running-agent-workflow, presentation-maker, secret-scanner, security-review, skill-forge.
-- **Layer B None** (reference/doc skills — verification less applicable, but a self-check could be added): docs-*, seo-*, repo-*, github-repo-hygiene, reddit-karma, mermaid-to-image, raster-to-svg, video-script-writer, csv-pro, data-analysis.
+- **when_to_use**: Y means discoverable trigger present (our backfilled standard).
+- **desc+wtu len**: must be <=1536 (Claude Code listing truncation).
+- **body lines**: soft cap 500 (skill-forge).
+- **Layer B = Strong** when the skill has a script and references a runner (subprocess/os.system/Popen/run/check_*).
+
+## Layer C feedback
+Usage feedback is captured by the `skill-feedback` skill into `feedback/<skill>/YYYY-MM-DD.jsonl` and fed into the skill-forge improvement loop. Re-run this audit after acting on feedback.

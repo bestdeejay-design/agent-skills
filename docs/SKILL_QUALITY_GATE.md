@@ -43,6 +43,20 @@ A skill is not "done" on assertion; it must *prove* its result:
 2. Log findings in `docs/skill-quality-audit.md` (per-skill snapshot).
 3. Fix gaps: add `when_to_use` (highest leverage), tighten `description`, add a negative steer, wire a verification gate.
 
+## Layer C — Continuous improvement (feedback loop)
+
+Discovery is not enough; skills must get better as they are used. Capture
+usage signal with the `skill-feedback` skill:
+
+- **near-miss triggers** and **manual corrections** are the highest-value fuel.
+- Store them in `feedback/<skill>/YYYY-MM-DD.jsonl` (structured, one JSON/line).
+- Before improving a skill, run `skill-feedback report`; feed near-miss
+  `request` strings into `skill-forge`'s *Optimize description* step and
+  `suggested_fix` into its *Improve* step.
+- Re-run the Layer A/B audit after the edit to confirm the change moved the needle.
+
+This turns the Quality Gate from a one-time audit into a living loop.
+
 ## Pilot results (this repo)
 
 - `api-contract-testing`: added `when_to_use` + **DO NOT USE FOR** steer (Layer A); Layer B already Strong (exit codes 0/1/2 + `conformant` JSON + CI gate).
