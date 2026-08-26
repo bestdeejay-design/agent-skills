@@ -43,19 +43,33 @@ A skill is not "done" on assertion; it must *prove* its result:
 2. Log findings in `docs/skill-quality-audit.md` (per-skill snapshot).
 3. Fix gaps: add `when_to_use` (highest leverage), tighten `description`, add a negative steer, wire a verification gate.
 
-## Layer C — Continuous improvement (feedback loop)
+## Layer C — Continuous improvement (distributed, automatic)
 
-Discovery is not enough; skills must get better as they are used. Capture
-usage signal with the `skill-feedback` skill:
+Discovery is not enough; skills must get better as they are used — and **every
+consumer of this collection can grow their own skills locally**, with no central
+service and no dependency on the curator's repo.
 
-- **near-miss triggers** and **manual corrections** are the highest-value fuel.
-- Store them in `feedback/<skill>/YYYY-MM-DD.jsonl` (structured, one JSON/line).
-- Before improving a skill, run `skill-feedback report`; feed near-miss
-  `request` strings into `skill-forge`'s *Optimize description* step and
-  `suggested_fix` into its *Improve* step.
-- Re-run the Layer A/B audit after the edit to confirm the change moved the needle.
+### The portable loop
+1. **Capture (automatic).** The agent logs near-miss triggers / manual corrections
+   via `skill-feedback add` (JSONL in `feedback/<skill>/`). Make it automatic by
+   adding the rule from `AGENTS_FRAGMENT.md` to your opencode `AGENTS.md` — then
+   capture happens without an explicit nudge.
+2. **Improve (one command).** Run `python3 skills/skill-forge/scripts/forge_from_feedback.py`
+   (`--dry-run` to preview). It reads `feedback/`, calls your local LLM (DeepSeek
+   key from `DEEPSEEK_API_KEY` or opencode `auth.json`), rewrites each flagged
+   skill's `SKILL.md`, and commits locally — **no push**. You review and keep.
+3. **Verify.** Re-run the Layer A/B audit (`docs/skill-quality-audit.md` generator)
+   to confirm the edit moved the needle.
 
-This turns the Quality Gate from a one-time audit into a living loop.
+### Why it is distributed
+- `feedback/` and the skills live in **your** clone/fork. `forge_from_feedback.py`
+  resolves the repo it sits in, so it improves *your* skills, not the curator's.
+- The curator (`best`) keeps `~/.config/opencode/skills` symlinked to this repo, so
+  capture + improve are instantly live in opencode (live-reload for SKILL.md text).
+- Others fork/clone, add the `AGENTS_FRAGMENT.md` rule, and run the same loop on
+  their copy. Improvements stay with them unless they open a PR upstream.
+
+This turns the Quality Gate into a living, self-improving loop for everyone.
 
 ## Pilot results (this repo)
 

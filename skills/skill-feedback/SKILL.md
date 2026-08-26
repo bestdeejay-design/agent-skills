@@ -36,6 +36,14 @@ trigger and every manual correction becomes a concrete edit to a skill's
   those belong in memory or the session log, not the skill feedback store.
 - Capturing secrets or personal data — never log credentials or PII in entries.
 
+## Auto-capture (make it automatic)
+
+For the loop to run without manual nudging, the agent should capture feedback
+proactively. Installers: append the rule from `AGENTS_FRAGMENT.md` (repo root) to
+your opencode `AGENTS.md`. Then any near-miss / manual correction is logged
+automatically — no explicit "remember this" needed. Each consumer grows their own
+skills locally; see `docs/SKILL_QUALITY_GATE.md` Layer C.
+
 ## How feedback is stored
 
 Each entry is one JSON object on its own line in:
