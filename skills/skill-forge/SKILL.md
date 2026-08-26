@@ -42,7 +42,11 @@ own working gates. They are **non-negotiable**.
   truth; every stage reads/writes it so artifacts are regenerable.
 - **Mandatory gates**: nothing is "done" until automated checks PASS. At minimum:
   structural/format validation, content QA, and — for any visual output — a
-  real-browser or render gate.
+  real-browser or render gate. Require EVIDENCE, not assertion: the skill must
+  show the command it ran, its output, and the exit status. Use SCOPED CLAIMS —
+  separate failures the change caused from pre-existing ones ("3 pre-existing
+  failures, my change introduced none"). For unattended runs, back the gate with a
+  deterministic Stop hook or a /goal evaluator so a turn cannot end on a false "done".
 - **Reproducibility**: deterministic seed so the same input yields the same
   output on another day.
 - **Anti-template baseline** (our enforcement, mechanical): ≤2 typefaces, ≤4

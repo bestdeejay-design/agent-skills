@@ -1,6 +1,7 @@
 ---
 name: api-contract-testing
 description: "Validate an API contract against an OpenAPI 3.x specification (JSON or YAML) and an optional manifest of expected endpoints. Script api_contract.py enumerates operations (paths + webhooks), checks spec internal consistency (unresolved $refs, duplicates, missing responses), compares the manifest against the spec offline, and in live mode probes each manifest endpoint over HTTP and compares the actual status with the expected one. Pure Python 3 stdlib (argparse, json, pathlib, sys, urllib.request) with a built-in minimal YAML subset parser — no PyYAML, no requests. Emits a machine-readable JSON report (endpoints_count, missing_from_spec, contract_violations, conformant, errors) and uses exit codes 0/1/2. Closes the loop for api-doc-generator and test-generator."
+when_to_use: "Use to CHECK that a spec or a running API matches its promised contract — offline spec consistency, manifest coverage, or live status-code probes. Load when the user says: api contract testing, validate openapi spec, spec vs manifest, endpoint coverage, does the API match the spec, проверь контракт API, контрактное тестирование, валидация openapi. Do NOT auto-load for authoring the spec (use api-doc-generator) or writing tests (use test-generator)."
 license: MIT
 metadata:
   author: best
@@ -34,6 +35,8 @@ Load this skill when the request matches any of these (EN / RU):
 - "проверь контракт API", "тест контракта", "сверь спецификацию с API"
 - "валидация openapi", "проверка эндпоинтов", "контрактное тестирование"
 - "does the API match the spec", "missing endpoints", "expected status codes"
+
+**DO NOT USE FOR**: generating the OpenAPI spec (use `api-doc-generator`); writing the tests (use `test-generator`). This skill only *checks* contracts, it does not author them.
 
 ---
 
