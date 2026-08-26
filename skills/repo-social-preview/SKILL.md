@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: bestdeejay-design
   version: "2.0.0"
-compatibility: "Requires headless Chrome/Chromium for rendering; python3"
+  compatibility: "Requires headless Chrome/Chromium for rendering; python3"
+when_to_use: "Use when building the GitHub social preview / og:image: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'. Example: 'make a social preview PNG for my repo' or 'generate og:image'."
 ---
 
 # Repo Social Preview — og:image as a typeset hero section

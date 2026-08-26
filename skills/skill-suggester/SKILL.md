@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.1.0
 compatibility: "Requires Python3; reads index.json"
+when_to_use: "Use when user doesn't know which skill to use: 'which skill', 'suggest skill', 'recommend a skill', 'какой скилл использовать', 'подобрать навык', 'рекомендовать скилл'. Example: 'What skill should I use for SEO?' / 'Какой скилл взять для репозитория?'."
 ---
 
 # Skill Suggester — подбор скиллов по задаче

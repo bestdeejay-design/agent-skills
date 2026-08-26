@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.1.0
 compatibility: "Requires git and Python 3"
+when_to_use: "Use when writing a Conventional Commit message from staged changes. Triggers: 'commit message', 'write commit', 'git commit', 'conventional commit', 'написать коммит', 'закоммитить'. Example: 'напиши сообщение коммита для застейдженных изменений'."
 ---
 
 # Commit Message Writer

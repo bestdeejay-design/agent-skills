@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "2.0.0"
 compatibility: "Router only — delegates to seo-audit / seo-schema / seo-content / seo-crawl"
+when_to_use: "DEPRECATED router — use to pick the right SEO sub-skill: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'. Example: 'I need SEO help, which skill?' / 'Какой скилл по SEO взять?'. Routes to seo-audit/schema/content/crawl."
 ---
 
 # SEO Toolkit — DEPRECATED (router)

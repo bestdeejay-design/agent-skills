@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: best
   version: 1.4.1
+when_to_use: "Use to audit/polish a frontend to measurable perfection: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'. Examples: 'audit my page for Lighthouse 100', 'fix contrast and SEO meta on the homepage'."
 ---
 
 # frontend-perfection

@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: best
   version: "1.0.0"
-compatibility: "Requires Playwright and network access to old.reddit.com"
+  compatibility: "Requires Playwright and network access to old.reddit.com"
+when_to_use: "Use when working on Reddit karma growth: 'reddit', 'karma', 'поднять карму', 'забег по reddit', 'ответить на комментарии', 'оставить след'. Example: 'help me reply to this Reddit comment' or 'run a reddit sweep for r/LocalLLaMA'."
 ---
 
 # Reddit Karma

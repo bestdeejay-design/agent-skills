@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib (csv, statistics, datetime)"
+when_to_use: "Use when profiling a CSV file: column types, stats, anomalies. Triggers: 'csv profile', 'профиль csv', 'анализ csv', 'csv anomalies', 'что в csv', 'профилирование csv'. Example: 'профилируй data.csv и найди аномалии'."
 ---
 
 # CSV Pro

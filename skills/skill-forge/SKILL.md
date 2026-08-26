@@ -5,6 +5,7 @@ description: >-
 license: MIT
 metadata:
   version: 1.0.0
+when_to_use: "Use to create or upgrade skills: 'create a skill', 'new skill', 'improve skill', 'make skill creative', 'rewrite SKILL.md', 'создай скил', 'новый скил', 'улучши скил', 'перепиши SKILL.md'. Example: 'Make a skill for PDF reports' / 'Создай скилл для презентаций'."
 ---
 
 # skill-forge

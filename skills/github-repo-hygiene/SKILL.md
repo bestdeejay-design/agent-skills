@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "2.0.0"
 compatibility: "Router only — delegates to the four focused repo skills"
+when_to_use: "Use when polishing a GitHub repo for publication: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'. Routes to the four focused repo skills. Examples: 'make my repo publish-ready', 'оформи репозиторий для публикации на GitHub'."
 ---
 
 # GitHub Repo Hygiene — DEPRECATED (router)

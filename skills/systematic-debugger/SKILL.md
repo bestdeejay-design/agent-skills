@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib; works on any language codebase"
+when_to_use: "Use when there's a bug or unexpected behavior and you need root cause, not a quick fix. Triggers: 'debug this', 'why is X not working', 'почему не работает', 'отладить', 'исправить ошибку', 'дебаг'. Examples: 'Why does login return 401?' / 'Что-то сломалось, найди причину'."
 ---
 
 # Systematic Debugger

@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib + git executable (optional; --stdin mode works without git)"
+when_to_use: "Use when validating git commit messages against Conventional Commits. Triggers: 'commit lint', 'validate commits', 'check commit messages', 'conventional commits check', 'lint my commits'. Example: 'check my last 50 commits follow conventional commits'."
 ---
 
 # Commit Lint — Conventional Commits validator

@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib only. Input: coverage.py XML report (coverage.xml)."
+when_to_use: "Use when turning a coverage.xml report into readable coverage analysis or gating CI. Triggers: 'coverage analysis', 'analyze coverage', 'coverage threshold', 'parse coverage.xml', 'coverage report'. Example: 'analyze coverage.xml and fail CI if below 80%'."
 ---
 
 # Coverage Analyzer — coverage.py XML → readable analysis

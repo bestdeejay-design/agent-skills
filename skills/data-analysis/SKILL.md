@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib (json, csv, statistics, collections)"
+when_to_use: "Use when doing exploratory data analysis (EDA) on a CSV/JSON dataset. Triggers: 'data analysis', 'анализ данных', 'профиль датасета', 'eda', 'почитать данные', 'data profiling'. Example: 'сделай EDA датасета и найди корреляции'."
 ---
 
 # Data Analysis

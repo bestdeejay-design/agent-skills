@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "2.0.0"
 compatibility: "No scripts — guide + router"
+when_to_use: "Use when user asks about the documentation system as a whole: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'какую документацию писать', 'полная документация'. Examples: 'what docs should this project have', 'какую документацию написать для стартапа'."
 ---
 
 # Docs System — meta-guide & router

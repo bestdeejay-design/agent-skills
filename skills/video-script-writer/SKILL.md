@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib"
+when_to_use: "Use when you need a structured video script or outline (hook, scenes, CTA) from a topic. Triggers: 'video script', 'сценарий видео', 'план видео', 'video outline', 'структура ролика', 'напиши сценарий'. Examples: 'Write a YouTube script about X' / 'Сделай план ролика'."
 ---
 
 # Video Script Writer

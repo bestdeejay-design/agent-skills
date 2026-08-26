@@ -4,6 +4,7 @@ description: Composite skill for quality mobile-first frontend — codified rule
 license: MIT
 metadata:
   version: 1.0.0
+when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets, safe-area, nav/menu debugging, mobile Lighthouse. Triggers: 'mobile-first', 'адаптив под телефон', 'проверь мобилку', 'mobile QA', 'гамбургер не работает', 'mobile lighthouse 100'. Example: 'Make this page work great on phones.'"
 ---
 
 # mobile-frontend

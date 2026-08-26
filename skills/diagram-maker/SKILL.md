@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.1.0
 compatibility: "Requires Python3; optional mermaid-cli for rendering"
+when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'architecture diagram', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема'. Examples: 'draw a flowchart of the checkout process', 'сделай mermaid-схему архитектуры микросервисов'."
 ---
 
 # Diagram Maker — генерация диаграмм из текстового описания

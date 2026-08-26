@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib (ast, argparse); optional pytest to run generated tests"
+when_to_use: "Use when you need starter pytest/unit tests from existing functions. Triggers: 'generate tests', 'сгенерируй тесты', 'test skeleton', 'pytest скелет', 'покрытие тестами', 'создать тесты'. Examples: 'Generate pytest skeletons for module.py' / 'Сгенерируй тесты для функций'."
 ---
 
 # Test Generator

@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: bestdeejay-design
   version: "1.0.1"
-compatibility: "Requires python3 (stdlib only) for generation/validation"
+  compatibility: "Requires python3 (stdlib only) for generation/validation"
+when_to_use: "Use when creating or updating a repo README with animated SVG header/footer: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'smil animation', 'update readme'. Example: 'generate a README with animated SVG header' or 'make a readme banner'."
 ---
 
 # Repo Readme Assets — README + animated SVG header/footer

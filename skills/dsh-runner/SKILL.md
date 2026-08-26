@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3.10+; deepseek-harness-sdk; DEEPSEEK_API_KEY (env или auth.json opencode) или DEEPSEEK_BASE_URL; macOS 14+ arm64 / Linux x64,arm64"
+when_to_use: "Use when user wants to run an autonomous agent in isolation: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'agent harness', 'запустить dsh'. Examples: 'run an agent to fix this bug in a sandbox', 'запусти агента на репозиторий и сравни модели'."
 ---
 
 # dsh-runner

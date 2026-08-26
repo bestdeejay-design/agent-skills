@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "Requires python3 (stdlib only)"
+when_to_use: "Use for structured data & meta markup: 'seo schema', 'json-ld', 'schema org', 'structured data', 'meta tags', 'title description', 'разметка', 'структурированные данные', 'meta теги'. Example: 'Add JSON-LD to my page' / 'Проверь мета-теги'."
 ---
 
 # SEO Schema — structured data & meta markup

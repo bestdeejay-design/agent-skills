@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: bestdeejay-design
   version: "1.0.1"
-compatibility: "Requires gh CLI and network access to api.github.com for metadata checks; python3 (stdlib) for validate_repo.py"
+  compatibility: "Requires gh CLI and network access to api.github.com for metadata checks; python3 (stdlib) for validate_repo.py"
+when_to_use: "Use when auditing or updating GitHub repo metadata/community health: 'repo description', 'repo topics', 'github pages', 'community health', 'repo audit', 'repo checklist', 'repo about'. Example: \"audit my repo's community health\" or 'update repo topics'."
 ---
 
 # Repo Metadata Health — description, topics, Pages, community health

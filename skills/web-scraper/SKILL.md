@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib; legal guardrails: robots.txt, rate limit 1.0s, page size cap 10 MB"
+when_to_use: "Use when you need to extract text/links/tables from a web page into Markdown/JSON politely. Triggers: 'web scraping', 'скраппинг', 'парсинг сайта', 'извлечь данные', 'scrape', 'скачать данные с сайта'. Examples: 'Scrape example.com into Markdown' / 'Вытащи таблицу с сайта'."
 ---
 
 # Web Scraper

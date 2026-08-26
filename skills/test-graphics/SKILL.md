@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.2.0"
 compatibility: "Requires Python 3 and Pillow"
+when_to_use: "Use when you need placeholder/test images, icons, avatars or photos for mocks, staging or e2e tests. Triggers: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'сгенерировать фото'. Examples: 'Generate 10 placeholder photos' / 'Нужны тестовые картинки'."
 ---
 
 # Test Graphics — Генератор тестовых изображений

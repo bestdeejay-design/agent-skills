@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib for plan_validator.py; runs on any repo"
+when_to_use: "Plan an implementation before coding: decomposed steps, acceptance criteria, TDD, no placeholders. Triggers: 'plan', 'спланируй', 'составь план', 'разбей на шаги', 'roadmap', 'technical plan', 'write a plan', 'план реализации'. Example: 'Plan how to implement this feature before I start coding.'"
 ---
 
 # Plan Skill

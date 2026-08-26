@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.1"
 compatibility: "No scripts; design judgment. Optionally a browser for visual verification"
+when_to_use: "Use when user wants a distinctive visual direction (not templated): 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design'. Examples: 'give this landing page a real visual identity', 'redesign my site so it stops looking like AI'."
 ---
 
 # Frontend Design Taste — distinctive direction, not templated defaults

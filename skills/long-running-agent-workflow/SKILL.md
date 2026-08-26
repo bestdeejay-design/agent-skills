@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib only (scripts/lra_cli.py). Works inside any git repo."
+when_to_use: "For large multi-session projects needing continuity, atomic checkpoints, and recovery from broken states. Triggers: 'lra', 'checkpoint', 'feature list', 'long running', 'продолжи работу', 'долгая сессия', 'план фич', 'статус проекта'. Example: 'Help me track features across many sessions.'"
 ---
 
 # Long-Running Agent (LRA) Workflow

@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "No scripts — template-driven authoring"
+when_to_use: "Use when user needs engineering docs: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'. Examples: 'write the ARCHITECTURE.md', 'сгенерируй README и ADR для репозитория'."
 ---
 
 # Docs Project — engineering documentation («how»)

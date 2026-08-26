@@ -4,6 +4,7 @@ license: MIT
 metadata:
   version: 1.0.0
 description: "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн."
+when_to_use: "Engineer a world-changing presentation as a story: narrative strategy, visual language, performance design. Triggers: 'presentation engineering', 'story-driven deck', 'инженерия презентации', 'создай вдохновляющую презентацию', 'narrative presentation'. Example: 'Help me turn my idea into a presentation that moves people to act.'"
 ---
 
 # 🌍 Presentation Engineering

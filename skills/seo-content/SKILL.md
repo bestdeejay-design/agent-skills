@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "Requires python3 (stdlib only)"
+when_to_use: "Use for on-page content & image SEO: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'оптимизация картинок'. Example: 'Audit my page content and keywords' / 'Проверь контент и заголовки'."
 ---
 
 # SEO Content — on-page content & images

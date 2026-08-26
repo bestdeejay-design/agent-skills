@@ -47,4 +47,4 @@ A skill is not "done" on assertion; it must *prove* its result:
 
 - `api-contract-testing`: added `when_to_use` + **DO NOT USE FOR** steer (Layer A); Layer B already Strong (exit codes 0/1/2 + `conformant` JSON + CI gate).
 - `skill-forge`: Layer B strengthened in Level 0 "Mandatory gates" (EVIDENCE, SCOPED CLAIMS, deterministic gate).
-- 46/47 skills still lack `when_to_use` — backlog to backfill.
+- `when_to_use` backfilled across all 46 remaining skills (2026-08-26); 47/47 now carry it.

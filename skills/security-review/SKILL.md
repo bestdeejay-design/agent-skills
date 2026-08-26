@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib only. External scanners (semgrep, osv-scanner, ...) optional and used via their own CLIs."
+when_to_use: "Use when running a security review of a codebase: 'security review', 'dependency audit', 'scan lockfiles', 'normalize scanner reports', 'vulnerability review'. Example: \"review my repo's dependencies for vulns\" or 'run a security review and normalize the reports'."
 ---
 
 # Security Review — dependency & static analysis orchestration

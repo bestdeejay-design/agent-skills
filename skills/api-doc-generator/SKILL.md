@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib (json, argparse); input: OpenAPI 3.x JSON"
+when_to_use: "Use when documenting a REST API as Markdown from an OpenAPI/Swagger spec. Triggers: 'api doc', 'документация API', 'openapi', 'swagger to markdown', 'описать эндпоинты', 'api reference'. Example: 'сгенерируй markdown-документацию из openapi.json'."
 ---
 
 # API Doc Generator

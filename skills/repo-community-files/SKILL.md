@@ -5,7 +5,8 @@ license: MIT
 metadata:
   author: bestdeejay-design
   version: "1.0.1"
-compatibility: "No scripts; gh CLI optional for org-level defaults"
+  compatibility: "No scripts; gh CLI optional for org-level defaults"
+when_to_use: "Use when creating or updating repo legal/community files: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'issue template', 'pr template', 'funding yml', 'community files'. Example: 'add a LICENSE and CONTRIBUTING.md' or 'set up repo community files'."
 ---
 
 # Repo Community Files — legal & community health files

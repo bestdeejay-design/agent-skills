@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.1.0
 compatibility: "Requires Python 3 stdlib; git for --repo mode"
+when_to_use: "Use when reviewing a PR/diff/commit for bugs, security, style before merge. Triggers: 'code review', 'ревью кода', 'review PR', 'проверь код', 'найди баги', 'замечания по коду'. Example: 'проверь код в этом PR'."
 ---
 
 # Code Review

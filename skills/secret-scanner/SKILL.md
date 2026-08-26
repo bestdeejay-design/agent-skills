@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib only. Optional: git for --git mode."
+when_to_use: "Use when scanning code/git repos for leaked secrets: 'secret scanner', 'scan for tokens', 'find leaked keys', 'detect credentials', 'secret detection'. Example: 'scan my repo for leaked API keys' or 'check this directory for secrets before I push'."
 ---
 
 # Secret Scanner — leaked credential detection

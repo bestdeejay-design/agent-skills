@@ -6,6 +6,7 @@ metadata:
   author: best
   version: "1.0.0"
   compatibility: "Requires Python 3 stdlib + git executable (optional; --commits FILE mode works without git)"
+when_to_use: "Use when you need the next semantic version / release tag from Conventional Commits history. Triggers: 'version bump', 'next version', 'семантическая версия', 'предложи версию', 'release tag'. Examples: 'What version should the next tag be?' / 'Какую версию ставить в релиз?'."
 ---
 
 # Version Bumper — semantic version from Conventional Commits

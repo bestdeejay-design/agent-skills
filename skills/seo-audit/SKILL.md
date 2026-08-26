@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "No scripts — agent-driven workflows (commands/)"
+when_to_use: "Use for technical SEO health: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'. Example: 'Audit my site and fix Core Web Vitals' / 'Проверь техническое SEO сайта'."
 ---
 
 # SEO Audit — technical site health

@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: bestdeejay-design
   version: "1.1.0"
+when_to_use: "Orchestrate a high-quality, non-template presentation across narrative, visual, build, audit, and export stages. Triggers: 'presentation craft', 'качественная презентация', 'сделай стильную презентацию', 'не шаблонные слайды', 'presentation with design system'. Example: 'Build a polished deck that doesn't look like AI templates.'"
 ---
 
 # presentation-craft

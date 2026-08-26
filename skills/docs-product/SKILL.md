@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "No scripts — template-driven authoring"
+when_to_use: "Use when user needs product docs: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'product docs', 'требования к продукту', 'документация продукта'. Examples: 'write a PRD for my app', 'создай VISION и ROADMAP для проекта'."
 ---
 
 # Docs Product — product documentation («why» & «what»)

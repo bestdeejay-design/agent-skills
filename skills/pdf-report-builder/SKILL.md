@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib; PDF-движок опционально (Chrome/weasyprint/pandoc)"
+when_to_use: "Build a PDF document from Markdown (report, README, spec, client deliverable). Triggers: 'markdown to pdf', 'pdf report', 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'отчёт для клиента', 'document to pdf'. Example: 'Convert my report.md into a PDF for the client.'"
 ---
 
 # PDF Report Builder

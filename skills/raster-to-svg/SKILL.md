@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.1.0
   compatibility: "Requires Python 3 stdlib; optional: vtracer-cli (cargo install vtracer-cli) для качественной цветной трассировки"
+when_to_use: "Use when converting a raster image (PNG/logo/icon) to scalable vector SVG: 'png to svg', 'vectorize image', 'trace image', 'convert png to svg', 'картинка в svg', 'векторизация', 'трассировка изображения'. Example: 'turn this logo.png into an SVG' or 'convert png to svg'."
 ---
 
 # Raster To SVG

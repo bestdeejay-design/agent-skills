@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib and git repo with Conventional Commits"
+when_to_use: "Use when generating/updating a CHANGELOG from git history (Conventional Commits). Triggers: 'changelog', 'сгенерируй чанжлог', 'release notes', 'история изменений', 'keep a changelog'. Example: 'обнови CHANGELOG.md перед релизом'."
 ---
 
 # Changelog Generator

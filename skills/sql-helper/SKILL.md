@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib (argparse, sqlite3)"
+when_to_use: "Use to turn a question + DDL into SQL: 'sql helper', 'generate sql', 'write sql', 'sql query', 'explain query', 'sql генерация', 'сгенерируй sql', 'напиши sql', 'explain запроса'. Example: 'Write a SELECT joining users and orders' / 'Сгенерируй SQL по схеме'."
 ---
 
 # SQL Helper

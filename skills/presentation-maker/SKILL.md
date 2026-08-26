@@ -4,6 +4,7 @@ description: End-to-end presentations from a topic — outline -> JSON spec -> 1
 license: MIT
 metadata:
   version: 4.2.0
+when_to_use: "Build a complete on-brand presentation from a topic or outline: HTML slides, real .pptx, PDF, with mandatory verification. Triggers: 'presentation maker', 'сделай презентацию', 'слайды', 'pptx', 'собери слайды', '16:9 слайды', 'презентация в powerpoint'. Example: 'Make a 10-slide deck from this outline.'"
 ---
 
 # presentation-maker

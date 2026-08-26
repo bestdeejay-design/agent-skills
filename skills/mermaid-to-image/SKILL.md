@@ -6,6 +6,7 @@ metadata:
   author: best
   version: 1.0.0
 compatibility: "Requires Python 3 stdlib; optional: mermaid-cli (mmdc) для офлайн-рендера"
+when_to_use: "Convert a Mermaid .mmd diagram into a PNG/SVG image file for README, docs, or slides. Triggers: 'mermaid to image', 'render diagram', 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'диаграмма в svg', 'схема в картинку'. Example: 'Turn this mermaid diagram into a PNG for my README.'"
 ---
 
 # Mermaid To Image

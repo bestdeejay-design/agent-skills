@@ -6,6 +6,7 @@ metadata:
   author: bestdeejay-design
   version: "1.0.0"
 compatibility: "No scripts — agent-driven workflows (commands/)"
+when_to_use: "Use for crawlability, structure & competitors: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'краулинг'. Example: 'Check if Google can crawl my site' / 'Проанализируй структуру сайта'."
 ---
 
 # SEO Crawl — crawlability, structure & competitors
