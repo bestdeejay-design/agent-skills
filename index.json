@@ -1,957 +1,976 @@
 {
- "name": "agent-skills",
- "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
- "version": "1.9.0",
- "author": "best",
- "license": "MIT",
- "repository": "https://github.com/bestdeejay-design/agent-skills",
- "skills": [
-  {
-   "name": "api-contract-testing",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Validate an API contract against an OpenAPI 3.x specification (JSON or YAML) and an optional manifest of expected endpoints. Script api_contract.py enumerates operations (paths + webhooks), checks spec internal consistency (unresolved $refs, duplicates, missing responses), compares the manifest against the spec offline, and in live mode probes each manifest endpoint over HTTP and compares the actual status with the expected one. Pure Python 3 stdlib (argparse, json, pathlib, sys, urllib.request) with a built-in minimal YAML subset parser — no PyYAML, no requests. Emits a machine-readable JSON report (endpoints_count, missing_from_spec, contract_violations, conformant, errors) and uses exit codes 0/1/2. Closes the loop for api-doc-generator and test-generator. Triggers: 'api contract testing', 'contract test', 'validate openapi spec', 'spec vs manifest', 'endpoint coverage', 'проверь контракт API', 'тест контракта', 'валидация openapi', 'контрактное тестирование', 'check the API against the spec'.",
-   "path": "skills/api-contract-testing",
-   "triggers": [
-    "api contract testing",
-    "contract test",
-    "validate openapi spec",
-    "spec vs manifest",
-    "endpoint coverage",
-    "check the API against the spec",
-    "does the API match the spec",
-    "missing endpoints",
-    "expected status codes",
-    "проверь контракт API",
-    "тест контракта",
-    "сверь спецификацию с API",
-    "валидация openapi",
-    "проверка эндпоинтов",
-    "контрактное тестирование"
-   ]
-  },
-  {
-   "name": "api-doc-generator",
-   "version": "1.0.0",
-   "category": "repository",
-   "description": "Генерация Markdown-документации REST API из OpenAPI-схемы (3.x, включая 3.1.0). Скрипт api_doc.py читает openapi.json (файл или stdin), извлекает endpoint'ы (method, path, summary, operationId, параметры query/path/header, requestBody, коды ответов) и рендерит Markdown-раздел на каждый эндпоинт. FastAPI: схема из app.openapi() или /openapi.json; Express: swagger-jsdoc (референс в SKILL.md). Триггеры: 'api doc', 'документация API', 'openapi', 'swagger в markdown', 'сгенерай api doc', 'документировать эндпоинты', 'api reference', 'описать API', 'rest api docs'.",
-   "path": "skills/api-doc-generator",
-   "triggers": [
-    "api doc",
-    "документация API",
-    "openapi",
-    "swagger в markdown",
-    "сгенерай api doc",
-    "документировать эндпоинты",
-    "api reference",
-    "описать API",
-    "rest api docs"
-   ]
-  },
-  {
-   "name": "changelog-generator",
-   "version": "1.0.0",
-   "category": "repository",
-   "description": "Генерация раздела CHANGELOG (Keep a Changelog) из git-истории по Conventional Commits. Скрипт changelog_gen.py читает git log в диапазоне tag..HEAD, парсит commit-сообщения, маппит типы (feat→Added, fix→Fixed, perf/refactor→Changed, breaking→отдельная секция) и рендерит Markdown с датами и ссылками на коммиты. Режимы: --top (Unreleased), --from-tag, включая скрытые типы (docs/ci/chore) через флаг. Триггеры: 'changelog', 'сгенерай чанжлог', 'обнови changelog', 'release notes', 'история изменений', 'keep a changelog', 'generate changelog', 'сборка changelog'.",
-   "path": "skills/changelog-generator",
-   "triggers": [
-    "changelog",
-    "сгенерай чанжлог",
-    "обнови changelog",
-    "release notes",
-    "история изменений",
-    "keep a changelog",
-    "generate changelog",
-    "сборка changelog"
-   ]
-  },
-  {
-   "name": "code-review",
-   "version": "1.1.0",
-   "category": "code",
-   "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases, a11y) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
-   "path": "skills/code-review",
-   "triggers": [
-    "code review",
-    "ревью кода",
-    "review PR",
-    "проверь код",
-    "pull request review",
-    "code quality",
-    "замечания по коду",
-    "найти баги",
-    "review commit",
-    "проверь изменения",
-    "review diff",
-    "ревью пул-реквеста"
-   ]
-  },
-  {
-   "name": "commit-lint",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Validate git commit messages against Conventional Commits v1.0.0. Script commit_lint.py reads `git log` (subprocess) of a real repository (or stdin with --stdin), parses each commit as <type>(scope)!: subject, and reports violations: missing type, invalid type, type case, subject length (default 50), subject capitalization, trailing dot/space, header length (default 100), body line length (default 72). Plain-text Markdown report or JSON (--json). Exit codes: 0 all clean, 1 violations found, 2 error. Pure Python 3 stdlib, offline, read-only. Closes the loop for commit-message-writer and version-bumper. Triggers: 'commit lint', 'lint commits', 'conventional commits check', 'проверка коммитов', 'валидация коммитов', 'commit message check', 'check commit messages', 'conventional commit lint'.",
-   "path": "skills/commit-lint",
-   "triggers": [
-    "commit lint",
-    "lint commits",
-    "commit message lint",
-    "conventional commits",
-    "conventional commit check",
-    "check commit messages",
-    "validate commits",
-    "commit message validation",
-    "проверка коммитов",
-    "валидация коммитов",
-    "проверь коммиты",
-    "conventional commit lint",
-    "commit style check",
-    "commit-lint"
-   ]
-  },
-  {
-   "name": "commit-message-writer",
-   "version": "1.1.0",
-   "category": "code",
-   "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
-   "path": "skills/commit-message-writer",
-   "triggers": [
-    "commit message",
-    "write commit",
-    "git commit",
-    "conventional commit",
-    "сообщение коммита",
-    "написать коммит",
-    "commit",
-    "закоммитить"
-   ]
-  },
-  {
-   "name": "coverage-analyzer",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Parse coverage.py XML reports (coverage.xml) into a human-readable coverage analysis: total line/branch percent, files with zero coverage, worst-10 ranking, delta vs a stored JSON baseline, and a PASS/FAIL verdict against an optional threshold. Stdlib-only Python script (xml.etree.ElementTree, json, argparse) that closes the loop after test-generator. Triggers: 'coverage analysis', 'coverage.xml', 'покрытие кода', 'процент покрытия', 'coverage report', 'проверь покрытие', 'coverage threshold', 'baseline coverage', 'test coverage check'.",
-   "path": "skills/coverage-analyzer",
-   "triggers": [
-    "coverage analysis",
-    "coverage.xml",
-    "coverage report",
-    "покрытие кода",
-    "процент покрытия",
-    "анализ покрытия",
-    "проверь покрытие",
-    "coverage threshold",
-    "baseline coverage",
-    "coverage delta",
-    "coverage-analyzer",
-    "покрытие тестами",
-    "test coverage check",
-    "coverage gate"
-   ]
-  },
-  {
-   "name": "csv-pro",
-   "version": "1.0.0",
-   "category": "data",
-   "description": "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'.",
-   "path": "skills/csv-pro",
-   "triggers": [
-    "csv profile",
-    "профиль csv",
-    "анализ csv",
-    "csv анализ",
-    "аномалии csv",
-    "csv anomalies",
-    "профилирование csv",
-    "что в csv"
-   ]
-  },
-  {
-   "name": "data-analysis",
-   "version": "1.0.0",
-   "category": "data",
-   "description": "Профилирование датасета (CSV или JSON-массив объектов): типы полей, статистика (count/unique/missing, min/max/mean/std), мода и топ-N значений, гистограмма 5 корзин для чисел, топ-3 парные корреляции Пирсона, аномалии и рекомендации. Скрипт data_analyze.py читает --input и выводит отчёт в markdown (по умолчанию) или JSON. Триггеры: 'data analysis', 'анализ данных', 'профиль датасета', 'статистика данных', 'dataset анализ', 'почитать данные', 'data profiling', 'разведочный анализ', 'eda'.",
-   "path": "skills/data-analysis",
-   "triggers": [
-    "data analysis",
-    "анализ данных",
-    "профиль датасета",
-    "статистика данных",
-    "dataset анализ",
-    "почитать данные",
-    "data profiling",
-    "разведочный анализ",
-    "eda"
-   ]
-  },
-  {
-   "name": "diagram-maker",
-   "version": "1.1.0",
-   "category": "data",
-   "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
-   "path": "skills/diagram-maker",
-   "triggers": [
-    "диаграмма",
-    "diagram",
-    "mermaid",
-    "flowchart",
-    "блок-схема",
-    "sequence diagram",
-    "архитектура",
-    "ER-схема",
-    "нарисуй схему",
-    "draw a diagram",
-    "схема",
-    "architecture diagram"
-   ]
-  },
-  {
-   "name": "docs-product",
-   "version": "1.0.0",
-   "category": "repository",
-   "description": "Product documentation branch — the 'why' and 'what' of a project: VISION.md, PRD.md, ROADMAP.md, FEATURES.md. Written from an idea forward, before engineering docs. Order: VISION -> PRD -> ROADMAP -> FEATURES. Full catalog + checklist in references/product-docs.md, templates in templates/. Triggers: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'фичи документация', 'product docs', 'требования к продукту', 'документация продукта'.",
-   "path": "skills/docs-product",
-   "triggers": [
-    "продуктовая документация",
-    "vision",
-    "prd",
-    "роадмап",
-    "roadmap",
-    "фичи документация",
-    "product docs",
-    "требования к продукту",
-    "документация продукта",
-    "продуктовые документы"
-   ]
-  },
-  {
-   "name": "docs-project",
-   "version": "1.0.0",
-   "category": "repository",
-   "description": "Project (engineering) documentation branch — the 'how': README, ENTRY, AGENT/DELIVERY runbooks, and docs/ (REFERENCE map, ARCHITECTURE, ADR, SAGA, TEST_CASES, DEV_GUIDE, IMPROVEMENTS, TROUBLESHOOTING, BACKLOG, REVIEW, STATUS) plus contracts/ (OpenAPI/AsyncAPI — machine truth written BEFORE code). The map rule: every doc gets a card in REFERENCE.md. Full catalog + checklist in references/project-docs.md. Triggers: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'.",
-   "path": "skills/docs-project",
-   "triggers": [
-    "проектная документация",
-    "архитектура документация",
-    "adr",
-    "engineering docs",
-    "документация разработчика",
-    "контракты openapi",
-    "project docs",
-    "инженерная документация",
-    "проектные документы"
-   ]
-  },
-  {
-   "name": "docs-system",
-   "version": "2.0.0",
-   "category": "repository",
-   "description": "Meta-guide + router for documentation: the two branches (docs-product for 'why/what', docs-project for 'how'), the phase order, completeness levels L1/L2/L3, and the completeness checklist. Load a branch directly when the task is clearly product or engineering; load this skill for the big picture, ordering and completeness gates. Triggers: 'документация', 'набор документации', 'каталог документов', 'документация структура', 'полная документация', 'docs catalog', 'documentation structure', 'какую документацию писать'.",
-   "path": "skills/docs-system",
-   "triggers": [
-    "документация",
-    "набор документации",
-    "каталог документов",
-    "документация структура",
-    "полная документация",
-    "docs catalog",
-    "documentation structure",
-    "какую документацию писать",
-    "документация с нуля"
-   ]
-  },
-  {
-   "name": "frontend-design-taste",
-   "version": "1.0.1",
-   "category": "media",
-   "description": "Give a website a distinctive, deliberate visual direction that does not read as templated AI output. Grounds in the subject, proposes a compact token system (palette 4-6 hexes, display/body/utility type roles, layout concept, ONE signature element), runs a uniqueness gate against the three AI-default looks, and rewrites copy from the user's side of the screen. Includes a condensed worked example (ishotgirls). No scripts. Triggers: 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design', 'signature element'.",
-   "path": "skills/frontend-design-taste",
-   "triggers": [
-    "design direction",
-    "design taste",
-    "make it look good",
-    "not templated",
-    "redesign with taste",
-    "visual identity",
-    "aesthetic direction",
-    "design brief",
-    "anti-templated design",
-    "signature element",
-    "сделай красиво",
-    "дизайн-направление",
-    "не как у всех",
-    "переделай со вкусом",
-    "визуальный стиль",
-    "палитра и шрифты",
-    "стиль сайта"
-   ]
-  },
-  {
-   "name": "frontend-perfection",
-   "version": "1.4.1",
-   "category": "code",
-   "description": "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Front-End Checklist-inspired checks: document (doctype/charset/viewport/lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async), images (dimensions/lazy/srcset/format), JS (inline/console), CSS quality (focus/print/dark-mode/font-display), perf hints (preload/preconnect), security (https/noopener), privacy & i18n (consent/RTL). Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
-   "path": "skills/frontend-perfection",
-   "triggers": [
-    "frontend audit",
-    "perfect the layout",
-    "lighthouse check",
-    "make it 100/100/100/100",
-    "100 lighthouse",
-    "audit the page",
-    "fix performance",
-    "check the frontend",
-    "og image",
-    "social share meta",
-    "contrast check",
-    "design tokens",
-    "проверь вёрстку",
-    "довести фронтенд до идеала",
-    "аудит страницы",
-    "контраст цветов",
-    "дизайн-токены",
-    "SEO-мета слой",
-    "ог картинка",
-     "проверка доступности"
-    ]
-   },
-  {
-   "name": "mobile-frontend",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Composite skill for quality mobile-first frontend: codified rules (spacing 4/8-grid, clamp type scale, anchors under fixed headers, safe-area insets, tap-targets >=44px, design tokens) through build to a multi-level verification with per-element debugging - including menu/hamburger and navigation (aria-expanded sync, focus trap, Esc, z-index). Routes aesthetics/contrast/Lighthouse/visual-QA to frontend-design-taste, frontend-perfection, /visual-qa. Triggers: 'mobile frontend', 'адаптив', 'мобильная вёрстка', 'mobile QA', 'меню не работает на телефоне', 'якоря упираются в шапку', 'mobile lighthouse'.",
-   "path": "skills/mobile-frontend",
-   "triggers": [
-    "mobile frontend",
-    "mobile-first",
-    "адаптив",
-    "адаптивная вёрстка",
-    "мобильная вёрстка",
-    "mobile QA",
-    "проверь мобилку",
-    "аудит мобильной вёрстки",
-    "меню не работает на телефоне",
-    "гамбургер баг",
-    "якоря упираются в шапку",
-    "mobile lighthouse",
-    "доведи мобильный фронт"
-   ]
-  },
-  {
-    "name": "github-repo-hygiene",
-   "version": "2.0.0",
-   "category": "repository",
-   "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
-   "path": "skills/github-repo-hygiene",
-   "triggers": [
-    "github hygiene",
-    "repo polish",
-    "github repo docs",
-    "оформить репозиторий",
-    "репозиторий готов к публикации"
-   ]
-  },
-  {
-   "name": "long-running-agent-workflow",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Structured protocol for AI agents across many context windows: a .lra/ atomic feature list (id/priority/acceptance criteria/status) plus a progress log, a session protocol (read context → pick one feature → implement → test → checkpoint) and recovery from broken states. Triggers: 'lra', 'checkpoint', 'feature list', 'long running', 'продолжи работу', 'долгая сессия', 'план фич', 'статус проекта'.",
-   "path": "skills/long-running-agent-workflow",
-   "triggers": [
-    "lra",
-    "checkpoint",
-    "feature list",
-    "long running",
-    "продолжи работу",
-    "долгая сессия",
-    "план фич",
-    "статус проекта"
-   ]
-  },
-  {
-   "name": "mermaid-to-image",
-   "version": "1.0.0",
-   "category": "data",
-   "description": "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скрипт mermaid_to_image.py читает .mmd (файл или stdin) и отдаёт изображение: приоритет локальному mmdc (mermaid-cli), fallback на публичный API mermaid.ink. Поддерживает выбор формата (svg/png), фоновый цвет, масштаб PNG, движок рендера (auto/mmdc/ink), вывод в файл или stdout. Триггеры: 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'mermaid to image', 'render diagram', 'диаграмма в svg', 'схема в картинку'.",
-   "path": "skills/mermaid-to-image",
-   "triggers": [
-    "mermaid в картинку",
-    "отрендерить диаграмму",
-    ".mmd в png",
-    "mermaid в svg",
-    "render diagram",
-    "диаграмма в svg",
-    "схема в картинку",
-    "mermaid to image"
-   ]
-  },
-  {
-   "name": "pdf-report-builder",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Сборка PDF-отчётов из Markdown без обязательных зависимостей. Скрипт pdf_report_builder.py конвертирует markdown (файл или stdin) в HTML (pandoc или встроенный конвертер) и далее в PDF первым доступным движком: Chromium/Chrome headless --print-to-pdf, weasyprint или pandoc с PDF-движком (pdflatex/tectonic/typst). Поддержка заголовков, списков, таблиц, кода, цитат, ссылок, кастомный заголовок документа. Триггеры: 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'pdf report', 'markdown to pdf', 'отчёт для клиента', 'document to pdf'.",
-   "path": "skills/pdf-report-builder",
-   "triggers": [
-    "отчёт в pdf",
-    "markdown в pdf",
-    "собери отчёт",
-    "сделай отчёт",
-    "pdf report",
-    "markdown to pdf",
-    "отчёт для клиента",
-    "document to pdf"
-   ]
-  },
-  {
-   "name": "plan-skill",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Планирование реализации по superpowers v2: превращает цель в декомпозированный план (HARD-GATE, bite-sized шаги, no placeholders, интерфейсы Produces/Consumes). Пайплайн brainstorming → writing-plans → executing-plans → verification-before-completion с TDD-шагами Expected FAIL→PASS. Скрипт plan_validator.py проверяет план на готовность к исполнению. Скилл только планирует, исполнение — отдельно. Триггеры: 'спланируй', 'составь план', 'plan', 'как реализовать', 'разбей на шаги', 'roadmap', 'план реализации', 'planning', 'design document', 'technical plan', 'write a plan', 'спланируй разработку'.",
-   "path": "skills/plan-skill",
-   "triggers": [
-    "спланируй",
-    "составь план",
-    "plan",
-    "как реализовать",
-    "разбей на шаги",
-    "roadmap",
-    "план реализации",
-    "planning",
-    "design document",
-    "technical plan",
-    "write a plan",
-    "спланируй разработку"
-   ]
-  },
-  {
-   "name": "presentation-craft",
-   "version": "1.1.0",
-   "category": "media",
-   "description": "Router for high-quality presentations: orchestrates docs-product (narrative) + frontend-design-taste (visual direction) + presentation-maker (build/export) + frontend-perfection (UI/UX audit) per stage, with a research-backed quality contract (assertion headlines, design tokens, WCAG contrast, uniqueness gate).",
-   "path": "skills/presentation-craft",
-   "triggers": [
-    "качественная презентация",
-    "сделай стильную презентацию",
-    "презентация с дизайн-системой",
-    "не шаблонные слайды",
-    "presentation craft",
-    "deck router",
-    "качественный дек"
-   ],
-   "files": null,
-   "updated": "2026-08-14"
-  },
-  {
-   "name": "presentation-engineering",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн.",
-   "path": "skills/presentation-engineering",
-   "triggers": [
-    "инженерия презентаций",
-    "presentation engineering",
-    "создай историю",
-    "мироизменяющая презентация",
-    "story engine",
-    "нарративная презентация",
-    "презентация как акт"
-   ]
-  },
-  {
-   "name": "presentation-maker",
-   "version": "4.2.0",
-   "category": "media",
-   "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with geometric QA + optional extern intern linter), plus strategy presets, PDF export, and a deck-quality audit. One command per stage.",
-   "path": "skills/presentation-maker",
-   "triggers": [
-    "сделай презентацию",
-    "presentation",
-    "слайды",
-    "pptx",
-    "сделай доклад",
-    "собери слайды",
-    "структура слайдов",
-    "аутлайн презентации",
-    "16:9 слайды",
-    "powerpoint",
-    "презентация в powerpoint",
-    "deck outline",
-    "slide structure",
-    "build slides",
-    "outline slides",
-    "convert to pptx",
-    "html slides"
-   ],
-   "files": null,
-   "updated": "2026-08-14"
-  },
-  {
-   "name": "raster-to-svg",
-   "version": "1.1.0",
-   "category": "data",
-   "description": "Конвертация PNG-изображений в векторный SVG. Скрипт raster_to_svg.py читает PNG (файл или stdin) и отдаёт SVG (файл или stdout): движок vtracer-cli (высокое качество цветной трассировки, используется автоматически при наличии) или встроенный stdlib-трассер (контурная трассировка с кривыми Безье / мозаика из примитивов). Поддерживает квантование цветов, прозрачность, дырки, детерминированный вывод, JSON-отчёт, валидацию SVG перед записью. Локальный веб-сервер (raster_to_svg_server.py) с UI (web/index.html + style.css + app.js): drag & drop PNG, превью, редактор палитры (перекраска/слияние цветов), экспорт DXF R12 (слои по цвету) / EPS / PNG, пакетная обработка в один .zip, код SVG, скачивание — конвертация без отправки данных наружу. Дополнительно: конвертеры svg_export.py (SVG → DXF/EPS) и опциональный MCP-сервер raster_to_svg_mcp.py для AI-агентов. Pure Python 3 stdlib (собственный PNG-декодер на zlib), без pip-зависимостей. Триггеры: 'png в svg', 'картинка в svg', 'растровое в векторное', 'векторизация', 'trace image', 'convert png to svg', 'vectorize', 'изображение в вектор', 'трассировка изображения', 'конвертнуть в svg'.",
-   "path": "skills/raster-to-svg",
-   "triggers": [
-    "png в svg",
-    "картинка в svg",
-    "растровое в векторное",
-    "векторизация",
-    "trace image",
-    "convert png to svg",
-    "vectorize",
-    "изображение в вектор",
-    "трассировка изображения",
-    "конвертнуть в svg",
-    "png to svg"
-   ]
-  },
-  {
-   "name": "reddit-karma",
-   "version": "1.0.0",
-   "category": "social",
-   "description": "Набор кармы на Reddit для вашего аккаунта — поиск тем, подготовка ответов, распознавание тона чужих комментариев, шаблоны благодарностей и регулярный забег по ресурсу. Персональный скилл: требует настройки под свой аккаунт (никнейм, сабы, журнал активности). Триггеры: 'reddit', 'карма', 'karma', 'r/LocalLLaMA', 'поднять карму', 'ответить на комментарии', 'забег по reddit', 'оставить след', 'благодарность за ответ'.",
-   "path": "skills/reddit-karma",
-   "triggers": [
-    "reddit",
-    "карма",
-    "karma",
-    "r/LocalLLaMA",
-    "поднять карму",
-    "ответить на комментарии",
-    "забег по reddit",
-    "оставить след",
-    "благодарность за ответ"
-   ]
-  },
-  {
-   "name": "repo-community-files",
-   "version": "1.0.1",
-   "category": "repository",
-   "description": "Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. Triggers: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'support file', 'issue template', 'pr template', 'funding yml', 'community files', 'repo legal files', 'contributor covenant'.",
-   "path": "skills/repo-community-files",
-   "triggers": [
-    "license file",
-    "code of conduct",
-    "contributing guide",
-    "security policy",
-    "support file",
-    "issue template",
-    "pr template",
-    "funding yml",
-    "community files",
-    "repo legal files",
-    "contributor covenant",
-    "лицензия",
-    "код поведения",
-    "политика безопасности",
-    "шаблоны issue",
-    "шаблон pr",
-    "community файлы",
-    "оформить лицензию"
-   ]
-  },
-  {
-   "name": "repo-metadata-health",
-   "version": "1.0.1",
-   "category": "repository",
-   "description": "Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). Triggers: 'repo description', 'repo topics', 'github topics', 'github pages', 'community health', 'repo audit', 'repo metadata', 'repo checklist', 'health percentage', 'repo about'.",
-   "path": "skills/repo-metadata-health",
-   "triggers": [
-    "repo description",
-    "repo topics",
-    "github topics",
-    "github pages",
-    "community health",
-    "repo audit",
-    "repo metadata",
-    "repo checklist",
-    "health percentage",
-    "repo about",
-    "описание репозитория",
-    "теги для гитхаба",
-    "аудит репозитория",
-    "метаданные репо",
-    "здоровье репозитория"
-   ]
-  },
-  {
-   "name": "repo-readme-assets",
-   "version": "1.0.1",
-   "category": "repository",
-   "description": "README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). Triggers: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'readme visual', 'smil animation', 'repo header', 'readme footer', 'readme generator', 'update readme', 'readme badges'.",
-   "path": "skills/repo-readme-assets",
-   "triggers": [
-    "readme header",
-    "animated svg",
-    "waving svg",
-    "svg banner",
-    "readme assets",
-    "readme visual",
-    "smil animation",
-    "repo header",
-    "readme footer",
-    "readme generator",
-    "update readme",
-    "readme badges",
-    "шапка readme",
-    "оформить readme",
-    "анимированный svg",
-    "баннер для гитхаба",
-    "визуальное оформление репозитория",
-    "пресеты оформления"
-   ]
-  },
-  {
-   "name": "repo-social-preview",
-   "version": "2.0.0",
-   "category": "repository",
-   "description": "Build the repository social preview (og:image) as a hand-crafted hero-section HTML (1280x640, 40pt crop-safe padding, no self-made SVG), rendered to PNG via headless Chrome. Source of truth: the project website's hero section when one exists - re-typeset it clean, never screenshot it. Script: render_social_preview.py (requires headless Chrome/Chromium, no Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview', 'соц превью', 'og картинка', 'превью для соцсетей', 'картинка для шеринга', 'ог изображение'.",
-   "path": "skills/repo-social-preview",
-   "triggers": [
-    "social preview",
-    "og image",
-    "og:image",
-    "social share image",
-    "repo preview png",
-    "open graph image",
-    "github social preview",
-    "соц превью",
-    "og картинка",
-    "превью для соцсетей",
-    "картинка для шеринга",
-    "ог изображение"
-   ]
-  },
-  {
-   "name": "secret-scanner",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Static secret/token scanning for codebases and git repos: detects leaked credentials (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs) using the gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline by design, with JSON/Markdown/text reports, redaction, and a CI exit-code gate. Triggers: 'secret scan', 'проверь секреты', 'leaked token', 'утечка ключей', 'scan for keys', 'hardcoded credentials', 'git secrets check', 'проверить на секреты'.",
-   "path": "skills/secret-scanner",
-   "triggers": [
-    "secret scan",
-    "проверь секреты",
-    "leaked tokens",
-    "get_token",
-    "secret scan",
-    "leaked keys",
-    "scan for secrets",
-    "secret-scanner",
-    "secret scanning",
-    "проверить на утечки",
-    "найди ключи в репозитории",
-    "credential leak check",
-    "tokens in code"
-   ]
-  },
-  {
-   "name": "security-review",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Security review orchestrator for dependency lockfiles and source: lockfile inventory (npm/pnpm/yarn, pip/poetry, cargo, go, gem, maven, gradle, composer), exit-code classifier for 13 security tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), and JSON normalizer to unified findings. Stdlib-only offline helper. Triggers: 'security review', 'audit dependencies', 'проверить зависимости', 'semgrep scan', 'lockfile audit', 'osv-scanner', 'vulnerability check', 'уязвимости', 'bandit report'.",
-   "path": "skills/security-review",
-   "triggers": [
-    "security review",
-    "audit dependencies",
-    "lockfile audit",
-    "проверь зависимости",
-    "semgrep scan",
-    "osv-scanner",
-    "bandit findings",
-    "dependency-check",
-    "scan for vulnerabilities",
-    "уязвимости в зависимостях",
-    "security-review",
-    "audit lockfiles",
-    "grype scan",
-    "vulnerability report"
-   ]
-  },
-  {
-   "name": "seo-audit",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Technical SEO audit and health: full technical audit (meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure), Core Web Vitals (LCP/CLS/INP, blocking resources, unused CSS/JS, caching), a comprehensive scored report (7 dimensions, weighted 100%), and the autonomous fix agent (P1-P5 prioritization, diff-before-apply). Commands documented in commands/. Triggers: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'.",
-   "path": "skills/seo-audit",
-   "triggers": [
-    "seo audit",
-    "technical audit",
-    "core web vitals",
-    "site speed",
-    "seo report",
-    "seo fix",
-    "технический аудит",
-    "проверка seo",
-    "скорость сайта",
-    "сео аудит"
-   ]
-  },
-  {
-   "name": "seo-content",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Content and on-page SEO: thin content & duplicates, readability (Flesch-Kincaid), E-E-A-T signals; keyword density, cannibalization, LSI, long-tail, intent mapping; H1-H6 hierarchy and keywords in headings; image SEO (alt text, WebP/AVIF, lazy loading, dimensions, srcset). Script seo_content.py: keyword density + top terms (script/style stripped). Triggers: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'заголовки h1', 'оптимизация картинок'.",
-   "path": "skills/seo-content",
-   "triggers": [
-    "seo content",
-    "content audit",
-    "keywords",
-    "keyword research",
-    "seo headings",
-    "image seo",
-    "контент аудит",
-    "ключевые слова",
-    "заголовки h1",
-    "оптимизация картинок"
-   ]
-  },
-  {
-   "name": "seo-crawl",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Crawlability and site structure for SEO: robots.txt, noindex, canonical, redirect chains, sitemap.xml; internal linking, click depth, orphan pages, URL hierarchy, breadcrumbs; competitor comparison (gaps, overlapping keywords, content gaps). Commands documented in commands/. Triggers: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'конкуренты seo', 'краулинг'.",
-   "path": "skills/seo-crawl",
-   "triggers": [
-    "seo crawl",
-    "crawlability",
-    "robots txt",
-    "site structure",
-    "URL structure",
-    "competitor seo",
-    "индексация",
-    "структура сайта",
-    "конкуренты seo",
-    "краулинг"
-   ]
-  },
-  {
-   "name": "seo-schema",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Structured data and meta markup for SEO: JSON-LD schema.org (Product, Article, Organization, Breadcrumb, FAQ — extraction + validation) and title/description/OG/Twitter meta generation (lengths, uniqueness, CTR). Script seo_schema.py: --meta (title/description/OG/canonical/h1/img audit) and --jsonld (extract + validate JSON-LD blocks). Triggers: 'seo schema', 'json-ld', 'schema org', 'structured data', 'meta tags', 'title description', 'разметка', 'jsonld', 'структурированные данные', 'meta теги'.",
-   "path": "skills/seo-schema",
-   "triggers": [
-    "seo schema",
-    "json-ld",
-    "schema org",
-    "structured data",
-    "meta tags",
-    "title description",
-    "разметка",
-    "jsonld",
-    "структурированные данные",
-    "meta теги"
-   ]
-  },
-  {
-   "name": "seo-toolkit",
-   "version": "2.0.0",
-   "category": "media",
-   "description": "DEPRECATED meta-skill. Routes to the four focused SEO skills that replaced it: seo-audit (technical audit + Core Web Vitals + report + fixes), seo-schema (JSON-LD + meta/OG/Twitter), seo-content (content + keywords + headings + images), seo-crawl (crawlability + structure + competitors). Load one of the four directly instead. Triggers: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'.",
-   "path": "skills/seo-toolkit",
-   "triggers": [
-    "seo",
-    "сео",
-    "seo toolkit",
-    "поисковая оптимизация"
-   ]
-  },
-  {
-   "name": "skill-forge",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Meta-skill and design compass for creating new skills and upgrading existing ones with a deliberate push toward being maximally technological, creative, and aesthetically disciplined. Use when the user wants to create a skill from scratch, reshape an existing skill, make a skill more reliable/technological, more creative/varied, or more visually polished — or when a skill feels templated, generic, or mechanically weak.",
-   "path": "skills/skill-forge",
-   "triggers": [
-    "создай скил",
-    "новый скил",
-    "улучши скил",
-    "сделай скил креативнее",
-    "эстетичный скил",
-    "технологичный скил",
-    "скилл выглядит шаблонно",
-    "перепиши SKILL.md",
-    "мета-скилл",
-    "проверь скилл перед релизом",
-    "skill forge",
-    "create a skill",
-    "improve a skill"
-   ]
-  },
-  {
-   "name": "skill-suggester",
-   "version": "1.1.0",
-   "category": "code",
-   "description": "Skill recommendation for AI agents from the agent-skills library. Reads the master catalog index.json (default ~/Projects/agent-skills/index.json, override with env AGENT_SKILLS_INDEX or --index), scores triggers and descriptions, returns top-5 with relevance plus up to 3 combos (chains) for multi-step tasks. Supports ad-hoc apply: prints SKILL.md paths so the agent can read and apply a skill's instructions directly even if it is not installed. Triggers: 'какой скилл использовать', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'recommend a skill', 'which skill', 'подобрать навык', 'какой skill использовать'.",
-   "path": "skills/skill-suggester",
-   "triggers": [
-    "какой скилл использовать",
-    "какой скилл",
-    "подбор скилла",
-    "подобрать скилл",
-    "skill suggestion",
-    "suggest skill",
-    "рекомендовать скилл",
-    "какой навык",
-    "подобрать инструмент",
-    "какой команды",
-    "какой skill",
-    "какой skill использовать",
-    "recommend a skill",
-    "which skill",
-    "подобрать навык"
-   ]
-  },
-  {
-   "name": "sql-helper",
-   "version": "1.0.0",
-   "category": "data",
-   "description": "Генерация SQL по текстовому вопросу и DDL-схеме. Скрипт sql_helper.py читает DDL-файл, строит in-memory схему в sqlite3, распознаёт слова вопроса по таблицам/колонкам и собирает SQL по шаблонам интентов (select, join, where, group, order, count, limit). Каждый кандидат проверяется через EXPLAIN, при --explain выводится читаемый план запроса. Триггеры: 'sql helper', 'sql генерация', 'сгенерируй sql', 'explain запроса', 'sql запрос', 'напиши sql', 'formatted sql', 'sql formatting'.",
-   "path": "skills/sql-helper",
-   "triggers": [
-    "sql helper",
-    "sql генерация",
-    "сгенерируй sql",
-    "explain запроса",
-    "sql запрос",
-    "напиши sql",
-    "formatted sql",
-    "sql formatting"
-   ]
-  },
-  {
-   "name": "systematic-debugger",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Систематическая отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags (quick-fix, спекуляции, шотган-дебаг), Rationalization Table для отсева гипотез. Скрипт debug_log.py оформляет отчёт по фазам (среда, команда, ожидание, факт, гипотезы 1..3, регресс-план). Скилл не автофиксит: фиксирует причину, предлагает минимальный фикс и тест-регрессию. Триггеры: 'debug', 'отладить', 'почему не работает', 'баг', 'исправить ошибку', 'разобраться почему', 'дебаг', 'debugging', 'fix the bug', 'ошибка в коде', 'не работает как ожидалось'.",
-   "path": "skills/systematic-debugger",
-   "triggers": [
-    "debug",
-    "отладить",
-    "почему не работает",
-    "баг",
-    "исправить ошибку",
-    "разобраться почему",
-    "дебаг",
-    "debugging",
-    "fix the bug",
-    "ошибка в коде",
-    "не работает как ожидалось"
-   ]
-  },
-  {
-   "name": "test-generator",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None). Скрипт test_gen.py парсит функции/async-функции через ast, пропускает приватные (_), генерирует @pytest.mark.parametrize с assert-заглушками. Включает референс по генерации тестов на TypeScript (ts-morph, *.test.ts) и Go (table-driven). Триггеры: 'generate tests', 'сгенерируй тесты', 'test skeleton', 'pytest скелет', 'покрытие тестами', 'unit tests для функций', 'тесты на функции', 'создать тесты'.",
-   "path": "skills/test-generator",
-   "triggers": [
-    "generate tests",
-    "сгенерируй тесты",
-    "test skeleton",
-    "pytest скелет",
-    "покрытие тестами",
-    "unit tests для функций",
-    "тесты на функции",
-    "создать тесты"
-   ]
-  },
-  {
-   "name": "test-graphics",
-   "version": "1.2.0",
-   "category": "media",
-   "description": "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'.",
-   "path": "skills/test-graphics",
-   "triggers": [
-    "test images",
-    "placeholder",
-    "тестовые картинки",
-    "иконки для теста",
-    "заглушки",
-    "mock data images",
-    "сгенерировать фото",
-    "test data icons",
-    "заполнить картинками",
-    "тестовые данные изображения"
-   ]
-  },
-  {
-   "name": "version-bumper",
-   "version": "1.0.0",
-   "category": "code",
-   "description": "Suggest the next semantic version and release tag from Conventional Commits in git history. Script bumper.py reads `git log` subjects (fallback: COMMITS env or --commits FILE for testability), classifies commit types (feat->MINOR, fix/perf/refactor->PATCH, `!` or BREAKING CHANGE->MAJOR) and prints latest_tag, next_version, suggested_tag (e.g. v1.5.0) and counts by type. Pure Python 3 stdlib, offline, deterministic output (-s), read-only (never creates tags). Closes the loop for commit-message-writer and changelog-generator. Triggers: 'bump version', 'next version', 'release tag', 'semver', 'поднять версию', 'следующая версия', 'тег релиза', 'версионирование', 'suggest version', 'version bump'.",
-   "path": "skills/version-bumper",
-   "triggers": [
-    "bump version",
-    "next version",
-    "suggest version",
-    "release tag",
-    "semver",
-    "version bump",
-    "поднять версию",
-    "следующая версия",
-    "какой тег релиза",
-    "версионирование",
-    "v bump",
-    "release version"
-   ]
-  },
-  {
-   "name": "video-script-writer",
-   "version": "1.0.0",
-   "category": "media",
-   "description": "Создание структурированного сценария видео из темы: Hook (захват внимания в первые секунды), Body (сцены с тайм-слотами: проблема, основы, разбор, ошибки, совет), CTA (призыв к действию). Скрипт video_script_writer.py генерирует markdown-сценарий с таймкодами, хронометражем (секунды), языком (ru/en), кастомным CTA, выбором полного сценария или outline. Триггеры: 'сценарий видео', 'video script', 'напиши сценарий', 'план видео', 'структура ролика', 'video outline', 'сценарий для youtube', 'план ролика'.",
-   "path": "skills/video-script-writer",
-   "triggers": [
-    "сценарий видео",
-    "video script",
-    "напиши сценарий",
-    "план видео",
-    "структура ролика",
-    "video outline",
-    "сценарий для youtube",
-    "план ролика"
-   ]
-  },
-  {
-   "name": "web-scraper",
-   "version": "1.0.0",
-   "category": "data",
-   "description": "Вежливый скраппинг HTML-страниц в Markdown/JSON. Скрипт scrape.py читает страницу по URL, применяет простой CSS-селектор (tag, tag#id, tag.class) для выбора строк/секций, извлекает текст, ссылки и таблицы и отдаёт результат в Markdown или JSON. Легальные guardrails встроены в код: проверка robots.txt, честный User-Agent, задержка между запросами (по умолчанию 1.0 с), лимит размера страницы 10 МБ. Триггеры: 'web scraping', 'скраппинг', 'скачать данные с сайта', 'парсинг сайта', 'парсер html', 'извлечь данные', 'scrape', 'scraping'.",
-   "path": "skills/web-scraper",
-   "triggers": [
-    "web scraping",
-    "скраппинг",
-    "скачать данные с сайта",
-    "парсинг сайта",
-    "парсер html",
-    "извлечь данные",
-    "scrape",
-    "scraping"
-   ]
-  },
-  {
-   "name": "dsh-runner",
-   "version": "1.0.0",
-   "category": "agents",
-   "description": "Запуск автономных агентных задач через DeepSeek Harness (dsh) — изолированные workspace, JSONL-логи сессий, параллельные прогоны. Скрипт dsh_task.py генерирует конфиг и запускает агента через Python SDK (jsonrpc-agent): задача → workspace → harness.run(prompt) → отчёт с final_response и логом. Режимы: headless-задача одной командой, Web UI (npx @deepseek-ai/dsh web), сравнение моделей. Ключ: DEEPSEEK_API_KEY (env) или автоматически из auth.json opencode (провайдер deepseek), либо OpenAI-совместимый endpoint через DEEPSEEK_BASE_URL. Триггеры: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'агент-исполнитель', 'harness run', 'agent harness', 'запустить dsh', 'автономная задача агентом', 'параллельные агенты', 'сравнить модели на задаче', 'jsonrpc-agent'.",
-   "path": "skills/dsh-runner",
-   "triggers": [
-    "dsh",
-    "deepseek harness",
-    "агент в песочнице",
-    "изолированный агент",
-    "запусти агента на репо",
-    "агентная задача",
-    "агент-исполнитель",
-    "harness run",
-    "agent harness",
-    "запустить dsh",
-    "автономная задача агентом",
-    "параллельные агенты",
-    "сравнить модели на задаче",
-    "jsonrpc-agent"
-   ]
-  }
- ]
+  "name": "agent-skills",
+  "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
+  "version": "1.9.0",
+  "author": "best",
+  "license": "MIT",
+  "repository": "https://github.com/bestdeejay-design/agent-skills",
+  "skills": [
+    {
+      "name": "api-contract-testing",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Validate an API contract against an OpenAPI 3.x specification (JSON or YAML) and an optional manifest of expected endpoints. Script api_contract.py enumerates operations (paths + webhooks), checks spec internal consistency (unresolved $refs, duplicates, missing responses), compares the manifest against the spec offline, and in live mode probes each manifest endpoint over HTTP and compares the actual status with the expected one. Pure Python 3 stdlib (argparse, json, pathlib, sys, urllib.request) with a built-in minimal YAML subset parser — no PyYAML, no requests. Emits a machine-readable JSON report (endpoints_count, missing_from_spec, contract_violations, conformant, errors) and uses exit codes 0/1/2. Closes the loop for api-doc-generator and test-generator. Triggers: 'api contract testing', 'contract test', 'validate openapi spec', 'spec vs manifest', 'endpoint coverage', 'проверь контракт API', 'тест контракта', 'валидация openapi', 'контрактное тестирование', 'check the API against the spec'.",
+      "path": "skills/api-contract-testing",
+      "triggers": [
+        "api contract testing",
+        "contract test",
+        "validate openapi spec",
+        "spec vs manifest",
+        "endpoint coverage",
+        "check the API against the spec",
+        "does the API match the spec",
+        "missing endpoints",
+        "expected status codes",
+        "проверь контракт API",
+        "тест контракта",
+        "сверь спецификацию с API",
+        "валидация openapi",
+        "проверка эндпоинтов",
+        "контрактное тестирование"
+      ]
+    },
+    {
+      "name": "api-doc-generator",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Генерация Markdown-документации REST API из OpenAPI-схемы (3.x, включая 3.1.0). Скрипт api_doc.py читает openapi.json (файл или stdin), извлекает endpoint'ы (method, path, summary, operationId, параметры query/path/header, requestBody, коды ответов) и рендерит Markdown-раздел на каждый эндпоинт. FastAPI: схема из app.openapi() или /openapi.json; Express: swagger-jsdoc (референс в SKILL.md). Триггеры: 'api doc', 'документация API', 'openapi', 'swagger в markdown', 'сгенерай api doc', 'документировать эндпоинты', 'api reference', 'описать API', 'rest api docs'.",
+      "path": "skills/api-doc-generator",
+      "triggers": [
+        "api doc",
+        "документация API",
+        "openapi",
+        "swagger в markdown",
+        "сгенерай api doc",
+        "документировать эндпоинты",
+        "api reference",
+        "описать API",
+        "rest api docs"
+      ]
+    },
+    {
+      "name": "changelog-generator",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Генерация раздела CHANGELOG (Keep a Changelog) из git-истории по Conventional Commits. Скрипт changelog_gen.py читает git log в диапазоне tag..HEAD, парсит commit-сообщения, маппит типы (feat→Added, fix→Fixed, perf/refactor→Changed, breaking→отдельная секция) и рендерит Markdown с датами и ссылками на коммиты. Режимы: --top (Unreleased), --from-tag, включая скрытые типы (docs/ci/chore) через флаг. Триггеры: 'changelog', 'сгенерай чанжлог', 'обнови changelog', 'release notes', 'история изменений', 'keep a changelog', 'generate changelog', 'сборка changelog'.",
+      "path": "skills/changelog-generator",
+      "triggers": [
+        "changelog",
+        "сгенерай чанжлог",
+        "обнови changelog",
+        "release notes",
+        "история изменений",
+        "keep a changelog",
+        "generate changelog",
+        "сборка changelog"
+      ]
+    },
+    {
+      "name": "code-review",
+      "version": "1.1.0",
+      "category": "code",
+      "description": "Структурированный code review: читает git diff или путь к репозиторию/файлу, применяет чек-лист категорий (correctness, security, performance, style, tests, edge cases, a11y) и выдаёт замечания вида [severity] файл:строка с предлагаемым исправлением. Скилл только анализирует и комментирует, правки не вносит. Триггеры: 'code review', 'ревью кода', 'review PR', 'проверь код', 'pull request review', 'code quality', 'замечания по коду', 'найти баги', 'review commit', 'проверь изменения', 'review diff', 'ревью пул-реквеста'.",
+      "path": "skills/code-review",
+      "triggers": [
+        "code review",
+        "ревью кода",
+        "review PR",
+        "проверь код",
+        "pull request review",
+        "code quality",
+        "замечания по коду",
+        "найти баги",
+        "review commit",
+        "проверь изменения",
+        "review diff",
+        "ревью пул-реквеста"
+      ]
+    },
+    {
+      "name": "commit-lint",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Validate git commit messages against Conventional Commits v1.0.0. Script commit_lint.py reads `git log` (subprocess) of a real repository (or stdin with --stdin), parses each commit as <type>(scope)!: subject, and reports violations: missing type, invalid type, type case, subject length (default 50), subject capitalization, trailing dot/space, header length (default 100), body line length (default 72). Plain-text Markdown report or JSON (--json). Exit codes: 0 all clean, 1 violations found, 2 error. Pure Python 3 stdlib, offline, read-only. Closes the loop for commit-message-writer and version-bumper. Triggers: 'commit lint', 'lint commits', 'conventional commits check', 'проверка коммитов', 'валидация коммитов', 'commit message check', 'check commit messages', 'conventional commit lint'.",
+      "path": "skills/commit-lint",
+      "triggers": [
+        "commit lint",
+        "lint commits",
+        "commit message lint",
+        "conventional commits",
+        "conventional commit check",
+        "check commit messages",
+        "validate commits",
+        "commit message validation",
+        "проверка коммитов",
+        "валидация коммитов",
+        "проверь коммиты",
+        "conventional commit lint",
+        "commit style check",
+        "commit-lint"
+      ]
+    },
+    {
+      "name": "commit-message-writer",
+      "version": "1.1.0",
+      "category": "code",
+      "description": "Используй, когда нужно оформить staged-изменения в Conventional Commit. Генерация Conventional Commits-сообщений на основе git diff --staged: тип по изменённым файлам, scope по путям, краткое описание, опциональный body с переносами. Триггеры: 'commit message', 'write commit', 'git commit', 'conventional commit', 'сообщение коммита', 'написать коммит', 'commit', 'закоммитить'.",
+      "path": "skills/commit-message-writer",
+      "triggers": [
+        "commit message",
+        "write commit",
+        "git commit",
+        "conventional commit",
+        "сообщение коммита",
+        "написать коммит",
+        "commit",
+        "закоммитить"
+      ]
+    },
+    {
+      "name": "coverage-analyzer",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Parse coverage.py XML reports (coverage.xml) into a human-readable coverage analysis: total line/branch percent, files with zero coverage, worst-10 ranking, delta vs a stored JSON baseline, and a PASS/FAIL verdict against an optional threshold. Stdlib-only Python script (xml.etree.ElementTree, json, argparse) that closes the loop after test-generator. Triggers: 'coverage analysis', 'coverage.xml', 'покрытие кода', 'процент покрытия', 'coverage report', 'проверь покрытие', 'coverage threshold', 'baseline coverage', 'test coverage check'.",
+      "path": "skills/coverage-analyzer",
+      "triggers": [
+        "coverage analysis",
+        "coverage.xml",
+        "coverage report",
+        "покрытие кода",
+        "процент покрытия",
+        "анализ покрытия",
+        "проверь покрытие",
+        "coverage threshold",
+        "baseline coverage",
+        "coverage delta",
+        "coverage-analyzer",
+        "покрытие тестами",
+        "test coverage check",
+        "coverage gate"
+      ]
+    },
+    {
+      "name": "csv-pro",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'.",
+      "path": "skills/csv-pro",
+      "triggers": [
+        "csv profile",
+        "профиль csv",
+        "анализ csv",
+        "csv анализ",
+        "аномалии csv",
+        "csv anomalies",
+        "профилирование csv",
+        "что в csv"
+      ]
+    },
+    {
+      "name": "data-analysis",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Профилирование датасета (CSV или JSON-массив объектов): типы полей, статистика (count/unique/missing, min/max/mean/std), мода и топ-N значений, гистограмма 5 корзин для чисел, топ-3 парные корреляции Пирсона, аномалии и рекомендации. Скрипт data_analyze.py читает --input и выводит отчёт в markdown (по умолчанию) или JSON. Триггеры: 'data analysis', 'анализ данных', 'профиль датасета', 'статистика данных', 'dataset анализ', 'почитать данные', 'data profiling', 'разведочный анализ', 'eda'.",
+      "path": "skills/data-analysis",
+      "triggers": [
+        "data analysis",
+        "анализ данных",
+        "профиль датасета",
+        "статистика данных",
+        "dataset анализ",
+        "почитать данные",
+        "data profiling",
+        "разведочный анализ",
+        "eda"
+      ]
+    },
+    {
+      "name": "diagram-maker",
+      "version": "1.1.0",
+      "category": "data",
+      "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
+      "path": "skills/diagram-maker",
+      "triggers": [
+        "диаграмма",
+        "diagram",
+        "mermaid",
+        "flowchart",
+        "блок-схема",
+        "sequence diagram",
+        "архитектура",
+        "ER-схема",
+        "нарисуй схему",
+        "draw a diagram",
+        "схема",
+        "architecture diagram"
+      ]
+    },
+    {
+      "name": "docs-product",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Product documentation branch — the 'why' and 'what' of a project: VISION.md, PRD.md, ROADMAP.md, FEATURES.md. Written from an idea forward, before engineering docs. Order: VISION -> PRD -> ROADMAP -> FEATURES. Full catalog + checklist in references/product-docs.md, templates in templates/. Triggers: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'фичи документация', 'product docs', 'требования к продукту', 'документация продукта'.",
+      "path": "skills/docs-product",
+      "triggers": [
+        "продуктовая документация",
+        "vision",
+        "prd",
+        "роадмап",
+        "roadmap",
+        "фичи документация",
+        "product docs",
+        "требования к продукту",
+        "документация продукта",
+        "продуктовые документы"
+      ]
+    },
+    {
+      "name": "docs-project",
+      "version": "1.0.0",
+      "category": "repository",
+      "description": "Project (engineering) documentation branch — the 'how': README, ENTRY, AGENT/DELIVERY runbooks, and docs/ (REFERENCE map, ARCHITECTURE, ADR, SAGA, TEST_CASES, DEV_GUIDE, IMPROVEMENTS, TROUBLESHOOTING, BACKLOG, REVIEW, STATUS) plus contracts/ (OpenAPI/AsyncAPI — machine truth written BEFORE code). The map rule: every doc gets a card in REFERENCE.md. Full catalog + checklist in references/project-docs.md. Triggers: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'.",
+      "path": "skills/docs-project",
+      "triggers": [
+        "проектная документация",
+        "архитектура документация",
+        "adr",
+        "engineering docs",
+        "документация разработчика",
+        "контракты openapi",
+        "project docs",
+        "инженерная документация",
+        "проектные документы"
+      ]
+    },
+    {
+      "name": "docs-system",
+      "version": "2.0.0",
+      "category": "repository",
+      "description": "Meta-guide + router for documentation: the two branches (docs-product for 'why/what', docs-project for 'how'), the phase order, completeness levels L1/L2/L3, and the completeness checklist. Load a branch directly when the task is clearly product or engineering; load this skill for the big picture, ordering and completeness gates. Triggers: 'документация', 'набор документации', 'каталог документов', 'документация структура', 'полная документация', 'docs catalog', 'documentation structure', 'какую документацию писать'.",
+      "path": "skills/docs-system",
+      "triggers": [
+        "документация",
+        "набор документации",
+        "каталог документов",
+        "документация структура",
+        "полная документация",
+        "docs catalog",
+        "documentation structure",
+        "какую документацию писать",
+        "документация с нуля"
+      ]
+    },
+    {
+      "name": "frontend-design-taste",
+      "version": "1.0.1",
+      "category": "media",
+      "description": "Give a website a distinctive, deliberate visual direction that does not read as templated AI output. Grounds in the subject, proposes a compact token system (palette 4-6 hexes, display/body/utility type roles, layout concept, ONE signature element), runs a uniqueness gate against the three AI-default looks, and rewrites copy from the user's side of the screen. Includes a condensed worked example (ishotgirls). No scripts. Triggers: 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design', 'signature element'.",
+      "path": "skills/frontend-design-taste",
+      "triggers": [
+        "design direction",
+        "design taste",
+        "make it look good",
+        "not templated",
+        "redesign with taste",
+        "visual identity",
+        "aesthetic direction",
+        "design brief",
+        "anti-templated design",
+        "signature element",
+        "сделай красиво",
+        "дизайн-направление",
+        "не как у всех",
+        "переделай со вкусом",
+        "визуальный стиль",
+        "палитра и шрифты",
+        "стиль сайта"
+      ]
+    },
+    {
+      "name": "frontend-perfection",
+      "version": "1.4.1",
+      "category": "code",
+      "description": "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Front-End Checklist-inspired checks: document (doctype/charset/viewport/lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async), images (dimensions/lazy/srcset/format), JS (inline/console), CSS quality (focus/print/dark-mode/font-display), perf hints (preload/preconnect), security (https/noopener), privacy & i18n (consent/RTL). Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
+      "path": "skills/frontend-perfection",
+      "triggers": [
+        "frontend audit",
+        "perfect the layout",
+        "lighthouse check",
+        "make it 100/100/100/100",
+        "100 lighthouse",
+        "audit the page",
+        "fix performance",
+        "check the frontend",
+        "og image",
+        "social share meta",
+        "contrast check",
+        "design tokens",
+        "проверь вёрстку",
+        "довести фронтенд до идеала",
+        "аудит страницы",
+        "контраст цветов",
+        "дизайн-токены",
+        "SEO-мета слой",
+        "ог картинка",
+        "проверка доступности"
+      ]
+    },
+    {
+      "name": "mobile-frontend",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Composite skill for quality mobile-first frontend: codified rules (spacing 4/8-grid, clamp type scale, anchors under fixed headers, safe-area insets, tap-targets >=44px, design tokens) through build to a multi-level verification with per-element debugging - including menu/hamburger and navigation (aria-expanded sync, focus trap, Esc, z-index). Routes aesthetics/contrast/Lighthouse/visual-QA to frontend-design-taste, frontend-perfection, /visual-qa. Triggers: 'mobile frontend', 'адаптив', 'мобильная вёрстка', 'mobile QA', 'меню не работает на телефоне', 'якоря упираются в шапку', 'mobile lighthouse'.",
+      "path": "skills/mobile-frontend",
+      "triggers": [
+        "mobile frontend",
+        "mobile-first",
+        "адаптив",
+        "адаптивная вёрстка",
+        "мобильная вёрстка",
+        "mobile QA",
+        "проверь мобилку",
+        "аудит мобильной вёрстки",
+        "меню не работает на телефоне",
+        "гамбургер баг",
+        "якоря упираются в шапку",
+        "mobile lighthouse",
+        "доведи мобильный фронт"
+      ]
+    },
+    {
+      "name": "github-repo-hygiene",
+      "version": "2.0.0",
+      "category": "repository",
+      "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
+      "path": "skills/github-repo-hygiene",
+      "triggers": [
+        "github hygiene",
+        "repo polish",
+        "github repo docs",
+        "оформить репозиторий",
+        "репозиторий готов к публикации"
+      ]
+    },
+    {
+      "name": "long-running-agent-workflow",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Structured protocol for AI agents across many context windows: a .lra/ atomic feature list (id/priority/acceptance criteria/status) plus a progress log, a session protocol (read context → pick one feature → implement → test → checkpoint) and recovery from broken states. Triggers: 'lra', 'checkpoint', 'feature list', 'long running', 'продолжи работу', 'долгая сессия', 'план фич', 'статус проекта'.",
+      "path": "skills/long-running-agent-workflow",
+      "triggers": [
+        "lra",
+        "checkpoint",
+        "feature list",
+        "long running",
+        "продолжи работу",
+        "долгая сессия",
+        "план фич",
+        "статус проекта"
+      ]
+    },
+    {
+      "name": "mermaid-to-image",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скрипт mermaid_to_image.py читает .mmd (файл или stdin) и отдаёт изображение: приоритет локальному mmdc (mermaid-cli), fallback на публичный API mermaid.ink. Поддерживает выбор формата (svg/png), фоновый цвет, масштаб PNG, движок рендера (auto/mmdc/ink), вывод в файл или stdout. Триггеры: 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'mermaid to image', 'render diagram', 'диаграмма в svg', 'схема в картинку'.",
+      "path": "skills/mermaid-to-image",
+      "triggers": [
+        "mermaid в картинку",
+        "отрендерить диаграмму",
+        ".mmd в png",
+        "mermaid в svg",
+        "render diagram",
+        "диаграмма в svg",
+        "схема в картинку",
+        "mermaid to image"
+      ]
+    },
+    {
+      "name": "pdf-report-builder",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Сборка PDF-отчётов из Markdown без обязательных зависимостей. Скрипт pdf_report_builder.py конвертирует markdown (файл или stdin) в HTML (pandoc или встроенный конвертер) и далее в PDF первым доступным движком: Chromium/Chrome headless --print-to-pdf, weasyprint или pandoc с PDF-движком (pdflatex/tectonic/typst). Поддержка заголовков, списков, таблиц, кода, цитат, ссылок, кастомный заголовок документа. Триггеры: 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'pdf report', 'markdown to pdf', 'отчёт для клиента', 'document to pdf'.",
+      "path": "skills/pdf-report-builder",
+      "triggers": [
+        "отчёт в pdf",
+        "markdown в pdf",
+        "собери отчёт",
+        "сделай отчёт",
+        "pdf report",
+        "markdown to pdf",
+        "отчёт для клиента",
+        "document to pdf"
+      ]
+    },
+    {
+      "name": "plan-skill",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Планирование реализации по superpowers v2: превращает цель в декомпозированный план (HARD-GATE, bite-sized шаги, no placeholders, интерфейсы Produces/Consumes). Пайплайн brainstorming → writing-plans → executing-plans → verification-before-completion с TDD-шагами Expected FAIL→PASS. Скрипт plan_validator.py проверяет план на готовность к исполнению. Скилл только планирует, исполнение — отдельно. Триггеры: 'спланируй', 'составь план', 'plan', 'как реализовать', 'разбей на шаги', 'roadmap', 'план реализации', 'planning', 'design document', 'technical plan', 'write a plan', 'спланируй разработку'.",
+      "path": "skills/plan-skill",
+      "triggers": [
+        "спланируй",
+        "составь план",
+        "plan",
+        "как реализовать",
+        "разбей на шаги",
+        "roadmap",
+        "план реализации",
+        "planning",
+        "design document",
+        "technical plan",
+        "write a plan",
+        "спланируй разработку"
+      ]
+    },
+    {
+      "name": "presentation-craft",
+      "version": "1.1.0",
+      "category": "media",
+      "description": "Router for high-quality presentations: orchestrates docs-product (narrative) + frontend-design-taste (visual direction) + presentation-maker (build/export) + frontend-perfection (UI/UX audit) per stage, with a research-backed quality contract (assertion headlines, design tokens, WCAG contrast, uniqueness gate).",
+      "path": "skills/presentation-craft",
+      "triggers": [
+        "качественная презентация",
+        "сделай стильную презентацию",
+        "презентация с дизайн-системой",
+        "не шаблонные слайды",
+        "presentation craft",
+        "deck router",
+        "качественный дек"
+      ],
+      "files": null,
+      "updated": "2026-08-14"
+    },
+    {
+      "name": "presentation-engineering",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн.",
+      "path": "skills/presentation-engineering",
+      "triggers": [
+        "инженерия презентаций",
+        "presentation engineering",
+        "создай историю",
+        "мироизменяющая презентация",
+        "story engine",
+        "нарративная презентация",
+        "презентация как акт"
+      ]
+    },
+    {
+      "name": "presentation-maker",
+      "version": "4.2.0",
+      "category": "media",
+      "description": "End-to-end presentations from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system with geometric QA + optional extern intern linter), plus strategy presets, PDF export, and a deck-quality audit. One command per stage.",
+      "path": "skills/presentation-maker",
+      "triggers": [
+        "сделай презентацию",
+        "presentation",
+        "слайды",
+        "pptx",
+        "сделай доклад",
+        "собери слайды",
+        "структура слайдов",
+        "аутлайн презентации",
+        "16:9 слайды",
+        "powerpoint",
+        "презентация в powerpoint",
+        "deck outline",
+        "slide structure",
+        "build slides",
+        "outline slides",
+        "convert to pptx",
+        "html slides"
+      ],
+      "files": null,
+      "updated": "2026-08-14"
+    },
+    {
+      "name": "raster-to-svg",
+      "version": "1.1.0",
+      "category": "data",
+      "description": "Конвертация PNG-изображений в векторный SVG. Скрипт raster_to_svg.py читает PNG (файл или stdin) и отдаёт SVG (файл или stdout): движок vtracer-cli (высокое качество цветной трассировки, используется автоматически при наличии) или встроенный stdlib-трассер (контурная трассировка с кривыми Безье / мозаика из примитивов). Поддерживает квантование цветов, прозрачность, дырки, детерминированный вывод, JSON-отчёт, валидацию SVG перед записью. Локальный веб-сервер (raster_to_svg_server.py) с UI (web/index.html + style.css + app.js): drag & drop PNG, превью, редактор палитры (перекраска/слияние цветов), экспорт DXF R12 (слои по цвету) / EPS / PNG, пакетная обработка в один .zip, код SVG, скачивание — конвертация без отправки данных наружу. Дополнительно: конвертеры svg_export.py (SVG → DXF/EPS) и опциональный MCP-сервер raster_to_svg_mcp.py для AI-агентов. Pure Python 3 stdlib (собственный PNG-декодер на zlib), без pip-зависимостей. Триггеры: 'png в svg', 'картинка в svg', 'растровое в векторное', 'векторизация', 'trace image', 'convert png to svg', 'vectorize', 'изображение в вектор', 'трассировка изображения', 'конвертнуть в svg'.",
+      "path": "skills/raster-to-svg",
+      "triggers": [
+        "png в svg",
+        "картинка в svg",
+        "растровое в векторное",
+        "векторизация",
+        "trace image",
+        "convert png to svg",
+        "vectorize",
+        "изображение в вектор",
+        "трассировка изображения",
+        "конвертнуть в svg",
+        "png to svg"
+      ]
+    },
+    {
+      "name": "reddit-karma",
+      "version": "1.0.0",
+      "category": "social",
+      "description": "Набор кармы на Reddit для вашего аккаунта — поиск тем, подготовка ответов, распознавание тона чужих комментариев, шаблоны благодарностей и регулярный забег по ресурсу. Персональный скилл: требует настройки под свой аккаунт (никнейм, сабы, журнал активности). Триггеры: 'reddit', 'карма', 'karma', 'r/LocalLLaMA', 'поднять карму', 'ответить на комментарии', 'забег по reddit', 'оставить след', 'благодарность за ответ'.",
+      "path": "skills/reddit-karma",
+      "triggers": [
+        "reddit",
+        "карма",
+        "karma",
+        "r/LocalLLaMA",
+        "поднять карму",
+        "ответить на комментарии",
+        "забег по reddit",
+        "оставить след",
+        "благодарность за ответ"
+      ]
+    },
+    {
+      "name": "repo-community-files",
+      "version": "1.0.1",
+      "category": "repository",
+      "description": "Create and maintain repository community/legal files: LICENSE, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, SUPPORT.md, issue/PR templates, FUNDING.yml. Template-driven (no scripts). Drives the GitHub Community Standards / health-percentage checklist. Triggers: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'support file', 'issue template', 'pr template', 'funding yml', 'community files', 'repo legal files', 'contributor covenant'.",
+      "path": "skills/repo-community-files",
+      "triggers": [
+        "license file",
+        "code of conduct",
+        "contributing guide",
+        "security policy",
+        "support file",
+        "issue template",
+        "pr template",
+        "funding yml",
+        "community files",
+        "repo legal files",
+        "contributor covenant",
+        "лицензия",
+        "код поведения",
+        "политика безопасности",
+        "шаблоны issue",
+        "шаблон pr",
+        "community файлы",
+        "оформить лицензию"
+      ]
+    },
+    {
+      "name": "repo-metadata-health",
+      "version": "1.0.1",
+      "category": "repository",
+      "description": "Audit and update GitHub repository metadata and community health: description (gh repo edit), topics (PUT /repos/topics, max 20), GitHub Pages link + homepage, community-health percentage via Community Profile API, and a 16-point check checklist. Script: validate_repo.py (gh API + filesystem, auto-detect from git remote). Triggers: 'repo description', 'repo topics', 'github topics', 'github pages', 'community health', 'repo audit', 'repo metadata', 'repo checklist', 'health percentage', 'repo about'.",
+      "path": "skills/repo-metadata-health",
+      "triggers": [
+        "repo description",
+        "repo topics",
+        "github topics",
+        "github pages",
+        "community health",
+        "repo audit",
+        "repo metadata",
+        "repo checklist",
+        "health percentage",
+        "repo about",
+        "описание репозитория",
+        "теги для гитхаба",
+        "аудит репозитория",
+        "метаданные репо",
+        "здоровье репозитория"
+      ]
+    },
+    {
+      "name": "repo-readme-assets",
+      "version": "1.0.1",
+      "category": "repository",
+      "description": "README.md (EN) + localized mirror + local animated SVG header/footer for a repository. Generates assets/header.svg and assets/footer.svg with SMIL animation (4 presets: default/minimal/dark-first/monochrome), zero external services. Scripts: generate_assets.py (deterministic SVG generation), validate_svg.py (SVG rules check), extract_context.py (auto-detect name/desc/stack/colors/username from git remote). Triggers: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'readme visual', 'smil animation', 'repo header', 'readme footer', 'readme generator', 'update readme', 'readme badges'.",
+      "path": "skills/repo-readme-assets",
+      "triggers": [
+        "readme header",
+        "animated svg",
+        "waving svg",
+        "svg banner",
+        "readme assets",
+        "readme visual",
+        "smil animation",
+        "repo header",
+        "readme footer",
+        "readme generator",
+        "update readme",
+        "readme badges",
+        "шапка readme",
+        "оформить readme",
+        "анимированный svg",
+        "баннер для гитхаба",
+        "визуальное оформление репозитория",
+        "пресеты оформления"
+      ]
+    },
+    {
+      "name": "repo-social-preview",
+      "version": "2.0.0",
+      "category": "repository",
+      "description": "Build the repository social preview (og:image) as a hand-crafted hero-section HTML (1280x640, 40pt crop-safe padding, no self-made SVG), rendered to PNG via headless Chrome. Source of truth: the project website's hero section when one exists - re-typeset it clean, never screenshot it. Script: render_social_preview.py (requires headless Chrome/Chromium, no Pillow). Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview', 'соц превью', 'og картинка', 'превью для соцсетей', 'картинка для шеринга', 'ог изображение'.",
+      "path": "skills/repo-social-preview",
+      "triggers": [
+        "social preview",
+        "og image",
+        "og:image",
+        "social share image",
+        "repo preview png",
+        "open graph image",
+        "github social preview",
+        "соц превью",
+        "og картинка",
+        "превью для соцсетей",
+        "картинка для шеринга",
+        "ог изображение"
+      ]
+    },
+    {
+      "name": "secret-scanner",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Static secret/token scanning for codebases and git repos: detects leaked credentials (AWS, GitHub, OpenAI, Anthropic, Stripe, Google, Slack, private keys, JWTs) using the gitleaks v8.30.1 pattern table + Shannon entropy gating + allowlist noise filters. Stdlib-only Python script, offline by design, with JSON/Markdown/text reports, redaction, and a CI exit-code gate. Triggers: 'secret scan', 'проверь секреты', 'leaked token', 'утечка ключей', 'scan for keys', 'hardcoded credentials', 'git secrets check', 'проверить на секреты'.",
+      "path": "skills/secret-scanner",
+      "triggers": [
+        "secret scan",
+        "проверь секреты",
+        "leaked tokens",
+        "get_token",
+        "secret scan",
+        "leaked keys",
+        "scan for secrets",
+        "secret-scanner",
+        "secret scanning",
+        "проверить на утечки",
+        "найди ключи в репозитории",
+        "credential leak check",
+        "tokens in code"
+      ]
+    },
+    {
+      "name": "security-review",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Security review orchestrator for dependency lockfiles and source: lockfile inventory (npm/pnpm/yarn, pip/poetry, cargo, go, gem, maven, gradle, composer), exit-code classifier for 13 security tools (semgrep, bandit, gitleaks, osv-scanner, pip-audit, trufflehog, checkov, trivy, grype, npm audit, cargo audit, dependency-check), and JSON normalizer to unified findings. Stdlib-only offline helper. Triggers: 'security review', 'audit dependencies', 'проверить зависимости', 'semgrep scan', 'lockfile audit', 'osv-scanner', 'vulnerability check', 'уязвимости', 'bandit report'.",
+      "path": "skills/security-review",
+      "triggers": [
+        "security review",
+        "audit dependencies",
+        "lockfile audit",
+        "проверь зависимости",
+        "semgrep scan",
+        "osv-scanner",
+        "bandit findings",
+        "dependency-check",
+        "scan for vulnerabilities",
+        "уязвимости в зависимостях",
+        "security-review",
+        "audit lockfiles",
+        "grype scan",
+        "vulnerability report"
+      ]
+    },
+    {
+      "name": "seo-audit",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Technical SEO audit and health: full technical audit (meta, headings, alt, broken links, sitemap, robots.txt, canonical, URL structure), Core Web Vitals (LCP/CLS/INP, blocking resources, unused CSS/JS, caching), a comprehensive scored report (7 dimensions, weighted 100%), and the autonomous fix agent (P1-P5 prioritization, diff-before-apply). Commands documented in commands/. Triggers: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'.",
+      "path": "skills/seo-audit",
+      "triggers": [
+        "seo audit",
+        "technical audit",
+        "core web vitals",
+        "site speed",
+        "seo report",
+        "seo fix",
+        "технический аудит",
+        "проверка seo",
+        "скорость сайта",
+        "сео аудит"
+      ]
+    },
+    {
+      "name": "seo-content",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Content and on-page SEO: thin content & duplicates, readability (Flesch-Kincaid), E-E-A-T signals; keyword density, cannibalization, LSI, long-tail, intent mapping; H1-H6 hierarchy and keywords in headings; image SEO (alt text, WebP/AVIF, lazy loading, dimensions, srcset). Script seo_content.py: keyword density + top terms (script/style stripped). Triggers: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'заголовки h1', 'оптимизация картинок'.",
+      "path": "skills/seo-content",
+      "triggers": [
+        "seo content",
+        "content audit",
+        "keywords",
+        "keyword research",
+        "seo headings",
+        "image seo",
+        "контент аудит",
+        "ключевые слова",
+        "заголовки h1",
+        "оптимизация картинок"
+      ]
+    },
+    {
+      "name": "seo-crawl",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Crawlability and site structure for SEO: robots.txt, noindex, canonical, redirect chains, sitemap.xml; internal linking, click depth, orphan pages, URL hierarchy, breadcrumbs; competitor comparison (gaps, overlapping keywords, content gaps). Commands documented in commands/. Triggers: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'конкуренты seo', 'краулинг'.",
+      "path": "skills/seo-crawl",
+      "triggers": [
+        "seo crawl",
+        "crawlability",
+        "robots txt",
+        "site structure",
+        "URL structure",
+        "competitor seo",
+        "индексация",
+        "структура сайта",
+        "конкуренты seo",
+        "краулинг"
+      ]
+    },
+    {
+      "name": "seo-schema",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Structured data and meta markup for SEO: JSON-LD schema.org (Product, Article, Organization, Breadcrumb, FAQ — extraction + validation) and title/description/OG/Twitter meta generation (lengths, uniqueness, CTR). Script seo_schema.py: --meta (title/description/OG/canonical/h1/img audit) and --jsonld (extract + validate JSON-LD blocks). Triggers: 'seo schema', 'json-ld', 'schema org', 'structured data', 'meta tags', 'title description', 'разметка', 'jsonld', 'структурированные данные', 'meta теги'.",
+      "path": "skills/seo-schema",
+      "triggers": [
+        "seo schema",
+        "json-ld",
+        "schema org",
+        "structured data",
+        "meta tags",
+        "title description",
+        "разметка",
+        "jsonld",
+        "структурированные данные",
+        "meta теги"
+      ]
+    },
+    {
+      "name": "seo-toolkit",
+      "version": "2.0.0",
+      "category": "media",
+      "description": "DEPRECATED meta-skill. Routes to the four focused SEO skills that replaced it: seo-audit (technical audit + Core Web Vitals + report + fixes), seo-schema (JSON-LD + meta/OG/Twitter), seo-content (content + keywords + headings + images), seo-crawl (crawlability + structure + competitors). Load one of the four directly instead. Triggers: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'.",
+      "path": "skills/seo-toolkit",
+      "triggers": [
+        "seo",
+        "сео",
+        "seo toolkit",
+        "поисковая оптимизация"
+      ]
+    },
+    {
+      "name": "skill-forge",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Meta-skill and design compass for creating new skills and upgrading existing ones with a deliberate push toward being maximally technological, creative, and aesthetically disciplined. Use when the user wants to create a skill from scratch, reshape an existing skill, make a skill more reliable/technological, more creative/varied, or more visually polished — or when a skill feels templated, generic, or mechanically weak.",
+      "path": "skills/skill-forge",
+      "triggers": [
+        "создай скил",
+        "новый скил",
+        "улучши скил",
+        "сделай скил креативнее",
+        "эстетичный скил",
+        "технологичный скил",
+        "скилл выглядит шаблонно",
+        "перепиши SKILL.md",
+        "мета-скилл",
+        "проверь скилл перед релизом",
+        "skill forge",
+        "create a skill",
+        "improve a skill"
+      ]
+    },
+    {
+      "name": "skill-suggester",
+      "version": "1.1.0",
+      "category": "code",
+      "description": "Skill recommendation for AI agents from the agent-skills library. Reads the master catalog index.json (default ~/Projects/agent-skills/index.json, override with env AGENT_SKILLS_INDEX or --index), scores triggers and descriptions, returns top-5 with relevance plus up to 3 combos (chains) for multi-step tasks. Supports ad-hoc apply: prints SKILL.md paths so the agent can read and apply a skill's instructions directly even if it is not installed. Triggers: 'какой скилл использовать', 'подбор скилла', 'подобрать скилл', 'skill suggestion', 'suggest skill', 'рекомендовать скилл', 'recommend a skill', 'which skill', 'подобрать навык', 'какой skill использовать'.",
+      "path": "skills/skill-suggester",
+      "triggers": [
+        "какой скилл использовать",
+        "какой скилл",
+        "подбор скилла",
+        "подобрать скилл",
+        "skill suggestion",
+        "suggest skill",
+        "рекомендовать скилл",
+        "какой навык",
+        "подобрать инструмент",
+        "какой команды",
+        "какой skill",
+        "какой skill использовать",
+        "recommend a skill",
+        "which skill",
+        "подобрать навык"
+      ]
+    },
+    {
+      "name": "sql-helper",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Генерация SQL по текстовому вопросу и DDL-схеме. Скрипт sql_helper.py читает DDL-файл, строит in-memory схему в sqlite3, распознаёт слова вопроса по таблицам/колонкам и собирает SQL по шаблонам интентов (select, join, where, group, order, count, limit). Каждый кандидат проверяется через EXPLAIN, при --explain выводится читаемый план запроса. Триггеры: 'sql helper', 'sql генерация', 'сгенерируй sql', 'explain запроса', 'sql запрос', 'напиши sql', 'formatted sql', 'sql formatting'.",
+      "path": "skills/sql-helper",
+      "triggers": [
+        "sql helper",
+        "sql генерация",
+        "сгенерируй sql",
+        "explain запроса",
+        "sql запрос",
+        "напиши sql",
+        "formatted sql",
+        "sql formatting"
+      ]
+    },
+    {
+      "name": "systematic-debugger",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Систематическая отладка по Iron Law: 4 фазы (воспроизведение → гипотезы → изоляция причины → фикс + регресс-тест), Red Flags (quick-fix, спекуляции, шотган-дебаг), Rationalization Table для отсева гипотез. Скрипт debug_log.py оформляет отчёт по фазам (среда, команда, ожидание, факт, гипотезы 1..3, регресс-план). Скилл не автофиксит: фиксирует причину, предлагает минимальный фикс и тест-регрессию. Триггеры: 'debug', 'отладить', 'почему не работает', 'баг', 'исправить ошибку', 'разобраться почему', 'дебаг', 'debugging', 'fix the bug', 'ошибка в коде', 'не работает как ожидалось'.",
+      "path": "skills/systematic-debugger",
+      "triggers": [
+        "debug",
+        "отладить",
+        "почему не работает",
+        "баг",
+        "исправить ошибку",
+        "разобраться почему",
+        "дебаг",
+        "debugging",
+        "fix the bug",
+        "ошибка в коде",
+        "не работает как ожидалось"
+      ]
+    },
+    {
+      "name": "test-generator",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Генерация pytest-скелетов из Python-модуля по AST с ghostwriter-эвристикой значений аргументов (bool→True/False, int→0/-1/1, str→sample/пустая, list/dict→пустые, Optional→None). Скрипт test_gen.py парсит функции/async-функции через ast, пропускает приватные (_), генерирует @pytest.mark.parametrize с assert-заглушками. Включает референс по генерации тестов на TypeScript (ts-morph, *.test.ts) и Go (table-driven). Триггеры: 'generate tests', 'сгенерируй тесты', 'test skeleton', 'pytest скелет', 'покрытие тестами', 'unit tests для функций', 'тесты на функции', 'создать тесты'.",
+      "path": "skills/test-generator",
+      "triggers": [
+        "generate tests",
+        "сгенерируй тесты",
+        "test skeleton",
+        "pytest скелет",
+        "покрытие тестами",
+        "unit tests для функций",
+        "тесты на функции",
+        "создать тесты"
+      ]
+    },
+    {
+      "name": "test-graphics",
+      "version": "1.2.0",
+      "category": "media",
+      "description": "Генерируй тестовые картинки, фото-заглушки, иконки и аватары для моков, staging и e2e-тестов. Используй, когда нужны placeholder-изображения, даже если пользователь не называет их «тестовыми». Триггеры: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'mock data images', 'сгенерировать фото', 'test data icons', 'заполнить картинками', 'тестовые данные изображения'.",
+      "path": "skills/test-graphics",
+      "triggers": [
+        "test images",
+        "placeholder",
+        "тестовые картинки",
+        "иконки для теста",
+        "заглушки",
+        "mock data images",
+        "сгенерировать фото",
+        "test data icons",
+        "заполнить картинками",
+        "тестовые данные изображения"
+      ]
+    },
+    {
+      "name": "version-bumper",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Suggest the next semantic version and release tag from Conventional Commits in git history. Script bumper.py reads `git log` subjects (fallback: COMMITS env or --commits FILE for testability), classifies commit types (feat->MINOR, fix/perf/refactor->PATCH, `!` or BREAKING CHANGE->MAJOR) and prints latest_tag, next_version, suggested_tag (e.g. v1.5.0) and counts by type. Pure Python 3 stdlib, offline, deterministic output (-s), read-only (never creates tags). Closes the loop for commit-message-writer and changelog-generator. Triggers: 'bump version', 'next version', 'release tag', 'semver', 'поднять версию', 'следующая версия', 'тег релиза', 'версионирование', 'suggest version', 'version bump'.",
+      "path": "skills/version-bumper",
+      "triggers": [
+        "bump version",
+        "next version",
+        "suggest version",
+        "release tag",
+        "semver",
+        "version bump",
+        "поднять версию",
+        "следующая версия",
+        "какой тег релиза",
+        "версионирование",
+        "v bump",
+        "release version"
+      ]
+    },
+    {
+      "name": "video-script-writer",
+      "version": "1.0.0",
+      "category": "media",
+      "description": "Создание структурированного сценария видео из темы: Hook (захват внимания в первые секунды), Body (сцены с тайм-слотами: проблема, основы, разбор, ошибки, совет), CTA (призыв к действию). Скрипт video_script_writer.py генерирует markdown-сценарий с таймкодами, хронометражем (секунды), языком (ru/en), кастомным CTA, выбором полного сценария или outline. Триггеры: 'сценарий видео', 'video script', 'напиши сценарий', 'план видео', 'структура ролика', 'video outline', 'сценарий для youtube', 'план ролика'.",
+      "path": "skills/video-script-writer",
+      "triggers": [
+        "сценарий видео",
+        "video script",
+        "напиши сценарий",
+        "план видео",
+        "структура ролика",
+        "video outline",
+        "сценарий для youtube",
+        "план ролика"
+      ]
+    },
+    {
+      "name": "web-scraper",
+      "version": "1.0.0",
+      "category": "data",
+      "description": "Вежливый скраппинг HTML-страниц в Markdown/JSON. Скрипт scrape.py читает страницу по URL, применяет простой CSS-селектор (tag, tag#id, tag.class) для выбора строк/секций, извлекает текст, ссылки и таблицы и отдаёт результат в Markdown или JSON. Легальные guardrails встроены в код: проверка robots.txt, честный User-Agent, задержка между запросами (по умолчанию 1.0 с), лимит размера страницы 10 МБ. Триггеры: 'web scraping', 'скраппинг', 'скачать данные с сайта', 'парсинг сайта', 'парсер html', 'извлечь данные', 'scrape', 'scraping'.",
+      "path": "skills/web-scraper",
+      "triggers": [
+        "web scraping",
+        "скраппинг",
+        "скачать данные с сайта",
+        "парсинг сайта",
+        "парсер html",
+        "извлечь данные",
+        "scrape",
+        "scraping"
+      ]
+    },
+    {
+      "name": "dsh-runner",
+      "version": "1.0.0",
+      "category": "agents",
+      "description": "Запуск автономных агентных задач через DeepSeek Harness (dsh) — изолированные workspace, JSONL-логи сессий, параллельные прогоны. Скрипт dsh_task.py генерирует конфиг и запускает агента через Python SDK (jsonrpc-agent): задача → workspace → harness.run(prompt) → отчёт с final_response и логом. Режимы: headless-задача одной командой, Web UI (npx @deepseek-ai/dsh web), сравнение моделей. Ключ: DEEPSEEK_API_KEY (env) или автоматически из auth.json opencode (провайдер deepseek), либо OpenAI-совместимый endpoint через DEEPSEEK_BASE_URL. Триггеры: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'агент-исполнитель', 'harness run', 'agent harness', 'запустить dsh', 'автономная задача агентом', 'параллельные агенты', 'сравнить модели на задаче', 'jsonrpc-agent'.",
+      "path": "skills/dsh-runner",
+      "triggers": [
+        "dsh",
+        "deepseek harness",
+        "агент в песочнице",
+        "изолированный агент",
+        "запусти агента на репо",
+        "агентная задача",
+        "агент-исполнитель",
+        "harness run",
+        "agent harness",
+        "запустить dsh",
+        "автономная задача агентом",
+        "параллельные агенты",
+        "сравнить модели на задаче",
+        "jsonrpc-agent"
+      ]
+    },
+    {
+      "name": "skill-feedback",
+      "version": "1.0.0",
+      "category": "meta",
+      "description": "Capture and aggregate usage feedback for Agent Skills so the Skill Quality Gate loop can improve them over time. Use when a skill triggered wrongly, failed to trigger on a relevant request (near-miss), produced a wrong or broken output, or the user manually corrected its result. Writes structured entries to feedback/<skill>/YYYY-MM-DD.jsonl and can summarize them into a report that feeds skill-forge's Optimize-description step. Triggers: 'skill feedback', 'log skill feedback', 'запомни фидбек по скиллу', 'добавь фидбек', 'near-miss trigger', 'покажи фидбек по скиллам'.",
+      "path": "skills/skill-feedback",
+      "triggers": [
+        "skill feedback",
+        "log skill feedback",
+        "capture skill feedback",
+        "near-miss trigger",
+        "manual correction skill",
+        "запомни фидбек по скиллу",
+        "добавь фидбек",
+        "фидбек по скиллу",
+        "покажи накопленный фидбек по скиллам",
+        "этот вывод скилла неверный запиши"
+      ]
+    }
+  ]
 }
