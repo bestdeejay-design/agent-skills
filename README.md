@@ -40,7 +40,7 @@
 
 ## 📦 Skill Catalog
 
-> 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
+> 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations). **When you update this README (skills added/removed, versions or categories changed), also update `docs/SKILLS_CATALOG.md` (section 9) and `index.json` — keep all three in sync.**
 
 **51 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
