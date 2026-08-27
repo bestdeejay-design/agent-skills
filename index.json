@@ -1,7 +1,7 @@
 {
   "name": "agent-skills",
   "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "author": "best",
   "license": "MIT",
   "repository": "https://github.com/bestdeejay-design/agent-skills",
@@ -288,7 +288,7 @@
     },
     {
       "name": "frontend-perfection",
-      "version": "1.4.1",
+      "version": "1.5.0",
       "category": "code",
       "description": "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Front-End Checklist-inspired checks: document (doctype/charset/viewport/lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async), images (dimensions/lazy/srcset/format), JS (inline/console), CSS quality (focus/print/dark-mode/font-display), perf hints (preload/preconnect), security (https/noopener), privacy & i18n (consent/RTL). Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'.",
       "path": "skills/frontend-perfection",
@@ -317,7 +317,7 @@
     },
     {
       "name": "mobile-frontend",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "code",
       "description": "Composite skill for quality mobile-first frontend: codified rules (spacing 4/8-grid, clamp type scale, anchors under fixed headers, safe-area insets, tap-targets >=44px, design tokens) through build to a multi-level verification with per-element debugging - including menu/hamburger and navigation (aria-expanded sync, focus trap, Esc, z-index). Routes aesthetics/contrast/Lighthouse/visual-QA to frontend-design-taste, frontend-perfection, /visual-qa. Triggers: 'mobile frontend', 'адаптив', 'мобильная вёрстка', 'mobile QA', 'меню не работает на телефоне', 'якоря упираются в шапку', 'mobile lighthouse'.",
       "path": "skills/mobile-frontend",
@@ -970,6 +970,65 @@
         "фидбек по скиллу",
         "покажи накопленный фидбек по скиллам",
         "этот вывод скилла неверный запиши"
+      ]
+    },
+    {
+      "name": "frontend-a11y",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Deep accessibility audit of a webpage or static HTML/CSS, mapped to the Front-End-Checklist 'Accessibility' category (95 rules). Specialist complement to frontend-perfection (which covers only ~12 basic a11y rules). Runs offline static checks (Python stdlib) for structure, ARIA validity, headings, landmarks, tables, forms, media tracks, lists, and CSS signals; documents an optional Playwright+axe-core runtime runner for contrast, focus order, live regions, modal traps, and reflow; and lists manual screen-reader checks. Use for 'accessibility audit', 'a11y check', 'wcag', 'axe', 'screen reader test', 'contrast', 'keyboard navigation', 'focus trap', 'aria', 'accessibility testing', 'проверь доступность', or when the /frontend orchestrator or mobile-frontend needs the deep a11y domain.",
+      "path": "skills/frontend-a11y",
+      "triggers": [
+        "accessibility audit",
+        "a11y check",
+        "wcag",
+        "axe",
+        "screen reader test",
+        "contrast",
+        "keyboard navigation",
+        "focus trap",
+        "aria",
+        "accessibility testing",
+        "проверь доступность",
+        "глубокая доступность"
+      ]
+    },
+    {
+      "name": "frontend-performance",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Audit web performance depth beyond Lighthouse: offline network/header + built-asset analysis (HTTP/2-3, text compression, browser caching, HSTS, TTFB, page weight, bundle size, duplicate JS libs, resource hints, service worker, speculation rules, streaming, virtualization) plus a Lighthouse Core Web Vitals runner (LCP/FCP/INP/CLS, critical chains, render-blocking). Maps the Front-End-Checklist Performance category (43 rules). Pure-Python stdlib offline auditor (perf_headers.py) + stable-API Lighthouse runner (audit.js). Invoked by /frontend and mobile-frontend. Triggers: 'performance audit', 'frontend perf', 'lighthouse', 'core web vitals', 'page speed', 'CLS LCP INP', 'optimize loading', 'bundle size', 'проверь производительность', 'perf check'.",
+      "path": "skills/frontend-performance",
+      "triggers": [
+        "performance audit",
+        "frontend perf",
+        "lighthouse",
+        "core web vitals",
+        "page speed",
+        "CLS LCP INP",
+        "optimize loading",
+        "bundle size",
+        "проверь производительность",
+        "perf check"
+      ]
+    },
+    {
+      "name": "frontend-testing",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Scaffold and advise on frontend testing for production readiness, mapped to the Front-End-Checklist 'Testing' category (13 rules). Defines a testing pyramid (unit / integration / E2E / visual / a11y / cross-browser / real-device / perf-budget / mutation / error-monitoring / coverage / mocking / masking / contract) and emits copy-pasteable configs: Playwright (config + smoke specs), jest-axe / @axe-core/playwright a11y, Pact consumer-driven contract tests, and a GitHub Actions perf-budget + coverage CI. Use when the user says 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'perf budget CI', 'accessibility testing in CI', 'contract testing', 'mutation testing', 'настрой тесты фронта', or asks to add tests before a release. This skill scaffolds & advises — it does NOT run the user's full CI; it produces configs they wire in. Composes with frontend-perfection, frontend-a11y, frontend-performance, /frontend.",
+      "path": "skills/frontend-testing",
+      "triggers": [
+        "frontend testing",
+        "test strategy",
+        "e2e",
+        "visual regression",
+        "playwright setup",
+        "perf budget CI",
+        "accessibility testing in CI",
+        "contract testing",
+        "mutation testing",
+        "настрой тесты фронта"
       ]
     }
   ]

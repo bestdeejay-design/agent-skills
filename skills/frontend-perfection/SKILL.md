@@ -1,10 +1,10 @@
 ---
 name: frontend-perfection
-description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset: img-alt/button-name/link-name/label/aria-valid/landmark-unique), back-to-top navigation check, design tokens (zero raw hex outside tokens), adaptive checks, and OG-image generation with a crop-safe layout. Front-End Checklist-inspired checks: document (doctype/charset/viewport/lang/dir/unique-ids/semantics/favicons/manifest/SRI/defer-async), images (dimensions/lazy/srcset/format), JS (inline/console), CSS quality (focus/print/dark-mode/font-display), perf hints (preload/preconnect), security (https/noopener), privacy & i18n (consent/RTL). Runner audit.js uses chrome-launcher + Lighthouse Node API with .default fallback and self-resolved deps; meta_audit.py is pure Python stdlib, offline. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'."
+description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to measurable perfection: real-Chrome Lighthouse >=13 runs (mobile+desktop, no Playwright internals), SEO meta layer, WCAG contrast by computed luminance, heading order, a11y checks (axe-core subset), back-to-top navigation, design tokens (zero raw hex), adaptive checks, OG-image generation, plus Security/Privacy/i18n static coverage (HTTPS/mixed content, CSP, SRI, security headers, noopener, secrets-in-URL, cookie consent, i18n lang/dir/Intl). Front-End Checklist-inspired. Triggers: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'security headers', 'privacy', 'https', 'mixed content', 'CSP', 'SRI', 'i18n', 'internationalization', 'social share meta'."
 license: MIT
 metadata:
   author: best
-  version: 1.4.1
+  version: 1.5.0
 when_to_use: "Use to audit/polish a frontend to measurable perfection: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'. Examples: 'audit my page for Lighthouse 100', 'fix contrast and SEO meta on the homepage'."
 ---
 
@@ -48,7 +48,9 @@ before/after report bound to audit ids.
    ```bash
    python3 scripts/meta_audit.py --html index.html --css main.css css/demo.css --out meta.json
    ```
-   Exit 0 = no violations; exit 1 = violations found.
+    Exit 0 = no violations; exit 1 = violations found.
+  - **Run security_privacy_audit.py** (Security/Privacy/i18n, offline) — see the
+    section below. Exit 0 = no violations; exit 1 = violations found.
 5. **Fix by audit id** — every fix must reference the audit it closes
    (e.g. `audit.js` `color-contrast`, `meta_audit.py` `meta:description`).
 6. **Re-audit until green** on both form factors. Only then call it done.
@@ -127,6 +129,80 @@ Checks and their ids:
 | `security:noopener` | `target="_blank"` links carry `rel="noopener"` |
 | `privacy:consent` | cookie/consent mention present (GDPR / 152-ФЗ) |
 | `nav:back-to-top` | long pages have a way back to top — logo links to top and/or a floating scroll-to-top button (bottom-right, aria-label, appears after scroll) — WCAG 2.4.1 / UX pattern |
+
+## Security, Privacy & i18n (static, offline)
+
+`scripts/security_privacy_audit.py` extends the skill with the Front-End-Checklist
+**Security** (22), **Privacy** (5) and **Internationalization** (5) categories — the
+statically verifiable subset. It is pure Python 3 stdlib (no `requests`/`bs4`/
+`PyYAML`), mirrors `meta_audit.py`'s JSON/exit-code conventions, and emits audit ids
+prefixed `sec:` / `priv:` / `i18n:`. It does NOT duplicate the dedicated sibling
+skills' a11y/perf/testing checks — only Security/Privacy/i18n.
+
+```bash
+python3 scripts/security_privacy_audit.py --html index.html --css main.css --js app.js --out sec.json
+python3 scripts/security_privacy_audit.py --html a.html b.html --json   # stdout JSON
+```
+
+Exit `0` = no violations; `1` = ≥1 violation; `2` = runner error. The report is
+**machine-readable JSON only** on stdout (no human summary) — evidence gate.
+
+| id | severity | what it verifies |
+|---|---|---|
+| `sec:https` | high | no `http://` URLs in href/src (HTTPS everywhere) |
+| `sec:mixed-content` | high | no `http://` in CSS `url()`/`@import`/srcset (mixed content) |
+| `sec:csp` | medium | Content-Security-Policy present (meta or server header) — OWASP A05 |
+| `sec:sri` | high | external `<script>`/`<link>` carry `integrity` (SRI) |
+| `sec:security-headers` | low | HSTS/XCTO/XFO/Referrer-Policy/Permissions-Policy (meta; server-side canonical) |
+| `sec:noopener` | high | `target="_blank"` carries `rel="noopener noreferrer"` |
+| `sec:secrets-in-url` | critical | no tokens/keys in query strings (`token=`/`api_key=`/`secret=`) |
+| `sec:localstorage-secrets` | medium | no secret keys in localStorage/sessionStorage |
+| `sec:csrf` | medium | state-changing (POST) forms carry a CSRF token |
+| `sec:eval` | high | no `eval()`/`new Function()` in JS |
+| `sec:deprecated-crypto` | medium | no md5/sha1 in security context |
+| `sec:external-origins` | low | external script origins enumerated (info) |
+| `sec:internal-leak` | medium | no internal IPs / `.env` references leaked |
+| `sec:cookie-flags` | low | `document.cookie` assignments use `Secure` |
+| `priv:cookie-consent` | medium | cookie/consent banner before non-essential tracking (GDPR / 152-ФЗ) |
+| `priv:tracking-before-consent` | medium | no tracking scripts (GA/GTM/fbq/Metrika) before consent |
+| `priv:privacy-policy` | low | privacy policy link present |
+| `priv:dnt` | low | Do Not Track / Global Privacy Control respected (info/manual) |
+| `priv:third-party-data` | low | no PII sent to third parties without consent (info) |
+| `i18n:lang` | medium | `<html lang>` present, valid BCP 47 |
+| `i18n:dir` | medium | RTL languages (ar/he/fa/ur/yi) set `dir="rtl"` |
+| `i18n:intl-api` | low | `Intl.NumberFormat`/`DateTimeFormat` used for formatting (info) |
+| `i18n:charset-early` | medium | `<meta charset>` within first 1024 bytes |
+| `i18n:hardcoded-locale` | low | no hardcoded locale-specific strings (info) |
+
+### Static subset only — runtime/header checks are manual
+
+`security_privacy_audit.py` covers the **static** surface. The following require a
+live server or manual review and are NOT asserted by the script:
+- Real HTTP response headers (Strict-Transport-Security, X-Content-Type-Options,
+  X-Frame-Options, Referrer-Policy, Permissions-Policy, CSP as a header) — verify
+  with `frontend-performance`'s `perf_headers.py` (`perf:sec:*` / `perf:hsts`) or
+  `curl -I`.
+- Live cookie flags (Secure/HttpOnly/SameSite on `Set-Cookie`) — inspect response
+  headers.
+- CSP violation reporting, real mixed-content in dev proxies, screen-reader/locale
+  correctness.
+
+### Routing to dedicated skills
+
+For depth beyond this skill's baseline, delegate to the dedicated sibling skills
+(same `skills/` dir):
+- **Deep accessibility** (95 rules: tables, landmarks, ARIA values, focus traps,
+  runtime contrast, screen-reader) → `frontend-a11y` (`scripts/a11y_audit.py`
+  static + `a11y_axe.mjs` runtime).
+- **Deep performance** (network/headers, Core Web Vitals, bundle size, HTTP/2,
+  caching, service worker) → `frontend-performance` (`perf_headers.py` offline +
+  `audit.js` Lighthouse).
+- **E2E / visual / contract / a11y-in-CI testing** (Playwright, jest-axe, Pact,
+  perf-budget CI) → `frontend-testing` (scaffolds configs; does not re-audit).
+
+Do NOT re-implement those domains here — this skill owns layout/perf-SEO/tokens +
+the Security/Privacy/i18n static subset above; the siblings own their full
+categories.
 
 ## Design tokens — "colors as constants"
 

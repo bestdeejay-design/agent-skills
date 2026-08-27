@@ -3,7 +3,7 @@ name: mobile-frontend
 description: Composite skill for quality mobile-first frontend — codified rules (spacing, type scale, anchors, safe-area, tap-targets), build, and multi-level verification with per-element menu/nav debugging.
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets, safe-area, nav/menu debugging, mobile Lighthouse. Triggers: 'mobile-first', 'адаптив под телефон', 'проверь мобилку', 'mobile QA', 'гамбургер не работает', 'mobile lighthouse 100'. Example: 'Make this page work great on phones.'"
 ---
 
@@ -26,7 +26,10 @@ when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets
 ## Не подменяйте этим скиллом
 
 - Чистая эстетика/палитра без мобильного контекста → `frontend-design-taste`
-- Только Lighthouse/контраст/a11y аудит десктопа → `frontend-perfection`
+- Глубокий a11y-аудит (ARIA, контраст, фокус-ловушки, скринридер) → `frontend-a11y`
+- Глубокий perf-аудит (заголовки, вес бандла, CWV, resource-hints) → `frontend-performance`
+- E2E/визуальные/контрактные тесты → `frontend-testing`
+- Быстрый Lighthouse/контраст/токены/OG на десктопе → `frontend-perfection`
 - Один конкретный баг в меню → см. `references/debug-menu-nav.md`, но воркфлоу
   всё равно прогоняйте по уровням.
 
@@ -112,7 +115,10 @@ when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets
 | Подзадача | Скилл/команда |
 |---|---|
 | Палитра, шрифты, «вкус», анти-шаблон | `frontend-design-taste` |
-| Lighthouse, контраст, a11y, токены, OG | `frontend-perfection` |
+| Lighthouse, контраст, токены, OG, Security/Privacy/i18n | `frontend-perfection` |
+| Глубокий a11y (ARIA, фокус, скринридер, axe) | `frontend-a11y` |
+| Глубокий perf (заголовки, бандл, CWV, hints) | `frontend-performance` |
+| E2E / визуальная регрессия / контракт API | `frontend-testing` |
 | Скриншот-сверка UI после сборки | `/visual-qa` |
 | Общая оркестрация фронт-задачи | `/frontend` |
 | Баг меню/навигации в одном месте | `references/debug-menu-nav.md` |

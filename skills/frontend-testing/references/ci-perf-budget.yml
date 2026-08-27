@@ -1,0 +1,87 @@
+name: frontend-quality-gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Enforces: coverage thresholds (rule 11), E2E across browsers (rule 3/6/7),
+# performance budgets in CI (rule 8). Mutation (rule 9) and contract (rule 13)
+# are optional jobs you can uncomment.
+
+jobs:
+  unit-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Coverage thresholds are enforced via vitest.config.ts
+      # (test.coverage.thresholds.lines / functions / branches / statements).
+      # vitest exits non-zero when a threshold is missed -> build fails.
+      - name: Unit + integration with coverage gate
+        run: npx vitest run --coverage
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - name: E2E across projects (chromium/firefox/webkit/edge + mobile)
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+
+  perf-budget:
+    runs-on: ubuntu-latest
+    needs: [unit-integration]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Serve and run Lighthouse CI budgets
+        run: |
+          npx serve -s dist -l 3000 &
+          npx lhci autorun --collect.url=http://localhost:3000 --collect.staticDistDir=dist
+        # Budgets are declared in lighthouserc.js, e.g.:
+        # assertions:
+        #   categories:performance: ['error', { minScore: 0.9 }]
+        #   categories:accessibility: ['error', { minScore: 1 }]
+        #   'resource-summary:total:size': ['error', { maxSize: 1500000 }]
+        #   'largest-contentful-paint': ['error', { maxNumericValue: 2500 }]
+        # Breach -> lhci exits non-zero -> build fails.
+      # Alternative to Lighthouse CI: WebPageTest (api.webpagetest.org) with
+      # a budget JSON, or the frontend-performance skill for the fix pass.
+
+  # mutation:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with: { node-version: 20, cache: npm }
+  #     - run: npm ci
+  #     - run: npx stryker run   # needs stryker.conf.json; fails below score
+
+  # contract:
+  #   runs-on: ubuntu-latest
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with: { node-version: 20, cache: npm }
+  #     - run: npm ci
+  #     - run: npx vitest run tests/contract   # generates pacts/
+  #     - run: npx pact publish --dir pacts --broker-base-url $PACT_BROKER  # optional
