@@ -1,0 +1,54 @@
+{
+  "name": "doc-compare",
+  "version": "1.1.0",
+  "description": "Визуальное сравнение markdown-документов бок о бок (side-by-side) с ПОДСВЕТКОЙ ПРАВОК. Скрипт scripts/compare_docs.py режет документы на блоки (заголовки/абзацы/списки/таблицы), через difflib находит изменённые блоки и подсвечивает: слева красным (удалено/изменено), справа зелёным (добавлено/изменено); внутри правок — пословная подсветка (зачёркнутое красным / добавленное зелёным). Кнопка «Только изменения» прячет неизменённые блоки. Поддерживает подтягивание версии из публичного GitHub-репозитория через gh (префикс gh:owner/repo@ref:path) и режим --diff (построчная таблица difflib). Триггеры: 'сравни документы', 'doc compare', 'side-by-side', 'визуально сравнить', 'diff docs', 'сравнение оферт', 'сравнить с опубликованным', 'покажи где правки', 'подсвети изменения'.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "diff",
+    "comparison",
+    "side-by-side",
+    "document-review",
+    "github"
+  ],
+  "triggers": [
+    "doc compare",
+    "compare documents",
+    "compare docs",
+    "compare markdown",
+    "side-by-side comparison",
+    "visual diff markdown",
+    "markdown diff",
+    "diff docs",
+    "сравни документы",
+    "сравнить доки",
+    "визуально сравнить",
+    "сравнение оферт",
+    "сравнить с опубликованным",
+    "покажи где правки",
+    "подсвети изменения",
+    "сравнить две версии",
+    "review document changes",
+    "doc diff tool",
+    "diff оферту"
+  ],
+  "category": "media",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "scripts/compare_docs.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3",
+      "gh"
+    ],
+    "permissions": [
+      "file:read",
+      "file:write"
+    ]
+  },
+  "updated": "2026-08-27"
+}
