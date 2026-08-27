@@ -1,11 +1,11 @@
 ---
 name: frontend-performance
-description: "Audit web performance depth beyond Lighthouse: offline network/header + built-asset analysis (HTTP/2-3, text compression, browser caching, HSTS, TTFB, page weight, bundle size, duplicate JS libs, resource hints, service worker, speculation rules, streaming, virtualization) plus a Lighthouse Core Web Vitals runner (LCP/FCP/INP/CLS, critical chains, render-blocking). Maps the Front-End-Checklist Performance category (43 rules). Pure-Python stdlib offline auditor (perf_headers.py) + stable-API Lighthouse runner (audit.js). Invoked by /frontend and mobile-frontend. Triggers: 'performance audit', 'frontend perf', 'lighthouse', 'core web vitals', 'page speed', 'CLS LCP INP', 'optimize loading', 'bundle size', 'проверь производительность', 'perf check'."
+description: "Audit web performance depth beyond Lighthouse. Use when the user asks for a performance audit, Core Web Vitals (CWV) review, bundle-size analysis, or to optimize loading — including slow LCP/FCP/INP/CLS, a heavy JS/CSS bundle, or missing HTTP/2, text compression, browser caching, HSTS, resource hints, service worker, or speculation rules. Triggers (casual phrasings included): 'performance audit', 'perf audit', 'frontend perf', 'lighthouse', 'core web vitals', 'cwv', 'lcp', 'cls', 'inp', 'page speed', 'bundle size', 'optimize speed', 'why is my site slow', 'make it faster', 'speed up my page', 'check HTTP/2 and compression', 'проверь производительность', 'ускорь сайт'. Two engines: perf_headers.py (pure-Python stdlib, offline — headers, protocol, page weight, duplicate libs, hints, SW, streaming, virtualization) and audit.js (real Chrome + Lighthouse ≥13 — LCP/FCP/INP/CLS, critical chains, render-blocking). Maps Front-End-Checklist Performance (43 rules). Invoked by /frontend and mobile-frontend."
 license: MIT
 metadata:
   author: best
   version: 1.0.0
-when_to_use: "Use to audit/polish web performance depth: 'performance audit', 'frontend perf', 'lighthouse', 'core web vitals', 'page speed', 'CLS LCP INP', 'optimize loading', 'bundle size', 'проверь производительность'. Examples: 'audit my page for LCP/FCP/INP/CLS', 'why is my bundle so big', 'check HTTP/2 and compression headers'."
+when_to_use: "Use to audit/polish web performance depth: performance audit, Core Web Vitals (CWV) review, bundle-size analysis, or to optimize loading — slow LCP/FCP/INP/CLS, heavy JS/CSS bundle, or missing HTTP/2 / text compression / browser caching / HSTS / resource hints / service worker / speculation rules. Examples: 'audit my page for LCP/FCP/INP/CLS', 'why is my bundle so big', 'check HTTP/2 and compression headers', 'why is my site slow', 'make it faster'."
 ---
 
 # frontend-performance
@@ -46,25 +46,37 @@ Two engines, clearly split by what they can measure:
 
 1. **Locate the target** — a live URL, or a built asset directory
    (static HTML/CSS/JS or a bundled SPA).
-2. **Run the offline auditor** (no Chrome needed):
+2. **Run the offline auditor** (no Chrome needed) and capture evidence:
    ```bash
    python3 scripts/perf_headers.py --url https://example.com --out perf-url.json
+   echo "perf_headers.py(url) exit=$?"
    python3 scripts/perf_headers.py --dir ./dist --out perf-dist.json
+   echo "perf_headers.py(dir) exit=$?"
    ```
    Exit `0` = no `fail` checks; `1` = at least one `fail`; `2` = runner error.
-3. **Run the Lighthouse CWV runner** (real Chrome) for the runtime metrics:
+   Keep the `--out` JSON and the printed `fail` lines — they are the evidence
+   that the audit ran and what it found. Paste the exit status and the `fail`
+   summary into the report; do not summarize from memory.
+3. **Run the Lighthouse CWV runner** (real Chrome) for the runtime metrics,
+   capturing evidence the same way:
    ```bash
    node scripts/audit.js --url https://example.com --mobile --out lh-perf.json
+   echo "audit.js(mobile) exit=$?"
    node scripts/audit.js --url https://example.com --desktop --out lh-perf-d.json
+   echo "audit.js(desktop) exit=$?"
    ```
    Default `--threshold 90` on the performance category; exit `0` only when
    performance ≥ threshold. Add `--only performance` (default) or another
-   category if iterating.
+   category if iterating. Record the printed performance score and the failed
+   weighted audits from each `--out` JSON as evidence.
 4. **Fix by audit id** — every fix references the audit it closes
    (`perf:http2-3`, `perf:page-weight`, `perf:lcp`, `perf:js-bundle-size`, …).
 5. **Re-audit until green** on both engines and both form factors.
-6. **Write the before/after report** — input paths, exact commands, real
-   output, interpretation, and what was deliberately NOT done.
+6. **Write the before/after report** — input paths, exact commands, the
+   captured exit statuses (`0`/`1`/`2`) for every engine run, the real `fail`
+   lines and scores from each `--out` JSON, interpretation, and what was
+   deliberately NOT done. Evidence over assertion: the report must show the
+   command, its exit status, and the output — not a paraphrase.
 
 ## audit.js — Lighthouse runner (stable API)
 

@@ -1,11 +1,10 @@
 ---
 name: frontend-testing
-description: "Scaffold and advise on frontend testing for production readiness, mapped to the Front-End-Checklist 'Testing' category (13 rules). Defines a testing pyramid (unit / integration / E2E / visual / a11y / cross-browser / real-device / perf-budget / mutation / error-monitoring / coverage / mocking / contract) and emits copy-pasteable configs: Playwright (config + smoke specs), jest-axe / @axe-core/playwright a11y, Pact consumer-driven contract tests, and a GitHub Actions perf-budget + coverage CI. Use when the user says 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'perf budget CI', 'accessibility testing in CI', 'contract testing', 'mutation testing', 'настрой тесты фронта', or asks to add tests before a release. This skill scaffolds & advises — it does NOT run the user's full CI; it produces configs they wire in. Composes with frontend-perfection, frontend-a11y, frontend-performance, /frontend."
+description: "Scaffold and advise on frontend testing for production readiness, mapped to the Front-End-Checklist Testing category (13 rules). Defines a testing pyramid (unit, integration, E2E, visual, a11y, cross-browser, real-device, perf-budget, mutation, error-monitoring, coverage, mocking, contract) and emits copy-pasteable configs: Playwright config + smoke specs, axe a11y (jest-axe / @axe-core/playwright), Pact contract tests, and a GitHub Actions perf-budget + coverage CI. Use when the user asks for 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'playwright test', 'unit test', 'integration test', 'write tests', 'test generation', 'test coverage', 'regression test', 'perf budget CI', 'accessibility testing in CI', 'contract testing', 'mutation testing', 'настрой тесты фронта', or wants tests before a release. Scaffolds & advises only — does not run your full CI; you wire the configs in. Composes with frontend-perfection, frontend-a11y, frontend-performance, /frontend."
 license: MIT
 metadata:
   author: best
   version: 1.0.0
-when_to_use: "Use to scaffold frontend test strategy & configs: 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'perf budget CI', 'accessibility testing in CI', 'contract testing', 'mutation testing', 'настрой тесты фронта'. Invoked by /frontend and during pre-release handoffs."
 ---
 
 # frontend-testing
@@ -16,14 +15,6 @@ audit a *built* site; they run ZERO tests. This skill closes that gap: it tells
 you *what* to test, *which* layer owns each concern, and *hands you the config*
 to wire into CI. It is a process/knowledge + scaffolding skill, not a runtime
 audit.
-
-## When to use
-
-- User asks for a "test strategy", "e2e setup", "visual regression", "playwright
-  setup", "perf budget CI", "accessibility testing in CI", "contract testing",
-  "mutation testing", or "настрой тесты фронта".
-- Pre-release handoff: the build is green on audits but has no test safety net.
-- The `/frontend` orchestrator delegates the QA/testing domain here.
 
 ## The 13 Testing rules → pyramid layer
 
@@ -110,12 +101,25 @@ Do NOT reimplement perf/security/a11y audits here — point to the siblings.
 1. **Decide the layers you need.** Start from the pyramid; for a typical SPA:
    unit (Vitest) + integration (Vitest + MSW) + E2E (Playwright) + a11y gate +
    perf budget in CI. Add visual/contract/mutation when the cost is justified.
-2. **Copy the configs** from `references/` into the project:
-   - `playwright.config.ts` → project root (or `e2e/`).
-   - `e2e-smoke.spec.ts` → `e2e/` (rename to your journeys).
-   - `a11y-test.md` snippet → fold into an existing spec or a dedicated `e2e/a11y.spec.ts`.
-   - `ci-perf-budget.yml` → `.github/workflows/perf-budget.yml`.
-   - `contract-test.md` → `tests/contract/` (Pact consumer).
+2. **Scaffold the configs** into the project with the bundled script — it copies
+   the reference files deterministically and prints exactly what it wrote, so the
+   run is *evidence* (a config that was never placed is a draft, not a scaffold):
+   ```bash
+   python3 scripts/scaffold.py --target /path/to/project --layers playwright,e2e,a11y,ci
+   # expected: one "copied references/<file> -> <dest>" line per layer;
+   #           "Scaffolded N file(s) into <target>"; exit 0
+   #           exit 2 if --target does not exist; exit 1 if a source is missing
+   ```
+   The script maps each layer to its reference file and destination (the reference
+   files stay the source of truth if you prefer to place them by hand):
+   - `playwright` → `references/playwright.config.ts` → `playwright.config.ts`
+   - `e2e` → `references/e2e-smoke.spec.ts` → `e2e/e2e-smoke.spec.ts`
+   - `a11y` → `references/a11y-test.md` → `e2e/a11y-test.md`
+   - `visual` → `references/visual-regression.md` → `e2e/visual-regression.md`
+   - `ci` → `references/ci-perf-budget.yml` → `.github/workflows/perf-budget.yml`
+   - `contract` → `references/contract-test.md` → `tests/contract/contract-test.md`
+
+   Copy only the layers you need; pass `--layers` to pick them.
 3. **Install only what you use.** Baseline (E2E + a11y + unit):
    ```bash
    npm i -D @playwright/test @axe-core/playwright vitest @vitest/coverage-v8 msw

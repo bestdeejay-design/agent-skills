@@ -1,11 +1,11 @@
 {
   "name": "frontend-performance",
   "version": "1.0.0",
-  "description": "Web performance depth beyond Lighthouse: offline network/header + built-asset analysis (HTTP/2-3, text compression, browser caching, HSTS, TTFB, page weight, bundle size, duplicate JS libs, resource hints, service worker, speculation rules, streaming, virtualization) plus a Lighthouse Core Web Vitals runner (LCP/FCP/INP/CLS, critical chains, render-blocking). Maps the Front-End-Checklist Performance category (43 rules).",
+  "description": "Audit web performance depth beyond Lighthouse. Use when the user asks for a performance audit, Core Web Vitals (CWV) review, bundle-size analysis, or to optimize loading — including slow LCP/FCP/INP/CLS, a heavy JS/CSS bundle, or missing HTTP/2, text compression, browser caching, HSTS, resource hints, service worker, or speculation rules. Triggers (casual phrasings included): 'performance audit', 'perf audit', 'frontend perf', 'lighthouse', 'core web vitals', 'cwv', 'lcp', 'cls', 'inp', 'page speed', 'bundle size', 'optimize speed', 'why is my site slow', 'make it faster', 'speed up my page', 'check HTTP/2 and compression', 'проверь производительность', 'ускорь сайт'. Two engines: perf_headers.py (pure-Python stdlib, offline — headers, protocol, page weight, duplicate libs, hints, SW, streaming, virtualization) and audit.js (real Chrome + Lighthouse ≥13 — LCP/FCP/INP/CLS, critical chains, render-blocking). Maps Front-End-Checklist Performance (43 rules). Invoked by /frontend and mobile-frontend.",
   "author": "best",
   "license": "MIT",
   "keywords": ["performance", "lighthouse", "core-web-vitals", "page-speed", "bundle-size", "http-headers", "caching"],
-  "triggers": ["performance audit", "frontend perf", "lighthouse", "core web vitals", "page speed", "CLS LCP INP", "optimize loading", "bundle size", "проверь производительность", "perf check"],
+  "triggers": ["performance audit", "perf audit", "frontend perf", "lighthouse", "core web vitals", "cwv", "lcp", "cls", "inp", "page speed", "bundle size", "optimize speed", "why is my site slow", "make it faster", "speed up my page", "check HTTP/2 and compression", "проверь производительность", "ускорь сайт"],
   "category": "code",
   "entrypoint": "SKILL.md",
   "files": ["SKILL.md", "skill.json", "scripts/perf_headers.py", "scripts/audit.js", "references/canonical-patterns.md"],

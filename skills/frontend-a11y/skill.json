@@ -1,11 +1,11 @@
 {
   "name": "frontend-a11y",
   "version": "1.0.0",
-  "description": "Deep accessibility audit mapped to the Front-End-Checklist Accessibility category (95 rules). Offline Python stdlib static checks (structure, ARIA, headings, landmarks, tables, forms, media tracks, lists, CSS signals) plus a documented Playwright+axe-core runtime runner (contrast, focus order, live regions, modal traps, reflow) and manual screen-reader checks. Complements frontend-perfection, which covers only basic a11y.",
+  "description": "Deep accessibility (a11y) audit of a webpage or static HTML/CSS, mapped to the full Front-End-Checklist Accessibility category (95 rules) — far beyond the ~12 basic rules in frontend-perfection. Runs offline static checks (Python stdlib, no browser/network) for structure, ARIA validity, headings, landmarks, tables, forms, media tracks, lists, and CSS signals; documents an optional Playwright+axe-core runtime runner for computed contrast, focus order, live regions, modal traps, and reflow; and lists manual screen-reader checks. Use it to audit, fix, or verify accessibility: 'accessibility audit', 'a11y check', 'wcag', 'wcag audit', 'wcag compliance', 'axe', 'contrast check', 'aria', 'screen reader test', 'keyboard navigation', 'keyboard trap', 'focus trap', 'accessibility testing', 'make it accessible', 'check this page for a11y', 'проверь доступность', 'глубокая доступность'. Also triggered when the /frontend orchestrator or mobile-frontend needs the deep a11y domain.",
   "author": "best",
   "license": "MIT",
   "keywords": ["accessibility", "a11y", "wcag", "axe", "aria", "contrast", "keyboard-navigation", "screen-reader", "focus-trap"],
-  "triggers": ["accessibility audit", "a11y check", "wcag", "axe", "screen reader test", "contrast", "keyboard navigation", "focus trap", "aria", "accessibility testing", "проверь доступность", "глубокая доступность"],
+  "triggers": ["accessibility audit", "a11y check", "a11y", "wcag", "wcag audit", "wcag compliance", "axe", "contrast check", "aria", "screen reader test", "keyboard navigation", "keyboard trap", "focus trap", "accessibility testing", "make it accessible", "check this page for a11y", "accessibility check", "проверь доступность", "глубокая доступность"],
   "category": "code",
   "entrypoint": "SKILL.md",
   "files": ["SKILL.md", "skill.json", "scripts/a11y_audit.py", "scripts/a11y_axe.mjs"],

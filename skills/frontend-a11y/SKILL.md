@@ -1,11 +1,11 @@
 ---
 name: frontend-a11y
-description: "Deep accessibility audit of a webpage or static HTML/CSS, mapped to the Front-End-Checklist 'Accessibility' category (95 rules). Specialist complement to frontend-perfection (which covers only ~12 basic a11y rules). Runs offline static checks (Python stdlib) for structure, ARIA validity, headings, landmarks, tables, forms, media tracks, lists, and CSS signals; documents an optional Playwright+axe-core runtime runner for contrast, focus order, live regions, modal traps, and reflow; and lists manual screen-reader checks. Use for 'accessibility audit', 'a11y check', 'wcag', 'axe', 'screen reader test', 'contrast', 'keyboard navigation', 'focus trap', 'aria', 'accessibility testing', 'проверь доступность', or when the /frontend orchestrator or mobile-frontend needs the deep a11y domain."
+description: "Deep accessibility (a11y) audit of a webpage or static HTML/CSS, mapped to the full Front-End-Checklist Accessibility category (95 rules) — far beyond the ~12 basic rules in frontend-perfection. Runs offline static checks (Python stdlib, no browser/network) for structure, ARIA validity, headings, landmarks, tables, forms, media tracks, lists, and CSS signals; documents an optional Playwright+axe-core runtime runner for computed contrast, focus order, live regions, modal traps, and reflow; and lists manual screen-reader checks. Use it to audit, fix, or verify accessibility: 'accessibility audit', 'a11y check', 'wcag', 'wcag audit', 'wcag compliance', 'axe', 'contrast check', 'aria', 'screen reader test', 'keyboard navigation', 'keyboard trap', 'focus trap', 'accessibility testing', 'make it accessible', 'check this page for a11y', 'проверь доступность', 'глубокая доступность'. Also triggered when the /frontend orchestrator or mobile-frontend needs the deep a11y domain."
 license: MIT
 metadata:
   author: best
   version: 1.0.0
-when_to_use: "Use to audit/polish accessibility deeply: 'accessibility audit', 'a11y check', 'wcag', 'axe', 'screen reader test', 'contrast', 'keyboard navigation', 'focus trap', 'aria', 'accessibility testing', 'проверь доступность'. Examples: 'audit this page for WCAG violations', 'check the modal for keyboard traps', 'run axe on the homepage'."
+when_to_use: "Use to audit/polish accessibility deeply: 'accessibility audit', 'a11y check', 'wcag', 'wcag audit', 'wcag compliance', 'axe', 'screen reader test', 'contrast check', 'keyboard navigation', 'keyboard trap', 'focus trap', 'aria', 'accessibility testing', 'make it accessible', 'проверь доступность', 'глубокая доступность'. Examples: 'audit this page for WCAG violations', 'check the modal for keyboard traps', 'run axe on the homepage', 'is this contrast accessible'."
 ---
 
 # frontend-a11y
@@ -49,21 +49,33 @@ right time.
 
 ## Workflow
 
+Capture evidence at every step — run the scripts and paste the real command, its
+exit status, and the relevant JSON rows into the report. Assertions without the
+script output are not acceptable, because the audit ids are the only contract
+that proves a fix actually closed a violation.
+
 1. **Locate the target** — static `index.html` (+ CSS) or a served URL.
-2. **Run the static audit** (always, offline):
+2. **Run the static audit** (always, offline) and record its exit status:
    ```bash
    python3 scripts/a11y_audit.py --html index.html --css main.css css/demo.css --out a11y-static.json
+   echo "exit=$?"
    ```
-   Exit `0` = no violations, `1` = violations, `2` = runner error.
-3. **Run the runtime audit** (optional, needs deps) on a served URL:
+   Exit `0` = no violations, `1` = violations, `2` = runner error. Paste the
+   `exit=` line and the violation summary into the report as evidence.
+3. **Run the runtime audit** (optional, needs deps) on a served URL, again
+   recording the exit status:
    ```bash
    npm i playwright axe-core && npx playwright install chromium
    node scripts/a11y_axe.mjs --url http://localhost:8377/ --out a11y-axe.json
+   echo "exit=$?"
    ```
+   Paste the `exit=` line and the `FAIL`/`manual` rows so the runtime findings
+   are verifiable, not assumed.
 4. **Fix by audit id** — every fix references the id it closes
    (`a11y:img-alt`, `a11y:landmark-main`, `a11y:axe:color-contrast`, …).
 5. **Re-audit until green** on static; resolve runtime `FAIL` rows; record
-   `manual` rows as verified-or-pending in the report.
+   `manual` rows as verified-or-pending in the report. Re-run the same command
+   and show the new `exit=` so the improvement is demonstrable.
 6. **Write the before/after report** (see convention below): input paths, exact
    commands, real output, interpretation, and what was deliberately NOT done.
 
@@ -232,15 +244,17 @@ Not done: computed-contrast (owned by frontend-perfection), design tokens.
 ## Constraints / non-goals
 
 - `a11y_audit.py` is offline and stdlib-only — no PyYAML, no `requests`, no
-  network, no browser. It MUST stay runnable with only `python3`.
+  network, no browser. Keep it runnable with only `python3` so the audit works
+  in any CI or offline environment without extra installs.
 - Computed color contrast and design-token hex checks are **out of scope** here
-  (owned by `frontend-perfection` and `a11y_axe.mjs`). Do not add them to the
-  static script.
+  (owned by `frontend-perfection` and `a11y_axe.mjs`). Don't add them to the
+  static script, or the two skills will duplicate and drift apart.
 - `a11y_axe.mjs` requires `npm i playwright axe-core` + `npx playwright install
   chromium`; it is documented, not executed, at build time.
-- Do NOT depend on the external Front-End-Checklist MCP server; the 95-rule
-  mapping is embedded above.
-- Fix at the root (real semantics), never by hiding audits with `aria-hidden`
-  spray or `tabindex=-1` hacks.
-- Manual rules are recorded, never silently dropped — they appear as
-  `severity: manual` in the report.
+- Don't depend on the external Front-End-Checklist MCP server; the 95-rule
+  mapping is embedded above so the skill runs without network or that dependency.
+- Fix at the root (real semantics). Avoid hiding audits with `aria-hidden`
+  spray or `tabindex=-1` hacks — those mask the violation instead of resolving
+  it, so the next audit still fails and users are still blocked.
+- Record manual rules; never silently drop them, so they appear as
+  `severity: manual` in the report and get a human confirmation.
