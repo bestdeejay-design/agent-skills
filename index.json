@@ -1,7 +1,7 @@
 {
   "name": "agent-skills",
   "description": "Коллекция скиллов для AI-агентов (Sisyphus, opencode, и др.). Каждый скилл — автономная инструкция с манифестом skill.json для установки и использования.",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "author": "best",
   "license": "MIT",
   "repository": "https://github.com/bestdeejay-design/agent-skills",

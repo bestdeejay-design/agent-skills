@@ -34,7 +34,7 @@
 2. Распакуйте (двойной клик), перетащите `R2S.app` на Рабочий стол или в Программы
 3. Двойной клик по `R2S.app` — он запускает локальный сервер в фоне и открывает браузер
 
-Бандл самодостаточен: `scripts/` и `web/` лежат внутри приложения, поэтому оно работает из любого места. Остановить сервер — кнопкой **⏻ Остановить сервер** в шапке веб-интерфейса.
+Бандл самодостаточен: `scripts/` и `examples/web/` лежат внутри приложения, поэтому оно работает из любого места. Остановить сервер — кнопкой **⏻ Остановить сервер** в шапке веб-интерфейса.
 
 ### macOS / Linux — из исходников
 
@@ -80,7 +80,7 @@ python3 scripts/raster_to_svg.py -i photo.png -o out.svg --engine vtracer --json
 | Плоская графика | компактно, точно | быстро, чуть тяжелее |
 | Флаги CLI | `--smooth --corner --seam --cell --shape` | `--vtracer-preset --vtracer-mode --vtracer-color-precision --vtracer-filter-speckle` |
 
-Полный бенчмарк — в `BENCHMARK.md` (входит в дистрибутив `agent-skills`).
+Полный бенчмарк — в `references/BENCHMARK.md` (входит в дистрибутив `agent-skills`).
 
 ## Структура репозитория
 
@@ -93,7 +93,7 @@ raster-to-svg/
 │   ├── raster_to_svg_server.py   # локальный веб-сервер
 │   ├── svg_export.py             # конвертеры SVG → DXF R12 / EPS
 │   └── raster_to_svg_mcp.py      # опциональный MCP-сервер (AI-агенты)
-├── web/                # UI: index.html + style.css + app.js (vanilla)
+├── examples/web/                # UI: index.html + style.css + app.js (vanilla)
 ├── evals/             # фикстуры + пиксельный QA + генератор
 └── docs/              # скриншоты
 ```

@@ -12,7 +12,7 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 51](https://img.shields.io/badge/Skills-51-blue.svg)](index.json)
+[![Skills: 51](https://img.shields.io/badge/Skills-52-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Оглавление</b></summary>
 
-- [📦 Каталог скиллов](#sec-catalog) — 51 скиллов · 6 категорий
+- [📦 Каталог скиллов](#sec-catalog) — 52 скиллов · 6 категорий
 - [🎬 Showcase](#sec-showcase) — примеры на реальных проектах
 - [🚀 Установка](#sec-installation)
 - [📁 Структура репозитория](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Карта экосистемы: см. [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — каталог экосистемы AI agent skills (официальные вендоры, форматы, стандарты, ~4.85M файлов SKILL.md, пробелы и рекомендации). **При обновлении этого README (добавление/удаление скиллов, смена версий или категорий) обновляйте также `docs/SKILLS_CATALOG.md` (раздел 9) и `index.json` — держите все три места синхронно.**
 
-**51 скиллов · 6 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
+**52 скиллов · 6 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
 
 | Категория | Скиллов | Что входит |
 |-----------|:-------:|------------|
@@ -218,7 +218,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: валидация манифестов
-└── skills/                    # 51 скиллов, по папке на каждый
+└── skills/                    # 52 скиллов, по папке на каждый
     └── <skill-name>/
         ├── SKILL.md           # Инструкция для агента (обязательно)
         ├── skill.json         # Манифест: name, version, triggers, files (обязательно)

@@ -28,7 +28,7 @@ import sys
 # --------------------------------------------------------------------------- #
 
 ALLOWED_CATEGORIES = {"code", "repository", "data", "media", "social", "agents"}
-ALLOWED_SUBDIRS = {"references", "scripts", "assets", "templates", "examples", "commands"}
+ALLOWED_SUBDIRS = {"references", "scripts", "assets", "templates", "examples", "commands", "evals"}
 ALLOWED_TOPLEVEL_FILES = {
     "SKILL.md",
     "skill.json",

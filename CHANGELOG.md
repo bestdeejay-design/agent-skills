@@ -7,6 +7,21 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [1.11.0] - 2026-08-27
+
+### Added
+- **doc-compare** — новый skill (категория media, v1.1.0): визуальное сравнение markdown-документов бок о бок с подсветкой правок, подтягивание версии из публичного GitHub через `gh:`, режим `--diff`.
+
+### Changed
+- 4 code-скилла (frontend-a11y, frontend-performance, frontend-testing, skill-feedback) прошли retro-ревью через `skill-forge`; выровнены описания и структура под общий стандарт.
+- presentation-engineering и presentation-maker: крупные справочные секции вынесены в `references/` (SKILL.md <500 строк / <20k символов).
+- raster-to-svg: `BENCHMARK.md` → `references/`, `web/` → `examples/web/`, поддиректория `evals` добавлена в allow-list валидатора.
+
+### Fixed
+- Устранены все 5 предупреждений `validate_skills.py` (layout/размер SKILL.md, неожиданные поддиректории/файлы).
+- Синхронизированы счётчики скиллов (51 → 52) во всех доках, бейджах и SVG-хедерах.
+
+
 ## [1.6.0] - 2026-08-09
 
 ### Added

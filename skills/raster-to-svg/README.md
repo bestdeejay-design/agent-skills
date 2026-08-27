@@ -34,7 +34,7 @@ You need **Python 3 only** — the tracer is pure stdlib, no `pip install` requi
 2. Unzip it (double-click), drag `R2S.app` to your Desktop or Applications
 3. Double-click `R2S.app` — it starts the local server in the background and opens the browser
 
-The bundle is self-contained: `scripts/` + `web/` live inside the app, so it works from any location. To stop the server use the **⏻ Остановить сервер** button in the web UI header.
+The bundle is self-contained: `scripts/` + `examples/web/` live inside the app, so it works from any location. To stop the server use the **⏻ Остановить сервер** button in the web UI header.
 
 ### macOS / Linux — from source
 
@@ -80,7 +80,7 @@ python3 scripts/raster_to_svg.py -i photo.png -o out.svg --engine vtracer --json
 | Flat graphics | compact, exact | fast, slightly heavier |
 | CLI flags | `--smooth --corner --seam --cell --shape` | `--vtracer-preset --vtracer-mode --vtracer-color-precision --vtracer-filter-speckle` |
 
-Full benchmark: `BENCHMARK.md` (included in the `agent-skills` distribution).
+Full benchmark: `references/BENCHMARK.md` (included in the `agent-skills` distribution).
 
 ## Repository layout
 
@@ -93,7 +93,7 @@ raster-to-svg/
 │   ├── raster_to_svg_server.py   # local web server
 │   ├── svg_export.py             # SVG → DXF R12 / EPS converters
 │   └── raster_to_svg_mcp.py      # optional MCP server (AI agents)
-├── web/                # UI: index.html + style.css + app.js (vanilla)
+├── examples/web/                # UI: index.html + style.css + app.js (vanilla)
 ├── evals/             # fixtures + pixel QA + generator
 └── docs/              # screenshots
 ```

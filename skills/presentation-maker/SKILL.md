@@ -415,8 +415,4 @@ mechanically by `deck_audit.py`:
 
 ## References
 
-- `references/strategy.md` — goal → arc/mood/density/layouts table + usage.
-- `references/design-system.md` — full anti-template design system (5.x moods, tokens).
-- `references/product-designer.md` — narrative arcs and product-design module.
-- `references/pdf.md` — PDF export mechanics.
-- `references/audit.md` — deck_audit check contract and fixes.
+Полный список справочных файлов — в [`references/references.md`](references/references.md).

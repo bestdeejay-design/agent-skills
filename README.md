@@ -12,7 +12,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 51](https://img.shields.io/badge/Skills-51-blue.svg)](index.json)
+[![Skills: 51](https://img.shields.io/badge/Skills-52-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 51 skills · 6 categories
+- [📦 Skill Catalog](#sec-catalog) — 52 skills · 6 categories
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations). **When you update this README (skills added/removed, versions or categories changed), also update `docs/SKILLS_CATALOG.md` (section 9) and `index.json` — keep all three in sync.**
 
-**51 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**52 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
@@ -218,7 +218,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: manifest validation
-└── skills/                    # 51 skills, one folder each
+└── skills/                    # 52 skills, one folder each
     └── <skill-name>/
         ├── SKILL.md           # Agent instruction (required)
         ├── skill.json         # Manifest: name, version, triggers, files (required)
