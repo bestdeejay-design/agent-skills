@@ -1,0 +1,14 @@
+{
+  "name": "skill-feedback",
+  "version": "1.0.0",
+  "description": "Capture and aggregate usage feedback for Agent Skills so the Skill Quality Gate loop can improve them over time. Use when a skill triggered wrongly, failed to trigger on a relevant request (near-miss), produced a wrong or broken output, or the user manually corrected its result. Writes structured entries to feedback/<skill>/YYYY-MM-DD.jsonl and can summarize them into a report that feeds skill-forge's Optimize-description step. Requires Python 3 stdlib only.",
+  "author": "bestdeejay-design",
+  "license": "MIT",
+  "keywords": ["feedback", "skill-quality", "meta", "learning-loop", "near-miss"],
+  "triggers": ["skill feedback", "log skill feedback", "capture skill feedback", "near-miss trigger", "manual correction skill", "запомни фидбек по скиллу", "добавь фидбек", "фидбек по скиллу", "покажи накопленный фидбек по скиллам", "этот вывод скилла неверный запиши"],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "scripts/feedback.py"],
+  "requirements": {"tools": ["python3"], "permissions": ["file:read", "file:write"]},
+  "updated": "2026-08-27"
+}

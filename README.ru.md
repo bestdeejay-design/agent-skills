@@ -12,19 +12,19 @@
 > Автономные инструкции (skills) для AI-агентов: Sisyphus, opencode, и совместимые. Каждый скилл — папка с `SKILL.md` (инструкция) и `skill.json` (манифест для установки/поиска).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 46](https://img.shields.io/badge/Skills-46-blue.svg)](index.json)
+[![Skills: 51](https://img.shields.io/badge/Skills-51-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
-[![code: 15](https://img.shields.io/badge/code-15-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 12](https://img.shields.io/badge/media-12-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
+[![code: 20](https://img.shields.io/badge/code-20-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
 <details>
 <summary><b>📑 Оглавление</b></summary>
 
-- [📦 Каталог скиллов](#sec-catalog) — 46 скиллов · 6 категорий
+- [📦 Каталог скиллов](#sec-catalog) — 51 скиллов · 6 категорий
 - [🎬 Showcase](#sec-showcase) — примеры на реальных проектах
 - [🚀 Установка](#sec-installation)
 - [📁 Структура репозитория](#sec-structure)
@@ -42,20 +42,20 @@
 
 > 📚 Карта экосистемы: см. [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — каталог экосистемы AI agent skills (официальные вендоры, форматы, стандарты, ~4.85M файлов SKILL.md, пробелы и рекомендации).
 
-**46 скиллов · 6 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
+**51 скиллов · 6 категорий.** Выбери категорию ниже; триггеры и полные метаданные — в [`index.json`](index.json).
 
 | Категория | Скиллов | Что входит |
 |-----------|:-------:|------------|
-| 💻 [Разработка и код](#cat-code) | 15 | коммиты, ревью, отладка, тесты, покрытие, безопасность, планирование, фронтенд, создание скиллов |
+| 💻 [Разработка и код](#cat-code) | 20 | коммиты, ревью, отладка, тесты, покрытие, безопасность, планирование, фронтенд, создание скиллов |
 | 🤖 [Агенты](#cat-agents) | 1 | автономные агентные задачи (DeepSeek Harness) |
 | 📊 [Данные и диаграммы](#cat-data) | 7 | профилирование, SQL, диаграммы, скраппинг |
-| 🎬 [Контент и медиа](#cat-media) | 12 | слайды, видео, PDF-отчёты, SEO, тестовая графика |
+| 🎬 [Контент и медиа](#cat-media) | 13 | слайды, видео, PDF-отчёты, SEO, тестовая графика |
 | 🏗️ [Репозиторий и документация](#cat-repository) | 10 | README, community-файлы, метаданные, документация, API-доки |
 | 💬 [Соцсети](#cat-social) | 1 | Reddit |
 
 <a id="cat-code"></a>
 
-### 💻 Разработка и код · `code` · 15
+### 💻 Разработка и код · `code` · 20
 
 | Скилл | Назначение |
 |-------|------------|
@@ -72,7 +72,12 @@
 | [**skill-suggester**](skills/skill-suggester/SKILL.md) | Подбор нужного скилла из библиотеки под задачу: скоринг триггеров/описаний в `index.json`, топ-5 + комбо до 3 скиллов. |
 | [**skill-forge**](skills/skill-forge/SKILL.md) | Мета-скилл и дизайн-компас для создания новых скиллов и апгрейда существующих: максимально технологичные, креативные, эстетически дисциплинированные; гейт против шаблонности. |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | Сверка контракта API с OpenAPI 3.x (офлайн по манифесту + живые HTTP-пробы); JSON-отчёт, exit 0/1/2. |
-| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Аудит и доводка фронтенда до проверяемого идеала: Lighthouse ≥13 в реальном Chrome (mobile+desktop), офлайн-аудит мета/SEO/WCAG/токенов, генерация OG-изображений. |
+| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Аудит и доводка фронтенда до проверяемого идеала: Lighthouse ≥13 в реальном Chrome (mobile+desktop), офлайн-аудит мета/SEO/WCAG/токенов, Security/Privacy/i18n, генерация OG-изображений. |
+| [**frontend-a11y**](skills/frontend-a11y/SKILL.md) | Глубокий аудит доступности (95 правил Front-End-Checklist): офлайн-проверки на Python (структура, ARIA, заголовки, landmarks, таблицы, формы, медиа, списки, CSS) + раннер Playwright + axe-core (контраст, порядок фокуса, live regions, ловушки модалок, reflow) и ручные проверки скринридером. |
+| [**frontend-performance**](skills/frontend-performance/SKILL.md) | Глубина производительности за пределами Lighthouse: офлайн-анализ заголовков/ассетов (HTTP/2-3, сжатие, кэш, HSTS, TTFB, вес страницы, размер бандла, дубли, resource hints, SW, speculation, streaming, виртуализация) + раннер Lighthouse Core Web Vitals (LCP/FCP/INP/CLS). Покрывает 43 правила Performance. |
+| [**frontend-testing**](skills/frontend-testing/SKILL.md) | Фронтенд-тестирование для production-readiness (13 правил Testing): пирамида тестов + копипаста Playwright, jest-axe, Pact (contract) и GitHub Actions perf-budget + coverage CI. Скаффолдит и советует, не запускает ваш CI. |
+| [**mobile-frontend**](skills/mobile-frontend/SKILL.md) | Качественный mobile-first фронтенд: правила (отступы, шкала типа, якоря, safe-area, tap-targets), сборка и многоуровневая проверка с отладкой меню/навигации; перенаправляет глубокие a11y/perf/тесты в профильные скиллы. |
+| [**skill-feedback**](skills/skill-feedback/SKILL.md) | Сбор и агрегация фидбека по скиллам (неверный триггер, near-miss, сломанный вывод, ручная правка) в `feedback/<skill>/YYYY-MM-DD.jsonl`; резюмирует для цикла оптимизации skill-forge. |
 
 <a id="cat-agents"></a>
 
@@ -99,7 +104,7 @@
 
 <a id="cat-media"></a>
 
-### 🎬 Контент и медиа · `media` · 12
+### 🎬 Контент и медиа · `media` · 13
 
 | Скилл | Назначение |
 |-------|------------|
@@ -114,6 +119,7 @@
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Устарел (роутер)** → используй [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
 | [**presentation-maker**](skills/presentation-maker/SKILL.md) | Презентации «под ключ» из темы: план → JSON-спека → HTML-слайды 16:9 (с обязательной проверкой Playwright) и настоящий `.pptx`; пресеты-стратегии, экспорт в PDF, аудит качества. Одна команда на этап. |
 | [**presentation-craft**](skills/presentation-craft/SKILL.md) | Роутер качественных дек: оркестрирует docs-product → frontend-design-taste → presentation-maker → frontend-perfection по этапам (смысл, визуальное направление, сборка, аудит). |
+| [**presentation-engineering**](skills/presentation-engineering/SKILL.md) | Инженерия историй: превращение идей в меняющие мир презентации — нарративная инженерия, визуальный язык и перформанс-дизайн (не генератор слайдов). |
 
 <a id="cat-repository"></a>
 
@@ -212,7 +218,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: валидация манифестов
-└── skills/                    # 46 скиллов, по папке на каждый
+└── skills/                    # 51 скиллов, по папке на каждый
     └── <skill-name>/
         ├── SKILL.md           # Инструкция для агента (обязательно)
         ├── skill.json         # Манифест: name, version, triggers, files (обязательно)

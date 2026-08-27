@@ -1,0 +1,14 @@
+{
+  "name": "frontend-performance",
+  "version": "1.0.0",
+  "description": "Web performance depth beyond Lighthouse: offline network/header + built-asset analysis (HTTP/2-3, text compression, browser caching, HSTS, TTFB, page weight, bundle size, duplicate JS libs, resource hints, service worker, speculation rules, streaming, virtualization) plus a Lighthouse Core Web Vitals runner (LCP/FCP/INP/CLS, critical chains, render-blocking). Maps the Front-End-Checklist Performance category (43 rules).",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["performance", "lighthouse", "core-web-vitals", "page-speed", "bundle-size", "http-headers", "caching"],
+  "triggers": ["performance audit", "frontend perf", "lighthouse", "core web vitals", "page speed", "CLS LCP INP", "optimize loading", "bundle size", "проверь производительность", "perf check"],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "scripts/perf_headers.py", "scripts/audit.js", "references/canonical-patterns.md"],
+  "requirements": {"tools": ["python3", "node", "chrome"], "npm": ["lighthouse", "chrome-launcher"], "permissions": ["file:read", "exec", "network:localhost"]},
+  "updated": "2026-08-27"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "frontend-a11y",
+  "version": "1.0.0",
+  "description": "Deep accessibility audit mapped to the Front-End-Checklist Accessibility category (95 rules). Offline Python stdlib static checks (structure, ARIA, headings, landmarks, tables, forms, media tracks, lists, CSS signals) plus a documented Playwright+axe-core runtime runner (contrast, focus order, live regions, modal traps, reflow) and manual screen-reader checks. Complements frontend-perfection, which covers only basic a11y.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["accessibility", "a11y", "wcag", "axe", "aria", "contrast", "keyboard-navigation", "screen-reader", "focus-trap"],
+  "triggers": ["accessibility audit", "a11y check", "wcag", "axe", "screen reader test", "contrast", "keyboard navigation", "focus trap", "aria", "accessibility testing", "проверь доступность", "глубокая доступность"],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "scripts/a11y_audit.py", "scripts/a11y_axe.mjs"],
+  "requirements": {"tools": ["python3", "node"], "permissions": ["file:read", "exec", "network:localhost"]},
+  "updated": "2026-08-27"
+}

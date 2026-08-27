@@ -956,7 +956,7 @@
     {
       "name": "skill-feedback",
       "version": "1.0.0",
-      "category": "meta",
+      "category": "code",
       "description": "Capture and aggregate usage feedback for Agent Skills so the Skill Quality Gate loop can improve them over time. Use when a skill triggered wrongly, failed to trigger on a relevant request (near-miss), produced a wrong or broken output, or the user manually corrected its result. Writes structured entries to feedback/<skill>/YYYY-MM-DD.jsonl and can summarize them into a report that feeds skill-forge's Optimize-description step. Triggers: 'skill feedback', 'log skill feedback', 'запомни фидбек по скиллу', 'добавь фидбек', 'near-miss trigger', 'покажи фидбек по скиллам'.",
       "path": "skills/skill-feedback",
       "triggers": [

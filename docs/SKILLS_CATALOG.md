@@ -294,7 +294,12 @@
 | `commit-lint` | 1.0.0 | Проверка commit-сообщений по Conventional Commits |
 | `commit-message-writer` | 1.0.0 | Оформление staged-изменений в Conventional Commit |
 | `coverage-analyzer` | 1.0.0 | Разбор coverage.xml в читаемый отчёт с порогом |
-| `frontend-perfection` | 1.3.1 | Аудит и полировка фронтенда до Lighthouse/доступности |
+| `frontend-perfection` | 1.5.0 | Аудит и полировка фронтенда до проверяемого идеала: Lighthouse ≥13, офлайн мета/SEO/WCAG/токен-аудит, Security/Privacy/i18n + OG-изображения |
+| `frontend-a11y` | 1.0.0 | Глубокий аудит доступности (95 правил Front-End-Checklist): офлайн Python + Playwright/axe-core + ручной скринридер |
+| `frontend-performance` | 1.0.0 | Глубина производительности за Lighthouse: офлайн-анализ заголовков/ассетов + Core Web Vitals (LCP/FCP/INP/CLS) |
+| `frontend-testing` | 1.0.0 | Фронтенд-тестировка для production (Playwright, jest-axe, Pact, CI perf-budget + coverage) |
+| `mobile-frontend` | 1.0.1 | Качественный mobile-first фронтенд: правила, сборка, многоуровневая проверка |
+| `skill-feedback` | 1.0.0 | Сбор фидбека по скиллам в feedback/<skill>/YYYY-MM-DD.jsonl |
 | `long-running-agent-workflow` | 1.0.0 | LRA-протокол для многосессионных проектов: `.lra/` feature-list + прогресс-лог, чекпоинты и восстановление |
 | `plan-skill` | 1.0.0 | Планирование реализации (superpowers v2) с валидацией плана |
 | `secret-scanner` | 1.0.0 | Статический поиск утёк секретов/токенов (gitleaks + энтропия) |

@@ -12,7 +12,7 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 46](https://img.shields.io/badge/Skills-46-blue.svg)](index.json)
+[![Skills: 51](https://img.shields.io/badge/Skills-51-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 46 skills · 6 categories
+- [📦 Skill Catalog](#sec-catalog) — 51 skills · 6 categories
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,20 +42,20 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations).
 
-**46 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**51 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
-| 💻 [Development & Code](#cat-code) | 15 | commits, review, debugging, tests, coverage, security, planning, frontend, skill authoring |
+| 💻 [Development & Code](#cat-code) | 20 | commits, review, debugging, tests, coverage, security, planning, frontend, skill authoring |
 | 🤖 [Agents](#cat-agents) | 1 | autonomous agent runs (DeepSeek Harness) |
 | 📊 [Data & Diagrams](#cat-data) | 7 | profiling, SQL, diagrams, scraping |
-| 🎬 [Content & Media](#cat-media) | 12 | slides, video, PDF reports, SEO, test graphics |
+| 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
 | 🏗️ [Repository & Docs](#cat-repository) | 10 | README, community files, metadata, documentation, API docs |
 | 💬 [Social](#cat-social) | 1 | Reddit |
 
 <a id="cat-code"></a>
 
-### 💻 Development & Code · `code` · 15
+### 💻 Development & Code · `code` · 20
 
 | Skill | Purpose |
 |-------|---------|
@@ -72,7 +72,12 @@
 | [**skill-suggester**](skills/skill-suggester/SKILL.md) | Recommends the right skill from this library for a task: scores `index.json` triggers/descriptions, top-5 + combos of up to 3. |
 | [**skill-forge**](skills/skill-forge/SKILL.md) | Meta-skill and design compass for creating new skills and upgrading existing ones: maximally technological, creative, aesthetically disciplined; anti-templated gate. |
 | [**api-contract-testing**](skills/api-contract-testing/SKILL.md) | Validates an API contract against OpenAPI 3.x (offline manifest check + live HTTP probes); JSON report, exit 0/1/2. |
-| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Frontend audit & polish to verifiable perfection: real-Chrome Lighthouse ≥13 (mobile+desktop), offline meta/SEO/WCAG/token audit, OG-image generation. |
+| [**frontend-perfection**](skills/frontend-perfection/SKILL.md) | Frontend audit & polish to verifiable perfection: real-Chrome Lighthouse ≥13 (mobile+desktop), offline meta/SEO/WCAG/token audit, Security/Privacy/i18n audit, OG-image generation. |
+| [**frontend-a11y**](skills/frontend-a11y/SKILL.md) | Deep accessibility audit (95 Front-End-Checklist a11y rules): offline Python static checks (structure, ARIA, headings, landmarks, tables, forms, media, lists, CSS) plus a Playwright + axe-core runtime runner (contrast, focus order, live regions, modal traps, reflow) and manual screen-reader checks. |
+| [**frontend-performance**](skills/frontend-performance/SKILL.md) | Performance depth beyond Lighthouse: offline header/asset analysis (HTTP/2-3, compression, caching, HSTS, TTFB, page weight, bundle size, duplicates, resource hints, SW, speculation, streaming, virtualization) + Lighthouse Core Web Vitals runner (LCP/FCP/INP/CLS). Maps 43 Front-End-Checklist Performance rules. |
+| [**frontend-testing**](skills/frontend-testing/SKILL.md) | Frontend testing for production readiness (13 Front-End-Checklist Testing rules): testing pyramid + copy-paste Playwright, jest-axe, Pact contract tests, and a GitHub Actions perf-budget + coverage CI. Scaffolds & advises; does not run user CI. |
+| [**mobile-frontend**](skills/mobile-frontend/SKILL.md) | Quality mobile-first frontend: codified rules (spacing, type scale, anchors, safe-area, tap-targets), build, and multi-level verification with per-element menu/nav debugging; routes deep a11y/perf/testing to dedicated skills. |
+| [**skill-feedback**](skills/skill-feedback/SKILL.md) | Capture and aggregate usage feedback for Agent Skills (wrong trigger, near-miss, broken output, manual correction) into `feedback/<skill>/YYYY-MM-DD.jsonl`; summarizes for the skill-forge optimization loop. |
 
 <a id="cat-agents"></a>
 
@@ -99,7 +104,7 @@
 
 <a id="cat-media"></a>
 
-### 🎬 Content & Media · `media` · 12
+### 🎬 Content & Media · `media` · 13
 
 | Skill | Purpose |
 |-------|---------|
@@ -114,6 +119,7 @@
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Deprecated router** → use [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
 | [**presentation-maker**](skills/presentation-maker/SKILL.md) | End-to-end decks from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright check) and real `.pptx`; strategy presets, PDF export, deck-quality audit. One command per stage. |
 | [**presentation-craft**](skills/presentation-craft/SKILL.md) | Router for high-quality decks: orchestrates docs-product → frontend-design-taste → presentation-maker → frontend-perfection per stage (narrative, visual direction, build, audit). |
+| [**presentation-engineering**](skills/presentation-engineering/SKILL.md) | Story engineering: turning ideas into world-changing presentations — narrative engineering, visual language, and performance design (not a slide generator). |
 
 <a id="cat-repository"></a>
 
@@ -212,7 +218,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: manifest validation
-└── skills/                    # 46 skills, one folder each
+└── skills/                    # 51 skills, one folder each
     └── <skill-name>/
         ├── SKILL.md           # Agent instruction (required)
         ├── skill.json         # Manifest: name, version, triggers, files (required)

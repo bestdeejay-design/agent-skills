@@ -1,0 +1,14 @@
+{
+  "name": "frontend-testing",
+  "version": "1.0.0",
+  "description": "Frontend testing for production readiness, mapped to the Front-End-Checklist Testing category (13 rules). Defines a testing pyramid and emits copy-pasteable configs: Playwright (config + smoke specs), jest-axe / @axe-core/playwright a11y, Pact consumer-driven contract tests, and a GitHub Actions perf-budget + coverage CI. Scaffolds and advises - does not run the user's full CI. Composes with frontend-perfection, frontend-a11y, frontend-performance.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": ["testing", "playwright", "e2e", "visual-regression", "contract-testing", "jest-axe", "perf-budget", "ci"],
+  "triggers": ["frontend testing", "test strategy", "e2e", "visual regression", "playwright setup", "perf budget CI", "accessibility testing in CI", "contract testing", "mutation testing", "настрой тесты фронта"],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": ["SKILL.md", "skill.json", "references/a11y-test.md", "references/ci-perf-budget.yml", "references/contract-test.md", "references/e2e-smoke.spec.ts", "references/playwright.config.ts", "references/visual-regression.md"],
+  "requirements": {"tools": ["node", "python3"], "npm": ["@playwright/test", "jest-axe", "@axe-core/playwright", "@pact-foundation/pact"], "permissions": ["file:read", "file:write"]},
+  "updated": "2026-08-27"
+}
