@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "chronos"
+version = "1.0.0"
+description = "Chronos — AI agents for documentation integrity"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "best", email = "best@example.com"}
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Documentation",
+]
+
+[project.scripts]
+chronos = "chronos.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/bestdeejay-design/chronos"
+Repository = "https://github.com/bestdeejay-design/chronos"
+Issues = "https://github.com/bestdeejay-design/chronos/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
