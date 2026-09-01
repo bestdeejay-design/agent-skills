@@ -1,31 +1,73 @@
-# Veles — Страж Порога
+---
+name: veles
+description: >
+  Documentation statistician — finds orphan documents (no inbound references), computes documentation metrics,
+  detects dead zones (folders unlinked from main docs), validates link hierarchy L1→L2→L3→L4.
+  Use when: "find orphans", "orphan docs", "unreferenced documents", "documentation stats", "doc metrics",
+  "dead zones", "link hierarchy", "veles".
+license: MIT
+metadata:
+  version: 1.0.0
+when_to_use: "Use for documentation statistics and orphan detection: 'find orphans', 'orphan docs', 'unreferenced documents', 'documentation stats', 'doc metrics', 'dead zones', 'link hierarchy', 'veles'."
+---
 
-> Находит сирот и считает статистику документации
+# Veles — Statistician
 
-## Что делает
+Finds orphan documents, computes documentation metrics, detects dead zones, validates link hierarchy.
 
-- **Сироты** — документы, на которые никто не ссылается
-- **Статистика** — количество файлов, слов, уровней, связей
-- **Мёртвые зоны** — папки без ссылок из основной документации
+## What it does
 
-## Иерархия ссылок
+- **Orphans** — documents with zero inbound references from other docs
+- **Statistics** — file count, word count, level distribution, link count
+- **Dead zones** — folders with no references from main documentation tree
+- **Hierarchy validation** — enforces L1→L2→L3→L4 reference direction
+
+## Link Hierarchy
 
 ```
 L1 (Contracts) → L2 (Product Canon) → L3 (Engineering Canon) → L4 (Derived)
 ```
 
-Документы верхних уровней ссылаются на нижние. Veles нарушения этой иерархии.
+Upper levels reference lower levels. Veles flags violations (e.g., L3 referencing L1 directly).
 
-## Использование
+## Usage
 
 ```bash
-# Через Chronos агента
-task(subagent_type="chronos", prompt="Найди сирот в /path/to/project", load_skills=["veles"])
+# Via Chronos orchestrator
+chronos --path . --preset full
+
+# Direct invocation
+python -m chronos.agents.veles --path .
 ```
 
-## Формат отчёта
+## Output Format
 
 ```
-[nit] orphan: CONTRIBUTING.md — нет ссылок из других документов
-[info] stats: 12 документов, 4500 слов, 3 уровня, 28 связей
+[nit] orphan: CONTRIBUTING.md — no inbound references from other documents
+[info] stats: 12 documents, 4500 words, 3 levels, 28 links
+[warning] hierarchy_violation: docs/ADR/001.md (L3) references contracts/openapi.yaml (L1) directly
+[info] dead_zone: docs/legacy/ — no references from L1-L4
 ```
+
+## Metrics Computed
+
+| Metric | Description |
+|--------|-------------|
+| `total_files` | Markdown files scanned |
+| `total_words` | Aggregate word count |
+| `level_distribution` | Count per L1-L6 |
+| `link_count` | Total internal links |
+| `orphan_count` | Documents with 0 inbound links |
+| `dead_zone_count` | Unreferenced folders |
+
+## Triggers
+
+- `find orphans` / `orphan docs` / `unreferenced documents`
+- `documentation stats` / `doc metrics` / `documentation statistics`
+- `dead zones` / `unlinked folders`
+- `link hierarchy` / `reference hierarchy`
+- `veles`
+
+## Integration
+
+Loaded by Chronos as part of `full` preset only.

@@ -1058,6 +1058,91 @@
         "doc diff tool",
         "diff оферту"
       ]
+    },
+    {
+      "name": "chronos",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Documentation Timekeeper — 5 AI agents (Chronos, Censor, Dewey, Veles, Canon) for documentation integrity. Checks: duplicates, broken links, missing required docs, orphans, classification (L1-L6), stale dates. Use when: 'check documentation', 'docs audit', 'audit docs', 'docs integrity', 'find duplicates in docs', 'broken links', 'stale documentation', 'classify docs', 'documentation health', 'orphan docs', 'validate docs', 'doc quality', 'docs lint', 'chronos'.",
+      "path": "skills/chronos",
+      "triggers": [
+        "check documentation",
+        "docs audit",
+        "audit docs",
+        "docs integrity",
+        "find duplicates in docs",
+        "broken links",
+        "stale documentation",
+        "classify docs",
+        "documentation health",
+        "orphan docs",
+        "validate docs",
+        "doc quality",
+        "docs lint",
+        "chronos",
+        "проверь документацию",
+        "аудит документации"
+      ]
+    },
+    {
+      "name": "censor",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Fact-checker for documentation — detects duplicates (similarity >70%) and broken internal links in markdown files. Skips code blocks, inline code, and external URLs. Use when: 'check duplicates', 'find duplicate docs', 'broken links', 'broken references', 'validate links', 'censor'.",
+      "path": "skills/censor",
+      "triggers": [
+        "check duplicates",
+        "find duplicate docs",
+        "broken links",
+        "broken references",
+        "validate links",
+        "censor"
+      ]
+    },
+    {
+      "name": "dewey",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Document classifier — assigns L1-L6 taxonomy level to each document, enforces required docs per level, detects missing required documents. Use when: 'classify docs', 'document classification', 'missing docs', 'required documents', 'document taxonomy', 'dewey'.",
+      "path": "skills/dewey",
+      "triggers": [
+        "classify docs",
+        "document classification",
+        "missing docs",
+        "required documents",
+        "document taxonomy",
+        "dewey"
+      ]
+    },
+    {
+      "name": "veles",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Documentation statistician — finds orphan documents (no inbound references), computes documentation metrics, detects dead zones (folders unlinked from main docs), validates link hierarchy L1→L2→L3→L4. Use when: 'find orphans', 'orphan docs', 'unreferenced documents', 'documentation stats', 'doc metrics', 'dead zones', 'link hierarchy', 'veles'.",
+      "path": "skills/veles",
+      "triggers": [
+        "find orphans",
+        "orphan docs",
+        "unreferenced documents",
+        "documentation stats",
+        "doc metrics",
+        "dead zones",
+        "link hierarchy",
+        "veles"
+      ]
+    },
+    {
+      "name": "canon",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Orchestrator for the Chronos Pantheon — runs agent presets (minimal/standard/full), aggregates reports, validates cross-references between L1-L3 (contracts → product → engineering). Use when: 'run full audit', 'chronos full', 'cross-reference validation', 'canon'.",
+      "path": "skills/canon",
+      "triggers": [
+        "run full audit",
+        "chronos full",
+        "cross-reference validation",
+        "canon"
+      ]
     }
   ]
 }
