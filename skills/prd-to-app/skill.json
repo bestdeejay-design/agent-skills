@@ -1,0 +1,49 @@
+{
+  "name": "prd-to-app",
+  "version": "1.0.0",
+  "description": "8-phase pipeline for building full-stack web applications from PRD + UI prototypes. Analyzes visual mockups via look_at, generates System Design, Seed Data, Backend API, Frontend components, Visual Verification, Integration Testing, start.sh, and Documentation. Adapted from GLM-5.3 glmv-prd-to-app.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "prd",
+    "prototype",
+    "fullstack",
+    "webapp",
+    "scaffold",
+    "pipeline",
+    "макет",
+    "приложение",
+    "прототип"
+  ],
+  "triggers": [
+    "prd to app",
+    "build from prd",
+    "build from prototype",
+    "сделай приложение по макетам",
+    "разработай по prd",
+    "full stack from prd",
+    "prototype to app",
+    "mockup to app",
+    "ui prototype build",
+    "визуальный прототип в приложение",
+    "по макетам приложение"
+  ],
+  "category": "visual-engineering",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json"
+  ],
+  "requirements": {
+    "tools": [
+      "playwright",
+      "look_at"
+    ],
+    "permissions": [
+      "file:read",
+      "file:write",
+      "exec"
+    ]
+  },
+  "updated": "2026-09-02"
+}

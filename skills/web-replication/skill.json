@@ -1,0 +1,49 @@
+{
+  "name": "web-replication",
+  "version": "1.0.0",
+  "description": "Visual website replication via Playwright MCP. Crawls pages, captures screenshots, downloads assets, tests interactions, generates a Blueprint with navigation graph, builds frontend replica, and performs visual comparison. Adapted from GLM-5.3 glmv-web-replication.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "website",
+    "replication",
+    "clone",
+    "scrape",
+    "playwright",
+    "скраппинг",
+    "реплика",
+    "клон сайта"
+  ],
+  "triggers": [
+    "web replication",
+    "replicate website",
+    "clone this site",
+    "копия сайта",
+    "реплика сайта",
+    "скопируй сайт",
+    "replicate from url",
+    "copy website design",
+    "website clone",
+    "визуальная реплика",
+    "клонирование сайта",
+    "сайт по образцу"
+  ],
+  "category": "visual-engineering",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json"
+  ],
+  "requirements": {
+    "tools": [
+      "playwright"
+    ],
+    "permissions": [
+      "file:read",
+      "file:write",
+      "exec",
+      "network"
+    ]
+  },
+  "updated": "2026-09-02"
+}
