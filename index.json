@@ -1143,6 +1143,42 @@
         "cross-reference validation",
         "canon"
       ]
+    },
+    {
+      "name": "prd-to-app",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Build a complete, production-ready full-stack web application from PRD documents, prototype images, and resource files. 8-phase pipeline: Material Discovery → System Design → Seed Data → Backend → Frontend → Visual Verification → Integration Testing → Deployment Script. Adapted from zai-org/GLM-skills/glmv-prd-to-app (Apache 2.0). ZHIPU dependencies removed; uses Playwright + look_at for prototype analysis. Triggers: 'prd to app', 'build from prd', 'implement this product', 'сделай приложение по макетам', 'разработай по prd', 'implement from prd'.",
+      "path": "skills/prd-to-app",
+      "triggers": [
+        "prd to app",
+        "build from prd",
+        "implement this product",
+        "implement from prd",
+        "сделай приложение по макетам",
+        "разработай по prd",
+        "из prd в приложение",
+        "разработка по требованию",
+        "make app from requirements"
+      ]
+    },
+    {
+      "name": "web-replication",
+      "version": "1.0.0",
+      "category": "code",
+      "description": "Frontend visual replication skill. Explores a target website's publicly visible pages via Playwright MCP, captures screenshots and layout information, generates a structured blueprint with navigation graph, then builds a frontend visual replica. Adapted from zai-org/GLM-skills/glmv-web-replication (Apache 2.0). Agent-browser replaced with Playwright MCP. Triggers: 'web replication', 'реплика сайта', 'скопируй сайт', 'replicate website', 'clone website', 'визуальная копия', 'сделай как этот сайт'.",
+      "path": "skills/web-replication",
+      "triggers": [
+        "web replication",
+        "replicate website",
+        "clone website",
+        "реплика сайта",
+        "скопируй сайт",
+        "визуальная копия",
+        "сделай как этот сайт",
+        "copy this site design",
+        "clone this site"
+      ]
     }
   ]
 }
