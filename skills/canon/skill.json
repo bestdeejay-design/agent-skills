@@ -1,0 +1,47 @@
+{
+  "name": "canon",
+  "version": "1.0.0",
+  "description": "Orchestrator for the Chronos Pantheon — runs agent presets (minimal/standard/full), aggregates reports, validates cross-references between L1-L3 (contracts → product → engineering). Checks L1→L2 (OpenAPI endpoints documented in PRD), L2→L3 (Architecture decisions trace to PRD), L3→L1 (ADRs reference contract versions). Both an agent and the preset orchestrator.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "orchestrator",
+    "cross-reference",
+    "validation",
+    "contracts",
+    "documentation",
+    "presets",
+    "оркестратор",
+    "кросс-ссылки",
+    "валидация",
+    "контракты"
+  ],
+  "triggers": [
+    "run full audit",
+    "full audit",
+    "chronos full",
+    "chronos --preset full",
+    "cross-reference validation",
+    "cross ref check",
+    "contract vs docs",
+    "canon",
+    "полный аудит",
+    "кросс-валидация",
+    "сверка контрактов с документацией"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "permissions": [
+      "file:read",
+      "exec"
+    ]
+  },
+  "updated": "2026-09-02"
+}

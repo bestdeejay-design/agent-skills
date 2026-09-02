@@ -1,0 +1,49 @@
+{
+  "name": "dewey",
+  "version": "1.0.0",
+  "description": "Document classifier — assigns L1-L6 taxonomy level to each document, enforces required docs per level, detects missing required documents. L1 Contracts → L2 Product Canon → L3 Engineering Canon → L4 Derived → L5 Artifacts → L6 Auxiliary. Determines project maturity level. Part of Chronos Pantheon.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "classification",
+    "taxonomy",
+    "L1-L6",
+    "missing docs",
+    "required documents",
+    "project maturity",
+    "документация",
+    "классификация",
+    "таксономия",
+    "отсутствующие документы"
+  ],
+  "triggers": [
+    "classify docs",
+    "document classification",
+    "missing docs",
+    "required documents",
+    "document taxonomy",
+    "doc hierarchy",
+    "project maturity",
+    "doc level",
+    "dewey",
+    "классифицируй документы",
+    "таксономия документов",
+    "какие документы отсутствуют",
+    "уровень проекта"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "permissions": [
+      "file:read"
+    ]
+  },
+  "updated": "2026-09-02"
+}

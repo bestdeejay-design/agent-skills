@@ -1,0 +1,52 @@
+{
+  "name": "veles",
+  "version": "1.0.0",
+  "description": "Documentation statistician — finds orphan documents (no inbound references), computes documentation metrics (file count, word count, level distribution, link count), detects dead zones (folders unlinked from main docs), validates link hierarchy L1→L2→L3→L4. Part of Chronos Pantheon, invoked via full preset.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "orphan",
+    "statistics",
+    "metrics",
+    "dead zones",
+    "link hierarchy",
+    "unreferenced",
+    "документация",
+    "осиротевшие",
+    "статистика",
+    "метрики",
+    "мёртвые зоны"
+  ],
+  "triggers": [
+    "find orphans",
+    "orphan docs",
+    "unreferenced documents",
+    "documentation stats",
+    "doc metrics",
+    "documentation statistics",
+    "dead zones",
+    "unlinked folders",
+    "link hierarchy",
+    "reference hierarchy",
+    "veles",
+    "найти осиротевшие документы",
+    "статистика документации",
+    "мёртвые зоны",
+    "иерархия ссылок"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "permissions": [
+      "file:read"
+    ]
+  },
+  "updated": "2026-09-02"
+}

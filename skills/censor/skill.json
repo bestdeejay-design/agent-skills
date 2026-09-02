@@ -1,0 +1,49 @@
+{
+  "name": "censor",
+  "version": "1.0.0",
+  "description": "Fact-checker for documentation — detects duplicates (similarity >70%) and broken internal links in markdown files. Skips code blocks, inline code, and external URLs. Configurable threshold (default 0.7) and ignore patterns. Part of Chronos Pantheon, invoked via presets minimal/standard/full.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "duplicates",
+    "broken links",
+    "fact-check",
+    "validation",
+    "markdown",
+    "docs",
+    "дубликаты",
+    "ссылки",
+    "проверка"
+  ],
+  "triggers": [
+    "check duplicates",
+    "find duplicate docs",
+    "duplicate detection",
+    "broken links",
+    "broken references",
+    "validate links",
+    "link check",
+    "documentation validation",
+    "doc fact-check",
+    "censor",
+    "найти дубликаты",
+    "проверить ссылки",
+    "битые ссылки",
+    "валидация ссылок"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "permissions": [
+      "file:read"
+    ]
+  },
+  "updated": "2026-09-02"
+}

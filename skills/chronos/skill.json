@@ -1,0 +1,78 @@
+{
+  "name": "chronos",
+  "version": "1.0.0",
+  "description": "Documentation Timekeeper — 5 AI agents (Chronos, Censor, Dewey, Veles, Canon) for documentation integrity. Checks: duplicates, broken links, missing required docs, orphans, classification (L1-L6), stale dates. Presets: minimal (Censor only), standard (Censor+Dewey+Canon), full (all 5 agents). Supports JSON/Markdown output, CI fail-on thresholds, and .chronos.yml configuration.",
+  "author": "best",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "audit",
+    "integrity",
+    "duplicates",
+    "broken links",
+    "classification",
+    "taxonomy",
+    "orphan",
+    "stale",
+    "docs",
+    "документация",
+    "аудит",
+    "проверка"
+  ],
+  "triggers": [
+    "check documentation",
+    "docs audit",
+    "audit docs",
+    "docs integrity",
+    "documentation health",
+    "find duplicates in docs",
+    "duplicate docs",
+    "broken links",
+    "broken references",
+    "stale documentation",
+    "outdated docs",
+    "classify docs",
+    "document classification",
+    "orphan docs",
+    "unreferenced documents",
+    "validate docs",
+    "doc quality",
+    "docs lint",
+    "chronos",
+    "проверь документацию",
+    "аудит документации",
+    "найти дубликаты",
+    "битые ссылки",
+    "устаревшая документация"
+  ],
+  "category": "code",
+  "entrypoint": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "src/chronos/__init__.py",
+    "src/chronos/cli.py",
+    "src/chronos/agents/chronos.py",
+    "src/chronos/agents/censor.py",
+    "src/chronos/agents/dewey.py",
+    "src/chronos/agents/veles.py",
+    "src/chronos/agents/canon.py",
+    "src/chronos/agents/base.py",
+    "src/chronos/core/reader.py",
+    "src/chronos/core/reporter.py",
+    "tests/test_base.py",
+    "tests/test_censor.py",
+    "tests/test_canon.py",
+    "pyproject.toml"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "src/chronos/cli.py",
+    "permissions": [
+      "file:read",
+      "exec"
+    ]
+  },
+  "updated": "2026-09-02"
+}
