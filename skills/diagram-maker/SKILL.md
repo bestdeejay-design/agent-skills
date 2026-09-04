@@ -1,12 +1,12 @@
 ---
 name: diagram-maker
-description: "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'."
+description: "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы, bar, line, pie, scatter в синтаксисе Mermaid или HTML (Chart.js). Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP) или интерактивный HTML-график. Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram', 'bar chart', 'line chart', 'pie chart', 'scatter plot'."
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.2.0
 compatibility: "Requires Python3; optional mermaid-cli for rendering"
-when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'architecture diagram', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема'. Examples: 'draw a flowchart of the checkout process', 'сделай mermaid-схему архитектуры микросервисов'."
+when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'architecture diagram', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'bar chart', 'line chart', 'pie chart', 'scatter plot'. Examples: 'draw a flowchart of the checkout process', 'сделай mermaid-схему архитектуры микросервисов', 'сделай bar chart из этих данных'."
 ---
 
 # Diagram Maker — генерация диаграмм из текстового описания
@@ -21,17 +21,17 @@ when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'fl
 - Нужна sequence-диаграмма взаимодействия компонентов/пользователей
 - Нужна схема архитектуры сервисов и их связей
 - Нужна ER-схема (сущности и связи) для базы данных
+- Нужен bar/line/pie/scatter chart для визуализации данных
 - Нужно быстро визуализировать описание, чтобы показать команде
-- Нужен код Mermaid для вставки в README, docs или issue
+- Нужен код Mermaid или интерактивный HTML-график
 
 ## Do NOT use to
 
 - Не используй для генерации изображений/картинок (это test-graphics)
 - Не используй для презентаций (это presentation-maker)
 - Не используй для рисования от руки или векторной графики (SVG/Canvas)
-- Не используй для диаграмм Ганта, mindmap или других типов, которые
-  Mermaid не поддерживает нативно — сначала проверь Reference
-- Не используй для диаграмм, требующих интерактивности или анимации
+- Не используй для сложных данных с множеством серий — это `data-analysis`
+- Не используй для интерактивных дашбордов с фильтрами — это `data-analysis`
 
 ## What this skill does
 
@@ -39,11 +39,12 @@ when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'fl
 
 **Выход:**
 1. Код Mermaid нужного типа (flowchart / sequence / architecture / er)
-2. Рекомендация, как отрендерить результат:
+2. Или интерактивный HTML-график (bar / line / pie / scatter) через Chart.js
+3. Рекомендация, как отрендерить результат:
    - [mermaid.live](https://mermaid.live) — быстрый онлайн-рендер
    - `mmdc` (mermaid-cli) — локальный рендер в PNG/SVG/PDF
    - MCP-сервер mermaid — рендер прямо из агента
-3. (опционально) markdown-файл с mermaid-блоком через
+4. (опционально) markdown-файл с mermaid-блоком через
    `scripts/mermaid_to_markdown.py`
 
 ## How to work
@@ -78,11 +79,65 @@ echo "A -> B -> C" | python3 scripts/mermaid_to_markdown.py --type flowchart
 
 # С заголовком секции
 python3 scripts/mermaid_to_markdown.py --type er --title "Схема БД" schema.txt
+
+# Bar chart из CSV
+python3 scripts/mermaid_to_markdown.py --type bar --input data.csv --output chart.html
 ```
 
-## Examples
+## Data visualization examples
 
-### 1. Flowchart — блок-схема оформления заказа
+### 1. Bar chart — сравнение категорий
+
+```html
+<canvas id="chart1"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+new Chart(document.getElementById('chart1'), {
+  type: 'bar',
+  data: {
+    labels: ['Free', 'Starter', 'Pro', 'Enterprise'],
+    datasets: [{ data: [12, 28, 45, 72], backgroundColor: '#1C1C1A', borderRadius: 4 }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } } }
+});
+</script>
+```
+
+### 2. Line chart — временной ряд
+
+```html
+<canvas id="chart2"></canvas>
+<script>
+new Chart(document.getElementById('chart2'), {
+  type: 'line',
+  data: {
+    labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт'],
+    datasets: [{ data: [10, 25, 18, 32, 28], borderColor: '#1C1C1A', fill: false }]
+  },
+  options: { responsive: true }
+});
+</script>
+```
+
+### 3. Pie chart — структура данных
+
+```html
+<canvas id="chart3"></canvas>
+<script>
+new Chart(document.getElementById('chart3'), {
+  type: 'pie',
+  data: {
+    labels: ['Organic', 'Direct', 'Referral', 'Social'],
+    datasets: [{ data: [40, 25, 20, 15] }]
+  },
+  options: { responsive: true }
+});
+</script>
+```
+
+## Mermaid examples
+
+### 4. Flowchart — блок-схема оформления заказа
 
 Описание: «Пользователь добавляет товар в корзину. Если товар в наличии —
 переходим к оформлению, иначе показываем сообщение о недоступности. После
@@ -97,7 +152,7 @@ flowchart TD
     D --> A
 ```
 
-### 2. Sequence — оформление подписки
+### 5. Sequence — оформление подписки
 
 Описание: «Клиент отправляет запрос на подписку. Сервис проверяет платёж,
 списывает средства и возвращает подтверждение. При ошибке платежа клиент
@@ -115,7 +170,7 @@ sequenceDiagram
     S-->>C: Ошибка платежа
 ```
 
-### 3. Architecture — микросервисы
+### 6. Architecture — микросервисы
 
 ```mermaid
 flowchart LR
@@ -138,7 +193,7 @@ flowchart LR
     Orders --> Cache
 ```
 
-### 4. ER — схема базы данных
+### 7. ER — схема базы данных
 
 ```mermaid
 erDiagram

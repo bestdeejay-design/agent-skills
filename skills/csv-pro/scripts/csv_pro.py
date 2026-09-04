@@ -182,11 +182,79 @@ def render_json(meta, profiles, anomalies):
     }, ensure_ascii=False, indent=2)
 
 
+def render_html(meta, profiles, anomalies):
+    presets = {
+        "mono": {"bg": "#F0EFEB", "ink": "#1C1C1A", "muted": "#8F8E88",
+                 "grid": "#DEDDD6", "data": ["#1C1C1A", "#4A4944", "#6A6963", "#8F8E88", "#B0AFA9"]},
+    }
+    p = presets["mono"]
+
+    numeric = [pr for pr in profiles if pr["type"] in ("int", "float")]
+    categorical = [pr for pr in profiles if pr["type"] in ("str", "date")]
+
+    html = f"""<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Профиль CSV: {meta['file']}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{ font-family: Inter, -apple-system, sans-serif; background: {p['bg']}; color: {p['ink']}; padding: 24px; }}
+  .card {{ background: {p['bg']}; border-radius: 24px; padding: 28px; margin-bottom: 20px; }}
+  h1 {{ font-size: 24px; font-weight: 700; margin-bottom: 8px; }}
+  h2 {{ font-size: 16px; font-weight: 700; margin-bottom: 12px; }}
+  .meta {{ font-size: 12px; color: {p['muted']}; margin-bottom: 24px; }}
+  .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }}
+  .chart-container {{ position: relative; height: 250px; }}
+  .source {{ font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: {p['muted']}; margin-top: 12px; }}
+  .anomaly {{ font-size: 13px; padding: 8px 12px; background: #fff3cd; border-radius: 8px; margin-bottom: 8px; }}
+  @media (prefers-reduced-motion: reduce) {{ * {{ animation: none !important; transition: none !important; }} }}
+</style>
+</head>
+<body>
+<h1>Профиль CSV</h1>
+<div class="meta">{meta['rows']} строк · {meta['columns']} колонок · разделитель: {meta['delimiter']}</div>
+
+<div class="grid">
+"""
+    for i, pr in enumerate(numeric[:6]):
+        vals = []
+        for row_data in profiles:
+            if row_data["name"] == pr["name"] and "min" in pr:
+                vals = [pr["min"], pr["max"], pr["mean"]]
+                break
+        color = p["data"][i % len(p["data"])]
+        html += f"""
+  <div class="card">
+    <h2>{pr['name']}</h2>
+    <div class="chart-container"><canvas id="csv-hist{i}"></canvas></div>
+    <div class="source">{pr['type']} · уникальных: {pr['unique']}</div>
+  </div>
+"""
+    html += """
+</div>
+<div class="card">
+  <h2>Аномалии</h2>
+"""
+    if anomalies:
+        for a in anomalies:
+            html += f'  <div class="anomaly">{a["type"]}: {a["detail"]}</div>\n'
+    else:
+        html += '  <div style="font-size:14px">Аномалий не найдено</div>\n'
+    html += f"""
+  <div class="source">csv-pro · agent-skills</div>
+</div>
+</body></html>"""
+    return html
+
+
 def main():
     ap = argparse.ArgumentParser(description="CSV profile: types, stats, anomalies")
     ap.add_argument("--input", help="input CSV file")
     ap.add_argument("--stdin", action="store_true", help="read CSV from stdin")
-    ap.add_argument("--output", choices=["md", "json"], default="md",
+    ap.add_argument("--output", choices=["md", "json", "html"], default="md",
                     help="output format (default: md)")
     ap.add_argument("--delimiter", default=None,
                     help="CSV delimiter (default: auto-detect ';' then ',')")
@@ -257,6 +325,8 @@ def main():
 
     if args.output == "json":
         print(render_json(meta, profiles, anomalies))
+    elif args.output == "html":
+        print(render_html(meta, profiles, anomalies))
     else:
         print(render_md(meta, profiles, anomalies))
 

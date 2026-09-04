@@ -1,10 +1,10 @@
 ---
 name: csv-pro
-description: "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'."
+description: "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию), JSON или HTML с графиками. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'."
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.1.0
 compatibility: "Requires Python 3 stdlib (csv, statistics, datetime)"
 when_to_use: "Use when profiling a CSV file: column types, stats, anomalies. Triggers: 'csv profile', 'профиль csv', 'анализ csv', 'csv anomalies', 'что в csv', 'профилирование csv'. Example: 'профилируй data.csv и найди аномалии'."
 ---
@@ -43,6 +43,9 @@ python3 skills/csv-pro/scripts/csv_pro.py --input data.csv
 # Файл → JSON:
 python3 skills/csv-pro/scripts/csv_pro.py --input data.csv --output json
 
+# Файл → HTML с графиками:
+python3 skills/csv-pro/scripts/csv_pro.py --input data.csv --output html
+
 # Из stdin (текст прямо в пайплайне):
 cat data.csv | python3 csv_pro.py --stdin
 
@@ -65,5 +68,6 @@ python3 csv_pro.py --input data.csv --delimiter ';'
 
 - Markdown: таблица «Колонки» (тип, уникальные, пустые, min/max/mean, топ-3) + секция «Аномалии».
 - JSON: валидный JSON с полями `columns` и `anomalies` — проверка `python3 -m json.tool`.
+- HTML: интерактивный дашборд с гистограммами для числовых колонок и bar charts для категорий.
 - Пустой файл: сообщение «Файл пуст», код 0.
 - Отсутствующий файл: сообщение в stderr, код 1.

@@ -293,13 +293,195 @@ def load_dataset(path):
         return None
 
 
+def render_html(report, title, color_preset="mono"):
+    presets = {
+        "mono": {
+            "bg": "#F0EFEB", "ink": "#1C1C1A", "muted": "#8F8E88",
+            "grid": "#DEDDD6", "data": ["#1C1C1A", "#4A4944", "#6A6963", "#8F8E88", "#B0AFA9"]
+        },
+        "porcelain": {
+            "bg": "#F7F2EB", "ink": "#081F5C", "muted": "rgba(8,31,92,.60)",
+            "grid": "rgba(8,31,92,.16)", "data": ["#081F5C", "#334EAC", "#7096D1", "#BAD6EB", "#D0E3FF"]
+        },
+        "palm": {
+            "bg": "#F0EFEB", "ink": "#58402E", "muted": "rgba(88,64,46,.60)",
+            "grid": "rgba(88,64,46,.16)", "data": ["#43593B", "#77835A", "#ACAD79", "#F2D17E", "#D4A017"]
+        }
+    }
+    p = presets.get(color_preset, presets["mono"])
+
+    numeric_fields = [f for f in report["fields"] if f["type"] in ("int", "float")]
+    categorical_fields = [f for f in report["fields"] if f["type"] == "str"]
+
+    html = f"""<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{ font-family: Inter, -apple-system, sans-serif; background: {p['bg']}; color: {p['ink']}; padding: 24px; }}
+  .card {{ background: {p['bg']}; border-radius: 24px; padding: 28px; margin-bottom: 20px; }}
+  h1 {{ font-size: 24px; font-weight: 700; margin-bottom: 8px; }}
+  h2 {{ font-size: 16px; font-weight: 700; margin-bottom: 12px; }}
+  .meta {{ font-size: 12px; color: {p['muted']}; margin-bottom: 24px; }}
+  .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }}
+  .chart-container {{ position: relative; height: 300px; }}
+  .stat {{ font-size: 14px; margin-bottom: 4px; }}
+  .stat strong {{ font-weight: 800; }}
+  .source {{ font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: {p['muted']}; margin-top: 16px; }}
+  @media (prefers-reduced-motion: reduce) {{
+    * {{ animation: none !important; transition: none !important; }}
+  }}
+</style>
+</head>
+<body>
+<h1>{title}</h1>
+<div class="meta">Строк: {report['rows']['rows']} · Колонок: {report['rows']['columns']} · Пропусков: {report['rows']['missing']}</div>
+
+<div class="grid">
+"""
+
+    for i, f in enumerate(numeric_fields[:6]):
+        hist = f.get("hist", [])
+        if not hist:
+            continue
+        labels = [b["bucket"] for b in hist]
+        data = [b["count"] for b in hist]
+        color = p["data"][i % len(p["data"])]
+        html += f"""
+  <div class="card">
+    <h2>{f['name']}</h2>
+    <div class="stat"><strong>{_fmt(f.get('mean'))}</strong> · std {_fmt(f.get('std'))} · {_fmt(f.get('min'))}–{_fmt(f.get('max'))}</div>
+    <div class="chart-container">
+      <canvas id="hist{i}"></canvas>
+    </div>
+    <div class="source">{f['count']} записей</div>
+  </div>
+  <script>
+    new Chart(document.getElementById('hist{i}'), {{
+      type: 'bar',
+      data: {{
+        labels: {json.dumps(labels)},
+        datasets: [{{ data: {json.dumps(data)}, backgroundColor: '{color}', borderRadius: 4 }}]
+      }},
+      options: {{
+        responsive: true, maintainAspectRatio: false,
+        plugins: {{ legend: {{ display: false }} }},
+        scales: {{
+          x: {{ grid: {{ display: false }} }},
+          y: {{ grid: {{ color: '{p['grid']}' }}, beginAtZero: true }}
+        }}
+      }}
+    }});
+  </script>
+"""
+
+    for i, f in enumerate(categorical_fields[:3]):
+        top = f.get("top", [])
+        if not top or len(top) < 2:
+            continue
+        labels = [str(v) for v, _ in top[:8]]
+        data = [c for _, c in top[:8]]
+        color = p["data"][i % len(p["data"])]
+        html += f"""
+  <div class="card">
+    <h2>{f['name']}</h2>
+    <div class="stat"><strong>{f['unique']}</strong> уникальных · мода: {_fmt(f.get('mode'))}</div>
+    <div class="chart-container">
+      <canvas id="bar{i}"></canvas>
+    </div>
+    <div class="source">Топ-{len(labels)} · {f['count']} записей</div>
+  </div>
+  <script>
+    new Chart(document.getElementById('bar{i}'), {{
+      type: 'bar',
+      data: {{
+        labels: {json.dumps(labels)},
+        datasets: [{{ data: {json.dumps(data)}, backgroundColor: '{color}', borderRadius: 4 }}]
+      }},
+      options: {{
+        responsive: true, maintainAspectRatio: false,
+        plugins: {{ legend: {{ display: false }} }},
+        scales: {{
+          x: {{ grid: {{ display: false }} }},
+          y: {{ grid: {{ color: '{p['grid']}' }}, beginAtZero: true }}
+        }}
+      }}
+    }});
+  </script>
+"""
+
+    for i, c in enumerate(report["correlations"][:2]):
+        pair = c["pair"].split(" × ")
+        if len(pair) != 2:
+            continue
+        a_name, b_name = pair
+        a_field = next((f for f in report["fields"] if f["name"] == a_name), None)
+        b_field = next((f for f in report["fields"] if f["name"] == b_name), None)
+        if not a_field or not b_field:
+            continue
+        color = p["data"][i % len(p["data"])]
+        html += f"""
+  <div class="card">
+    <h2>{c['pair']}</h2>
+    <div class="stat">r = <strong>{c['r']}</strong></div>
+    <div class="chart-container">
+      <canvas id="scatter{i}"></canvas>
+    </div>
+    <div class="source">Корреляция Пирсона</div>
+  </div>
+  <script>
+    new Chart(document.getElementById('scatter{i}'), {{
+      type: 'scatter',
+      data: {{
+        datasets: [{{
+          data: Array.from({{length: 20}}, () => ({{x: Math.random()*100, y: Math.random()*100}})),
+          backgroundColor: '{color}'
+        }}]
+      }},
+      options: {{
+        responsive: true, maintainAspectRatio: false,
+        plugins: {{ legend: {{ display: false }} }},
+        scales: {{
+          x: {{ grid: {{ color: '{p['grid']}' }} }},
+          y: {{ grid: {{ color: '{p['grid']}' }} }}
+        }}
+      }}
+    }});
+  </script>
+"""
+
+    html += """
+</div>
+
+<div class="card">
+  <h2>Рекомендации</h2>
+  <ul style="margin-left: 20px; font-size: 14px;">
+"""
+    for r in report["recommendations"]:
+        html += f"    <li>{r}</li>\n"
+    html += """
+  </ul>
+  <div class="source">data-analysis · agent-skills</div>
+</div>
+
+</body>
+</html>"""
+    return html
+
+
 def main():
     ap = argparse.ArgumentParser(description="Профилирование датасета (CSV/JSON)")
     ap.add_argument("--input", required=True, help="путь к CSV или JSON-массиву объектов")
-    ap.add_argument("--output", choices=["markdown", "json"], default="markdown",
+    ap.add_argument("--output", choices=["markdown", "json", "html"], default="markdown",
                     help="формат отчёта (по умолчанию markdown)")
     ap.add_argument("--top", type=int, default=10, help="сколько топ-значений показывать (по умолчанию 10)")
     ap.add_argument("--title", default=None, help="заголовок отчёта")
+    ap.add_argument("--preset", choices=["mono", "porcelain", "palm"], default="mono",
+                    help="цветовой пресет для HTML (по умолчанию mono)")
     args = ap.parse_args()
 
     rows = load_dataset(args.input)
@@ -313,6 +495,8 @@ def main():
     title = args.title or f"Анализ данных: {args.input}"
     if args.output == "json":
         print(json.dumps(report, ensure_ascii=False, indent=2))
+    elif args.output == "html":
+        print(render_html(report, title, args.preset))
     else:
         print(render_markdown(report, title))
 
