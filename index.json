@@ -151,7 +151,7 @@
     },
     {
       "name": "csv-pro",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "data",
       "description": "Профилирование CSV-файлов: типы колонок, статистика, аномалии. Скрипт csv_pro.py читает CSV (файл --input или stdin --stdin), определяет разделитель (по умолчанию ';', затем ','), для каждой колонки считает тип (int/float/str/date), min/max/mean, пропуски, уникальные значения и топ-3 частых. Ищет аномалии: нулевая дисперсия, >95% пустых, дубликаты строк, строки длиннее 1000 символов, выбросы (значение ≥ 5×IQR от медианы). Вывод: markdown-таблица (по умолчанию) или JSON. Триггеры: 'csv profile', 'профиль csv', 'анализ csv', 'csv анализ', 'аномалии csv', 'csv anomalies', 'профилирование csv', 'что в csv'.",
       "path": "skills/csv-pro",
@@ -168,7 +168,7 @@
     },
     {
       "name": "data-analysis",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "data",
       "description": "Профилирование датасета (CSV или JSON-массив объектов): типы полей, статистика (count/unique/missing, min/max/mean/std), мода и топ-N значений, гистограмма 5 корзин для чисел, топ-3 парные корреляции Пирсона, аномалии и рекомендации. Скрипт data_analyze.py читает --input и выводит отчёт в markdown (по умолчанию) или JSON. Триггеры: 'data analysis', 'анализ данных', 'профиль датасета', 'статистика данных', 'dataset анализ', 'почитать данные', 'data profiling', 'разведочный анализ', 'eda'.",
       "path": "skills/data-analysis",
@@ -186,7 +186,7 @@
     },
     {
       "name": "diagram-maker",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "data",
       "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
       "path": "skills/diagram-maker",
@@ -387,7 +387,7 @@
     },
     {
       "name": "pdf-report-builder",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "media",
       "description": "Сборка PDF-отчётов из Markdown без обязательных зависимостей. Скрипт pdf_report_builder.py конвертирует markdown (файл или stdin) в HTML (pandoc или встроенный конвертер) и далее в PDF первым доступным движком: Chromium/Chrome headless --print-to-pdf, weasyprint или pandoc с PDF-движком (pdflatex/tectonic/typst). Поддержка заголовков, списков, таблиц, кода, цитат, ссылок, кастомный заголовок документа. Триггеры: 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'pdf report', 'markdown to pdf', 'отчёт для клиента', 'document to pdf'.",
       "path": "skills/pdf-report-builder",
