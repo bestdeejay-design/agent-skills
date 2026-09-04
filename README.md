@@ -15,7 +15,7 @@
 [![Skills: 51](https://img.shields.io/badge/Skills-52-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--08--19-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--09--04-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
 [![code: 15](https://img.shields.io/badge/code-15-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 12](https://img.shields.io/badge/media-12-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
@@ -24,7 +24,7 @@
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 52 skills · 6 categories
+- [📦 Skill Catalog](#sec-catalog) — 52 skills · 6 categories · HTML charts
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,7 +42,7 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations). **When you update this README (skills added/removed, versions or categories changed), also update `docs/SKILLS_CATALOG.md` (section 9) and `index.json` — keep all three in sync.**
 
-**52 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json).
+**52 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json). HTML charts (Chart.js) available in `data-analysis`, `csv-pro`, `diagram-maker`.
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
@@ -94,10 +94,10 @@
 
 | Skill | Purpose |
 |-------|---------|
-| [**csv-pro**](skills/csv-pro/SKILL.md) | CSV profiling: column types, statistics, anomalies (empty/duplicates/outliers), delimiter auto-detect; markdown/JSON. |
-| [**data-analysis**](skills/data-analysis/SKILL.md) | Dataset profiling (CSV/JSON): field stats, modes, histograms, top Pearson correlations, anomalies + recommendations. |
+| [**csv-pro**](skills/csv-pro/SKILL.md) | CSV profiling: column types, statistics, anomalies (empty/duplicates/outliers), delimiter auto-detect; markdown/JSON/HTML with charts. |
+| [**data-analysis**](skills/data-analysis/SKILL.md) | Dataset profiling (CSV/JSON): field stats, modes, histograms, top Pearson correlations, anomalies + recommendations; HTML dashboard with Chart.js. |
 | [**sql-helper**](skills/sql-helper/SKILL.md) | SQL from a text question + DDL: in-memory sqlite schema, intent templates, every candidate verified via EXPLAIN. |
-| [**diagram-maker**](skills/diagram-maker/SKILL.md) | Diagrams from a text description in Mermaid syntax: flowchart, sequence, architecture, ER + rendering advice. |
+| [**diagram-maker**](skills/diagram-maker/SKILL.md) | Diagrams from text: Mermaid (flowchart, sequence, architecture, ER) + HTML charts (bar, line, pie, scatter) via Chart.js. |
 | [**mermaid-to-image**](skills/mermaid-to-image/SKILL.md) | Renders `.mmd` to PNG/SVG: local mermaid-cli preferred, mermaid.ink fallback; format/scale/background options. |
 | [**raster-to-svg**](skills/raster-to-svg/SKILL.md) | PNG → vector SVG: vtracer-cli when installed, built-in stdlib tracer otherwise (contour with Bezier curves / mosaic of primitives); deterministic, XML-validated; web UI with color palette editor (recolor/merge), export DXF R12 (layers by color)/EPS/PNG, batch → .zip, optional MCP server. |
 | [**web-scraper**](skills/web-scraper/SKILL.md) | Polite HTML scraping to Markdown/JSON: CSS selectors, text/links/tables; legal guardrails — robots.txt, honest UA, rate limit. |
@@ -109,7 +109,7 @@
 | Skill | Purpose |
 |-------|---------|
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | Structured video script: Hook → Body (5 timed scenes) → CTA; timecodes, ru/en, full script or outline. |
-| [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown → PDF report: HTML via pandoc/built-in converter, PDF via Chrome headless / weasyprint / pandoc; tables, code, quotes. |
+| [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown/HTML → PDF report: HTML via pandoc/built-in converter, PDF via Chrome headless / weasyprint / pandoc; tables, code, quotes, embedded charts. |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | Test images, placeholders, icons, avatars for mocks/staging/e2e: Python + free APIs (loremflickr, placehold.co, picsum, Lucide). |
 | [**frontend-design-taste**](skills/frontend-design-taste/SKILL.md) | Distinctive visual direction that doesn't read as templated AI: subject grounding, token system, uniqueness gate, user-side copy. |
 | [**seo-audit**](skills/seo-audit/SKILL.md) | Technical SEO audit: meta/headings/alt/links/sitemap/robots, Core Web Vitals, scored report (7 dimensions), autonomous P1–P5 fixes. |
