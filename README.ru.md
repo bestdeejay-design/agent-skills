@@ -117,7 +117,7 @@
 | [**seo-content**](skills/seo-content/SKILL.md) | Контент страниц: тонкие/дубли, читаемость, E-E-A-T, ключевые слова (плотность, каннибализация, LSI, long-tail), иерархия заголовков, SEO картинок. |
 | [**seo-crawl**](skills/seo-crawl/SKILL.md) | Индексация: robots.txt, noindex, canonical, редиректы, sitemap, перелинковка, глубина кликов, сироты, сравнение с конкурентами. |
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Устарел (роутер)** → используй [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
-| [**presentation-maker**](skills/presentation-maker/SKILL.md) | Презентации «под ключ» из темы: план → JSON-спека → HTML-слайды 16:9 (с обязательной проверкой Playwright) и настоящий `.pptx`; пресеты-стратегии, экспорт в PDF, аудит качества. Одна команда на этап. |
+| [**presentation-maker**](skills/presentation-maker/SKILL.md) | Презентации «под ключ» из темы: план → JSON-спека → HTML-слайды 16:9 (с обязательной проверкой Playwright) + настоящий `.pptx`; пресеты-стратегии, экспорт в PDF, аудит качества (`deck_audit.py`) и структурная валидация Bento (`qa_bento.py`). Одна команда на этап. |
 | [**presentation-craft**](skills/presentation-craft/SKILL.md) | Роутер качественных дек: оркестрирует docs-product → frontend-design-taste → presentation-maker → frontend-perfection по этапам (смысл, визуальное направление, сборка, аудит). |
 | [**presentation-engineering**](skills/presentation-engineering/SKILL.md) | Инженерия историй: превращение идей в меняющие мир презентации — нарративная инженерия, визуальный язык и перформанс-дизайн (не генератор слайдов). |
 

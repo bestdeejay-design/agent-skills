@@ -45,7 +45,8 @@ topic / outline.md
       │
       ├──(build_pptx.py deck.json deck.pptx)──▶ qa_pptx.py ──▶ PASS/FAIL  [геометрия PPTX]
       ├──(build_pdf.py)──▶ deck.pdf   (из slides.html, Playwright)
-      └──(deck_audit.py)──▶ quality report (JSON)
+      ├──(deck_audit.py)──▶ quality report (JSON)
+      └──(qa_bento.py *.bento.html)──▶ PASS/FAIL  [structural validation]
 ```
 
 Дека НЕ считается готовой, пока не пройдены все четыре gate: `verify_slides.py`
@@ -408,7 +409,7 @@ mechanically by `deck_audit.py`:
 
 ## Dependencies
 
-- `python3` (stdlib only for `deck_md.py`, `strategy.py`, `deck_audit.py`).
+- `python3` (stdlib only for `deck_md.py`, `strategy.py`, `deck_audit.py`, `qa_bento.py`).
 - `python-pptx` for `build_pptx.py`: `pip install python-pptx`.
 - `playwright` for `verify_slides.py` and `build_pdf.py`:
   `pip install playwright && playwright install chromium`.

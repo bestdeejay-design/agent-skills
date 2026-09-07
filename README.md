@@ -117,7 +117,7 @@
 | [**seo-content**](skills/seo-content/SKILL.md) | On-page content: thin/duplicates, readability, E-E-A-T, keywords (density, cannibalization, LSI, long-tail), heading hierarchy, image SEO. |
 | [**seo-crawl**](skills/seo-crawl/SKILL.md) | Crawlability: robots.txt, noindex, canonical, redirects, sitemap, internal linking, click depth, orphan pages, competitor comparison. |
 | [**seo-toolkit**](skills/seo-toolkit/SKILL.md) | ⚠️ **Deprecated router** → use [seo-audit](skills/seo-audit/SKILL.md) / [seo-schema](skills/seo-schema/SKILL.md) / [seo-content](skills/seo-content/SKILL.md) / [seo-crawl](skills/seo-crawl/SKILL.md). |
-| [**presentation-maker**](skills/presentation-maker/SKILL.md) | End-to-end decks from a topic: outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright check) and real `.pptx`; strategy presets, PDF export, deck-quality audit. One command per stage. |
+| [**presentation-maker**](skills/presentation-maker/SKILL.md) | End-to-end decks from a topic: outline → JSON spec → 16:9 HTML slides (mandatory Playwright check) + real `.pptx`; strategy presets, PDF export, deck-quality audit (`deck_audit.py`), and structural Bento validation (`qa_bento.py`). One command per stage. |
 | [**presentation-craft**](skills/presentation-craft/SKILL.md) | Router for high-quality decks: orchestrates docs-product → frontend-design-taste → presentation-maker → frontend-perfection per stage (narrative, visual direction, build, audit). |
 | [**presentation-engineering**](skills/presentation-engineering/SKILL.md) | Story engineering: turning ideas into world-changing presentations — narrative engineering, visual language, and performance design (not a slide generator). |
 
