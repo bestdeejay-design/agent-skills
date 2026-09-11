@@ -7,6 +7,17 @@ All notable changes to this project are documented here. Format follows
 This repository tracks the **skill collection** (`agent-skills`) as a whole,
 not the internal version bumps of individual skills.
 
+## [Unreleased]
+
+### Added
+- **chronos** (v1.1.1) — Documentation Timekeeper: 5 AI-агентов (Chronos, Censor, Dewey, Veles, Canon) для целостности документации: дубли, битые ссылки, обязательные документы, сироты, классификация L1–L6, устаревшие даты. В комплекте отдельные скиллы **censor** (v1.0.1), **dewey** (v1.0.1), **veles** (v1.0.1), **canon** (v1.0.1).
+- **prd-to-app** (v1.0.0) — production-ready full-stack веб-приложение из PRD и макетов: пайплайн из 8 фаз (Material Discovery → System Design → Seed Data → Backend → Frontend → Visual Verification → Integration Testing → Deployment), Playwright + анализ прототипа.
+- **web-replication** (v1.0.1) — визуальная репликация фронтенда сайта через Playwright MCP: скриншоты/лейаут → blueprint с графом навигации → визуальная копия.
+
+### Changed
+- README.md / README.ru.md: синхронизированы с `index.json` — 59 скиллов · 6 категорий (было 52): бейджи (Skills, code 27, media 13), сводная таблица категорий, таблица `code` (+8 строк: `long-running-agent-workflow` возвращён в таблицу из позиции вне её, chronos, censor, dewey, veles, canon, prd-to-app, web-replication) и `media` (+doc-compare); SVG-хедеры «52 skills» → «59 skills».
+- docs/SKILLS_CATALOG.md: 59 скиллов, раздел 9.1 (`code`) дополнен семью новыми скиллами.
+
 ## [1.11.0] - 2026-08-27
 
 ### Added
