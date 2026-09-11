@@ -433,12 +433,51 @@ def _validate_skill_md(name, skill_md_path, skill_dir, repo_root, skill_json):
                 Issue("ERROR", "SKILL.md frontmatter missing '{}'".format(key), rel("SKILL.md"))
             )
 
+    if data.get("name") and data.get("name") != name:
+        issues.append(
+            Issue(
+                "ERROR",
+                "SKILL.md frontmatter name '{}' != folder name '{}'".format(data["name"], name),
+                rel("SKILL.md"),
+            )
+        )
+
+    # Keep the discovery metadata bounded and machine-checkable. The official
+    # listing truncates long descriptions, so an overlong field silently loses
+    # the very triggers that make a skill discoverable.
+    description = data.get("description", "")
+    if len(description) > 1536:
+        issues.append(
+            Issue(
+                "ERROR",
+                "SKILL.md description is {} characters (>1536)".format(len(description)),
+                rel("SKILL.md"),
+            )
+        )
+    when_to_use = data.get("when_to_use", "")
+    if not when_to_use:
+        issues.append(Issue("WARNING", "SKILL.md frontmatter has no 'when_to_use'", rel("SKILL.md")))
+    elif len(description) + len(when_to_use) > 1536:
+        issues.append(
+            Issue(
+                "WARNING",
+                "description + when_to_use is {} characters (>1536 listing budget)".format(
+                    len(description) + len(when_to_use)
+                ),
+                rel("SKILL.md"),
+            )
+        )
+
     md_version = data.get("metadata.version")
     if not md_version:
         issues.append(
             Issue("ERROR", "SKILL.md frontmatter missing 'metadata.version'", rel("SKILL.md"))
         )
     else:
+        if not SEMVER_RE.match(md_version):
+            issues.append(
+                Issue("ERROR", "SKILL.md metadata.version '{}' is not semver".format(md_version), rel("SKILL.md"))
+            )
         json_version = skill_json.get("version") if isinstance(skill_json, dict) else None
         if isinstance(json_version, str) and md_version != json_version:
             issues.append(

@@ -114,12 +114,14 @@ def parse_blocks(md):
         if re.match(r'^\s*-\s+', line):
             items = []; s = i
             while i < n and re.match(r'^\s*-\s+', lines[i]):
-                items.append(f'<li>{inline(re.sub(r"^\s*-\s+", "", lines[i]))}</li>'); i += 1
+                item_text = re.sub(r"^\s*-\s+", "", lines[i])
+                items.append(f'<li>{inline(item_text)}</li>'); i += 1
             blocks.append({'html': '<ul>' + ''.join(items) + '</ul>', 'src_s': s, 'src_e': i - 1, 'raw': '\n'.join(lines[s:i])}); continue
         if re.match(r'^\s*\d+\.\s+', line):
             items = []; s = i
             while i < n and re.match(r'^\s*\d+\.\s+', lines[i]):
-                items.append(f'<li>{inline(re.sub(r"^\s*\d+\.\s+", "", lines[i]))}</li>'); i += 1
+                item_text = re.sub(r"^\s*\d+\.\s+", "", lines[i])
+                items.append(f'<li>{inline(item_text)}</li>'); i += 1
             blocks.append({'html': '<ol>' + ''.join(items) + '</ol>', 'src_s': s, 'src_e': i - 1, 'raw': '\n'.join(lines[s:i])}); continue
         para = []; s = i
         while (i < n and lines[i].strip() and not re.match(r'^(#{1,6})\s+', lines[i])

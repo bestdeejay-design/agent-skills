@@ -3,7 +3,7 @@ name: presentation-maker
 description: End-to-end presentations from a topic — outline -> JSON spec -> 16:9 HTML slides (with mandatory Playwright verification) and real .pptx (full 14-type design system), plus strategy presets, PDF export, and deck-quality audits. One command per stage.
 license: MIT
 metadata:
-  version: 4.2.0
+  version: 4.3.0
 when_to_use: "Build a complete on-brand presentation from a topic or outline: HTML slides, real .pptx, PDF, with mandatory verification. Triggers: 'presentation maker', 'сделай презентацию', 'слайды', 'pptx', 'собери слайды', '16:9 слайды', 'презентация в powerpoint'. Example: 'Make a 10-slide deck from this outline.'"
 ---
 

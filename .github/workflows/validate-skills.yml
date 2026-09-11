@@ -20,3 +20,11 @@ jobs:
 
       - name: Validate skills
         run: python3 scripts/validate_skills.py --all
+
+      - name: Compile Python scripts
+        run: python3 -m compileall -q scripts skills
+
+      - name: Check quality snapshot is current
+        run: |
+          python3 scripts/skill_quality_audit.py
+          git diff --exit-code -- docs/skill-quality-audit.md
