@@ -4,7 +4,7 @@ description: "Audit and update GitHub repository metadata and community health: 
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.1"
+  version: "1.0.2"
   compatibility: "Requires gh CLI and network access to api.github.com for metadata checks; python3 (stdlib) for validate_repo.py"
 when_to_use: "Use when auditing or updating GitHub repo metadata/community health: 'repo description', 'repo topics', 'github pages', 'community health', 'repo audit', 'repo checklist', 'repo about'. Example: \"audit my repo's community health\" or 'update repo topics'."
 ---
@@ -90,3 +90,7 @@ GitHub REST API endpoints).
 ## Boundaries
 
 - Do not use to author legal/community files; use `repo-community-files`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

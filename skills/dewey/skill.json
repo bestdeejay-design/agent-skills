@@ -1,6 +1,6 @@
 {
   "name": "dewey",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Document classifier — assigns L1-L6 taxonomy level to each document, enforces required docs per level, detects missing required documents. L1 Contracts → L2 Product Canon → L3 Engineering Canon → L4 Derived → L5 Artifacts → L6 Auxiliary. Determines project maturity level. Part of Chronos Pantheon.",
   "author": "best",
   "license": "MIT",
@@ -45,5 +45,5 @@
       "file:read"
     ]
   },
-  "updated": "2026-09-02"
+  "updated": "2026-09-11"
 }

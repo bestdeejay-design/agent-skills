@@ -4,7 +4,7 @@ description: "Audit and polish frontend (static HTML/CSS/JS or built SPA) to mea
 license: MIT
 metadata:
   author: best
-  version: 1.5.0
+  version: 1.5.1
 when_to_use: "Use to audit/polish a frontend to measurable perfection: 'frontend audit', 'perfect the layout', 'lighthouse check', 'make it 100/100/100/100', 'audit the page', 'fix performance', 'contrast check', 'design tokens', 'og image', 'social share meta'. Examples: 'audit my page for Lighthouse 100', 'fix contrast and SEO meta on the homepage'."
 ---
 
@@ -192,7 +192,7 @@ live server or manual review and are NOT asserted by the script:
 For depth beyond this skill's baseline, delegate to the dedicated sibling skills
 (same `skills/` dir):
 - **Deep accessibility** (95 rules: tables, landmarks, ARIA values, focus traps,
-  runtime contrast, screen-reader) → `frontend-a11y` (`scripts/a11y_audit.py`
+  runtime contrast, screen-reader) → `frontend-a11y`
   static + `a11y_axe.mjs` runtime).
 - **Deep performance** (network/headers, Core Web Vitals, bundle size, HTTP/2,
   caching, service worker) → `frontend-performance` (`perf_headers.py` offline +

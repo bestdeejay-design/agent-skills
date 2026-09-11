@@ -4,7 +4,7 @@ description: "Skill recommendation for AI agents from the agent-skills library. 
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires Python3; reads index.json"
 when_to_use: "Use when user doesn't know which skill to use: 'which skill', 'suggest skill', 'recommend a skill', 'какой скилл использовать', 'подобрать навык', 'рекомендовать скилл'. Example: 'What skill should I use for SEO?' / 'Какой скилл взять для репозитория?'."
 ---
@@ -121,3 +121,7 @@ python3 scripts/skill_suggest.py "сгенерируй презентацию" -
 ## Boundaries
 
 - Do not use when the user has already selected a skill and given clear instructions.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

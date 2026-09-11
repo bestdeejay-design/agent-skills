@@ -1,6 +1,6 @@
 {
   "name": "censor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fact-checker for documentation — detects duplicates (similarity >70%) and broken internal links in markdown files. Skips code blocks, inline code, and external URLs. Configurable threshold (default 0.7) and ignore patterns. Part of Chronos Pantheon, invoked via presets minimal/standard/full.",
   "author": "best",
   "license": "MIT",
@@ -45,5 +45,5 @@
       "file:read"
     ]
   },
-  "updated": "2026-09-02"
+  "updated": "2026-09-11"
 }

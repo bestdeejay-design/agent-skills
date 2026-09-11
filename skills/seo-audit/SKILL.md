@@ -4,7 +4,7 @@ description: "Technical SEO audit and health: full technical audit (meta, headin
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts — agent-driven workflows (commands/)"
 when_to_use: "Use for technical SEO health: 'seo audit', 'technical audit', 'core web vitals', 'site speed', 'seo report', 'seo fix', 'технический аудит', 'проверка seo', 'скорость сайта'. Example: 'Audit my site and fix Core Web Vitals' / 'Проверь техническое SEO сайта'."
 ---
@@ -41,3 +41,15 @@ Modes: **URL** (external sites) and **File** (local projects).
 ## Boundaries
 
 - Do not use for content writing or JSON-LD generation; use `seo-content` or `seo-schema`.
+
+## Audit workflow and evidence
+
+1. Inventory all routes/pages and declare whether the source is URL, static files, or a framework build.
+2. Run the technical checks documented in `commands/`, preserving page URLs and source file locations.
+3. Score only observed dimensions; mark unavailable Core Web Vitals or crawl data as `not measured`, not zero.
+4. Produce a prioritized remediation plan, then ask before applying changes.
+5. Re-run the affected checks after any fix and compare before/after results.
+
+## Output gate
+
+Every finding needs page/file, check, evidence, severity, recommended fix, and confidence. Never claim a ranking improvement or a 100/100 score from static inspection alone. For `seo-fix`, show a diff and run the relevant build or test command before claiming success.

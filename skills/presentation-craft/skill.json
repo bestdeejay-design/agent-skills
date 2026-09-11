@@ -1,10 +1,20 @@
 {
   "name": "presentation-craft",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Router for high-quality presentations: orchestrates docs-product (narrative) + frontend-design-taste (visual direction) + presentation-maker (build/export) + frontend-perfection (UI/UX audit) per stage, with a research-backed quality contract (assertion headlines, design tokens, WCAG contrast, uniqueness gate).",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["presentation", "deck", "slides", "router", "craft", "quality", "design", "слайды", "презентация"],
+  "keywords": [
+    "presentation",
+    "deck",
+    "slides",
+    "router",
+    "craft",
+    "quality",
+    "design",
+    "слайды",
+    "презентация"
+  ],
   "triggers": [
     "качественная презентация",
     "сделай стильную презентацию",
@@ -20,6 +30,12 @@
     "SKILL.md",
     "skill.json"
   ],
-  "requirements": {"tools": ["python3", "pip", "node(optional)"]},
-  "updated": "2026-08-14"
+  "requirements": {
+    "tools": [
+      "python3",
+      "pip",
+      "node(optional)"
+    ]
+  },
+  "updated": "2026-09-11"
 }

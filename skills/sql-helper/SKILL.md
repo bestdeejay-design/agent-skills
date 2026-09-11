@@ -4,7 +4,7 @@ description: "Генерация SQL по текстовому вопросу и
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3 stdlib (argparse, sqlite3)"
 when_to_use: "Use to turn a question + DDL into SQL: 'sql helper', 'generate sql', 'write sql', 'sql query', 'explain query', 'sql генерация', 'сгенерируй sql', 'напиши sql', 'explain запроса'. Example: 'Write a SELECT joining users and orders' / 'Сгенерируй SQL по схеме'."
 ---
@@ -72,3 +72,7 @@ python3 skills/sql-helper/scripts/sql_helper.py --ddl schema.sql --question "top
 ## Boundaries
 
 - Do not use for executing SQL against production or for schema migrations; review and run queries separately.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 from typing import List, Dict, Any
 from .base import BaseAgent, Issue, Document
@@ -57,12 +58,44 @@ class Canon(BaseAgent):
                 
                 if agent_name == "dewey" and isinstance(result, dict):
                     agent_context["classification"] = result
-                    classification_issues = agent.check_missing(result, agent_context.get("level", "L1"))
-                    all_issues.extend(classification_issues)
+                    # Use the level detected from the complete document set. The
+                    # previous fallback to L1 made standard audits silently skip
+                    # missing L2/L3 documents.
+                    detected_level = agent.detect_project_level(result)
+                    agent_context["level"] = detected_level
+                    all_issues.extend(agent.check_missing(result, detected_level))
                 elif isinstance(result, list):
                     all_issues.extend(result)
-        
+
+        # Canon used to be listed in the presets but was never executed. Keep
+        # cross-reference checking conservative: only report a contract route
+        # absent from all Markdown documents, and label it as a warning because
+        # not every route needs prose documentation.
+        if preset_name in ("standard", "full"):
+            all_issues.extend(self.check_contract_references(documents))
+
         return all_issues
-    
+
+    def check_contract_references(self, documents: List[Document]) -> List[Issue]:
+        """Find obvious OpenAPI routes that are absent from Markdown docs."""
+        contracts = [d for d in documents if d.path.endswith((".yaml", ".yml"))]
+        markdown = "\n".join(d.content for d in documents if d.path.endswith(".md"))
+        issues: List[Issue] = []
+        seen = set()
+        for contract in contracts:
+            for raw in re.findall(r"(?m)^\s{0,4}(/[A-Za-z0-9][A-Za-z0-9_{}./-]*)\s*:", contract.content):
+                route = raw.rstrip(":")
+                if route in seen or route in markdown:
+                    continue
+                seen.add(route)
+                issues.append(Issue(
+                    severity="warning",
+                    category="cross_reference",
+                    file=contract.path,
+                    description=f"Contract route {route} is not mentioned in Markdown documentation",
+                    fix=f"Document {route} or mark it intentionally internal",
+                ))
+        return issues
+
     def load_preset(self, preset_name: str) -> Dict[str, Any]:
         return PRESETS.get(preset_name, PRESETS["minimal"])

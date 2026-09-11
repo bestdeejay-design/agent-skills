@@ -4,7 +4,7 @@ description: "Meta-guide + router for documentation: the two branches (docs-prod
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "2.0.0"
+  version: "2.0.1"
 compatibility: "No scripts — guide + router"
 when_to_use: "Use when user asks about the documentation system as a whole: 'документация', 'набор документации', 'каталог документов', 'docs catalog', 'documentation structure', 'какую документацию писать', 'полная документация'. Examples: 'what docs should this project have', 'какую документацию написать для стартапа'."
 ---
@@ -57,3 +57,7 @@ completeness). The two branches are the focused entry points.
 ## Boundaries
 
 - Do not use to author one document branch directly; route to `docs-product` or `docs-project`.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

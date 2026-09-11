@@ -4,7 +4,7 @@ description: "DEPRECATED meta-skill. Routes to the four focused repository skill
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "2.0.0"
+  version: "2.0.1"
 compatibility: "Router only — delegates to the four focused repo skills"
 when_to_use: "Use when polishing a GitHub repo for publication: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'. Routes to the four focused repo skills. Examples: 'make my repo publish-ready', 'оформи репозиторий для публикации на GitHub'."
 ---
@@ -37,3 +37,11 @@ rules may still reference `github-repo-hygiene`), then delete the folder.
 ## Boundaries
 
 - Do not use this deprecated router when a focused `repo-*` skill is applicable.
+
+## Router procedure
+
+This skill performs no repository edits. First identify whether the request concerns README assets, community/legal files, GitHub metadata, or the social preview. Load exactly the focused skill from the routing table and carry its verification gate into the final report.
+
+## Verification
+
+The router's output must name the selected sub-skill and explain why the other three were not selected. If the request spans areas, compose the focused skills explicitly instead of reviving the deprecated monolithic workflow.

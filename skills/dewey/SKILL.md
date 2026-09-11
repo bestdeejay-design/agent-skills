@@ -6,7 +6,7 @@ description: >
   "required documents", "document taxonomy", "dewey".
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 when_to_use: "Use for document classification: 'classify docs', 'document classification', 'missing docs', 'required documents', 'document taxonomy', 'dewey'."
 ---
 
@@ -71,3 +71,11 @@ Loaded by Chronos as part of `standard` and `full` presets.
 ## Boundaries
 
 - Do not use for duplicate detection, links, or orphan statistics; use `censor` or `veles`.
+
+## Procedure and output contract
+
+Classify by normalized repository-relative path, report the matched rule, and show the detected maturity level before checking required documents. Required-document findings are warnings until the project declares a stricter policy. Unknown files must be reported as unknown rather than forced into a taxonomy level.
+
+## Verification
+
+A useful report includes every document's classification, the rule or pattern that matched it, required documents considered, and a deterministic summary. Review false positives for custom repository layouts before creating files.

@@ -7,7 +7,7 @@ description: >
   "dead zones", "link hierarchy", "veles".
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 when_to_use: "Use for documentation statistics and orphan detection: 'find orphans', 'orphan docs', 'unreferenced documents', 'documentation stats', 'doc metrics', 'dead zones', 'link hierarchy', 'veles'."
 ---
 
@@ -75,3 +75,7 @@ Loaded by Chronos as part of `full` preset only.
 ## Boundaries
 
 - Do not use for duplicate/link fact-checking; use `censor`.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

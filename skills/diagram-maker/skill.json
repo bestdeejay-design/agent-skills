@@ -1,6 +1,6 @@
 {
   "name": "diagram-maker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Генерация диаграмм из текстового описания: flowchart, sequence, architecture, ER-схемы в синтаксисе Mermaid. Вход — natural language описание, выход — готовый код Mermaid + рекомендация по рендерингу (mermaid.live / mermaid-cli / MCP). Триггеры: 'диаграмма', 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'архитектура', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'architecture diagram'.",
   "author": "best",
   "license": "MIT",
@@ -50,5 +50,5 @@
     ],
     "script": "scripts/mermaid_to_markdown.py"
   },
-  "updated": "2026-08-08"
+  "updated": "2026-09-11"
 }

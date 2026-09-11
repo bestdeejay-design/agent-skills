@@ -4,7 +4,7 @@ description: "Визуальное сравнение markdown-документ�
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
   compatibility: "Requires Python 3, gh CLI (для gh: источников)"
 when_to_use: "Use when you need to visually compare two versions of a markdown document и сразу ВИДЕТЬ, где были правки (например, локальный драфт vs опубликованное на GitHub Pages), рецензировать правки в офертах/договорах бок о бок. Триггеры: 'сравни доки', 'doc compare', 'side-by-side', 'сравнить с публичным', 'где правки', 'покажи изменения', 'diff оферту'."
 ---
@@ -55,3 +55,7 @@ python3 ~/.config/opencode/skills/doc-compare/scripts/compare_docs.py --no-open 
 ## Boundaries
 
 - Do not use for general document quality audits; use `chronos`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

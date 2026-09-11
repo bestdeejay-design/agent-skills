@@ -4,7 +4,7 @@ description: "Give a website a distinctive, deliberate visual direction that doe
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.1"
+  version: "1.0.2"
 compatibility: "No scripts; design judgment. Optionally a browser for visual verification"
 when_to_use: "Use when user wants a distinctive visual direction (not templated): 'design direction', 'design taste', 'make it look good', 'not templated', 'redesign with taste', 'visual identity', 'aesthetic direction', 'design brief', 'anti-templated design'. Examples: 'give this landing page a real visual identity', 'redesign my site so it stops looking like AI'."
 ---
@@ -131,3 +131,7 @@ gate are kept verbatim in spirit.
 ## Boundaries
 
 - Do not use for a11y, performance, or test auditing; use the focused frontend audit skills.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

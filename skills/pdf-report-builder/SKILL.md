@@ -4,7 +4,7 @@ description: "Сборка PDF-отчётов из Markdown без обязат�
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires Python 3 stdlib; PDF-движок опционально (Chrome/weasyprint/pandoc)"
 when_to_use: "Build a PDF document from Markdown (report, README, spec, client deliverable). Triggers: 'markdown to pdf', 'pdf report', 'отчёт в pdf', 'markdown в pdf', 'собери отчёт', 'отчёт для клиента', 'document to pdf'. Example: 'Convert my report.md into a PDF for the client.'"
 ---
@@ -82,3 +82,7 @@ HTML-отчёт автоматически включает:
 ## Boundaries
 
 - Do not use for slide decks or presentation design; use `presentation-maker`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

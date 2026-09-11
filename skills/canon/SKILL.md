@@ -6,7 +6,7 @@ description: >
   "chronos full", "cross-reference validation", "canon".
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 when_to_use: "Use to orchestrate Chronos agents: 'run full audit', 'chronos full', 'cross-reference validation', 'canon'."
 ---
 
@@ -71,3 +71,11 @@ Loaded by Chronos as part of `standard` and `full` presets. Canon is both an age
 ## Boundaries
 
 - Do not use as a standalone documentation analyzer; use the focused `chronos`, `censor`, `dewey`, or `veles` skill when only one audit is needed.
+
+## Inputs and decision rules
+
+Input is a repository path and one preset. Start with `minimal` when the user asks for a narrow check; use `standard` for a PR and `full` for a release audit. Never infer that a missing document is a defect without showing the detected project level and the configured requirement.
+
+## Output gate
+
+A run is complete only when the selected agents, issue count, preset, project path, and output format are visible in the report. For CI, use JSON and `--fail-on`; inspect at least one finding's file, category, severity, and fix. A zero-issue report is not proof that unscanned file types or unavailable external systems were checked.

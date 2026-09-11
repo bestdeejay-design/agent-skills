@@ -4,7 +4,7 @@ description: "DEPRECATED meta-skill. Routes to the four focused SEO skills that 
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "2.0.0"
+  version: "2.0.1"
 compatibility: "Router only — delegates to seo-audit / seo-schema / seo-content / seo-crawl"
 when_to_use: "DEPRECATED router — use to pick the right SEO sub-skill: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'. Example: 'I need SEO help, which skill?' / 'Какой скилл по SEO взять?'. Routes to seo-audit/schema/content/crawl."
 ---
@@ -38,3 +38,7 @@ Keep this router for one release cycle for backward compatibility, then delete.
 ## Boundaries
 
 - Do not use this deprecated router when a focused `seo-*` skill is applicable.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

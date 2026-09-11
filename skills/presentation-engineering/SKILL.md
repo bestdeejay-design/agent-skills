@@ -2,7 +2,7 @@
 name: presentation-engineering
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.0.1
 description: "Инженерия историй: создание мироизменяющих презентаций. Не генератор слайдов — а система превращения идей в истории, которые вдохновляют действовать. Сочетает нарративную инженерию, визуальный язык и перформанс-дизайн."
 when_to_use: "Engineer a world-changing presentation as a story: narrative strategy, visual language, performance design. Triggers: 'presentation engineering', 'story-driven deck', 'инженерия презентации', 'создай вдохновляющую презентацию', 'narrative presentation'. Example: 'Help me turn my idea into a presentation that moves people to act.'"
 ---
@@ -428,3 +428,7 @@ PPTX (Draft) — для редактирования
 ## Boundaries
 
 - Do not use as a generic slide renderer; use `presentation-maker` for artifact generation.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

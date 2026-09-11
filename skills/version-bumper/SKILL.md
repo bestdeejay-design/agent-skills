@@ -4,7 +4,7 @@ description: "Suggest the next semantic version and release tag from Conventiona
 license: MIT
 metadata:
   author: best
-  version: "1.0.0"
+  version: "1.0.1"
   compatibility: "Requires Python 3 stdlib + git executable (optional; --commits FILE mode works without git)"
 when_to_use: "Use when you need the next semantic version / release tag from Conventional Commits history. Triggers: 'version bump', 'next version', 'семантическая версия', 'предложи версию', 'release tag'. Examples: 'What version should the next tag be?' / 'Какую версию ставить в релиз?'."
 ---
@@ -151,3 +151,7 @@ cp -r skills/version-bumper ~/.config/opencode/skills/
 ## Boundaries
 
 - Do not use to create tags or publish a release; it only recommends a version.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

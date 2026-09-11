@@ -1,6 +1,6 @@
 {
   "skill": "code-review",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "runner": "manual-or-agent",
   "tests": [
     {

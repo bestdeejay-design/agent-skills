@@ -15,7 +15,7 @@ description: >
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
   adapted_from: zai-org/GLM-skills/glmv-web-replication
 when_to_use: "Replicate a website's frontend visual design. Triggers: 'web replication', 'реплика сайта', 'скопируй сайт', 'replicate website', 'clone this site'."
 ---
@@ -259,3 +259,7 @@ Recommended stack: HTML + CSS + vanilla JS, or React/Tailwind if complex.
 ## Boundaries
 
 - Do not use to copy proprietary content or bypass access controls; use it only for authorized references.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

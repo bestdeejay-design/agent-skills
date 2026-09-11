@@ -4,7 +4,7 @@ description: "Генерация Markdown-документации REST API из
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3 stdlib (json, argparse); input: OpenAPI 3.x JSON"
 when_to_use: "Use when documenting a REST API as Markdown from an OpenAPI/Swagger spec. Triggers: 'api doc', 'документация API', 'openapi', 'swagger to markdown', 'описать эндпоинты', 'api reference'. Example: 'сгенерируй markdown-документацию из openapi.json'."
 ---
@@ -75,3 +75,14 @@ npx swagger-jsdoc -d swagger-def.js -o openapi.json
 ## Boundaries
 
 - Do not use for validating whether an API matches its contract; use `api-contract-testing` for checks.
+
+## Operating procedure
+
+1. Load the OpenAPI 3.x document and fail if it is not parseable.
+2. Preserve the source operation order and group methods by path.
+3. Render parameters, request bodies, response codes, auth hints, and operation IDs without inventing values.
+4. Write to the requested output path, then reopen the result and verify every source operation has a corresponding Markdown heading.
+
+## Output contract and verification
+
+The output is Markdown plus a run summary containing the input path, operation count, output path, and exit status. Treat missing schemas, unresolved references, and unsupported constructs as explicit warnings; never silently omit an endpoint. Re-run the generator after changing the spec and compare the operation count before claiming completeness.

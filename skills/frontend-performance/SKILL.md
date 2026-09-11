@@ -4,7 +4,7 @@ description: "Audit web performance depth beyond Lighthouse. Use when the user a
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 when_to_use: "Use to audit/polish web performance depth: performance audit, Core Web Vitals (CWV) review, bundle-size analysis, or to optimize loading — slow LCP/FCP/INP/CLS, heavy JS/CSS bundle, or missing HTTP/2 / text compression / browser caching / HSTS / resource hints / service worker / speculation rules. Examples: 'audit my page for LCP/FCP/INP/CLS', 'why is my bundle so big', 'check HTTP/2 and compression headers', 'why is my site slow', 'make it faster'."
 ---
 
@@ -189,3 +189,7 @@ Performance sources this skill is aligned with.
 ## Boundaries
 
 - Do not use for visual design critique or accessibility; use `frontend-design-taste` or `frontend-a11y`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

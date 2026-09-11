@@ -4,7 +4,7 @@ description: "Product documentation branch — the 'why' and 'what' of a project
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts — template-driven authoring"
 when_to_use: "Use when user needs product docs: 'продуктовая документация', 'vision', 'prd', 'роадмап', 'roadmap', 'product docs', 'требования к продукту', 'документация продукта'. Examples: 'write a PRD for my app', 'создай VISION и ROADMAP для проекта'."
 ---
@@ -75,3 +75,7 @@ written "from the end".
 ## Boundaries
 
 - Do not use for implementation/runbook documentation; use `docs-project`.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

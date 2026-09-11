@@ -4,7 +4,7 @@ description: "Генерируй тестовые картинки, фото-з�
 license: MIT
 metadata:
   author: best
-  version: "1.2.0"
+  version: "1.2.1"
 compatibility: "Requires Python 3 and Pillow"
 when_to_use: "Use when you need placeholder/test images, icons, avatars or photos for mocks, staging or e2e tests. Triggers: 'test images', 'placeholder', 'тестовые картинки', 'иконки для теста', 'заглушки', 'сгенерировать фото'. Examples: 'Generate 10 placeholder photos' / 'Нужны тестовые картинки'."
 ---
@@ -241,3 +241,7 @@ scripts/test-graphics.py photo 800 600 ./public/images/hero.jpg
 ## Boundaries
 
 - Do not use for production artwork or final marketing assets.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

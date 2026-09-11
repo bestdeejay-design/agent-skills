@@ -4,7 +4,7 @@ description: "Create and maintain repository community/legal files: LICENSE, COD
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.1"
+  version: "1.0.2"
   compatibility: "No scripts; gh CLI optional for org-level defaults"
 when_to_use: "Use when creating or updating repo legal/community files: 'license file', 'code of conduct', 'contributing guide', 'security policy', 'issue template', 'pr template', 'funding yml', 'community files'. Example: 'add a LICENSE and CONTRIBUTING.md' or 'set up repo community files'."
 ---
@@ -70,3 +70,7 @@ copies for repo-specific policies.
 ## Boundaries
 
 - Do not use for README assets, metadata, or social previews; use the focused `repo-*` skills.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

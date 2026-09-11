@@ -3,7 +3,7 @@ name: mobile-frontend
 description: Composite skill for quality mobile-first frontend — codified rules (spacing, type scale, anchors, safe-area, tap-targets), build, and multi-level verification with per-element menu/nav debugging.
 license: MIT
 metadata:
-  version: 1.0.1
+  version: 1.0.2
 when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets, safe-area, nav/menu debugging, mobile Lighthouse. Triggers: 'mobile-first', 'адаптив под телефон', 'проверь мобилку', 'mobile QA', 'гамбургер не работает', 'mobile lighthouse 100'. Example: 'Make this page work great on phones.'"
 ---
 
@@ -99,7 +99,7 @@ when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets
 - z-index: меню выше контента и шапки, но ниже модалок/тостов.
 
 ### Уровень 4 — Perf (mobile Lighthouse)
-Через `frontend-perfection` (`scripts/audit.js`, режим mobile):
+Через `frontend-perfection` (`skills/frontend-perfection/scripts/audit.js`, режим mobile):
 - CLS < 0.1, LCP < 2.5s, INP < 200ms на мобильном профиле;
 - нет блокирующего JS/CSS, шрифты не держат CLS.
 
@@ -137,3 +137,11 @@ when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets
 ## Boundaries
 
 - Do not use for backend/API work or a desktop-only audit.
+
+## Evidence protocol
+
+Before editing, record the target routes, supported viewport matrix, browser/device assumptions, and any existing test command. After editing, run the narrowest available browser checks at 320, 360, 390, 414, and 768 pixels, then repeat the affected checks after each fix. A screenshot alone does not prove keyboard, focus, safe-area, or tap-target behavior.
+
+## Failure handling
+
+Report blocked checks separately from failed checks: missing browser tooling, unavailable pages, and pre-existing application errors must not become a false PASS. Include viewport, selector, measured dimensions, command, exit status, and artifact path for every failure.

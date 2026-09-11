@@ -4,7 +4,7 @@ description: "Project (engineering) documentation branch — the 'how': README, 
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts — template-driven authoring"
 when_to_use: "Use when user needs engineering docs: 'проектная документация', 'архитектура документация', 'adr', 'engineering docs', 'документация разработчика', 'контракты openapi', 'project docs', 'инженерная документация'. Examples: 'write the ARCHITECTURE.md', 'сгенерируй README и ADR для репозитория'."
 ---
@@ -85,3 +85,15 @@ change: *touch a doc → update its card*.
 ## Boundaries
 
 - Do not use for product vision, PRDs, or roadmap decisions; use `docs-product`.
+
+## Authoring procedure
+
+1. Inventory the repository and establish the hierarchy of truth.
+2. Write contracts before implementation docs when the project exposes APIs or events.
+3. Draft architecture and ADRs from observed code and explicit decisions; label assumptions.
+4. Add runbooks and test cases with copy-pasteable commands and expected results.
+5. Write `REFERENCE.md` last and add a card for every document.
+
+## Definition of done
+
+Every generated document names its source of truth, owner or update trigger, prerequisites, commands, and failure path. Verify links, commands, and contract examples against the repository; do not mark a document complete merely because the template is filled.
