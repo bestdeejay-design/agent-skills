@@ -143,7 +143,7 @@
 - [ ] CLI installer (`npx install-skill <name>` / `pip install agent-skills-cli`)
 - [ ] Skill templates repository (scaffold a new skill in one command)
 - [ ] Community showcase (`SHOWCASE.md` — how people use the skills)
-- [ ] `skills.sh.json` catalog — publish to the skills.sh registry (per `vercel-labs`)
+- [x] `skills.sh.json` catalog — publish to the skills.sh registry (per `vercel-labs`) — файл добавлен 2026-09-11 (6 группировок, 59 скиллов); листинг появится после индексации реестром
 - [ ] Multi-harness packaging — convert skills to `.claude-plugin`/`.codex-plugin`/`.cursor-plugin` (per `obra/superpowers`)
 - [x] `skill-suggester` — auto-recommend a skill from task description
   - [x] verified & enriched
@@ -155,7 +155,7 @@
 - `infra-diagram` — AWS/GCP topology renderer
 - `pr-description-writer` — auto PR description from changeset (overlap: с `commit-message-writer`/`code-review`)
 - `code-explainer` — walk through an unfamiliar module for onboarding
-- `seo-basics` — On-page/GEO basics for new pages (per `coreyhaines31`, `AgriciDaniel`)
+- ~~`seo-basics`~~ — покрыто: `seo-audit` / `seo-content` / `seo-crawl` / `seo-schema` (+ DEPRECATED-роутер `seo-toolkit`)
 - `pkm-obsidian` — export notes to Obsidian-compatible markdown (per `kepano/obsidian-skills`)
 - `career-builder` — resume/ATS optimization toolkit (per `Paramchoudhary/ResumeSkills`)
 - `mock-data-synth` — synthetic test data beyond images (rows/JSON/API fixtures) (overlap: `test-generator`/`test-graphics`)

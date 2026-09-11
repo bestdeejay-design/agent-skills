@@ -18,6 +18,14 @@ not the internal version bumps of individual skills.
 - README.md / README.ru.md: синхронизированы с `index.json` — 59 скиллов · 6 категорий (было 52): бейджи (Skills, code 27, media 13), сводная таблица категорий, таблица `code` (+8 строк: `long-running-agent-workflow` возвращён в таблицу из позиции вне её, chronos, censor, dewey, veles, canon, prd-to-app, web-replication) и `media` (+doc-compare); SVG-хедеры «52 skills» → «59 skills».
 - docs/SKILLS_CATALOG.md: 59 скиллов, раздел 9.1 (`code`) дополнен семью новыми скиллами.
 
+### Added (2026-09-11)
+- **skills.sh.json** — манифест каталога для реестра skills.sh (по образцу `vercel-labs/agent-skills`): 6 группировок по категориям, все 59 скиллов; установка `npx skills add bestdeejay-design/agent-skills`.
+
+### Changed (2026-09-11)
+- docs/SKILLS_CATALOG.md (v1.1) — полная синхронизация с `index.json`: версии §9.1 (8 скиллов после патч-бампов), новые разделы 9.2–9.6 (32 скилла категорий data/media/repository/social/agents), DEPRECATED-пометки (`seo-toolkit`, `github-repo-hygiene`), колонка статусов в §7, обновлённые отметки «Наши» в §2.3/2.4/2.6/2.10.
+- README.ru.md: бейдж `code: 20` → `code: 27` (рассинхрон после расширения категории code).
+- ROADMAP.md: `skills.sh.json` в v2.0 переведён в выполненные; backlog-пункт `seo-basics` помечен покрытым (seo-audit/content/crawl/schema).
+
 ## [1.11.0] - 2026-08-27
 
 ### Added

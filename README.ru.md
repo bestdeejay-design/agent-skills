@@ -17,7 +17,7 @@
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
 [![Updated](https://img.shields.io/badge/Updated-2026--09--11-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
-[![code: 20](https://img.shields.io/badge/code-20-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
+[![code: 27](https://img.shields.io/badge/code-27-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 

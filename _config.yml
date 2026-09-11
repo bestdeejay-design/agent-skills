@@ -10,4 +10,4 @@ plugins:
   - jekyll-relative-links
 
 title: Agent Skills
-description: Skill collection for AI agents (Sisyphus, opencode) — autonomous instructions with skill.json manifests, CI validation.
+description: 59 skills for AI agents (Claude Code, Sisyphus, opencode) — frontend audits, security, presentations, SEO, docs, data. SKILL.md + skill.json manifests, CI validation.
