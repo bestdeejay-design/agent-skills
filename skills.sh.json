@@ -1,0 +1,101 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Development & Code",
+      "description": "Engineering skills: commits & linting, code review, systematic debugging, tests & coverage, security review, secret scanning, planning, frontend audits (Lighthouse/a11y/perf/testing/mobile), documentation integrity, skill authoring, long-running agent workflows.",
+      "skills": [
+        "api-contract-testing",
+        "canon",
+        "censor",
+        "chronos",
+        "code-review",
+        "commit-lint",
+        "commit-message-writer",
+        "coverage-analyzer",
+        "dewey",
+        "frontend-a11y",
+        "frontend-perfection",
+        "frontend-performance",
+        "frontend-testing",
+        "long-running-agent-workflow",
+        "mobile-frontend",
+        "plan-skill",
+        "prd-to-app",
+        "secret-scanner",
+        "security-review",
+        "skill-feedback",
+        "skill-forge",
+        "skill-suggester",
+        "systematic-debugger",
+        "test-generator",
+        "veles",
+        "version-bumper",
+        "web-replication"
+      ]
+    },
+    {
+      "title": "Content & Media",
+      "description": "Slides (HTML→PPTX), presentation storytelling, video scripts, PDF reports, document comparison, design taste, SEO suite (technical audit, content, crawl, structured data) and test graphics.",
+      "skills": [
+        "doc-compare",
+        "frontend-design-taste",
+        "pdf-report-builder",
+        "presentation-craft",
+        "presentation-engineering",
+        "presentation-maker",
+        "seo-audit",
+        "seo-content",
+        "seo-crawl",
+        "seo-schema",
+        "seo-toolkit",
+        "test-graphics",
+        "video-script-writer"
+      ]
+    },
+    {
+      "title": "Repository & Docs",
+      "description": "Repository packaging: README assets, community files, metadata health, social preview, API docs from OpenAPI, changelogs, product & project documentation system.",
+      "skills": [
+        "api-doc-generator",
+        "changelog-generator",
+        "docs-product",
+        "docs-project",
+        "docs-system",
+        "github-repo-hygiene",
+        "repo-community-files",
+        "repo-metadata-health",
+        "repo-readme-assets",
+        "repo-social-preview"
+      ]
+    },
+    {
+      "title": "Data & Diagrams",
+      "description": "CSV/dataset profiling, SQL generation, Mermaid diagrams, Mermaid→PNG/SVG rendering, PNG→SVG vectorization, polite web scraping.",
+      "skills": [
+        "csv-pro",
+        "data-analysis",
+        "diagram-maker",
+        "mermaid-to-image",
+        "raster-to-svg",
+        "sql-helper",
+        "web-scraper"
+      ]
+    },
+    {
+      "title": "Agents",
+      "description": "Autonomous agent runs via DeepSeek Harness (dsh): isolated workspaces, JSONL session logs, parallel runs.",
+      "skills": [
+        "dsh-runner"
+      ]
+    },
+    {
+      "title": "Social",
+      "description": "Reddit karma building routine: topic search, reply drafting, tone matching.",
+      "skills": [
+        "reddit-karma"
+      ]
+    }
+  ]
+}
