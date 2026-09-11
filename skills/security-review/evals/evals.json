@@ -1,0 +1,23 @@
+{
+  "skill": "security-review",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "lockfile-inventory",
+      "prompt": "Review a repository with package-lock.json and requirements.txt.",
+      "assert": [
+        "report identifies lockfiles",
+        "findings include severity and evidence"
+      ]
+    },
+    {
+      "id": "scoped-claim",
+      "prompt": "Review a repo with an unavailable online advisory service.",
+      "assert": [
+        "separate local findings from unavailable external data",
+        "never claim a clean dependency audit"
+      ]
+    }
+  ]
+}

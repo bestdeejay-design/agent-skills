@@ -1,6 +1,6 @@
 {
   "name": "version-bumper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Suggest the next semantic version and release tag from Conventional Commits in git history. Script bumper.py reads `git log` subjects (fallback: COMMITS env or --commits FILE for testability), classifies commit types (feat->MINOR, fix/perf/refactor->PATCH, `!` or BREAKING CHANGE->MAJOR) and prints latest_tag, next_version, suggested_tag (e.g. v1.5.0) and counts by type. Pure Python 3 stdlib, offline, deterministic output (-s), read-only (never creates tags). Closes the loop for commit-message-writer and changelog-generator. Triggers: 'bump version', 'next version', 'release tag', 'semver', 'поднять версию', 'следующая версия', 'тег релиза', 'версионирование', 'suggest version', 'version bump'.",
   "author": "best",
   "license": "MIT",
@@ -48,5 +48,5 @@
       "exec"
     ]
   },
-  "updated": "2026-08-09"
+  "updated": "2026-09-11"
 }

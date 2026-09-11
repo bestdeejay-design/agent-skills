@@ -32,7 +32,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "skill.json"
+    "skill.json",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

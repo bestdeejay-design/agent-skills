@@ -1,7 +1,7 @@
 {
   "name": "chronos",
-  "version": "1.0.0",
-  "description": "Documentation Timekeeper — 5 AI agents (Chronos, Censor, Dewey, Veles, Canon) for documentation integrity. Checks: duplicates, broken links, missing required docs, orphans, classification (L1-L6), stale dates. Presets: minimal (Censor only), standard (Censor+Dewey+Canon), full (all 5 agents). Supports JSON/Markdown output, CI fail-on thresholds, and .chronos.yml configuration.",
+  "version": "1.1.1",
+  "description": "Documentation Timekeeper — 5 AI agents (Chronos, Censor, Dewey, Veles, Canon) for documentation integrity. Checks: duplicates, broken links, missing required docs, orphans, classification (L1-L6), stale dates. Presets: minimal (Censor only), standard (Censor+Dewey+Canon), full (all 5 agents). Supports JSON/Markdown output, CI fail-on thresholds, and deterministic CI fail-on thresholds.",
   "author": "best",
   "license": "MIT",
   "keywords": [
@@ -62,7 +62,10 @@
     "tests/test_base.py",
     "tests/test_censor.py",
     "tests/test_canon.py",
-    "pyproject.toml"
+    "pyproject.toml",
+    "references/CLASSIFICATION.md",
+    "references/AGENTS.md",
+    "references/CONFIG.md"
   ],
   "requirements": {
     "tools": [
@@ -74,5 +77,5 @@
       "exec"
     ]
   },
-  "updated": "2026-09-02"
+  "updated": "2026-09-11"
 }

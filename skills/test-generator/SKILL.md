@@ -72,3 +72,7 @@ python3 skills/test-generator/scripts/test_gen.py \
 - Скрипт отработал: валидный pytest-файл в stdout или `--out`.
 - Сгенерированный код проходит `python3 -c "import ast"` (синтаксис корректный).
 - Значения аргументов соответствуют эвристикам (таблица выше).
+
+## Boundaries
+
+- Do not treat generated tests as proof of correctness; review assertions and run the real suite.

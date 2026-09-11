@@ -4,7 +4,7 @@ description: "Router for high-quality presentations. Orchestrates specialist sub
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.1.0"
+  version: "1.1.1"
 when_to_use: "Orchestrate a high-quality, non-template presentation across narrative, visual, build, audit, and export stages. Triggers: 'presentation craft', 'качественная презентация', 'сделай стильную презентацию', 'не шаблонные слайды', 'presentation with design system'. Example: 'Build a polished deck that doesn't look like AI templates.'"
 ---
 
@@ -59,7 +59,7 @@ guizang-ppt-skill, armory/marp-slides, majiayu000 trio, wanshuiyin/slides-polish
 - Зафиксируй токены: доминанта 60–70%, один accent, единый motif, без decorative
   полос/градиентов/теней в Swiss-режиме.
 - Результат: token-спека (hex, шрифты, radius, mood) -> ляжет в `theme` presentation-maker
-  (через `templates/themes/*.json` или `frontmatter theme:`).
+  (через `presentation-maker/templates/themes/*.json` или `frontmatter theme:`).
 **Гейт**: uniqueness пройден ДО сборки; палитра «содержательна», не дефолтна.
 
 ### Этап 3 — Build  -> скилл `presentation-maker`
@@ -121,3 +121,11 @@ python3 skills/frontend-perfection/scripts/meta_audit.py --html slides.html --cs
   (`qa_pptx.py`) и extern-линтер `intern` (`qa_intern.py`), PDF/PPTX из единого deck.json.
 - Скоринг-движок (как SlideGauge) и XSD-валидация pptx (как anthropics validate.py) —
   кандидаты на отдельный суб-скилл аудита для ещё более жёстких гейтов.
+
+## Boundaries
+
+- Do not use for rendering/building artifacts; use `presentation-maker`.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

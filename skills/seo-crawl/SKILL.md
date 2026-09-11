@@ -4,7 +4,7 @@ description: "Crawlability and site structure for SEO: robots.txt, noindex, cano
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "No scripts — agent-driven workflows (commands/)"
 when_to_use: "Use for crawlability, structure & competitors: 'seo crawl', 'crawlability', 'robots txt', 'site structure', 'URL structure', 'competitor seo', 'индексация', 'структура сайта', 'краулинг'. Example: 'Check if Google can crawl my site' / 'Проанализируй структуру сайта'."
 ---
@@ -36,3 +36,15 @@ Modes: **URL** (external sites) and **File** (local projects); `seo-compare` is 
 - For the full technical audit / CWV / reports / fixes — that is `seo-audit`.
 - For schema.org / meta tags — that is `seo-schema`.
 - For content / keywords / headings / images — that is `seo-content`.
+
+## Boundaries
+
+- Do not use for copy quality or schema authoring; use `seo-content` or `seo-schema`.
+
+## Crawl workflow and safety
+
+Declare crawl scope, user agent, rate limit, robots policy, maximum pages, and whether the input is a local build or a permitted URL. Separate robots exclusions, HTTP failures, canonical conflicts, redirect chains, orphan detection, and competitor observations; do not merge them into one score.
+
+## Output gate
+
+Every finding contains URL/file, HTTP status or source evidence, affected link path, severity, and next action. Report pages not crawled and why. Never bypass robots.txt, authentication, rate limits, or access controls, and never call a competitor gap an observed fact without fetched evidence.

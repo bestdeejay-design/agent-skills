@@ -4,7 +4,7 @@ description: "Генерация диаграмм из текстового оп
 license: MIT
 metadata:
   author: best
-  version: 1.2.0
+  version: 1.2.1
 compatibility: "Requires Python3; optional mermaid-cli for rendering"
 when_to_use: "Use when user wants a diagram from text: 'diagram', 'mermaid', 'flowchart', 'блок-схема', 'sequence diagram', 'architecture diagram', 'ER-схема', 'нарисуй схему', 'draw a diagram', 'схема', 'bar chart', 'line chart', 'pie chart', 'scatter plot'. Examples: 'draw a flowchart of the checkout process', 'сделай mermaid-схему архитектуры микросервисов', 'сделай bar chart из этих данных'."
 ---
@@ -251,3 +251,11 @@ erDiagram
 - Синтаксис flowchart: https://mermaid.js.org/syntax/flowchart.html
 - Синтаксис sequence: https://mermaid.js.org/syntax/sequenceDiagram.html
 - Синтаксис ER: https://mermaid.js.org/syntax/entityRelationshipDiagram.html
+
+## Boundaries
+
+- Do not use for rendering an existing Mermaid file to an image; use `mermaid-to-image`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

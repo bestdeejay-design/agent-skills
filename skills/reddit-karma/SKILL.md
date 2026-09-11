@@ -4,7 +4,7 @@ description: "Набор кармы на Reddit для вашего аккаун
 license: MIT
 metadata:
   author: best
-  version: "1.0.0"
+  version: "1.0.1"
   compatibility: "Requires Playwright and network access to old.reddit.com"
 when_to_use: "Use when working on Reddit karma growth: 'reddit', 'karma', 'поднять карму', 'забег по reddit', 'ответить на комментарии', 'оставить след'. Example: 'help me reply to this Reddit comment' or 'run a reddit sweep for r/LocalLLaMA'."
 ---
@@ -190,3 +190,11 @@ when_to_use: "Use when working on Reddit karma growth: 'reddit', 'karma', 'по�
    ленивая загрузка). «Что на экране» ≠ «весь список». Перед любым действием — свежий полный сбор
    с разделением neg/zero/pos, показать пользователю, дождаться подтверждения списка ID.
 6. **Файл-журнал**: `<путь-к-журналу>/deleted-log.md` — единый архив удалённого для ретроспективы.
+
+## Boundaries
+
+- Do not use for spam, vote manipulation, harassment, or automated posting.
+
+## Evidence and completion gate
+
+Ground recommendations in the supplied repository or brief. State assumptions, missing inputs, and unresolved risks. Return a concrete artifact or checklist with an owner/action for each open item, then verify that the result answers the requested goal rather than merely repeating the framework.

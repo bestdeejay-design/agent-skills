@@ -1,6 +1,6 @@
 {
   "skill": "raster-to-svg",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "fixtures": {
     "generator": "evals/gen_fixtures.py",
     "files": [

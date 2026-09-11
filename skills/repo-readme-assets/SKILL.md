@@ -4,7 +4,7 @@ description: "README.md (EN) + localized mirror + local animated SVG header/foot
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.1"
+  version: "1.0.2"
   compatibility: "Requires python3 (stdlib only) for generation/validation"
 when_to_use: "Use when creating or updating a repo README with animated SVG header/footer: 'readme header', 'animated svg', 'waving svg', 'svg banner', 'readme assets', 'smil animation', 'update readme'. Example: 'generate a README with animated SVG header' or 'make a readme banner'."
 ---
@@ -113,3 +113,11 @@ create `assets/`, add the links (see "Insert into README.md" in the reference).
 - Do not touch README content between header and footer.
 - Do not add header/footer if they already exist (only on request).
 - SVG: no `<script>`, no base64, SMIL only; mask with a white `<rect>` covering the canvas.
+
+## Boundaries
+
+- Do not use to change repository settings or legal files; use `repo-metadata-health` or `repo-community-files`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

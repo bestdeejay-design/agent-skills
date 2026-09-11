@@ -4,7 +4,7 @@ description: "Запуск автономных агентных задач че
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3.10+; deepseek-harness-sdk; DEEPSEEK_API_KEY (env или auth.json opencode) или DEEPSEEK_BASE_URL; macOS 14+ arm64 / Linux x64,arm64"
 when_to_use: "Use when user wants to run an autonomous agent in isolation: 'dsh', 'deepseek harness', 'агент в песочнице', 'изолированный агент', 'запусти агента на репо', 'агентная задача', 'agent harness', 'запустить dsh'. Examples: 'run an agent to fix this bug in a sandbox', 'запусти агента на репозиторий и сравни модели'."
 ---
@@ -127,3 +127,11 @@ npx @deepseek-ai/dsh web   # → http://127.0.0.1:3080
 
 Чек-листы «перед запуском», «после прогона», типовые ошибки и рабочие примеры
 конфигов — в [references/runbook.md](references/runbook.md).
+
+## Boundaries
+
+- Do not use for ordinary local commands or interactive development; use the project toolchain directly.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

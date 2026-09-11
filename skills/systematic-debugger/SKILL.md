@@ -89,3 +89,7 @@ python3 skills/systematic-debugger/scripts/debug_log.py \
 - Внесён один минимальный фикс; регресс-тест добавлен/обновлён.
 - Полный набор связанных тестов зелёный.
 - Red Flags не наблюдались (быстрый фикс, шотган, спекуляция).
+
+## Boundaries
+
+- Do not use for a speculative rewrite without reproduction evidence; first capture the failure.

@@ -235,3 +235,7 @@ Requirements: install deps → setup DB → migrations → seed → build fronte
 4. **Resources must be used** — matching files from `./resources/`
 5. **Reproducibility** — `start.sh` works from absolute zero
 6. **Verify, don't assume** — screenshot comparison + API checks + startup test
+
+## Boundaries
+
+- Do not use for a small isolated UI change or documentation-only task.

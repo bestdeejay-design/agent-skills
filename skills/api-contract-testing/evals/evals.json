@@ -1,0 +1,33 @@
+{
+  "skill": "api-contract-testing",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "offline-valid",
+      "prompt": "Validate a minimal OpenAPI 3 JSON file in offline mode.",
+      "assert": [
+        "exit code 0",
+        "report.conformant is true",
+        "endpoints_count is 1"
+      ]
+    },
+    {
+      "id": "missing-endpoint",
+      "prompt": "Compare a manifest containing an undeclared endpoint against the spec.",
+      "assert": [
+        "exit code 1",
+        "missing_from_spec is non-empty",
+        "no traceback"
+      ]
+    },
+    {
+      "id": "bad-input",
+      "prompt": "Pass a missing spec path.",
+      "assert": [
+        "exit code 2",
+        "error is reported on stderr or in errors"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,16 @@
 {
   "name": "github-repo-hygiene",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "DEPRECATED meta-skill. Routes to the four focused repository skills that replaced it: repo-readme-assets (README + animated SVG header/footer), repo-community-files (LICENSE/CODE_OF_CONDUCT/CONTRIBUTING/SECURITY/SUPPORT/templates), repo-metadata-health (description/topics/GitHub Pages/community health/audit), repo-social-preview (og:image PNG). Load one of the four directly instead. Triggers: 'github hygiene', 'repo polish', 'github repo docs', 'оформить репозиторий', 'репозиторий готов к публикации'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["deprecated", "router", "github", "repository", "hygiene"],
+  "keywords": [
+    "deprecated",
+    "router",
+    "github",
+    "repository",
+    "hygiene"
+  ],
   "triggers": [
     "github hygiene",
     "repo polish",
@@ -23,5 +29,5 @@
     "tools": [],
     "script": null
   },
-  "updated": "2026-08-12"
+  "updated": "2026-09-11"
 }

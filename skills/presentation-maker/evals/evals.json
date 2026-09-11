@@ -1,0 +1,32 @@
+{
+  "skill": "presentation-maker",
+  "version": "4.3.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "html-gates",
+      "prompt": "Build a small two-slide HTML deck.",
+      "assert": [
+        "verify_slides exits 0",
+        "fit report is inspected",
+        "artifact path is reported"
+      ]
+    },
+    {
+      "id": "pptx-gates",
+      "prompt": "Build a PPTX deck from a valid spec.",
+      "assert": [
+        "qa_pptx is run",
+        "failures block the ready claim"
+      ]
+    },
+    {
+      "id": "visual-review",
+      "prompt": "Review generated slide screenshots.",
+      "assert": [
+        "every slide receives a recorded verdict",
+        "unreviewed slides cannot pass"
+      ]
+    }
+  ]
+}

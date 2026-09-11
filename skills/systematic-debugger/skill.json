@@ -32,7 +32,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/debug_log.py"
+    "scripts/debug_log.py",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

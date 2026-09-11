@@ -43,7 +43,8 @@
     "SKILL.md",
     "skill.json",
     "scripts/security_review.py",
-    "references/canonical-patterns.md"
+    "references/canonical-patterns.md",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

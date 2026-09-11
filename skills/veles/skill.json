@@ -1,6 +1,6 @@
 {
   "name": "veles",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Documentation statistician — finds orphan documents (no inbound references), computes documentation metrics (file count, word count, level distribution, link count), detects dead zones (folders unlinked from main docs), validates link hierarchy L1→L2→L3→L4. Part of Chronos Pantheon, invoked via full preset.",
   "author": "best",
   "license": "MIT",
@@ -48,5 +48,5 @@
       "file:read"
     ]
   },
-  "updated": "2026-09-02"
+  "updated": "2026-09-11"
 }

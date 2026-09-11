@@ -4,7 +4,7 @@ description: "Вежливый скраппинг HTML-страниц в Markdow
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3 stdlib; legal guardrails: robots.txt, rate limit 1.0s, page size cap 10 MB"
 when_to_use: "Use when you need to extract text/links/tables from a web page into Markdown/JSON politely. Triggers: 'web scraping', 'скраппинг', 'парсинг сайта', 'извлечь данные', 'scrape', 'скачать данные с сайта'. Examples: 'Scrape example.com into Markdown' / 'Вытащи таблицу с сайта'."
 ---
@@ -88,3 +88,11 @@ python3 skills/web-scraper/scripts/scrape.py --url https://example.com --selecto
 - **Playwright** — браузерное извлечение: locator API, `text_content()`, `page.content()`.
 - **Trafilatura** — ближайший по назначению аналог: CLI HTML → Markdown/JSON.
 - **Mozilla Readability** — канонический алгоритм извлечения основного контента статьи.
+
+## Boundaries
+
+- Do not use to bypass robots.txt, authentication, rate limits, or access controls.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

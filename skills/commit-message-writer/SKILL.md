@@ -4,7 +4,7 @@ description: "Используй, когда нужно оформить staged-
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires git and Python 3"
 when_to_use: "Use when writing a Conventional Commit message from staged changes. Triggers: 'commit message', 'write commit', 'git commit', 'conventional commit', 'написать коммит', 'закоммитить'. Example: 'напиши сообщение коммита для застейдженных изменений'."
 ---
@@ -135,3 +135,11 @@ docs: clarify onboarding flow in README and architecture
   (после — из коммитов в CHANGELOG).
 - Convention spec: https://www.conventionalcommits.org/ — правила типов.
 - Линтер для CI: https://commitlint.js.org/ (если проекте используется).
+
+## Boundaries
+
+- Do not use to validate existing history; use `commit-lint`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

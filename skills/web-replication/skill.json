@@ -1,6 +1,6 @@
 {
   "name": "web-replication",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Visual website replication via Playwright MCP. Crawls pages, captures screenshots, downloads assets, tests interactions, generates a Blueprint with navigation graph, builds frontend replica, and performs visual comparison. Adapted from GLM-5.3 glmv-web-replication.",
   "author": "best",
   "license": "MIT",
@@ -45,5 +45,5 @@
       "network"
     ]
   },
-  "updated": "2026-09-02"
+  "updated": "2026-09-11"
 }

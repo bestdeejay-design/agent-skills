@@ -4,7 +4,7 @@ description: "Структурированный code review: читает git d
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires Python 3 stdlib; git for --repo mode"
 when_to_use: "Use when reviewing a PR/diff/commit for bugs, security, style before merge. Triggers: 'code review', 'ревью кода', 'review PR', 'проверь код', 'найди баги', 'замечания по коду'. Example: 'проверь код в этом PR'."
 ---
@@ -140,3 +140,11 @@ python3 scripts/review.py --diff /tmp/pr.diff --json
 - Чек-лист правил: `scripts/checklists.py` — расширяй под свой стек (добавляй dict-правила).
 - Шаблон отчёта: `templates/review-template.md`.
 - Пример разбора PR: `examples/example-pr.md`.
+
+## Boundaries
+
+- Do not use for debugging a known runtime failure or generating tests; use `systematic-debugger` or `test-generator`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

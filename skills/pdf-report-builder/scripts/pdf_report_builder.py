@@ -134,7 +134,8 @@ def md_to_html_builtin(md: str) -> str:
             if not in_list:
                 flush_list()
                 in_list = True
-            buf.append(f"<li>{_inline(re.sub(r'^[-*+]\s+', '', s))}</li>")
+            item_text = re.sub(r'^[-*+]\s+', '', s)
+            buf.append(f"<li>{_inline(item_text)}</li>")
             continue
         if s.startswith(">"):
             flush_list(); flush_table()
@@ -146,7 +147,8 @@ def md_to_html_builtin(md: str) -> str:
             flush_quote(); flush_table()
             if not in_list:
                 in_list = True
-            buf.append(f"<li>{_inline(re.sub(r'^\d+\.\s+', '', s))}</li>")
+            item_text = re.sub(r'^\d+\.\s+', '', s)
+            buf.append(f"<li>{_inline(item_text)}</li>")
             continue
         if re.match(r"^\|.*\|$", s):
             flush_list(); flush_quote()

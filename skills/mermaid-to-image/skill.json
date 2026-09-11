@@ -1,6 +1,6 @@
 {
   "name": "mermaid-to-image",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скрипт mermaid_to_image.py читает .mmd (файл или stdin) и отдаёт изображение: приоритет локальному mmdc (mermaid-cli), fallback на публичный API mermaid.ink. Поддерживает выбор формата (svg/png), фоновый цвет, масштаб PNG, движок рендера (auto/mmdc/ink), вывод в файл или stdout. Триггеры: 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'mermaid to image', 'render diagram', 'диаграмма в svg', 'схема в картинку'.",
   "author": "best",
   "license": "MIT",
@@ -40,5 +40,5 @@
       "mmdc (mermaid-cli)"
     ]
   },
-  "updated": "2026-08-08"
+  "updated": "2026-09-11"
 }

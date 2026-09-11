@@ -4,7 +4,7 @@ description: "Создание структурированного сценар
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3 stdlib"
 when_to_use: "Use when you need a structured video script or outline (hook, scenes, CTA) from a topic. Triggers: 'video script', 'сценарий видео', 'план видео', 'video outline', 'структура ролика', 'напиши сценарий'. Examples: 'Write a YouTube script about X' / 'Сделай план ролика'."
 ---
@@ -69,3 +69,11 @@ python3 video_script_writer.py --topic "Тема" -o script.md
 - Секции Hook/Body(Хлved scene)/CTA присутствуют, таймкоды не перекрываются,
   сумма интервалов равна хронометражу.
 - Для `--format outline` вывод — только заголовки секций с интервалами.
+
+## Boundaries
+
+- Do not use to generate presentation decks or edit video files.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

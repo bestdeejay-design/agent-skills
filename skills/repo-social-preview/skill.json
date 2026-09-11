@@ -1,6 +1,6 @@
 {
   "name": "repo-social-preview",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Build the repository social preview (og:image) as a hand-crafted hero-section HTML (1280x640, 40pt crop-safe padding, no self-made SVG, never screenshot the site - re-typeset its hero), rendered to PNG via headless Chrome. Script: render_social_preview.py. Triggers: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'.",
   "author": "bestdeejay-design",
   "license": "MIT",
@@ -43,5 +43,5 @@
     ],
     "script": "scripts/render_social_preview.py"
   },
-  "updated": "2026-08-22"
+  "updated": "2026-09-11"
 }

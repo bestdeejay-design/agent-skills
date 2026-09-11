@@ -2,6 +2,7 @@
 name: frontend-testing
 description: "Scaffold and advise on frontend testing for production readiness, mapped to the Front-End-Checklist Testing category (13 rules). Defines a testing pyramid (unit, integration, E2E, visual, a11y, cross-browser, real-device, perf-budget, mutation, error-monitoring, coverage, mocking, contract) and emits copy-pasteable configs: Playwright config + smoke specs, axe a11y (jest-axe / @axe-core/playwright), Pact contract tests, and a GitHub Actions perf-budget + coverage CI. Use when the user asks for 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'playwright test', 'unit test', 'integration test', 'write tests', 'test generation', 'test coverage', 'regression test', 'perf budget CI', 'accessibility testing in CI', 'contract testing', 'mutation testing', 'настрой тесты фронта', or wants tests before a release. Scaffolds & advises only — does not run your full CI; you wire the configs in. Composes with frontend-perfection, frontend-a11y, frontend-performance, /frontend."
 license: MIT
+when_to_use: "Use when designing or scaffolding a frontend test strategy before release: unit, integration, Playwright E2E, visual regression, accessibility, cross-browser, performance budgets, coverage, or contract tests. Triggers: 'frontend testing', 'test strategy', 'e2e', 'visual regression', 'playwright setup', 'unit tests', 'integration tests', 'test coverage', 'regression tests', 'настрой тесты фронта'. Do NOT use for auditing an already-built site (use frontend-perfection, frontend-a11y, or frontend-performance)."
 metadata:
   author: best
   version: 1.0.0
@@ -200,3 +201,7 @@ When you deliver a testing scaffold, write a short report:
 - `references/a11y-test.md` — jest-axe and @axe-core/playwright snippets.
 - `references/ci-perf-budget.yml` — GitHub Actions perf budget + coverage gate.
 - `references/contract-test.md` — Pact consumer-driven contract example.
+
+## Boundaries
+
+- Do not use to audit an already-built site; use `frontend-perfection`, `frontend-a11y`, or `frontend-performance`.

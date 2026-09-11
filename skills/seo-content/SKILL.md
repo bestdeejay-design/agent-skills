@@ -4,7 +4,7 @@ description: "Content and on-page SEO: thin content & duplicates, readability (F
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "1.0.0"
+  version: "1.0.1"
 compatibility: "Requires python3 (stdlib only)"
 when_to_use: "Use for on-page content & image SEO: 'seo content', 'content audit', 'keywords', 'keyword research', 'seo headings', 'image seo', 'контент аудит', 'ключевые слова', 'оптимизация картинок'. Example: 'Audit my page content and keywords' / 'Проверь контент и заголовки'."
 ---
@@ -43,3 +43,15 @@ source does not inflate the word count. Pure Python stdlib; stdin supported.
 - For the full technical audit / CWV / reports / fixes — that is `seo-audit`.
 - For schema.org / meta tags — that is `seo-schema`.
 - For crawlability / linking structure / competitors — that is `seo-crawl`.
+
+## Boundaries
+
+- Do not use for crawl/indexability or structured-data checks; use `seo-crawl` or `seo-schema`.
+
+## Audit workflow and evidence
+
+Separate measured facts from editorial recommendations. Establish the target page, language, search intent, primary keyword source, word-count method, and comparison set before calculating density or cannibalization. Report the exact text or selector supporting each finding.
+
+## Output gate
+
+Return per-page metrics, detected keyword assumptions, headings and image evidence, prioritized edits, and unresolved unknowns. Do not prescribe an arbitrary density target as a ranking guarantee; natural language, intent coverage, and user value take precedence. Re-run the analyzer after edits and show the delta.

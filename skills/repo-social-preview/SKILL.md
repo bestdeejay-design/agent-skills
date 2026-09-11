@@ -4,7 +4,7 @@ description: "Build the repository social preview (og:image) as a hand-crafted h
 license: MIT
 metadata:
   author: bestdeejay-design
-  version: "2.0.0"
+  version: "2.0.1"
   compatibility: "Requires headless Chrome/Chromium for rendering; python3"
 when_to_use: "Use when building the GitHub social preview / og:image: 'social preview', 'og image', 'og:image', 'social share image', 'repo preview png', 'open graph image', 'github social preview'. Example: 'make a social preview PNG for my repo' or 'generate og:image'."
 ---
@@ -76,3 +76,11 @@ clean hero section in HTML/CSS, render it with headless Chrome, upload the PNG.
 - Content touching the canvas edges (violates the 40pt crop-safe zone).
 - Oversized file (> 1 MB) or too small (< 640×320).
 - Overwriting an existing preview without explicit request.
+
+## Boundaries
+
+- Do not use to rewrite README content or repository metadata.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

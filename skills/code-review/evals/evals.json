@@ -1,0 +1,24 @@
+{
+  "skill": "code-review",
+  "version": "1.1.1",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "diff-review",
+      "prompt": "Review a small diff containing an unchecked user-controlled subprocess argument.",
+      "assert": [
+        "finding has severity",
+        "finding includes file and line",
+        "remediation is concrete"
+      ]
+    },
+    {
+      "id": "clean-diff",
+      "prompt": "Review a focused safe change with tests.",
+      "assert": [
+        "do not invent a high-severity issue",
+        "report scope and evidence"
+      ]
+    }
+  ]
+}

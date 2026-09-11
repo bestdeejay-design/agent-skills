@@ -4,7 +4,7 @@ description: "Конвертер PNG в векторный SVG. Скрипт ras
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
   compatibility: "Requires Python 3 stdlib; optional: vtracer-cli (cargo install vtracer-cli) для качественной цветной трассировки"
 when_to_use: "Use when converting a raster image (PNG/logo/icon) to scalable vector SVG: 'png to svg', 'vectorize image', 'trace image', 'convert png to svg', 'картинка в svg', 'векторизация', 'трассировка изображения'. Example: 'turn this logo.png into an SVG' or 'convert png to svg'."
 ---
@@ -110,3 +110,11 @@ vtracer-параметры: `--vtracer-preset bw|poster|photo`, `--vtracer-mode 
 - SVG всегда проходит XML-валидацию (round-trip через парсер) перед записью — файл корректен для вставки в HTML/Markdown.
 - Детерминизм: один и тот же вход даёт байт-идентичный SVG при повторном запуске.
 - Коды выхода: `0` — успех, `1` — ошибка ввода/использования, `2` — сбой движка. При ошибке причина пишется в stderr.
+
+## Boundaries
+
+- Do not use for raster edits or arbitrary image generation; it only vectorizes existing raster input.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

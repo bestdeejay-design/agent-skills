@@ -42,7 +42,8 @@
     "SKILL.md",
     "skill.json",
     "scripts/api_contract.py",
-    "references/canonical-patterns.md"
+    "references/canonical-patterns.md",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

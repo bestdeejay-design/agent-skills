@@ -4,7 +4,7 @@ description: "Профилирование CSV-файлов: типы колон
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires Python 3 stdlib (csv, statistics, datetime)"
 when_to_use: "Use when profiling a CSV file: column types, stats, anomalies. Triggers: 'csv profile', 'профиль csv', 'анализ csv', 'csv anomalies', 'что в csv', 'профилирование csv'. Example: 'профилируй data.csv и найди аномалии'."
 ---
@@ -71,3 +71,11 @@ python3 csv_pro.py --input data.csv --delimiter ';'
 - HTML: интерактивный дашборд с гистограммами для числовых колонок и bar charts для категорий.
 - Пустой файл: сообщение «Файл пуст», код 0.
 - Отсутствующий файл: сообщение в stderr, код 1.
+
+## Boundaries
+
+- Do not use for JSON or multi-format EDA; use `data-analysis`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

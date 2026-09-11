@@ -406,7 +406,8 @@ def render_text(findings, color):
     for f in sorted(findings, key=lambda x: (RISK_ORDER.get(x["severity"], 9), x["path"], x["line"])):
         sev = f["severity"]
         if color:
-            head = f"{RISK_COLOR.get(sev, '')}[{sev}]{'\033[0m'} {f['path']}:{f['line']} — {f['provider']} ({f['rule']})"
+            reset = "\033[0m"
+            head = f"{RISK_COLOR.get(sev, '')}[{sev}]{reset} {f['path']}:{f['line']} — {f['provider']} ({f['rule']})"
         else:
             head = f"[{sev}] {f['path']}:{f['line']} — {f['provider']} ({f['rule']})"
         ent = f", entropy={f['entropy']}" if f["entropy"] is not None else ""

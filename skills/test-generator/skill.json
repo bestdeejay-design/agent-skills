@@ -28,7 +28,8 @@
   "entrypoint": "SKILL.md",
   "files": [
     "SKILL.md",
-    "scripts/test_gen.py"
+    "scripts/test_gen.py",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

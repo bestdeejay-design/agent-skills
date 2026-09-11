@@ -1,10 +1,15 @@
 {
   "name": "seo-toolkit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "DEPRECATED meta-skill. Routes to the four focused SEO skills that replaced it: seo-audit (technical audit + Core Web Vitals + report + fixes), seo-schema (JSON-LD + meta/OG/Twitter), seo-content (content + keywords + headings + images), seo-crawl (crawlability + structure + competitors). Load one of the four directly instead. Triggers: 'seo', 'сео', 'seo toolkit', 'поисковая оптимизация'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["deprecated", "router", "seo", "toolkit"],
+  "keywords": [
+    "deprecated",
+    "router",
+    "seo",
+    "toolkit"
+  ],
   "triggers": [
     "seo",
     "сео",
@@ -13,7 +18,17 @@
   ],
   "category": "media",
   "entrypoint": "SKILL.md",
-  "files": ["SKILL.md", "skill.json", "references/canonical-patterns.md", "scripts/seo_toolkit.py"],
-  "requirements": {"tools": ["python3"], "script": "scripts/seo_toolkit.py"},
-  "updated": "2026-08-13"
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "references/canonical-patterns.md",
+    "scripts/seo_toolkit.py"
+  ],
+  "requirements": {
+    "tools": [
+      "python3"
+    ],
+    "script": "scripts/seo_toolkit.py"
+  },
+  "updated": "2026-09-11"
 }

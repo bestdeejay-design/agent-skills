@@ -4,7 +4,7 @@ description: "Рендер Mermaid-диаграмм (.mmd) в PNG/SVG. Скри�
 license: MIT
 metadata:
   author: best
-  version: 1.0.0
+  version: 1.0.1
 compatibility: "Requires Python 3 stdlib; optional: mermaid-cli (mmdc) для офлайн-рендера"
 when_to_use: "Convert a Mermaid .mmd diagram into a PNG/SVG image file for README, docs, or slides. Triggers: 'mermaid to image', 'render diagram', 'mermaid в картинку', 'отрендерить диаграмму', '.mmd в png', 'диаграмма в svg', 'схема в картинку'. Example: 'Turn this mermaid diagram into a PNG for my README.'"
 ---
@@ -68,3 +68,11 @@ python3 mermaid_to_image.py -i d.mmd --stdout > d.svg
 - PNG: `file out.png` показывает «JPEG image data» — это нормально для mermaid.ink
   (API отдаёт JPEG-кодированный образ); визуально проверьте открытием.
 - При ошибке сети/API скрипт пишет причину в stderr и завершается с кодом 2.
+
+## Boundaries
+
+- Do not use to design a new diagram from prose; use `diagram-maker`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

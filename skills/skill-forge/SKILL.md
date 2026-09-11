@@ -149,3 +149,7 @@ Adapted from the official `skill-creator` flow, with an accent pass added:
 
 A skill that passes Level 0 and at least one accent is shippable. A skill that
 passes all three accents is exceptional.
+
+## Boundaries
+
+- Do not use to perform the domain task itself; it designs or upgrades skills.

@@ -4,7 +4,7 @@ description: "Профилирование датасета (CSV или JSON-м�
 license: MIT
 metadata:
   author: best
-  version: 1.1.0
+  version: 1.1.1
 compatibility: "Requires Python 3 stdlib (json, csv, statistics, collections)"
 when_to_use: "Use when doing exploratory data analysis (EDA) on a CSV/JSON dataset. Triggers: 'data analysis', 'анализ данных', 'профиль датасета', 'eda', 'почитать данные', 'data profiling'. Example: 'сделай EDA датасета и найди корреляции'."
 ---
@@ -103,3 +103,11 @@ HTML-отчёт использует монохромную палитру (по
 - Появление графиков при прокрутке
 - Интерактивные тултипы при наведении
 - Плавные переходы между состояниями
+
+## Boundaries
+
+- Do not use when the input is only a CSV lint/profile request; use `csv-pro`.
+
+## Evidence and completion gate
+
+Run the documented command against the user’s actual input. Report the command, exit status, files changed or produced, and relevant stdout/stderr. Separate blocked or pre-existing failures from failures introduced by the current work. Do not call the result complete when the script was only described or when an artifact was not reopened and checked.

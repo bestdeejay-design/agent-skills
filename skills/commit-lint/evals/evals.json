@@ -1,0 +1,23 @@
+{
+  "skill": "commit-lint",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "valid-history",
+      "prompt": "Lint valid Conventional Commit messages.",
+      "assert": [
+        "exit code 0",
+        "report identifies commits checked"
+      ]
+    },
+    {
+      "id": "invalid-history",
+      "prompt": "Lint commits with missing type and overlong subject.",
+      "assert": [
+        "exit code 1",
+        "each violation includes commit and reason"
+      ]
+    }
+  ]
+}

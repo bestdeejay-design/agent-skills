@@ -8,7 +8,7 @@ description: >
   "validate docs", "doc quality", "docs lint", "chronos".
 license: MIT
 metadata:
-  version: 1.0.0
+  version: 1.1.1
 when_to_use: "Use for documentation integrity audits: 'check documentation', 'docs audit', 'audit docs', 'docs integrity', 'find duplicates in docs', 'broken links', 'stale documentation', 'classify docs', 'documentation health', 'orphan docs', 'validate docs', 'doc quality', 'docs lint', 'chronos'."
 ---
 
@@ -145,21 +145,12 @@ python -m chronos --path .
 skills/chronos/
 ├── SKILL.md              # This file
 ├── src/chronos/          # Python package
-│   ├── __init__.py
-│   ├── cli.py            # Entry point
-│   ├── orchestrator.py   # Chronos agent
-│   ├── agents/
-│   │   ├── censor.py     # Duplicates + links
-│   │   ├── dewey.py      # Classification L1-L6
-│   │   ├── veles.py      # Staleness + metrics
-│   │   └── canon.py      # Cross-ref validation
-│   ├── models.py         # Data classes
-│   └── utils.py          # Helpers
-├── tests/                # 67 pytest tests
-├── presets/              # JSON presets
-│   ├── minimal.json
-│   ├── standard.json
-│   └── full.json
+│   ├── cli.py            # CLI entry point
+│   ├── agents/           # base, censor, dewey, veles, chronos, canon
+│   └── core/             # document reader and report renderer
+├── tests/                # pytest tests for agents and core
+├── docs/                 # package architecture, PRD, and vision
+├── references/           # taxonomy, agent, and CLI contracts
 └── pyproject.toml
 ```
 
@@ -210,3 +201,7 @@ Every Chronos run must pass:
 - `references/CLASSIFICATION.md` — L1-L6 taxonomy details
 - `references/AGENTS.md` — Agent prompt templates
 - `references/CONFIG.md` — Full config schema
+
+## Boundaries
+
+- Do not use for a single narrow check when `censor`, `dewey`, or `veles` is sufficient.
