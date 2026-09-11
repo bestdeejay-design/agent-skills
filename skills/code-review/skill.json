@@ -37,7 +37,8 @@
     "scripts/review.py",
     "scripts/checklists.py",
     "templates/review-template.md",
-    "examples/example-pr.md"
+    "examples/example-pr.md",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

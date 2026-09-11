@@ -185,3 +185,7 @@ node scripts/audit.js --url http://localhost:8377/ --mobile --only performance
 
 See `references/canonical-patterns.md` for the canonical Front-End-Checklist
 Performance sources this skill is aligned with.
+
+## Boundaries
+
+- Do not use for visual design critique or accessibility; use `frontend-design-taste` or `frontend-a11y`.

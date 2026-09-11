@@ -45,7 +45,8 @@
     "skill.json",
     "scripts/audit.js",
     "scripts/meta_audit.py",
-    "references/canonical-patterns.md"
+    "references/canonical-patterns.md",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

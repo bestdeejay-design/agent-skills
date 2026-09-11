@@ -69,3 +69,7 @@ python3 changelog_gen.py --repo <path> --top --out CHANGELOG.md
 - Breaking-коммиты вынесены в отдельную секцию.
 - Дата и версия в заголовке корректны.
 - Если нужен CHANGELOG.md в репо — содержимое вставлено (по отдельным запросам).
+
+## Boundaries
+
+- Do not use for choosing a release version or linting commits; use `version-bumper` or `commit-lint`.

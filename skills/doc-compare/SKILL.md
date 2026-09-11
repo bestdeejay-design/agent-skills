@@ -51,3 +51,7 @@ python3 ~/.config/opencode/skills/doc-compare/scripts/compare_docs.py --no-open 
   - Внутри изменённого блока слова подсвечены пословно.
   - Кнопка **«Только изменения»** (в шапке) прячет всё неизменённое — остаются только затронутые места.
 - **С `--diff`**: классическая таблица difflib — добавленные строки зелёные, удалённые красные, изменённые жёлтые.
+
+## Boundaries
+
+- Do not use for general document quality audits; use `chronos`.

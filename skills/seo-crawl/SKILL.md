@@ -36,3 +36,7 @@ Modes: **URL** (external sites) and **File** (local projects); `seo-compare` is 
 - For the full technical audit / CWV / reports / fixes — that is `seo-audit`.
 - For schema.org / meta tags — that is `seo-schema`.
 - For content / keywords / headings / images — that is `seo-content`.
+
+## Boundaries
+
+- Do not use for copy quality or schema authoring; use `seo-content` or `seo-schema`.

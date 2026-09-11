@@ -129,3 +129,7 @@ the `skill-forge` session as the basis for trigger/description edits.
   history shared; otherwise gitignore it.
 - Never put secrets, tokens, or personal data in `request` / `detail`.
 - Keep entries factual and short; one issue per entry.
+
+## Boundaries
+
+- Do not use as a substitute for actually fixing a skill; record evidence, then use `skill-forge`.

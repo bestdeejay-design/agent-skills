@@ -127,3 +127,7 @@ npx @deepseek-ai/dsh web   # → http://127.0.0.1:3080
 
 Чек-листы «перед запуском», «после прогона», типовые ошибки и рабочие примеры
 конфигов — в [references/runbook.md](references/runbook.md).
+
+## Boundaries
+
+- Do not use for ordinary local commands or interactive development; use the project toolchain directly.

@@ -71,3 +71,7 @@ python3 csv_pro.py --input data.csv --delimiter ';'
 - HTML: интерактивный дашборд с гистограммами для числовых колонок и bar charts для категорий.
 - Пустой файл: сообщение «Файл пуст», код 0.
 - Отсутствующий файл: сообщение в stderr, код 1.
+
+## Boundaries
+
+- Do not use for JSON or multi-format EDA; use `data-analysis`.

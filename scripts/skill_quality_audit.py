@@ -26,10 +26,18 @@ def main() -> int:
         references = list((directory / "references").glob("*") if (directory / "references").is_dir() else [])
         has_gate = bool(re.search(r"(?i)(exit\s+0|exit\s+1|pass/fail|verification gate|quality gate)", body))
         has_negative = "DO NOT USE FOR" in body
+        eval_path = directory / "evals" / "evals.json"
+        eval_count = 0
+        if eval_path.exists():
+            try:
+                import json
+                eval_count = len(json.loads(eval_path.read_text(encoding="utf-8")).get("tests", []))
+            except (OSError, ValueError, TypeError):
+                eval_count = "invalid"
         budget = len(frontmatter.get("description", "")) + len(frontmatter.get("when_to_use", ""))
         rows.append((directory.name, "Y" if frontmatter.get("when_to_use") else "N", budget,
                      len(body.splitlines()), "Y" if scripts else "N", len(references),
-                     "Y" if has_gate else "N", "Y" if has_negative else "N"))
+                     "Y" if has_gate else "N", "Y" if has_negative else "N", eval_count))
 
     lines = [
         "# Skill Quality Audit (objective snapshot)", "",
@@ -37,16 +45,17 @@ def main() -> int:
         "This report deliberately records measurable signals, not an automated claim that a skill is good. "
         "Run `python3 scripts/validate_skills.py --all` for release-blocking structural checks, then inspect "
         "the skill's own output gate and representative examples.", "",
-        "| skill | when_to_use | discovery chars | body lines | scripts | references | output gate wording | negative steer |",
-        "|---|---:|---:|---:|:---:|---:|:---:|:---:|",
+        "| skill | when_to_use | discovery chars | body lines | scripts | references | output gate wording | negative steer | eval cases |",
+        "|---|---:|---:|---:|:---:|---:|:---:|:---:|---:|",
     ]
     for row in rows:
-        lines.append("| {} | {} | {} | {} | {} | {} | {} | {} |".format(*row))
+        lines.append("| {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(*row))
     lines += ["", "## Release interpretation", "",
               "- `when_to_use` should be present and discovery chars should stay below the 1,536-character listing budget.",
               "- Keep the instruction body focused; move durable detail into `references/` and repetitive work into `scripts/`.",
               "- A script is not proof by itself: the skill must require running it, report its exit status, and scope failures.",
               "- `negative steer` reduces accidental activation; review it for overlapping skills and deprecated routers.",
+              "- `eval cases` are objective/manual scenarios; a case is not green until its command or prompt has evidence.",
               "", "## Layer C feedback", "",
               "Usage feedback is captured by `skill-feedback` into `feedback/<skill>/YYYY-MM-DD.jsonl` "
               "and can be fed into the `skill-forge` improvement loop. Re-run this audit after acting on feedback.", ""]

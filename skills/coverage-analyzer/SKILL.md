@@ -160,3 +160,7 @@ cp -r skills/coverage-analyzer ~/.config/opencode/skills/
 > expects a real `coverage.xml` produced by coverage.py (or a compatible
 > tool) and reports what the numbers mean — including a CI exit-code gate so
 > coverage regressions fail the build.
+
+## Boundaries
+
+- Do not use to generate tests or diagnose a failing test; use `test-generator` or `systematic-debugger`.

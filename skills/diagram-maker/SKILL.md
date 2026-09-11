@@ -251,3 +251,7 @@ erDiagram
 - Синтаксис flowchart: https://mermaid.js.org/syntax/flowchart.html
 - Синтаксис sequence: https://mermaid.js.org/syntax/sequenceDiagram.html
 - Синтаксис ER: https://mermaid.js.org/syntax/entityRelationshipDiagram.html
+
+## Boundaries
+
+- Do not use for rendering an existing Mermaid file to an image; use `mermaid-to-image`.

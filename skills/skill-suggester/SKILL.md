@@ -117,3 +117,7 @@ python3 scripts/skill_suggest.py "сгенерируй презентацию" -
 - Не больше 3 комбо в ответе; каждое комбо — 2–3 скилла в логичном порядке.
 - Если ни один скилл не подходит — честно скажи об этом и предложи переформулировать
   задачу, а не подгоняй нерелевантный скилл.
+
+## Boundaries
+
+- Do not use when the user has already selected a skill and given clear instructions.

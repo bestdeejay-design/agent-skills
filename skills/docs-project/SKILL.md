@@ -81,3 +81,7 @@ change: *touch a doc → update its card*.
 
 > Rule: engineering docs answer «how»; the map (`REFERENCE.md`) is written last
 > because it describes everything above it.
+
+## Boundaries
+
+- Do not use for product vision, PRDs, or roadmap decisions; use `docs-product`.

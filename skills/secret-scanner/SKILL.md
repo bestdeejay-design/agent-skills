@@ -139,3 +139,7 @@ cp -r skills/secret-scanner ~/.config/opencode/skills/
 > them out, does not attempt to "verify" them online, and never rewrites
 > source files. Operators must rotate real secrets and scrub history
 > manually — see `references/canonical-patterns.md` → Remediation workflow.
+
+## Boundaries
+
+- Do not use as a complete dependency or architectural security review; use `security-review`.

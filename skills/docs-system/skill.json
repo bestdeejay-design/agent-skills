@@ -4,7 +4,17 @@
   "description": "Meta-guide + router for documentation: the two branches (docs-product for 'why/what', docs-project for 'how'), the phase order, completeness levels L1/L2/L3, and the completeness checklist. Load a branch directly when the task is clearly product or engineering; load this skill for the big picture, ordering and completeness gates. Triggers: 'документация', 'набор документации', 'каталог документов', 'документация структура', 'полная документация', 'docs catalog', 'documentation structure', 'какую документацию писать'.",
   "author": "bestdeejay-design",
   "license": "MIT",
-  "keywords": ["docs", "documentation", "system", "guide", "phases", "levels", "completeness", "документация", "каталог документов"],
+  "keywords": [
+    "docs",
+    "documentation",
+    "system",
+    "guide",
+    "phases",
+    "levels",
+    "completeness",
+    "документация",
+    "каталог документов"
+  ],
   "triggers": [
     "документация",
     "набор документации",
@@ -18,7 +28,19 @@
   ],
   "category": "repository",
   "entrypoint": "SKILL.md",
-  "files": ["SKILL.md", "skill.json", "references/order.md", "references/levels.md", "references/completeness.md", "ROADMAP.md", "examples/example-monorepo/README.md"],
-  "requirements": {"tools": [], "script": null},
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "references/order.md",
+    "references/levels.md",
+    "references/completeness.md",
+    "ROADMAP.md",
+    "examples/example-monorepo/README.md",
+    "evals/evals.json"
+  ],
+  "requirements": {
+    "tools": [],
+    "script": null
+  },
   "updated": "2026-08-13"
 }

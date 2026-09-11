@@ -71,3 +71,7 @@ python -m chronos.agents.veles --path .
 ## Integration
 
 Loaded by Chronos as part of `full` preset only.
+
+## Boundaries
+
+- Do not use for duplicate/link fact-checking; use `censor`.

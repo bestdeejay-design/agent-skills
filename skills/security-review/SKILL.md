@@ -95,3 +95,7 @@ Get each tool's meaning on the fly with `classify --tool X --exit-code N`.
 - `classify --exit-code` matches the verified table above for your installed tools.
 - `normalize` produces a valid unified report for the 5 built-in formats (osv-scanner, pip-audit, semgrep, gitleaks, bandit).
 - CI gate: exit `1` on real findings, `EXIT_NEUTRAL` (or `2`) on infra errors, clean on 0.
+
+## Boundaries
+
+- Do not use as a dedicated secret scanner; use `secret-scanner` for credential detection.

@@ -135,3 +135,7 @@ docs: clarify onboarding flow in README and architecture
   (после — из коммитов в CHANGELOG).
 - Convention spec: https://www.conventionalcommits.org/ — правила типов.
 - Линтер для CI: https://commitlint.js.org/ (если проекте используется).
+
+## Boundaries
+
+- Do not use to validate existing history; use `commit-lint`.

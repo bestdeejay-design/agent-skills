@@ -201,3 +201,7 @@ When you deliver a testing scaffold, write a short report:
 - `references/a11y-test.md` — jest-axe and @axe-core/playwright snippets.
 - `references/ci-perf-budget.yml` — GitHub Actions perf budget + coverage gate.
 - `references/contract-test.md` — Pact consumer-driven contract example.
+
+## Boundaries
+
+- Do not use to audit an already-built site; use `frontend-perfection`, `frontend-a11y`, or `frontend-performance`.

@@ -336,6 +336,45 @@ def validate_skill(name, repo_root, skills_dir, index_entry):
 
     # --- folder layout ---------------------------------------------------- #
     issues.extend(_validate_layout(name, skill_dir, repo_root))
+    issues.extend(_validate_evals(name, skill_dir, repo_root, skill_json))
+    return issues
+
+
+def _validate_evals(name, skill_dir, repo_root, skill_json):
+    """Validate optional objective/manual evaluation manifests."""
+    issues = []
+    eval_path = os.path.join(skill_dir, "evals", "evals.json")
+    if not os.path.isfile(eval_path):
+        return issues
+    rel = rel_path(repo_root, eval_path)
+    try:
+        with open(eval_path, encoding="utf-8") as handle:
+            data = json.load(handle)
+    except (OSError, ValueError) as exc:
+        return [Issue("ERROR", "evals/evals.json is not valid JSON: {}".format(exc), rel)]
+
+    if not isinstance(data, dict) or data.get("skill") != name:
+        issues.append(Issue("ERROR", "eval manifest 'skill' must match folder name", rel))
+    expected_version = skill_json.get("version") if isinstance(skill_json, dict) else None
+    if data.get("version") != expected_version:
+        issues.append(Issue("ERROR", "eval manifest version does not match skill.json", rel))
+    tests = data.get("tests")
+    if not isinstance(tests, list) or not tests:
+        issues.append(Issue("ERROR", "eval manifest must contain a non-empty tests[]", rel))
+        return issues
+    ids = set()
+    for test in tests:
+        if not isinstance(test, dict):
+            issues.append(Issue("ERROR", "eval tests[] entry is not an object", rel))
+            continue
+        test_id = test.get("id")
+        if not isinstance(test_id, str) or not test_id.strip() or test_id in ids:
+            issues.append(Issue("ERROR", "eval test ids must be unique non-empty strings", rel))
+        ids.add(test_id)
+        if not isinstance(test.get("assert"), list) or not test["assert"]:
+            issues.append(Issue("ERROR", "eval '{}' must contain assert[]".format(test_id), rel))
+        if not (test.get("prompt") or test.get("cmd")):
+            issues.append(Issue("ERROR", "eval '{}' needs prompt or cmd".format(test_id), rel))
     return issues
 
 

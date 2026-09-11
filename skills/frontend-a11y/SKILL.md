@@ -258,3 +258,7 @@ Not done: computed-contrast (owned by frontend-perfection), design tokens.
   it, so the next audit still fails and users are still blocked.
 - Record manual rules; never silently drop them, so they appear as
   `severity: manual` in the report and get a human confirmation.
+
+## Boundaries
+
+- Do not use for broad visual/performance polish; use `frontend-perfection` or `frontend-performance`.

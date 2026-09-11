@@ -133,3 +133,7 @@ when_to_use: "Build or audit quality mobile-first frontend: spacing, tap-targets
 - ✅ Эстетика не «шаблонная» (пройден гейт `frontend-design-taste`).
 
 Если хотя бы один пункт красный — уровень не пройден, возвращаемся к правкам.
+
+## Boundaries
+
+- Do not use for backend/API work or a desktop-only audit.

@@ -140,3 +140,7 @@ python3 scripts/review.py --diff /tmp/pr.diff --json
 - Чек-лист правил: `scripts/checklists.py` — расширяй под свой стек (добавляй dict-правила).
 - Шаблон отчёта: `templates/review-template.md`.
 - Пример разбора PR: `examples/example-pr.md`.
+
+## Boundaries
+
+- Do not use for debugging a known runtime failure or generating tests; use `systematic-debugger` or `test-generator`.

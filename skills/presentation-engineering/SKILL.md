@@ -424,3 +424,7 @@ PPTX (Draft) — для редактирования
 
 Мы создаём не презентации.
 Мы создаём **моменты**, после которых мир становится немного другим.
+
+## Boundaries
+
+- Do not use as a generic slide renderer; use `presentation-maker` for artifact generation.

@@ -71,3 +71,7 @@ npx swagger-jsdoc -d swagger-def.js -o openapi.json
 - Скрипт отработал: Markdown-документ в stdout или `--out`.
 - Каждый endpoint: method, path, summary, параметры таблицей, коды ответов.
 - Схема OpenAPI прошла `json.loads` без ошибок.
+
+## Boundaries
+
+- Do not use for validating whether an API matches its contract; use `api-contract-testing` for checks.

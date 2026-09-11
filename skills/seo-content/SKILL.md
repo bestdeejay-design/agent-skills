@@ -43,3 +43,7 @@ source does not inflate the word count. Pure Python stdlib; stdin supported.
 - For the full technical audit / CWV / reports / fixes — that is `seo-audit`.
 - For schema.org / meta tags — that is `seo-schema`.
 - For crawlability / linking structure / competitors — that is `seo-crawl`.
+
+## Boundaries
+
+- Do not use for crawl/indexability or structured-data checks; use `seo-crawl` or `seo-schema`.

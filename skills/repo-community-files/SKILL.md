@@ -66,3 +66,7 @@ copies for repo-specific policies.
 - `LICENSE` placed under `.github/` (not detected).
 - Outdated contacts in SECURITY.md / CODE_OF_CONDUCT.md.
 - Issue templates as `.md` instead of `.yml` forms (forms add the Community Health check).
+
+## Boundaries
+
+- Do not use for README assets, metadata, or social previews; use the focused `repo-*` skills.

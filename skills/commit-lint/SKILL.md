@@ -178,3 +178,7 @@ cp -r skills/commit-lint ~/.config/opencode/skills/
 > pipeline as the quality gate before `version-bumper` derives the next
 > version — a clean Conventional Commits history is what makes the release
 > tooling trustworthy.
+
+## Boundaries
+
+- Do not use to write a new commit message; use `commit-message-writer`.

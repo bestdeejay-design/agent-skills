@@ -88,3 +88,7 @@ python3 skills/web-scraper/scripts/scrape.py --url https://example.com --selecto
 - **Playwright** — браузерное извлечение: locator API, `text_content()`, `page.content()`.
 - **Trafilatura** — ближайший по назначению аналог: CLI HTML → Markdown/JSON.
 - **Mozilla Readability** — канонический алгоритм извлечения основного контента статьи.
+
+## Boundaries
+
+- Do not use to bypass robots.txt, authentication, rate limits, or access controls.

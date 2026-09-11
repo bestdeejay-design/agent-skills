@@ -37,7 +37,8 @@
     "SKILL.md",
     "skill.json",
     "scripts/secret_scanner.py",
-    "references/canonical-patterns.md"
+    "references/canonical-patterns.md",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

@@ -86,3 +86,7 @@ GitHub REST API endpoints).
 - Description that does not cover all significant components.
 - Pages enabled but not linked in README/About.
 - Broken or stale community-health files lowering the percentage.
+
+## Boundaries
+
+- Do not use to author legal/community files; use `repo-community-files`.

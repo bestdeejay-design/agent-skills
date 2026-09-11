@@ -113,3 +113,7 @@ create `assets/`, add the links (see "Insert into README.md" in the reference).
 - Do not touch README content between header and footer.
 - Do not add header/footer if they already exist (only on request).
 - SVG: no `<script>`, no base64, SMIL only; mask with a white `<rect>` covering the canvas.
+
+## Boundaries
+
+- Do not use to change repository settings or legal files; use `repo-metadata-health` or `repo-community-files`.

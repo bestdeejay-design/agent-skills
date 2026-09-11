@@ -46,3 +46,7 @@ python3 scripts/seo_schema.py --jsonld file.html    # extract + validate JSON-LD
 - For the full technical audit / CWV / reports / fixes — that is `seo-audit`.
 - For content / keywords / headings / images — that is `seo-content`.
 - For crawlability / linking structure — that is `seo-crawl`.
+
+## Boundaries
+
+- Do not use for a full technical crawl or content rewrite; use `seo-crawl` or `seo-content`.

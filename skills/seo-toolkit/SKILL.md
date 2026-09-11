@@ -34,3 +34,7 @@ The old command docs moved into the four new skills:
 ## Removal plan
 
 Keep this router for one release cycle for backward compatibility, then delete.
+
+## Boundaries
+
+- Do not use this deprecated router when a focused `seo-*` skill is applicable.

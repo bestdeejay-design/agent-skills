@@ -255,3 +255,7 @@ Recommended stack: HTML + CSS + vanilla JS, or React/Tailwind if complex.
 13. **One action per Playwright call** — no combining multiple commands
 14. **External links** — record URL + trigger element, don't deep-explore
 15. **Both full and scroll screenshots** — overall + detail reference
+
+## Boundaries
+
+- Do not use to copy proprietary content or bypass access controls; use it only for authorized references.

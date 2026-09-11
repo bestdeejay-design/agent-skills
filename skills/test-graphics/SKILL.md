@@ -237,3 +237,7 @@ scripts/test-graphics.py photo 800 600 ./public/images/hero.jpg
 - **Lucide** — `createLucideIcon` фабрика + tree-shaking, дефолтные атрибуты `stroke="currentColor"`, `fill="none"`, `strokeWidth=2`, `dynamicIconImports`.
 - **Cypress** — `cy.fixture` (base64/Buffer), `cy.intercept({fixture})` для перехвата изображений, кодировки и лимит ~100 MB.
 - **Storybook** — `staticDirs` паттерн: placeholder-картинки как локальные статические ассеты вместо внешних URL.
+
+## Boundaries
+
+- Do not use for production artwork or final marketing assets.

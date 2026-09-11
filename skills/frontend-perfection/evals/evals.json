@@ -1,0 +1,23 @@
+{
+  "skill": "frontend-perfection",
+  "version": "1.5.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "static-audit",
+      "prompt": "Audit a static page for overflow, security headers, and responsive behavior.",
+      "assert": [
+        "run relevant checks",
+        "findings include severity, evidence, and fix"
+      ]
+    },
+    {
+      "id": "scoped-failure",
+      "prompt": "Audit a page that cannot be started because a dependency is missing.",
+      "assert": [
+        "report the blocked gate explicitly",
+        "do not claim the page passed"
+      ]
+    }
+  ]
+}

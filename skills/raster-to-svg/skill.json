@@ -41,7 +41,8 @@
     "scripts/raster_to_svg_mcp.py",
     "examples/web/index.html",
     "examples/web/style.css",
-    "examples/web/app.js"
+    "examples/web/app.js",
+    "evals/evals.json"
   ],
   "requirements": {
     "tools": [

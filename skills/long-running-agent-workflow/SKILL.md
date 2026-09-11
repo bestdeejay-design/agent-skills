@@ -162,3 +162,7 @@ cp -r skills/long-running-agent-workflow ~/.config/opencode/skills/
 > **Key principle**: leave the codebase in a testable, working state at the end
 > of every session. The next session (and the next agent) picks up from the
 > last checkpoint, not from amnesia.
+
+## Boundaries
+
+- Do not use for a short, single-turn task that does not need resumable state.

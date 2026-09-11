@@ -33,3 +33,7 @@ The old scripts/references were moved into the four new skills:
 
 Keep this router for one release cycle for backward compatibility (global AGENTS.md
 rules may still reference `github-repo-hygiene`), then delete the folder.
+
+## Boundaries
+
+- Do not use this deprecated router when a focused `repo-*` skill is applicable.

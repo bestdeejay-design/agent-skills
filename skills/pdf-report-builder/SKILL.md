@@ -78,3 +78,7 @@ HTML-отчёт автоматически включает:
 - `file out.pdf` → «PDF document, version 1.4»
 - Открыть в просмотрщике и проверить: заголовки, таблицы, код-блоки, графики не обрезаны.
 - Для кириллицы: шрифт по умолчанию без проблем (системный), размер страницы A4 по умолчанию.
+
+## Boundaries
+
+- Do not use for slide decks or presentation design; use `presentation-maker`.

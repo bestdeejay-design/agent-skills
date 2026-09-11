@@ -67,3 +67,7 @@ Canon checks consistency between levels:
 ## Integration
 
 Loaded by Chronos as part of `standard` and `full` presets. Canon is both an agent and the preset orchestrator.
+
+## Boundaries
+
+- Do not use as a standalone documentation analyzer; use the focused `chronos`, `censor`, `dewey`, or `veles` skill when only one audit is needed.

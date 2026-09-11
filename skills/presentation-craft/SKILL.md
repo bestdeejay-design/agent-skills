@@ -121,3 +121,7 @@ python3 skills/frontend-perfection/scripts/meta_audit.py --html slides.html --cs
   (`qa_pptx.py`) и extern-линтер `intern` (`qa_intern.py`), PDF/PPTX из единого deck.json.
 - Скоринг-движок (как SlideGauge) и XSD-валидация pptx (как anthropics validate.py) —
   кандидаты на отдельный суб-скилл аудита для ещё более жёстких гейтов.
+
+## Boundaries
+
+- Do not use for rendering/building artifacts; use `presentation-maker`.

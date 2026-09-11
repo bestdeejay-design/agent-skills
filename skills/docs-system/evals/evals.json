@@ -1,0 +1,24 @@
+{
+  "skill": "docs-system",
+  "version": "2.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "route-product",
+      "prompt": "Route a request to define product vision and acceptance criteria.",
+      "assert": [
+        "routes to docs-product",
+        "explains why",
+        "avoids implementation-only docs"
+      ]
+    },
+    {
+      "id": "route-project",
+      "prompt": "Route a request to document setup and delivery commands.",
+      "assert": [
+        "routes to docs-project",
+        "identifies required artifacts"
+      ]
+    }
+  ]
+}

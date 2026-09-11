@@ -71,3 +71,7 @@ written "from the end".
 
 > Rule: product docs answer «why» and «what»; engineering docs answer «how».
 > If a doc has no reader and no question it answers — it does not belong.
+
+## Boundaries
+
+- Do not use for implementation/runbook documentation; use `docs-project`.

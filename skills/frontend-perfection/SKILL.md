@@ -274,3 +274,7 @@ node .../audit.js --url http://localhost:8377/ --mobile --only accessibility
 
 See `references/canonical-patterns.md` for the canonical sources this skill
 is aligned with, and the showcase in `docs/showcase/showcase-frontend-perfection-lovii.md`.
+
+## Boundaries
+
+- Do not use for a narrow a11y or performance audit; use `frontend-a11y` or `frontend-performance`.

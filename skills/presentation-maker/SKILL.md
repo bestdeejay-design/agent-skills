@@ -417,3 +417,7 @@ mechanically by `deck_audit.py`:
 ## References
 
 Полный список справочных файлов — в [`references/references.md`](references/references.md).
+
+## Boundaries
+
+- Do not use for a text-only report or diagram; use `pdf-report-builder` or `diagram-maker`.

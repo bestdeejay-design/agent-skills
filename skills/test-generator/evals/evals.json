@@ -1,0 +1,24 @@
+{
+  "skill": "test-generator",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "python-module",
+      "prompt": "Generate pytest skeletons for public functions in a Python module.",
+      "assert": [
+        "private functions are skipped",
+        "output parses",
+        "assertions are marked for review"
+      ]
+    },
+    {
+      "id": "run-gate",
+      "prompt": "Run generated tests against a fixture module.",
+      "assert": [
+        "command and exit status are reported",
+        "generated tests are not treated as proof automatically"
+      ]
+    }
+  ]
+}

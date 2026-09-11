@@ -190,3 +190,7 @@ when_to_use: "Use when working on Reddit karma growth: 'reddit', 'karma', 'по�
    ленивая загрузка). «Что на экране» ≠ «весь список». Перед любым действием — свежий полный сбор
    с разделением neg/zero/pos, показать пользователю, дождаться подтверждения списка ID.
 6. **Файл-журнал**: `<путь-к-журналу>/deleted-log.md` — единый архив удалённого для ретроспективы.
+
+## Boundaries
+
+- Do not use for spam, vote manipulation, harassment, or automated posting.

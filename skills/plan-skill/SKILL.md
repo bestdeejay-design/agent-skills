@@ -95,3 +95,7 @@ Do NOT use when:
 - Каждый шаг: файл/границы + Produces/Consumes + Verification.
 - Нет заглушек и неоднозначностей. Список замечаний валидатора пуст.
 - Пользователь одобрил план (или явно делегировал исполнителю).
+
+## Boundaries
+
+- Do not use to debug or implement directly; produce the plan, then switch to the project workflow.

@@ -147,3 +147,7 @@ cp -r skills/version-bumper ~/.config/opencode/skills/
 > **Note**: the tool suggests a version; it never tags, never commits and
 > never pushes. Wire it into the release pipeline as the version source for
 > `changelog-generator`, then create the tag yourself.
+
+## Boundaries
+
+- Do not use to create tags or publish a release; it only recommends a version.

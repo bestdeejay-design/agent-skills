@@ -53,3 +53,7 @@ python -m chronos.agents.censor --path .
 ## Integration
 
 Loaded by Chronos as part of `minimal`, `standard`, and `full` presets.
+
+## Boundaries
+
+- Do not use for taxonomy classification or orphan statistics; use `dewey` or `veles` respectively.

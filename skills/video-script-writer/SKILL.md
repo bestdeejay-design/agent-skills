@@ -69,3 +69,7 @@ python3 video_script_writer.py --topic "Тема" -o script.md
 - Секции Hook/Body(Хлved scene)/CTA присутствуют, таймкоды не перекрываются,
   сумма интервалов равна хронометражу.
 - Для `--format outline` вывод — только заголовки секций с интервалами.
+
+## Boundaries
+
+- Do not use to generate presentation decks or edit video files.

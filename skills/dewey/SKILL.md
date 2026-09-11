@@ -67,3 +67,7 @@ python -m chronos.agents.dewey --path .
 ## Integration
 
 Loaded by Chronos as part of `standard` and `full` presets.
+
+## Boundaries
+
+- Do not use for duplicate detection, links, or orphan statistics; use `censor` or `veles`.

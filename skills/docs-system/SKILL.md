@@ -53,3 +53,7 @@ If a doc has no reader and no question it answers — it does not belong.
 
 Keep as the meta-guide (not deprecated — it still carries order/levels/
 completeness). The two branches are the focused entry points.
+
+## Boundaries
+
+- Do not use to author one document branch directly; route to `docs-product` or `docs-project`.

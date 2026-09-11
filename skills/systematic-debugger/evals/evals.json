@@ -1,0 +1,24 @@
+{
+  "skill": "systematic-debugger",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "root-cause",
+      "prompt": "Debug a reproducible 401 response with a supplied request and expected response.",
+      "assert": [
+        "capture reproduction",
+        "list falsifiable hypotheses",
+        "propose regression test"
+      ]
+    },
+    {
+      "id": "no-shotgun",
+      "prompt": "Debug an intermittent failure with insufficient evidence.",
+      "assert": [
+        "ask for or record missing evidence",
+        "do not recommend an unverified rewrite"
+      ]
+    }
+  ]
+}

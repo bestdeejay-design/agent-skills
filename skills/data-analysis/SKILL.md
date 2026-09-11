@@ -103,3 +103,7 @@ HTML-отчёт использует монохромную палитру (по
 - Появление графиков при прокрутке
 - Интерактивные тултипы при наведении
 - Плавные переходы между состояниями
+
+## Boundaries
+
+- Do not use when the input is only a CSV lint/profile request; use `csv-pro`.

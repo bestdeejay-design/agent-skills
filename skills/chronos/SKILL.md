@@ -210,3 +210,7 @@ Every Chronos run must pass:
 - `references/CLASSIFICATION.md` — L1-L6 taxonomy details
 - `references/AGENTS.md` — Agent prompt templates
 - `references/CONFIG.md` — Full config schema
+
+## Boundaries
+
+- Do not use for a single narrow check when `censor`, `dewey`, or `veles` is sufficient.

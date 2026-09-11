@@ -76,3 +76,7 @@ clean hero section in HTML/CSS, render it with headless Chrome, upload the PNG.
 - Content touching the canvas edges (violates the 40pt crop-safe zone).
 - Oversized file (> 1 MB) or too small (< 640×320).
 - Overwriting an existing preview without explicit request.
+
+## Boundaries
+
+- Do not use to rewrite README content or repository metadata.

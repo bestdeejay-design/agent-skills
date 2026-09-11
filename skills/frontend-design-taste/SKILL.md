@@ -127,3 +127,7 @@ Method origin: `anthropics/skills` → `frontend-design` —
 <https://github.com/anthropics/skills/tree/main/skills/frontend-design>.
 Adapted and neutralized for opencode/Sisyphus; the "AI default looks" and uniqueness
 gate are kept verbatim in spirit.
+
+## Boundaries
+
+- Do not use for a11y, performance, or test auditing; use the focused frontend audit skills.

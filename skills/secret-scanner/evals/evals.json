@@ -1,0 +1,24 @@
+{
+  "skill": "secret-scanner",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "detect-token",
+      "prompt": "Scan a fixture containing a clearly fake AWS-like key.",
+      "assert": [
+        "finding includes path and line",
+        "secret is redacted",
+        "exit status signals finding"
+      ]
+    },
+    {
+      "id": "ignore-example",
+      "prompt": "Scan documentation containing placeholders such as CHANGE_ME.",
+      "assert": [
+        "placeholder is not reported as a real credential",
+        "report is valid JSON"
+      ]
+    }
+  ]
+}

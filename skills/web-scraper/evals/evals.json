@@ -1,0 +1,24 @@
+{
+  "skill": "web-scraper",
+  "version": "1.0.0",
+  "runner": "manual-or-agent",
+  "tests": [
+    {
+      "id": "polite-fetch",
+      "prompt": "Extract headings and links from a permitted local test page.",
+      "assert": [
+        "output is valid Markdown or JSON",
+        "URL and output format are reported"
+      ]
+    },
+    {
+      "id": "robots-denied",
+      "prompt": "Attempt a URL disallowed by robots.txt.",
+      "assert": [
+        "request is refused",
+        "no bypass is attempted",
+        "reason is reported"
+      ]
+    }
+  ]
+}

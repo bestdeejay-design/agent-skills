@@ -110,3 +110,7 @@ vtracer-параметры: `--vtracer-preset bw|poster|photo`, `--vtracer-mode 
 - SVG всегда проходит XML-валидацию (round-trip через парсер) перед записью — файл корректен для вставки в HTML/Markdown.
 - Детерминизм: один и тот же вход даёт байт-идентичный SVG при повторном запуске.
 - Коды выхода: `0` — успех, `1` — ошибка ввода/использования, `2` — сбой движка. При ошибке причина пишется в stderr.
+
+## Boundaries
+
+- Do not use for raster edits or arbitrary image generation; it only vectorizes existing raster input.

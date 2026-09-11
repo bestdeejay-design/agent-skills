@@ -68,3 +68,7 @@ python3 skills/sql-helper/scripts/sql_helper.py --ddl schema.sql --question "top
 - Скрипт выводит сгенерированный SQL в stdout и завершается с кодом 0.
 - При `--explain` после SQL печатается секция `--- query plan ---` с планом.
 - Пустой вопрос или невалидный DDL — сообщение в stderr и код выхода 1.
+
+## Boundaries
+
+- Do not use for executing SQL against production or for schema migrations; review and run queries separately.

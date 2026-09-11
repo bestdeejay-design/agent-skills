@@ -37,3 +37,7 @@ Modes: **URL** (external sites) and **File** (local projects).
 - For structured data / meta tags / OG — that is `seo-schema`.
 - For content / keywords / headings / images — that is `seo-content`.
 - For crawlability / linking structure / competitors — that is `seo-crawl`.
+
+## Boundaries
+
+- Do not use for content writing or JSON-LD generation; use `seo-content` or `seo-schema`.

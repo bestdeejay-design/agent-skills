@@ -68,3 +68,7 @@ python3 mermaid_to_image.py -i d.mmd --stdout > d.svg
 - PNG: `file out.png` показывает «JPEG image data» — это нормально для mermaid.ink
   (API отдаёт JPEG-кодированный образ); визуально проверьте открытием.
 - При ошибке сети/API скрипт пишет причину в stderr и завершается с кодом 2.
+
+## Boundaries
+
+- Do not use to design a new diagram from prose; use `diagram-maker`.
