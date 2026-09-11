@@ -12,19 +12,19 @@
 > Autonomous skill instructions for AI agents: Sisyphus, opencode, and compatible. Each skill is a folder with `SKILL.md` (instructions) and `skill.json` (manifest for installation/discovery).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills: 51](https://img.shields.io/badge/Skills-52-blue.svg)](index.json)
+[![Skills: 59](https://img.shields.io/badge/Skills-59-blue.svg)](index.json)
 [![CI](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/bestdeejay-design/agent-skills/actions/workflows/validate-skills.yml)
 [![Release](https://img.shields.io/github/v/release/bestdeejay-design/agent-skills?color=green)](https://github.com/bestdeejay-design/agent-skills/releases)
-[![Updated](https://img.shields.io/badge/Updated-2026--09--04-green.svg)](index.json)
+[![Updated](https://img.shields.io/badge/Updated-2026--09--11-green.svg)](index.json)
 [![Community](https://img.shields.io/badge/Community%20Health-100%25-brightgreen.svg)](https://github.com/bestdeejay-design/agent-skills/community)
-[![code: 15](https://img.shields.io/badge/code-15-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 12](https://img.shields.io/badge/media-12-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
+[![code: 27](https://img.shields.io/badge/code-27-2F81F7.svg)](README.md#cat-code) [![data: 7](https://img.shields.io/badge/data-7-E3B341.svg)](README.md#cat-data) [![media: 13](https://img.shields.io/badge/media-13-A371F7.svg)](README.md#cat-media) [![repository: 10](https://img.shields.io/badge/repository-10-3FB950.svg)](README.md#cat-repository) [![agents: 1](https://img.shields.io/badge/agents-1-FFD166.svg)](README.md#cat-agents) [![social: 1](https://img.shields.io/badge/social-1-F85149.svg)](README.md#cat-social)
 
 **🌐 Versions:** [English](README.md) · [Русский](README.ru.md) · [Website](https://bestdeejay-design.github.io/agent-skills/)
 
 <details>
 <summary><b>📑 Table of Contents</b></summary>
 
-- [📦 Skill Catalog](#sec-catalog) — 52 skills · 6 categories · HTML charts
+- [📦 Skill Catalog](#sec-catalog) — 59 skills · 6 categories · HTML charts
 - [🎬 Showcase](#sec-showcase) — real-project examples
 - [🚀 Installation](#sec-installation)
 - [📁 Repository Structure](#sec-structure)
@@ -42,11 +42,11 @@
 
 > 📚 Ecosystem map: see [**docs/SKILLS_CATALOG.md**](docs/SKILLS_CATALOG.md) — catalog of the AI agent skills ecosystem (official vendors, formats, standards, ~4.85M SKILL.md files tracked, gaps and recommendations). **When you update this README (skills added/removed, versions or categories changed), also update `docs/SKILLS_CATALOG.md` (section 9) and `index.json` — keep all three in sync.**
 
-**52 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json). HTML charts (Chart.js) available in `data-analysis`, `csv-pro`, `diagram-maker`.
+**59 skills · 6 categories.** Pick a category below; triggers and full metadata live in [`index.json`](index.json). HTML charts (Chart.js) available in `data-analysis`, `csv-pro`, `diagram-maker`.
 
 | Category | Skills | What's inside |
 |----------|:------:|---------------|
-| 💻 [Development & Code](#cat-code) | 20 | commits, review, debugging, tests, coverage, security, planning, frontend, skill authoring |
+| 💻 [Development & Code](#cat-code) | 27 | commits, review, debugging, tests, coverage, security, planning, frontend, docs integrity, skill authoring |
 | 🤖 [Agents](#cat-agents) | 1 | autonomous agent runs (DeepSeek Harness) |
 | 📊 [Data & Diagrams](#cat-data) | 7 | profiling, SQL, diagrams, scraping |
 | 🎬 [Content & Media](#cat-media) | 13 | slides, video, PDF reports, SEO, test graphics |
@@ -55,7 +55,7 @@
 
 <a id="cat-code"></a>
 
-### 💻 Development & Code · `code` · 20
+### 💻 Development & Code · `code` · 27
 
 | Skill | Purpose |
 |-------|---------|
@@ -78,6 +78,14 @@
 | [**frontend-testing**](skills/frontend-testing/SKILL.md) | Frontend testing for production readiness (13 Front-End-Checklist Testing rules): testing pyramid + copy-paste Playwright, jest-axe, Pact contract tests, and a GitHub Actions perf-budget + coverage CI. Scaffolds & advises; does not run user CI. |
 | [**mobile-frontend**](skills/mobile-frontend/SKILL.md) | Quality mobile-first frontend: codified rules (spacing, type scale, anchors, safe-area, tap-targets), build, and multi-level verification with per-element menu/nav debugging; routes deep a11y/perf/testing to dedicated skills. |
 | [**skill-feedback**](skills/skill-feedback/SKILL.md) | Capture and aggregate usage feedback for Agent Skills (wrong trigger, near-miss, broken output, manual correction) into `feedback/<skill>/YYYY-MM-DD.jsonl`; summarizes for the skill-forge optimization loop. |
+| [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Structured protocol for AI agents across many context windows: a `.lra/` atomic feature list (id/priority/acceptance criteria/status), session protocol (read context → pick one feature → implement → test → checkpoint), recovery from broken states. |
+| [**chronos**](skills/chronos/SKILL.md) | Documentation Timekeeper: 5 AI agents (Chronos, Censor, Dewey, Veles, Canon) for documentation integrity — duplicates, broken links, missing required docs, orphans, L1–L6 classification, stale dates. |
+| [**censor**](skills/censor/SKILL.md) | Fact-checker for documentation: detects duplicates (similarity >70%) and broken internal links in markdown; skips code blocks, inline code, and external URLs. |
+| [**dewey**](skills/dewey/SKILL.md) | Document classifier: assigns L1–L6 taxonomy level to each document, enforces required docs per level, detects missing required documents. |
+| [**veles**](skills/veles/SKILL.md) | Documentation statistician: finds orphan documents (no inbound references), computes documentation metrics, detects dead zones, validates link hierarchy L1→L4. |
+| [**canon**](skills/canon/SKILL.md) | Orchestrator for the Chronos Pantheon: runs agent presets (minimal/standard/full), aggregates reports, validates cross-references between L1–L3 (contracts → product → engineering). |
+| [**prd-to-app**](skills/prd-to-app/SKILL.md) | Production-ready full-stack web app from PRD documents and prototype images: 8-phase pipeline (Material Discovery → System Design → Seed Data → Backend → Frontend → Visual Verification → Integration Testing → Deployment). |
+| [**web-replication**](skills/web-replication/SKILL.md) | Frontend visual replication: explores a target site's public pages via Playwright MCP, captures screenshots and layout, builds a navigation-graph blueprint, then a frontend visual replica. |
 
 <a id="cat-agents"></a>
 
@@ -88,7 +96,6 @@
 | [**dsh-runner**](skills/dsh-runner/SKILL.md) | Runs autonomous agent tasks via DeepSeek Harness (dsh): isolated one-off workspaces, JSONL session logs, headless `dsh_task.py` or Web UI, model comparison; requires DEEPSEEK_API_KEY / OpenAI-compatible endpoint. |
 
 <a id="cat-data"></a>
-| [**long-running-agent-workflow**](skills/long-running-agent-workflow/SKILL.md) | Protocol for AI agents working across many context windows: a `.lra/` directory with an atomic feature list (id/priority/acceptance criteria/status) and session progress checkpoints. |
 
 ### 📊 Data & Diagrams · `data` · 7
 
@@ -110,6 +117,7 @@
 |-------|---------|
 | [**video-script-writer**](skills/video-script-writer/SKILL.md) | Structured video script: Hook → Body (5 timed scenes) → CTA; timecodes, ru/en, full script or outline. |
 | [**pdf-report-builder**](skills/pdf-report-builder/SKILL.md) | Markdown/HTML → PDF report: HTML via pandoc/built-in converter, PDF via Chrome headless / weasyprint / pandoc; tables, code, quotes, embedded charts. |
+| [**doc-compare**](skills/doc-compare/SKILL.md) | Side-by-side visual comparison of markdown documents with diff highlighting (removed/changed in red on the left, added/changed in green on the right, word-level inside edits); "only changes" mode, fetch a version from a public GitHub repo via `gh:owner/repo@ref:path`, `--diff` table mode. |
 | [**test-graphics**](skills/test-graphics/SKILL.md) | Test images, placeholders, icons, avatars for mocks/staging/e2e: Python + free APIs (loremflickr, placehold.co, picsum, Lucide). |
 | [**frontend-design-taste**](skills/frontend-design-taste/SKILL.md) | Distinctive visual direction that doesn't read as templated AI: subject grounding, token system, uniqueness gate, user-side copy. |
 | [**seo-audit**](skills/seo-audit/SKILL.md) | Technical SEO audit: meta/headings/alt/links/sitemap/robots, Core Web Vitals, scored report (7 dimensions), autonomous P1–P5 fixes. |
@@ -218,7 +226,7 @@ agent-skills/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/ · pull_request_template.md · release.yml
 │   └── workflows/validate-skills.yml   # CI: manifest validation
-└── skills/                    # 52 skills, one folder each
+└── skills/                    # 59 skills, one folder each
     └── <skill-name>/
         ├── SKILL.md           # Agent instruction (required)
         ├── skill.json         # Manifest: name, version, triggers, files (required)
